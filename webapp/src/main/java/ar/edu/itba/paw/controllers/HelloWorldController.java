@@ -1,6 +1,9 @@
 package ar.edu.itba.paw.controllers;
 
 
+import ar.edu.itba.paw.User;
+import ar.edu.itba.paw.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,16 +12,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class HelloWorldController {
-    @RequestMapping("/user/{id}/news/{newsId}")
-    public ModelAndView helloworld(
-        @PathVariable("id") final int id,
-        @PathVariable("newsId") final int newsId,
-        @RequestParam(value = "name", defaultValue = "PAW") final String name) {
+    @Autowired
+    private UserService userService;
 
-        final ModelAndView mav = new ModelAndView("helloworld");
-        mav.addObject("greeting", String.format("Hello user with id %1$d!", id));
-        mav.addObject("userId", id);
-        mav.addObject("newsId", newsId);
+    @RequestMapping("/")
+    public ModelAndView index() {
+
+        final ModelAndView mav = new ModelAndView("register");
+        userService.register("juan", "secreto");
+        return mav;
+    }
+
+    @RequestMapping("/users/{username}")
+    public ModelAndView getUsers(@PathVariable final String username) {
+        final ModelAndView mav = new ModelAndView("user");
+        User user = userService.getByUsername(username);
+        mav.addObject("username", user.getUsername());
         return mav;
     }
 }
