@@ -10,24 +10,24 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class DoctorController extends AbstractRESTApiController implements RESTApiController {
 
-    public ModelAndView list() {
-    	return null;
+    public ModelAndView list() throws MethodNotAllowedException {
+    	throw new MethodNotAllowedException();
     }
     
-    public ModelAndView create() {
-    	return null;
+    public ModelAndView create() throws MethodNotAllowedException {
+    	throw new MethodNotAllowedException();
     }
 
-    public ModelAndView show(@PathVariable final int id) {
-    	return null;
-	}
+    public ModelAndView show(@PathVariable final Integer id) throws MethodNotAllowedException {
+    	throw new MethodNotAllowedException();
+    }
 
-    public ModelAndView update(@PathVariable final int id) {
-    	return null;
+    public ModelAndView update(@PathVariable final Integer id) throws MethodNotAllowedException {
+    	throw new MethodNotAllowedException();
     }
     
-    public ModelAndView delete(@PathVariable final int id) {
-    	return null;
+    public ModelAndView delete(@PathVariable final Integer id) throws MethodNotAllowedException {
+    	throw new MethodNotAllowedException();
     }
 
 }

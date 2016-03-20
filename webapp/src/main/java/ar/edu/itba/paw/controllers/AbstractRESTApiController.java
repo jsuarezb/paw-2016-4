@@ -1,38 +1,52 @@
 package ar.edu.itba.paw.controllers;
 
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseStatus;
 
 public abstract class AbstractRESTApiController implements RESTApiController {
 	
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
 	@Override
-	public Object create() {
-		return null;
+	public Object create() throws MethodNotAllowedException {
+		throw new MethodNotAllowedException();
 	}
 	
-	@RequestMapping(method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET, produces = "application/json")
 	@Override
-	public Object list() {
-		return null;
+	public Object list() throws MethodNotAllowedException {
+		throw new MethodNotAllowedException();
 	}
 
-	@RequestMapping(path = "/{id}", method = { RequestMethod.PUT, RequestMethod.PATCH })
+	@RequestMapping(path = "/{id}", 
+					method = { RequestMethod.PUT, RequestMethod.PATCH }, 
+					consumes = "application/json")
 	@Override
-	public Object update(int id) {
-		return null;
+	public Object update(@PathVariable final Integer id) throws MethodNotAllowedException {
+		throw new MethodNotAllowedException();
 	}
 
-	@RequestMapping(path = "/{id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/{id}",
+					method = RequestMethod.GET,
+					produces = "application/json")
 	@Override
-	public Object show(int id) {
-		return null;
+	public Object show(@PathVariable final Integer id) throws MethodNotAllowedException {
+		throw new MethodNotAllowedException();
 	}
 
-	@RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(path = "/{id}",
+					method = RequestMethod.DELETE)
 	@Override
-	public Object delete(int id) {
-		return null;
+	public Object delete(@PathVariable final Integer id) throws MethodNotAllowedException {
+		throw new MethodNotAllowedException();
 	}
 
+	@ExceptionHandler(MethodNotAllowedException.class)
+	@ResponseStatus(HttpStatus.METHOD_NOT_ALLOWED)
+	public String handleException(MethodNotAllowedException ex) {
+	  return ex.getMessage();
+	}
 }
