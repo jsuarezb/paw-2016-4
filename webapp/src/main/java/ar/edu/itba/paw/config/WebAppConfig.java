@@ -32,7 +32,7 @@ public class WebAppConfig {
     public DataSource dataSource() {
         final SimpleDriverDataSource ds = new SimpleDriverDataSource();
         ds.setDriverClass(JDBCDriver.class);
-        ds.setUrl("jdbc:hsqldb:mem:");
+        ds.setUrl("jdbc:hsqldb:mem:paw");
         ds.setUsername("hq");
         ds.setPassword("");
         return ds;

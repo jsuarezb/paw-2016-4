@@ -1,14 +1,14 @@
 package ar.edu.itba.paw.controllers;
 
 
-import ar.edu.itba.paw.User;
-import ar.edu.itba.paw.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import ar.edu.itba.paw.User;
+import ar.edu.itba.paw.services.UserService;
 
 @Controller
 public class HelloWorldController {
@@ -27,7 +27,9 @@ public class HelloWorldController {
     public ModelAndView getUsers(@PathVariable final String username) {
         final ModelAndView mav = new ModelAndView("user");
         User user = userService.getByUsername(username);
-        mav.addObject("username", user.getUsername());
+        if (user != null) {
+        	mav.addObject("user", user);
+        }
         return mav;
     }
 }

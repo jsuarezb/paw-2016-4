@@ -4,7 +4,6 @@ import ar.edu.itba.paw.persistence.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -33,26 +32,24 @@ public class UserJdbcDao implements UserDao {
                 "CREATE TABLE IF NOT EXISTS users (" +
                 "username varchar(100)," +
                 "password varchar(100)"  +
-                ")");
+                ");");
     }
 
     public User create(final String username, final String password) {
         final Map<String, Object> args = new HashMap<String, Object>();
-        args.put("username", "username");
-        args.put("password", "password");
+        args.put("username", username);
+        args.put("password", password);
         jdbcInsert.execute(args);
         return new User(username, password);
     }
 
     public User getByUsername(final String username) {
-        final NamedParameterJdbcTemplate namedTemplate = new NamedParameterJdbcTemplate(jdbcTemplate.getDataSource());
-        final Map<String, Object> namedParams = new HashMap<String, Object>();
-        namedParams.put("username", username);
-
-        final List<User> list = namedTemplate.query(
-                "SELECT * FROM users WHERE username = ':username'",
-                namedParams,
-                new UserRowMapper());
+        final List<User> list = jdbcTemplate.query("SELECT * FROM users WHERE username = ? LIMIT 1", 
+												   new UserRowMapper(),
+												   username);
+        if (list.isEmpty()) {
+            return null;
+        }
         return list.get(0);
     }
 

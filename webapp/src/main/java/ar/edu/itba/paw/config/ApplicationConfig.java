@@ -1,11 +1,11 @@
 package ar.edu.itba.paw.config;
 
-import ar.edu.itba.paw.Application;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+
+import ar.edu.itba.paw.Application;
 
 @Configuration
 @ComponentScan(basePackageClasses = Application.class)
