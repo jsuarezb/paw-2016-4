@@ -4,10 +4,12 @@ package ar.edu.itba.paw;
  * Created by socamica on 16/03/16.
  */
 public class User {
+	private final int id;
     private final String username;
     private final String password;
 
-    public User(final String username, final String password) {
+    public User(final int id, final String username, final String password) {
+    	this.id = id;
         this.username = username;
         this.password = password;
     }
@@ -24,4 +26,8 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+	public int getId() {
+		return id;
+	}
 }

@@ -47,6 +47,10 @@
       <version>${project.parent.version}</version>
       <scope>runtime</scope>
     </dependency>
+    <dependency>
+      <groupId>org.postgresql</groupId>
+      <artifactId>postgresql</artifactId>
+    </dependency>
   </dependencies>
   <build>
     <finalName>webapp</finalName>
@@ -90,7 +94,7 @@
             <contextPath>/${project.name}</contextPath>
           </webAppConfig>
         </configuration>
-      </plugin>        
+      </plugin>
     </plugins>
   </build>
 </project>

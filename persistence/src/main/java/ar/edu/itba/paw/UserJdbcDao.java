@@ -26,10 +26,13 @@ public class UserJdbcDao implements UserDao {
     @Autowired
     public UserJdbcDao(final DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
-        jdbcInsert = new SimpleJdbcInsert(jdbcTemplate).withTableName("users");
+        jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+			.withTableName("users")
+			.usingGeneratedKeyColumns("id");
 
         jdbcTemplate.execute(
                 "CREATE TABLE IF NOT EXISTS users (" +
+                "id SERIAL PRIMARY KEY," +
                 "username varchar(100)," +
                 "password varchar(100)"  +
                 ");");
@@ -39,8 +42,8 @@ public class UserJdbcDao implements UserDao {
         final Map<String, Object> args = new HashMap<String, Object>();
         args.put("username", username);
         args.put("password", password);
-        jdbcInsert.execute(args);
-        return new User(username, password);
+        Number key = jdbcInsert.executeAndReturnKey(args);
+        return new User(key.intValue(), username, password);
     }
 
     public User getByUsername(final String username) {
@@ -55,7 +58,7 @@ public class UserJdbcDao implements UserDao {
 
     private static class UserRowMapper implements RowMapper<User> {
         public User mapRow(final ResultSet rs, final int rowNum) throws SQLException {
-            return new User(rs.getString("username"), rs.getString("password"));
+            return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"));
         }
     }
 
