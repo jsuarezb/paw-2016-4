@@ -2,7 +2,7 @@
 
 ## Resumen ##
 
-El proyecto consiste en un sistema web para administrar turnos de pacientes de una institución médica.
+El proyecto consiste en un sistema web para administrar turnos de pacientes de instituciones médicas.
 
 ## Actores ##
 
@@ -11,6 +11,7 @@ El proyecto consiste en un sistema web para administrar turnos de pacientes de u
 
 ## Otras entidades ##
 
+- Institución
 - Turnos
 - Horarios de los médicos
 
@@ -18,7 +19,9 @@ El proyecto consiste en un sistema web para administrar turnos de pacientes de u
 
 ### Pacientes ###
 
-- Ver turnos libres
+- Ver instituciones
+- Ver médicos por especialidad/institución/horario
+- Ver turnos por horario/médico/institución
 - Marcar cuando un médico le cancela un turno sin previo aviso
 - Reservar un turno
 - Cancelar un turno
@@ -36,7 +39,6 @@ El proyecto consiste en un sistema web para administrar turnos de pacientes de u
 ### General ###
 
 - Mails de notificación a pacientes ante cancelación de turnos
-
 
 ## Condiciones relevantes ##
 
