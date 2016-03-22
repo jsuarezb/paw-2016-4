@@ -22,3 +22,6 @@ target/
 # IntelliJ project files #
 .idea
 *.iml
+
+# Mac files
+.DS_Store
