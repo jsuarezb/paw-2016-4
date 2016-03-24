@@ -25,3 +25,6 @@ target/
 
 # Mac files
 .DS_Store
+
+# Bower components
+webapp/src/main/webapp/resources/bower_components

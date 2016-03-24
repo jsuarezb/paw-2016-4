@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.config;
 
+import com.lyncode.jtwig.mvc.JtwigViewResolver;
 import org.postgresql.Driver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -7,6 +8,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -17,14 +20,16 @@ import javax.sql.DataSource;
                 "ar.edu.itba.paw.webapp.services"})
 @EnableWebMvc
 @Configuration
-public class WebAppConfig {
+public class WebAppConfig extends WebMvcConfigurerAdapter {
+
+    private static final String RESOURCES_LOCATION = "/resources/";
+    private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
     @Bean
-    ViewResolver viewResolver(){
-        final InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setViewClass(JstlView.class);
+    public ViewResolver viewResolver() {
+        JtwigViewResolver viewResolver = new JtwigViewResolver();
         viewResolver.setPrefix("/WEB-INF/templates/");
-        viewResolver.setSuffix(".jsp");
+        viewResolver.setSuffix(".twig");
         return viewResolver;
     }
 
@@ -37,5 +42,11 @@ public class WebAppConfig {
         ds.setPassword("paw_app");
         return ds;
     }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**").addResourceLocations(RESOURCES_LOCATION);
+    }
+
 
 }

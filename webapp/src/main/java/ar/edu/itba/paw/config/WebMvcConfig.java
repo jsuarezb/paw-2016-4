@@ -4,10 +4,12 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
 import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping;
 
+@EnableWebMvc
 @Configuration
 class WebMvcConfig extends WebMvcConfigurationSupport {
 
@@ -24,7 +26,10 @@ class WebMvcConfig extends WebMvcConfigurationSupport {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
+        System.out.print("\n\n\n\n\n");
+        System.out.println("OUCHHHHHHHH!");
+        System.out.print("\n\n\n\n\n");
+        registry.addResourceHandler("/**").addResourceLocations(RESOURCES_LOCATION);
     }
 
     @Override
