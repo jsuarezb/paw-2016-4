@@ -1,9 +1,9 @@
 package ar.edu.itba.paw;
 
-/**
- * Created by santi698 on 24/03/16.
- */
 public class Address {
+
+    private static final String PRINT_FORMAT = "%s %d, %s %s %s %s";
+
     private final String streetName;
     private final Integer streetNumber;
     private final String apartment;
@@ -73,13 +73,14 @@ public class Address {
 
     @Override
     public String toString() {
-        return "Address{" +
-                "streetName='" + streetName + '\'' +
-                ", streetNumber=" + streetNumber +
-                ", apartment='" + apartment + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                '}';
+        return String.format(PRINT_FORMAT, streetName, streetNumber, apartment, city, state, country);
+//        return "Address{" +
+//                "streetName='" + streetName + '\'' +
+//                ", streetNumber=" + streetNumber +
+//                ", apartment='" + apartment + '\'' +
+//                ", city='" + city + '\'' +
+//                ", state='" + state + '\'' +
+//                ", country='" + country + '\'' +
+//                '}';
     }
 }

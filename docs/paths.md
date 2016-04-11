@@ -23,7 +23,7 @@ Base path: '/resources'
     - Delete 'DELETE /appointments/{id}'
     - List 'GET /appointments'
     - Show 'GET /appointments/{id}
-  
+
 
 #### Doctor
 
@@ -38,3 +38,21 @@ Base path: '/resources'
     - Create 'POST /appointment_slots'
     - Delete 'DELETE /appointment_slots/{id}'
     - List 'GET /appointment_slots'
+
+### Institution
+
+- List 'GET /institution'
+- Show 'GET /institution/{id}'
+
+    ##### Doctor #####
+
+    - Create 'POST /doctors'
+    - Delete 'DELETE /doctors'
+    - List 'GET /doctors'
+    - Show 'GET /doctors/{id}'
+
+        #### AppointmentSlot ####
+
+        - Create 'POST /appointment_slots'
+        - Delete 'DELETE /appointment_slots/{id}'
+        - List 'GET /appointment_slots'
