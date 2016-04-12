@@ -4,13 +4,15 @@ package ar.edu.itba.paw;
  * Created by santi698 on 24/03/16.
  */
 public class Doctor {
+    private final int id;
     private final String name;
     private final String last_name;
     private final String speciality;
     private final String email;
     private final String password;
 
-    public Doctor(String name, String last_name, String speciality, String email, String password) {
+    public Doctor(int id, String name, String last_name, String speciality, String email, String password) {
+        this.id = id;
         this.name = name;
         this.last_name = last_name;
         this.speciality = speciality;
@@ -20,6 +22,10 @@ public class Doctor {
 
     public String getName() {
         return name;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getLast_name() {
@@ -45,19 +51,20 @@ public class Doctor {
 
         Doctor doctor = (Doctor) o;
 
-        return email.equals(doctor.email);
+        return id == doctor.id;
 
     }
 
     @Override
     public int hashCode() {
-        return email.hashCode();
+        return id;
     }
 
     @Override
     public String toString() {
         return "Doctor{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", speciality='" + speciality + '\'' +
                 ", email='" + email + '\'' +

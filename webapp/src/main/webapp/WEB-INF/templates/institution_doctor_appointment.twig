@@ -1,25 +1,20 @@
 {% extends "layouts/base.twig" %}
 {% block content %}
-  
-
-  
-  <h1>{{ institution.name }} / {{ doctor.name }} {{ doctor.last_name }}</h1>
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table table-bordered">
-        <thead>
-	      <th>Hora inicio</th>
-	      <th>Duración</th>
-	      <th>Institución</th>
-        </thead>
-        <tbody>
-        {% for appointment in appointments %}
-          <tr>
-            <td>{{ appointment.slot.hour }}:00</td>
-            <td>1 hs</td>
-            <td>{{ appointment.slot.institution.address }}</td>
-          <tr>
-        {% endfor %}
-        </tbody>
+  <a href="/institutions/{{ institution.id }}/doctors/{{ doctor.id }}">
+    <h1>{{ institution.name }} / {{ doctor.name }} {{ doctor.last_name }}</h1>
+  </a>
+  <table class="table table-bordered">
+    <thead>
+      <th>Hora inicio</th>
+      <th>Duración</th>
+      <th>Institución</th>
+    </thead>
+    {% for appointment in appointments %}
+      <tr>
+        <td>{{ appointment.slot.hour }}:00</td>
+        <td>1 hs</td>
+        <td>{{ appointment.slot.institution.address }}</td>
+      <tr>
+    {% endfor %}
   </table>
 {% endblock %}

@@ -1,33 +1,37 @@
 {% extends "layouts/base.twig" %}
 {% block content %}
   {% if institution.id == 1 or institution.id == 2  %}
-  <h1>Lista de Doctores en: {{ institution.name }}</h1>
+  <h1>Lista de Doctores en: <a href="/institutions/{{ institution.id }}">{{ institution.name }}</a></h1>
   <h3>Direccion: {{ institution.address.streetName }} {{ institution.address.streetNumber }} {{ institution.address.apartment }}, {{ institution.address.city }}, {{ institution.address.state }}, {{ institution.address.country }}</h3>
-
-  <div class="row">
-    <div class="col-md-12">
-      <table class="table table-bordered">
-	    <thead>
-		  <tr>			  
-		  	<th>Nombre</th>
-			<th>Apellido</th>
-			<th>Especialidad</th>
-			<th>Correo Electronico</th>
-		  </tr>
-	    </thead>
-	    <tbody>
-	    {% for doctor in doctors %}
-  		  <tr>
-		    <td>{{ doctor.name }}</td>
-			<td>{{ doctor.last_name }}</td>
-			<td>{{ doctor.speciality }}</td>
-			<td>{{ doctor.email }}</td>
-		  </tr>
-		{% endfor %}
-	    </tbody>
-      </table> 
-    </div>
-  </div>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Apellido</th>
+        <th>Especialidad</th>
+        <th>Correo Electronico</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for doctor in doctors %}
+      <tr>
+        <td>
+          <a href="/institutions/{{ institution.id }}/doctors/{{ doctor.id }}">
+            {{ doctor.name }}
+          </a>
+        </td>
+        <td>
+          <a href="/institutions/{{ institution.id }}/doctors/{{ doctor.id }}">
+            {{ doctor.last_name }}
+          </a>
+        </td>
+        <td>{{ doctor.speciality }}</td>
+        <td>{{ doctor.email }}</td>
+      </tr>
+      </a>
+    {% endfor %}
+    </tbody>
+  </table>
   {% else %}
   <h3>No hay instituciones con identificador numero: {{ wrongId }}</h3>
   {% endif %}
