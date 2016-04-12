@@ -6,9 +6,11 @@ package ar.edu.itba.paw;
 public class Institution {
     private final String name;
     private final Address address;
+    private final int id;
 
-    public Institution(String name, Address address) {
-        this.name = name;
+    public Institution(int id, String name, Address address) {
+        this.id = id;
+    	this.name = name;
         this.address = address;
     }
 
@@ -43,4 +45,8 @@ public class Institution {
                 ", address=" + address +
                 '}';
     }
+
+	public int getId() {
+		return id;
+	}
 }
