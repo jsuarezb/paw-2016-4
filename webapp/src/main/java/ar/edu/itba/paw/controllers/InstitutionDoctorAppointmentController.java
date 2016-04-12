@@ -2,7 +2,6 @@ package ar.edu.itba.paw.controllers;
 
 import ar.edu.itba.paw.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,23 +15,18 @@ import java.util.List;
 /**
  * Created by santi698 on 23/03/16.
  */
-@RequestMapping("/institutions/{institution_id}/doctors/{doctor_id}/appointment_slots")
+
 @Controller
-public class InstitutionDoctorAppointmentController extends AbstractRESTApiController {
+public class InstitutionDoctorAppointmentController {
 
-    @Override
-    public Object create() throws MethodNotAllowedException {
-        return new Object();
-    }
-
-    @Override
-    public Object list() throws MethodNotAllowedException {
+    @RequestMapping("/institutions/{institution_id}/doctors/{doctor_id}/appointment_slots")
+    public Object list(@PathVariable final int institution_id) throws MethodNotAllowedException {
         ModelAndView model = new ModelAndView("institution_doctor_appointment");
         List<Appointment> appointments = new ArrayList<>();
 
         Doctor doctor = new Doctor("Doctor name", "Doctor last name", "Speciality", "Email", "password");
         Address address = new Address("Street Name", 9999, "Apartment", "City", "State", "Country");
-        Institution institution = new Institution("Institution X", address);
+        Institution institution = new Institution(institution_id, "Institution X", address);
 
         for (int i = 0; i < 10; i++) {
             AppointmentSlot slot = new AppointmentSlot(DayOfWeek.of(i % 7 + 1), 20, institution);
@@ -46,19 +40,5 @@ public class InstitutionDoctorAppointmentController extends AbstractRESTApiContr
 
         return model;
     }
-
-    @Override
-    public Object update(@PathVariable Integer id) throws MethodNotAllowedException {
-        return super.update(id);
-    }
-
-    @Override
-    public Object show(@PathVariable Integer id) throws MethodNotAllowedException {
-        return super.show(id);
-    }
-
-    @Override
-    public Object delete(@PathVariable Integer id) throws MethodNotAllowedException {
-        return super.delete(id);
-    }
+    
 }
