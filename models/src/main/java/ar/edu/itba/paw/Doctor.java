@@ -20,40 +20,41 @@ public class Doctor {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
     public int getId() {
         return id;
     }
 
-    public String getLast_name() {
+    public String getLastName() {
         return last_name;
     }
 
-    public String getSpeciality() {
-        return speciality;
-    }
+	public String getSpeciality() {
+		return speciality;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-        Doctor doctor = (Doctor) o;
+		Doctor doctor = (Doctor) o;
 
         return id == doctor.id;
-
-    }
+	}
 
     @Override
     public int hashCode() {
