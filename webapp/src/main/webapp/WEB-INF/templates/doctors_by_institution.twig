@@ -16,13 +16,13 @@
     {% for doctor in doctors %}
       <tr>
         <td>
-          <a href="/institutions/{{ institution.id }}/doctors/{{ doctor.id }}">
+          <a href="/doctors/{{ doctor.id }}">
             {{ doctor.name }}
           </a>
         </td>
         <td>
-          <a href="/institutions/{{ institution.id }}/doctors/{{ doctor.id }}">
-            {{ doctor.last_name }}
+          <a href="/doctors/{{ doctor.id }}">
+            {{ doctor.lastName }}
           </a>
         </td>
         <td>{{ doctor.speciality }}</td>
