@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+import ar.edu.itba.paw.controllers.AbstractRESTApiController;
 
 /**
  * Created by santi698 on 23/03/16.
