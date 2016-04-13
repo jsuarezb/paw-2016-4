@@ -1,27 +1,20 @@
 {% extends "layouts/base.twig" %}
 {% block content %}
-<div class="row">
-	<div class="col-md-12">
-		<h1>Instituciones</h1>
-		<table class="table table-bordered">
-			<thead>
-				<tr>
-					<th>Institucion</th>
-					<th>Direccion</th>
-				</tr>
-			</thead>
-			<tbody>
-
-				{% for institution in institutions %}
-
-				<tr>
-					<td>{{ institution.name }}</td>
-					<td>{{ institution.address.streetName }} {{institution.address.streetNumber}}, {{institution.address.city}}, {{institution.address.state}}, {{institution.address.country }}</td>
-				</tr>
-				{% endfor %}
-
-			</tbody>
-		</table>
-	</div>
-</div>
+<h1>Instituciones</h1>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Institucion</th>
+			<th>Direccion</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for institution in institutions %}
+		<tr>
+			<td>{{ institution.name }}</td>
+			<td>{{ institution.address.streetName }} {{institution.address.streetNumber}}, {{institution.address.city}}, {{institution.address.state}}, {{institution.address.country }}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
 {% endblock %}
