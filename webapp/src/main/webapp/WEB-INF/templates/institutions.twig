@@ -11,7 +11,9 @@
 	<tbody>
 		{% for institution in institutions %}
 		<tr>
-			<td>{{ institution.name }}</td>
+			<td>
+			    <a href="/institutions/{{ institution.id }}">{{ institution.name }}</a>
+			</td>
 			<td>{{ institution.address.streetName }} {{institution.address.streetNumber}}, {{institution.address.city}}, {{institution.address.state}}, {{institution.address.country }}</td>
 		</tr>
 		{% endfor %}
