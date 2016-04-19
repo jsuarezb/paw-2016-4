@@ -1,32 +1,54 @@
 package ar.edu.itba.paw.controllers;
 
-import java.util.ArrayList;
-
+import ar.edu.itba.paw.Institution;
+import ar.edu.itba.paw.exceptions.ResourceNotFoundException;
+import ar.edu.itba.paw.services.InstitutionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import ar.edu.itba.paw.controllers.AbstractRESTApiController;
 
-import ar.edu.itba.paw.Address;
-import ar.edu.itba.paw.Institution;
+import java.util.List;
 
 /**
  * Created by santi698 on 23/03/16.
  */
 
-@RequestMapping("/institutions")
 @Controller
-public class InstitutionController extends AbstractRESTApiController {
+@RequestMapping("/institutions")
+public class InstitutionController {
+
+    private static final String INSTITUTIONS_ATTRIBUTE = "institutions";
+    private static final String INSTITUTION_ATTRIBUTE = "institution";
+
+    @Autowired
+    private InstitutionService institutionService;
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public String handleResourceNotFound() {
+        return "not_found_404";
+    }
 	
-	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
-	@Override
-	public Object list() throws MethodNotAllowedException {
-		ModelAndView model = new ModelAndView("institutions");
-		ArrayList<Institution> institutions = new ArrayList<Institution>();
-		institutions.add(new Institution(1, "Clinica del Sol", new Address("Av. Coronel Diaz", 2211, "", "CABA", "Bs As", "Argentina")));
-		institutions.add(new Institution(2, "Hospital Fernandez", new Address("Cerviño", 3356, "", "CABA", "Bs As", "Argentina")));
-		model.addObject("institutions", institutions);
-		return model;
+	@RequestMapping(method = RequestMethod.GET)
+	public ModelAndView list() {
+        ModelAndView modelAndView = new ModelAndView("institutions");
+        List<Institution> institutions = institutionService.getAll();
+        modelAndView.addObject(INSTITUTIONS_ATTRIBUTE, institutions);
+		return modelAndView;
 	}
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public ModelAndView show(@PathVariable final Integer id) {
+        ModelAndView modelAndView = new ModelAndView("institution_detail");
+        Institution institution = institutionService.get(id);
+        if (institution == null)
+            throw new ResourceNotFoundException();
+
+        modelAndView.addObject(INSTITUTION_ATTRIBUTE, institution);
+        return modelAndView;
+    }
+
 }
