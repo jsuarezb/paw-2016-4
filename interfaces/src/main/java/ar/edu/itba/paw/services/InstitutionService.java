@@ -18,13 +18,13 @@ public interface InstitutionService {
      * @return An institution, null if there's no institution
      *      with the specified id
      */
-    Institution get(final Integer id);
+    Institution get(final int id);
 
     /**
      * Search an institution by its name
      * @param name Name to search for
      * @return An array of institutions
      */
-    List<Institution> searchByName(final String name);
+    List<Institution> findByName(final String name);
 
 }

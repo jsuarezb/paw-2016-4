@@ -1,8 +1,9 @@
-package ar.edu.itba.paw.controllers;
+package ar.edu.itba.paw.controllers.frontend;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.itba.paw.controllers.MethodNotAllowedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import ar.edu.itba.paw.Institution;
 public class DoctorsByInstitutionController {
 
 	@RequestMapping("/institutions/{institution_id}/doctors")
-    public Object list(@PathVariable final int institution_id) throws MethodNotAllowedException {        
+    public Object list(@PathVariable final int institution_id) throws MethodNotAllowedException {
     	ModelAndView model = new ModelAndView("doctors_by_institution");
         
         List<Doctor> doctors = new ArrayList<Doctor>();

@@ -1,4 +1,4 @@
-package ar.edu.itba.paw.controllers;
+package ar.edu.itba.paw.controllers.frontend;
 
 import ar.edu.itba.paw.Institution;
 import ar.edu.itba.paw.exceptions.ResourceNotFoundException;

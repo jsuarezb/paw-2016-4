@@ -1,6 +1,7 @@
-package ar.edu.itba.paw.controllers;
+package ar.edu.itba.paw.controllers.frontend;
 
 import ar.edu.itba.paw.*;
+import ar.edu.itba.paw.controllers.MethodNotAllowedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

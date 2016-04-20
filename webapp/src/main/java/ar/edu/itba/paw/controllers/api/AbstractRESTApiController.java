@@ -1,5 +1,7 @@
-package ar.edu.itba.paw.controllers;
+package ar.edu.itba.paw.controllers.api;
 
+import ar.edu.itba.paw.controllers.MethodNotAllowedException;
+import ar.edu.itba.paw.controllers.RESTApiController;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;

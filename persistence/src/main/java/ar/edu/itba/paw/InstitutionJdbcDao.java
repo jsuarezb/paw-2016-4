@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 public class InstitutionJdbcDao implements InstitutionDao {
 
-    private static final String TABLE_NAME = "Institution";
+    private static final String TABLE_NAME = "institutions";
     private static final String ID_COL = "id";
     private static final String NAME_COL = "name";
     private static final String STREET_NAME_COL = "street_name";

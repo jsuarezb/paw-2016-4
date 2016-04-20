@@ -1,10 +1,15 @@
 package ar.edu.itba.paw.forms;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
 /**
  * Created by santi698 on 11/04/16.
  */
 public class LoginForm {
+    @Email
     private String email;
+    @Length(min = 6, max = 24)
     private String password;
 
     public String getEmail() {

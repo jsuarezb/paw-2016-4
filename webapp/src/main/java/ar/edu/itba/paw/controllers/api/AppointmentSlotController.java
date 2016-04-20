@@ -1,5 +1,6 @@
-package ar.edu.itba.paw.controllers;
+package ar.edu.itba.paw.controllers.api;
 
+import ar.edu.itba.paw.controllers.api.AbstractRESTApiController;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -8,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @RequestMapping("/appointment_slots")
 @Controller
-public class AppointmentSlotController extends AbstractRESTApiController  {
+public class AppointmentSlotController extends AbstractRESTApiController {
 }

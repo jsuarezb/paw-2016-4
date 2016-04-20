@@ -4,16 +4,26 @@ package ar.edu.itba.paw;
  * Created by santi698 on 24/03/16.
  */
 public class Patient {
+    private final int id;
     private final String name;
     private final String last_name;
     private final String email;
     private final String password;
 
-    public Patient(final String name, final String last_name, final String email, final String password) {
+    public Patient(final int id,
+                   final String name,
+                   final String last_name,
+                   final String email,
+                   final String password) {
+        this.id = id;
         this.name = name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
@@ -33,25 +43,26 @@ public class Patient {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        final Patient patient = (Patient) o;
+        Patient patient = (Patient) o;
 
-        return email.equals(patient.email);
+        return id == patient.id;
 
     }
 
     @Override
     public int hashCode() {
-        return email.hashCode();
+        return id;
     }
 
     @Override
     public String toString() {
         return "Patient{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", last_name='" + last_name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
