@@ -1,7 +1,7 @@
 package ar.edu.itba.paw.services;
 
-import ar.edu.itba.paw.Address;
-import ar.edu.itba.paw.Institution;
+import ar.edu.itba.paw.models.Address;
+import ar.edu.itba.paw.models.Institution;
 import ar.edu.itba.paw.persistence.InstitutionDao;
 import org.junit.Before;
 import org.junit.Test;
