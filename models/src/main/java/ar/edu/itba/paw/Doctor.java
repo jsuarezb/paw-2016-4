@@ -7,15 +7,15 @@ public class Doctor {
     private final int id;
     private final String name;
     private final String last_name;
-    private final String speciality;
+    private final int speciality_id;
     private final String email;
     private final String password;
 
-    public Doctor(int id, String name, String last_name, String speciality, String email, String password) {
+    public Doctor(int id, String name, String last_name, int speciality_id, String email, String password) {
         this.id = id;
         this.name = name;
         this.last_name = last_name;
-        this.speciality = speciality;
+        this.speciality_id = speciality_id;
         this.email = email;
         this.password = password;
     }
@@ -32,8 +32,8 @@ public class Doctor {
         return last_name;
     }
 
-	public String getSpeciality() {
-		return speciality;
+	public int getSpeciality() {
+		return speciality_id;
 	}
 
 	public String getEmail() {
@@ -67,7 +67,7 @@ public class Doctor {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", last_name='" + last_name + '\'' +
-                ", speciality='" + speciality + '\'' +
+                ", speciality='" + speciality_id + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';

@@ -33,7 +33,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     // Array of paths inside target/classes/
     private static final String[] schemaFiles = {
-            "sql/schema_institution.sql"
+            "sql/schema_institution.sql",
+            "sql/schema_doctor.sql",
+            "sql/schema_speciality.sql"
     };
 
     @Bean

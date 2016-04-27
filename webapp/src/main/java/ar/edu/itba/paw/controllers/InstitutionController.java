@@ -31,14 +31,14 @@ public class InstitutionController {
     public String handleResourceNotFound() {
         return "not_found_404";
     }
-	
-	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView list() {
+
+    @RequestMapping(method = RequestMethod.GET)
+    public ModelAndView list() {
         ModelAndView modelAndView = new ModelAndView("institutions");
         List<Institution> institutions = institutionService.getAll();
         modelAndView.addObject(INSTITUTIONS_ATTRIBUTE, institutions);
-		return modelAndView;
-	}
+        return modelAndView;
+    }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ModelAndView show(@PathVariable final Integer id) {
