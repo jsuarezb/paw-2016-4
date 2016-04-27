@@ -14,8 +14,8 @@ import java.util.List;
  */
 public class DoctorJdbcDao implements DoctorDao {
 
-    private static final String TABLE_NAME1 = "doctors";
-    private static final String TABLE_NAME2 = "doctorsSpecialities";
+    private static final String DOCTOR_TABLE_NAME = "doctors";
+    private static final String DOCTORS_SPECIALITIES_TABLE_NAME = "doctorsSpecialities";
     //Table Doctor
     private static final String ID_COL = "id";
     private static final String NAME_COL = "name";
@@ -30,7 +30,7 @@ public class DoctorJdbcDao implements DoctorDao {
     private DoctorRowMapper rowMapper;
 
     public List<Doctor> getAll() {
-        String query = String.format("SELECT * FROM %s", TABLE_NAME1);
+        String query = String.format("SELECT * FROM %s", DOCTOR_TABLE_NAME);
         List<Doctor> list = jdbcTemplate.query(query, rowMapper);
         if(list == null){
             return new ArrayList<Doctor>();
@@ -39,7 +39,7 @@ public class DoctorJdbcDao implements DoctorDao {
     }
 
     public Doctor searchByName(String name, String last_name) {
-        String query = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?", TABLE_NAME1, NAME_COL, LAST_NAME_COL);
+        String query = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?", DOCTOR_TABLE_NAME, NAME_COL, LAST_NAME_COL);
         List<Doctor> list = jdbcTemplate.query(query, rowMapper, name, last_name);
         if(list == null){
             return null;
@@ -48,7 +48,7 @@ public class DoctorJdbcDao implements DoctorDao {
     }
 
     public Doctor getById(Integer id) {
-        String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME1, ID_COL);
+        String query = String.format("SELECT * FROM %s WHERE %s = ?", DOCTOR_TABLE_NAME, ID_COL);
         List<Doctor> list = jdbcTemplate.query(query, rowMapper, id);
         if(list == null){
             return null;
@@ -57,7 +57,7 @@ public class DoctorJdbcDao implements DoctorDao {
     }
 
     public List<Doctor> searchBySpeciality(Integer speciality_id) {
-        String query = String.format("select * from %s where %s IN (select %s from %s where %s = ?)", TABLE_NAME1, ID_COL, ID_DOCTOR_COL, TABLE_NAME2, ID_SPECIALITY_COL);
+        String query = String.format("select * from %s where %s IN (select %s from %s where %s = ?)", DOCTOR_TABLE_NAME, ID_COL, ID_DOCTOR_COL, DOCTORS_SPECIALITIES_TABLE_NAME, ID_SPECIALITY_COL);
         List<Doctor> list = jdbcTemplate.query(query, rowMapper, speciality_id);
         if(list == null){
             return new ArrayList<Doctor>();
