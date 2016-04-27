@@ -13,7 +13,7 @@ public class DoctorDetailController {
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
 	public Object list() throws MethodNotAllowedException {
 		ModelAndView model = new ModelAndView("doctor");
-		Doctor doctor = new Doctor(1, "Juan", "Perez", 3, "juanperez@gmail.com", "juanperez");
+		Doctor doctor = new Doctor(1, "Juan", "Perez", "juanperez@gmail.com", "juanperez");
 		model.addObject("doctor", doctor);
 		return model;
 	}

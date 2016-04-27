@@ -42,7 +42,7 @@ public class SpecialityJdbcDao implements SpecialityDao {
     }
 
     public Speciality searchByName(String name) {
-        String query = String.format("SELECT * FROM %s WHERE name = %s", TABLE_NAME, name);
+        String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, NAME_COL);
         List<Speciality> list = jdbcTemplate.query(query, rowMapper);
         if(list == null){
             return null;
@@ -51,8 +51,8 @@ public class SpecialityJdbcDao implements SpecialityDao {
     }
 
     public Speciality getById(Integer id) {
-        String query = String.format("SELECT * FROM %s WHERE id = %d", TABLE_NAME, id);
-        List<Speciality> list = jdbcTemplate.query(query, rowMapper);
+        String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, ID_COL);
+        List<Speciality> list = jdbcTemplate.query(query, rowMapper, id);
         if(list == null){
             return null;
         }
