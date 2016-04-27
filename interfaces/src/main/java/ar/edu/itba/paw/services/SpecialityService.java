@@ -1,0 +1,15 @@
+package ar.edu.itba.paw.services;
+
+import ar.edu.itba.paw.Speciality;
+
+import java.util.List;
+
+/**
+ * Created by agophurmuz on 4/21/16.
+ */
+public interface SpecialityService {
+
+    List<Speciality> getAll();
+
+    Speciality searchSpecialityByDescription(final String description);
+}

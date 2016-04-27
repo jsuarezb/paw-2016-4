@@ -28,16 +28,16 @@ public class DoctorsByInstitutionController {
         Institution institution = null;
         
         if(institution_id==1){
-            doctor1 = new Doctor(1, "Juan", "Perez", "Traumatologo", "juanperez@gmail.com", "juan123");
-            doctor2 = new Doctor(2, "Carlos", "Lopez", "Cardiologo", "carloslopez@gmail.com", "carlitos");
-            doctor3 = new Doctor(3, "Pedro", "Garcia", "Neurologo", "pedrogarcia@gmail.com", "123pedrito321");
+            doctor1 = new Doctor(1, "Juan", "Perez", "juanperez@gmail.com", "juan123");
+            doctor2 = new Doctor(2, "Carlos", "Lopez", "carloslopez@gmail.com", "carlitos");
+            doctor3 = new Doctor(3, "Pedro", "Garcia", "pedrogarcia@gmail.com", "123pedrito321");
             address = new Address("Paraguay", 1465, "7°A", "CABA", "Bs.As.", "Argentina");
             institution = new Institution(institution_id,"Grupo Medico Vertebral", address);
         }
         else if(institution_id==2){
-            doctor1 = new Doctor(4, "Jose", "Martinez", "Urologo", "josemartinez@gmail.com", "pepemartinez");
-            doctor2 = new Doctor(5, "Matias", "Hernandez", "Pediatra", "matiashernandez@gmail.com", "matihernandez");
-            doctor3 = new Doctor(6, "Felipe", "Marquez", "Otorrinolaringologo", "felipemarquez@gmail.com", "felipeotorrino");
+            doctor1 = new Doctor(4, "Jose", "Martinez", "josemartinez@gmail.com", "pepemartinez");
+            doctor2 = new Doctor(5, "Matias", "Hernandez", "matiashernandez@gmail.com", "matihernandez");
+            doctor3 = new Doctor(6, "Felipe", "Marquez", "felipemarquez@gmail.com", "felipeotorrino");
             address = new Address("Cerviño", 3356, "", "CABA", "Bs.As.", "Argentina");
             institution = new Institution(institution_id,"Hospital Fernandez", address);
         }

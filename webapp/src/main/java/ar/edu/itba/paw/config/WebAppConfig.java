@@ -2,12 +2,10 @@ package ar.edu.itba.paw.config;
 
 import com.lyncode.jtwig.mvc.JtwigViewResolver;
 import org.postgresql.Driver;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
 import org.springframework.jdbc.datasource.init.DataSourceInitializer;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
@@ -16,8 +14,6 @@ import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
-import org.springframework.web.servlet.view.JstlView;
 
 import javax.sql.DataSource;
 
@@ -33,7 +29,10 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     // Array of paths inside target/classes/
     private static final String[] schemaFiles = {
-            "sql/schema_institution.sql"
+            "sql/schema_institution.sql",
+            "sql/schema_doctors.sql",
+            "sql/schema_specialities.sql",
+            "sql/schema_doctors_specialities.sql"
     };
 
     @Bean
