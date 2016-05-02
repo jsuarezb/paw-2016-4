@@ -66,7 +66,7 @@ public class InstitutionServiceImplTest {
 
     @Test
     public void testSearchByName() {
-        List<Institution> list = service.searchByName(SEARCH_NAME);
+        List<Institution> list = service.findByName(SEARCH_NAME);
 
         assertNotNull(list);
         assertFalse(list.isEmpty());

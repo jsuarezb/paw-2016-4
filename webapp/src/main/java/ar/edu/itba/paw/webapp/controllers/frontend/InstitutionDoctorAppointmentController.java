@@ -1,6 +1,7 @@
-package ar.edu.itba.paw.webapp.controllers;
+package ar.edu.itba.paw.webapp.controllers.frontend;
 
 import ar.edu.itba.paw.models.*;
+import ar.edu.itba.paw.webapp.controllers.MethodNotAllowedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class InstitutionDoctorAppointmentController {
         ModelAndView model = new ModelAndView("institution_doctor_appointment");
         List<Appointment> appointments = new ArrayList<>();
 
-        Doctor doctor = new Doctor(1, "Doctor name", "Doctor last name","Email", "password");
+        Doctor doctor = new Doctor(1, "Doctor name", "Doctor last name", "Speciality", "Email", "password");
         Address address = new Address("Street Name", 9999, "Apartment", "City", "State", "Country");
         Institution institution = new Institution(institution_id, "Institution X", address);
 

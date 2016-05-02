@@ -13,7 +13,9 @@
     <junit.version>4.12</junit.version>
     <mockito.version>1.10.19</mockito.version>
     <org.postgresql.version>9.4-1200-jdbc4</org.postgresql.version>
-    <com.lyncode.jtwig.version>3.1.1</com.lyncode.jtwig.version>
+    <org.hibernate.hibernate-validator.version>5.2.4.Final</org.hibernate.hibernate-validator.version>
+    <javax.validation.validation-api.version>1.1.0.Final</javax.validation.validation-api.version>
+    <javax.servlet.jsp.jstl.version>1.2</javax.servlet.jsp.jstl.version>
   </properties>
   <build>
     <plugins>
@@ -63,9 +65,19 @@
         <version>${org.hsqldb.version}</version>
       </dependency>
       <dependency>
-        <groupId>com.lyncode</groupId>
-        <artifactId>jtwig-spring</artifactId>
-        <version>${com.lyncode.jtwig.version}</version>
+        <groupId>javax.servlet</groupId>
+        <artifactId>jstl</artifactId>
+        <version>${javax.servlet.jsp.jstl.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-validator</artifactId>
+        <version>${org.hibernate.hibernate-validator.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.validation</groupId>
+        <artifactId>validation-api</artifactId>
+        <version>${javax.validation.validation-api.version}</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>

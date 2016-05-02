@@ -1,12 +1,19 @@
 package ar.edu.itba.paw.webapp.forms;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
+
 /**
  * Created by santi698 on 11/04/16.
  */
 public class PatientForm {
+    @NotEmpty
     private String name;
-    private String last_name;
+    @NotEmpty
+    private String lastName;
+    @NotEmpty
     private String email;
+    @Length(min = 6, max = 30)
     private String password;
 
     public String getName() {
@@ -17,12 +24,12 @@ public class PatientForm {
         this.name = name;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -45,7 +52,7 @@ public class PatientForm {
     public String toString() {
         return "PatientForm{" +
                 "name='" + name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 '}';

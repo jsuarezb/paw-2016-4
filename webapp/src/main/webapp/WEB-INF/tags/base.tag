@@ -1,3 +1,5 @@
+<%@tag description="Base template" pageEncoding="UTF-8"%>
+<%@attribute name="title"%>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="favicon.ico">
 
-    <title>ChoPido Turnos</title>
+    <title>${title}</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -42,9 +44,7 @@
     </nav>
 
     <div class="container container-main">
-      <div class="starter-template">
-        {% block content %}{% endblock %}
-      </div>
+      <jsp:doBody/>
     </div>
 
     <!-- Bootstrap core JavaScript

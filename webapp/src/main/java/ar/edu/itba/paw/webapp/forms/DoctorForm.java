@@ -1,13 +1,21 @@
 package ar.edu.itba.paw.webapp.forms;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+
 /**
  * Created by santi698 on 11/04/16.
  */
 public class DoctorForm {
+    @Length(min = 2, max = 30)
     private String name;
+    @Length(min = 2, max = 30)
     private String last_name;
+    @Length(min = 2, max = 40)
     private String speciality;
+    @Email
     private String email;
+    @Length(min = 6, max = 24)
     private String password;
 
     public String getName() {

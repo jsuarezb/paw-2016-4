@@ -1,6 +1,6 @@
 package ar.edu.itba.paw.services;
 
-import ar.edu.itba.paw.Speciality;
+import ar.edu.itba.paw.models.Speciality;
 
 import java.util.List;
 

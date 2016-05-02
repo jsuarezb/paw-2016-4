@@ -1,6 +1,6 @@
-package ar.edu.itba.paw;
+package ar.edu.itba.paw.persistence;
 
-import ar.edu.itba.paw.persistence.DoctorDao;
+import ar.edu.itba.paw.models.Doctor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -70,7 +70,7 @@ public class DoctorJdbcDao implements DoctorDao {
     private static class DoctorRowMapper implements RowMapper<Doctor>{
 
         public Doctor mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Doctor(rs.getInt(ID_COL), rs.getString(NAME_COL), rs.getString(LAST_NAME_COL), rs.getString(EMAIL_COL), rs.getString(PASSWORD_COL));
+            return new Doctor(rs.getInt(ID_COL), rs.getString(NAME_COL), rs.getString(LAST_NAME_COL), "", rs.getString(EMAIL_COL), rs.getString(PASSWORD_COL));
         }
     }
 }

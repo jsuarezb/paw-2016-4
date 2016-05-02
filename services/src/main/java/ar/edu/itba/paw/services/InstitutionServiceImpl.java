@@ -17,11 +17,11 @@ public class InstitutionServiceImpl implements InstitutionService {
         return institutionDao.getAll();
     }
 
-    public Institution get(Integer id) {
+    public Institution get(int id) {
         return institutionDao.getById(id);
     }
 
-    public List<Institution> searchByName(String name) {
+    public List<Institution> findByName(String name) {
         return institutionDao.searchByName(name);
     }
 

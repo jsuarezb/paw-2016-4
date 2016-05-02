@@ -1,6 +1,7 @@
-package ar.edu.itba.paw.webapp.controllers;
+package ar.edu.itba.paw.webapp.controllers.api;
 
 
+import ar.edu.itba.paw.webapp.controllers.MethodNotAllowedException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,22 +13,22 @@ public class DoctorController extends AbstractRESTApiController {
 
     public ModelAndView list() throws MethodNotAllowedException {
         throw new MethodNotAllowedException();
-	}
+    }
     
     public ModelAndView create() throws MethodNotAllowedException {
-    	throw new MethodNotAllowedException();
+        throw new MethodNotAllowedException();
     }
 
     public ModelAndView show(@PathVariable final Integer id) throws MethodNotAllowedException {
-    	throw new MethodNotAllowedException();
+        throw new MethodNotAllowedException();
     }
 
     public ModelAndView update(@PathVariable final Integer id) throws MethodNotAllowedException {
-    	throw new MethodNotAllowedException();
+        throw new MethodNotAllowedException();
     }
     
     public ModelAndView delete(@PathVariable final Integer id) throws MethodNotAllowedException {
-    	throw new MethodNotAllowedException();
+        throw new MethodNotAllowedException();
     }
 
 }

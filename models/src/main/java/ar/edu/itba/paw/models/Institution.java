@@ -10,7 +10,7 @@ public class Institution {
 
     public Institution(int id, String name, Address address) {
         this.id = id;
-    	this.name = name;
+        this.name = name;
         this.address = address;
     }
 
@@ -45,8 +45,7 @@ public class Institution {
                 ", address=" + address +
                 '}';
     }
-
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 }

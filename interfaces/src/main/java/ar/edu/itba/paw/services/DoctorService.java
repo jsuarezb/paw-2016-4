@@ -1,6 +1,6 @@
 package ar.edu.itba.paw.services;
 
-import ar.edu.itba.paw.Doctor;
+import ar.edu.itba.paw.models.Doctor;
 
 import java.util.List;
 
