@@ -31,12 +31,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     // Array of paths inside target/classes/
     private static final String[] schemaFiles = {
-            "sql/schema_doctors.sql",
-            "sql/schema_specialities.sql",
-            "sql/schema_doctors_specialities.sql",
-            "sql/institution_schema.sql",
-            "sql/institution_fixtures.sql",
-            "sql/patient_schema.sql",
+            "sql/schema.sql"
     };
 
     @Bean
@@ -70,6 +65,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         final ResourceDatabasePopulator populator = new ResourceDatabasePopulator();
         for (String path : schemaFiles)
             populator.addScripts(new ClassPathResource(path));
+
         return populator;
     }
 
