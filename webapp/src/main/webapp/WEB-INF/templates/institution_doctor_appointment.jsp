@@ -1,20 +1,46 @@
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <z:base title="Index">
   <a href="/institutions/${ institution.id }/doctors/${ doctor.id }">
     <h1>${ institution.name } / ${ doctor.name } ${ doctor.lastName }</h1>
   </a>
   <table class="table table-bordered">
     <thead>
+      <th>Día</th>
       <th>Hora inicio</th>
       <th>Duración</th>
       <th>Institución</th>
+      <th>Acciones</th>
     </thead>
-    <c:forEach var="appointment" items="${appointments}">
+    <c:forEach var="appointment" items="${ appointments }">
+      <fmt:formatDate value='${ appointment.date }' pattern='yyyy-MM-dd hh:mm' var="formattedDate" />
       <tr>
+        <td>
+            <c:choose>
+                <c:when test="${ appointment.slot.dayOfWeek.value == 1 }">Lunes</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek.value == 2 }">Martes</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek.value == 3 }">Miércoles</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek.value == 4 }">Jueves</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek.value == 5 }">Viernes</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek.value == 6 }">Sábado</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek.value == 7 }">Domingo</c:when>
+                <c:otherwise>-</c:otherwise>
+            </c:choose>
+        </td>
         <td>${ appointment.slot.hour }:00</td>
         <td>1 hs</td>
-        <td>${ appointment.slot.institution.address }</td>
+        <td>${ institution.address }</td>
+        <td>
+            <form:form modelAttribute="newAppointment" action="/appointments" method="post" enctype="application/x-www-form-urlencoded">
+                <form:input path="patientId" type="hidden" value="${ user.id }" />
+                <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
+                <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
+                <form:input path="startDate" type="hidden" value="${ formattedDate }" />
+                <button type="submit" class="btn btn-success">Reservar</button>
+            </form:form>
+        </td>
       <tr>
     </c:forEach>
   </table>

@@ -2,9 +2,6 @@ package ar.edu.itba.paw.models;
 
 import java.util.Date;
 
-/**
- * Created by santi698 on 24/03/16.
- */
 public class Appointment {
     private final int id;
     private final int patientId;

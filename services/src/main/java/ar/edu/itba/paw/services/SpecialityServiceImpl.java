@@ -3,12 +3,14 @@ package ar.edu.itba.paw.services;
 import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.persistence.SpecialityDao;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by agophurmuz on 4/22/16.
  */
+@Service
 public class SpecialityServiceImpl implements SpecialityService {
 
     @Autowired

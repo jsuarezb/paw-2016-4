@@ -34,6 +34,7 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/institutions">Instituciones</a></li>
+            <li><a href="/appointments">Mis turnos</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <li><a href="/login">Log in</a></li>

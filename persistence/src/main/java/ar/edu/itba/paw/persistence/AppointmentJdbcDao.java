@@ -20,13 +20,13 @@ import java.util.Map;
 @Repository
 public class AppointmentJdbcDao implements AppointmentDao {
 
-    private static final String TABLE_NAME = "Appointments";
-    private static final String ID_COL = "id";
-    private static final String PATIENT_COL = "patient";
-    private static final String DOCTOR_COL = "doctor";
-    private static final String SLOT_COL = "slot";
-    private static final String START_DATE_COL = "start_date";
-    private static final String COMMENTS_COL = "comments";
+    public static final String TABLE_NAME = "Appointments";
+    public static final String ID_COL = "id";
+    public static final String PATIENT_COL = "patient";
+    public static final String DOCTOR_COL = "doctor";
+    public static final String SLOT_COL = "slot";
+    public static final String START_DATE_COL = "start_date";
+    public static final String COMMENTS_COL = "comments";
 
     private JdbcTemplate jdbcTemplate;
     private AppointmentRowMapper rowMapper;
@@ -76,10 +76,8 @@ public class AppointmentJdbcDao implements AppointmentDao {
         return list;
     }
 
-    private static class AppointmentRowMapper implements RowMapper<Appointment> {
 
-        @Autowired
-        private AppointmentSlotDao appointmentSlotDao;
+    private class AppointmentRowMapper implements RowMapper<Appointment> {
 
         public Appointment mapRow(ResultSet rs, int rowNum) throws SQLException {
             AppointmentSlot slot = appointmentSlotDao.getById(rs.getInt(SLOT_COL));

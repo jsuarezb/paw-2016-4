@@ -2,17 +2,14 @@ package ar.edu.itba.paw.models;
 
 import java.time.DayOfWeek;
 
-/**
- * Created by santi698 on 24/03/16.
- */
 public class AppointmentSlot {
     private final int id;
     private final DayOfWeek dayOfWeek;
-    private final Integer hour;
+    private final int hour;
     private final int institutionId;
     private final int doctorId;
 
-    public AppointmentSlot(int id, DayOfWeek dayOfWeek, Integer hour, int institutionId, int doctorId) {
+    public AppointmentSlot(int id, DayOfWeek dayOfWeek, int hour, int institutionId, int doctorId) {
         this.id = id;
         this.dayOfWeek = dayOfWeek;
         this.hour = hour;
@@ -28,7 +25,7 @@ public class AppointmentSlot {
         return dayOfWeek;
     }
 
-    public Integer getHour() {
+    public int getHour() {
         return hour;
     }
 

@@ -1,9 +1,12 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Doctor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.stereotype.Repository;
 
+import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -12,6 +15,7 @@ import java.util.List;
 /**
  * Created by agophurmuz on 4/22/16.
  */
+@Repository
 public class DoctorJdbcDao implements DoctorDao {
 
     private static final String DOCTOR_TABLE_NAME = "doctors";
@@ -28,6 +32,12 @@ public class DoctorJdbcDao implements DoctorDao {
 
     private JdbcTemplate jdbcTemplate;
     private DoctorRowMapper rowMapper;
+
+    @Autowired
+    public DoctorJdbcDao(final DataSource ds) {
+        jdbcTemplate = new JdbcTemplate(ds);
+        rowMapper = new DoctorRowMapper();
+    }
 
     public List<Doctor> getAll() {
         String query = String.format("SELECT * FROM %s", DOCTOR_TABLE_NAME);
