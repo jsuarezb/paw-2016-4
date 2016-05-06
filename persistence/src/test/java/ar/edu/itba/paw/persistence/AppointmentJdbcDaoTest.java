@@ -41,59 +41,8 @@ public class AppointmentJdbcDaoTest {
     public void setUp() {
         jdbcTemplate = new JdbcTemplate(ds);
         JdbcTestUtils.deleteFromTables(jdbcTemplate, TABLE_NAME);
+
+        // TODO: populate corresponding tables
     }
-
-    @Test
-    public void testCreate() {
-        final Appointment appointment = appointmentDao.create(PATIENT_ID, DOCTOR_ID, SLOT_ID, new Date(DATE_MILLI), COMMENT);
-
-        assertNotNull(appointment);
-        assertEquals(PATIENT_ID, appointment.getPatientId());
-        assertEquals(DOCTOR_ID, appointment.getDoctorId());
-        assertNotNull(appointment.getSlot());
-        assertEquals(SLOT_ID, appointment.getSlot().getId());
-        assertNotNull(appointment.getDate());
-        assertEquals(DATE_MILLI, appointment.getDate().getTime());
-        assertEquals(COMMENT, appointment.getComments());
-    }
-
-    @Test
-    public void testGetByDoctor() {
-        final List<Appointment> emptyAppointments = appointmentDao.getByDoctor(DOCTOR_ID);
-
-        assertNotNull(emptyAppointments);
-        assertEquals(0, emptyAppointments.size());
-
-        appointmentDao.create(PATIENT_ID, DOCTOR_ID, SLOT_ID, new Date(DATE_MILLI), COMMENT);
-
-        final List<Appointment> appointments = appointmentDao.getByDoctor(DOCTOR_ID);
-
-        assertNotNull(appointments);
-        assertEquals(1, appointments.size());
-
-        final Appointment appointment = appointments.get(0);
-
-        assertEquals(DOCTOR_ID, appointment.getDoctorId());
-    }
-
-    @Test
-    public void testGetByPatient() {
-        final List<Appointment> emptyAppointments = appointmentDao.getByPatient(PATIENT_ID);
-
-        assertNotNull(emptyAppointments);
-        assertEquals(0, emptyAppointments.size());
-
-        appointmentDao.create(PATIENT_ID, DOCTOR_ID, SLOT_ID, new Date(DATE_MILLI), COMMENT);
-
-        final List<Appointment> appointments = appointmentDao.getByPatient(PATIENT_ID);
-
-        assertNotNull(appointments);
-        assertEquals(1, appointments.size());
-
-        final Appointment appointment = appointments.get(0);
-
-        assertEquals(PATIENT_ID, appointment.getPatientId());
-    }
-
 
 }

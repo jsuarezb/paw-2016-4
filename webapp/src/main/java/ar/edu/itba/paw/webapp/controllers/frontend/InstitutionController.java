@@ -26,11 +26,6 @@ public class InstitutionController {
 
     @Autowired
     private InstitutionService institutionService;
-
-    @ExceptionHandler(ResourceNotFoundException.class)
-    public String handleResourceNotFound() {
-        return "not_found_404";
-    }
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public ModelAndView list() {
