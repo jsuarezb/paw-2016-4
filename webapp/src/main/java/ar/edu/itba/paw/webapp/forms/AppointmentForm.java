@@ -21,7 +21,7 @@ public class AppointmentForm {
     @NotNull
     private int slotId;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
     private DateTime startDate;
 
     @Length(max = 255)

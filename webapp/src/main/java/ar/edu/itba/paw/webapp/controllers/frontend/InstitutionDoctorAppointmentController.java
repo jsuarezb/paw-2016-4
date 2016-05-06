@@ -86,8 +86,7 @@ public class InstitutionDoctorAppointmentController {
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(0, patient.getId(), doctor.getId(), slot,
-                    new Date(appoitmentDate.getMillis()), null);
+            Appointment appointment = new Appointment(0, patient.getId(), doctor.getId(), slot, appoitmentDate, null);
 
             availableAppointments.add(appointment);
         }

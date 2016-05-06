@@ -41,13 +41,13 @@ public class AppointmentJdbcDaoTest {
     public void testCreate() {
         final DateTime dateTime = new DateTime(DATE_MILLI);
         final Appointment appointment = appointmentDao.create(PATIENT_ID, DOCTOR_ID, SLOT_ID,
-                new Date(dateTime.getMillis()), COMMENT);
+                dateTime, COMMENT);
 
         assertNotNull(appointment);
         assertEquals(PATIENT_ID, appointment.getPatientId());
         assertEquals(DOCTOR_ID, appointment.getDoctorId());
         assertEquals(SLOT_ID, appointment.getSlot().getId());
-        assertEquals(DATE_MILLI, appointment.getDate().getTime());
+        assertEquals(DATE_MILLI, appointment.getDate().getMillis());
         assertEquals(COMMENT, appointment.getComments());
     }
 
