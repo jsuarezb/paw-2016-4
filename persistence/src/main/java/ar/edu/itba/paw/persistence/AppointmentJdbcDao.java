@@ -2,6 +2,7 @@ package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.AppointmentSlot;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -43,12 +44,12 @@ public class AppointmentJdbcDao implements AppointmentDao {
         rowMapper = new AppointmentRowMapper();
     }
 
-    public Appointment create(int patientId, int doctorId, int slotId, Date startDate, String comments) {
+    public Appointment create(int patientId, int doctorId, int slotId, DateTime startDate, String comments) {
         Map<String, Object> values = new HashMap<String, Object>();
         values.put(PATIENT_COL, patientId);
         values.put(DOCTOR_COL, doctorId);
         values.put(SLOT_COL, slotId);
-        values.put(START_DATE_COL, startDate);
+        values.put(START_DATE_COL, startDate.toDate());
         values.put(COMMENTS_COL, comments);
 
         int id = simpleJdbcInsert.executeAndReturnKey(values).intValue();
@@ -81,17 +82,16 @@ public class AppointmentJdbcDao implements AppointmentDao {
 
         public Appointment mapRow(ResultSet rs, int rowNum) throws SQLException {
             AppointmentSlot slot = appointmentSlotDao.getById(rs.getInt(SLOT_COL));
+            DateTime jDate = new DateTime(rs.getTimestamp(START_DATE_COL));
 
-            Appointment appointment = new Appointment(
+            return new Appointment(
                     rs.getInt(ID_COL),
                     rs.getInt(PATIENT_COL),
                     rs.getInt(DOCTOR_COL),
-                    null,
-                    rs.getDate(START_DATE_COL),
+                    slot,
+                    jDate,
                     rs.getString(COMMENTS_COL)
             );
-
-            return appointment;
         }
     }
 
