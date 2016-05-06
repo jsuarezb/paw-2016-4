@@ -43,11 +43,11 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         rowMapper = new AppointmentSlotRowMapper();
     }
 
-    public AppointmentSlot create(int institutionId, int doctorId, DayOfWeek dayOfWeek, int startHour) {
+    public AppointmentSlot create(int institutionId, int doctorId, int dayOfWeek, int startHour) {
         Map<String, Object> values = new HashMap<String, Object>();
         values.put(INSTITUTION_COL, institutionId);
         values.put(DOCTOR_COL, doctorId);
-        values.put(DAY_OF_WEEK_COL, dayOfWeek.getValue());
+        values.put(DAY_OF_WEEK_COL, dayOfWeek);
         values.put(START_HOUR_COL, startHour);
 
         int id = simpleJdbcInsert.executeAndReturnKey(values).intValue();
@@ -110,7 +110,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     private static class AppointmentSlotRowMapper implements RowMapper<AppointmentSlot> {
 
         public AppointmentSlot mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new AppointmentSlot(rs.getInt(ID_COL), DayOfWeek.of(rs.getInt(DAY_OF_WEEK_COL)),
+            return new AppointmentSlot(rs.getInt(ID_COL), rs.getInt(DAY_OF_WEEK_COL),
                     rs.getInt(START_HOUR_COL), rs.getInt(INSTITUTION_COL), rs.getInt(DOCTOR_COL));
         }
 

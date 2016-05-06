@@ -24,10 +24,10 @@ public interface PatientDao {
     Patient getById(final Integer id);
 
     /**
-     * Get all patients whose emails matches the specified email.
+     * Get the patient with the specified email.
      *
      * @param email Email to match with.
-     * @return A non null list of institutions whose email matches the given email.
+     * @return A patient. Null if there's no patient with that email.
      */
     Patient findByEmail(final String email);
 

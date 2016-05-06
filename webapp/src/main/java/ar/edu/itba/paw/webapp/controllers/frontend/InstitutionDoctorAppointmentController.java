@@ -84,7 +84,7 @@ public class InstitutionDoctorAppointmentController {
         for (AppointmentSlot slot : slots) {
             DateTime appoitmentDate = jDate
                     .withHourOfDay(slot.getHour())
-                    .withDayOfWeek(slot.getDayOfWeek().getValue());
+                    .withDayOfWeek(slot.getDayOfWeek());
 
             Appointment appointment = new Appointment(0, patient.getId(), doctor.getId(), slot,
                     new Date(appoitmentDate.getMillis()), null);
