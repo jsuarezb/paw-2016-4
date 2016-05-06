@@ -19,13 +19,13 @@
       <tr>
         <td>
             <c:choose>
-                <c:when test="${ appointment.slot.dayOfWeek.value == 1 }">Lunes</c:when>
-                <c:when test="${ appointment.slot.dayOfWeek.value == 2 }">Martes</c:when>
-                <c:when test="${ appointment.slot.dayOfWeek.value == 3 }">Miércoles</c:when>
-                <c:when test="${ appointment.slot.dayOfWeek.value == 4 }">Jueves</c:when>
-                <c:when test="${ appointment.slot.dayOfWeek.value == 5 }">Viernes</c:when>
-                <c:when test="${ appointment.slot.dayOfWeek.value == 6 }">Sábado</c:when>
-                <c:when test="${ appointment.slot.dayOfWeek.value == 7 }">Domingo</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek == 1 }">Lunes</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek == 2 }">Martes</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek == 3 }">Miércoles</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek == 4 }">Jueves</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek == 5 }">Viernes</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek == 6 }">Sábado</c:when>
+                <c:when test="${ appointment.slot.dayOfWeek == 7 }">Domingo</c:when>
                 <c:otherwise>-</c:otherwise>
             </c:choose>
         </td>

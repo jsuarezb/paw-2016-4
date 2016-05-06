@@ -1,15 +1,13 @@
 package ar.edu.itba.paw.models;
 
-import java.time.DayOfWeek;
-
 public class AppointmentSlot {
     private final int id;
-    private final DayOfWeek dayOfWeek;
+    private final int dayOfWeek;
     private final int hour;
     private final int institutionId;
     private final int doctorId;
 
-    public AppointmentSlot(int id, DayOfWeek dayOfWeek, int hour, int institutionId, int doctorId) {
+    public AppointmentSlot(int id, int dayOfWeek, int hour, int institutionId, int doctorId) {
         this.id = id;
         this.dayOfWeek = dayOfWeek;
         this.hour = hour;
@@ -21,7 +19,7 @@ public class AppointmentSlot {
         return id;
     }
 
-    public DayOfWeek getDayOfWeek() {
+    public int getDayOfWeek() {
         return dayOfWeek;
     }
 

@@ -37,16 +37,18 @@ CREATE TABLE IF NOT EXISTS Doctors
     password    VARCHAR(100) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS DoctorsSpecialities
-(
-    id_doctor       INTEGER,
-    id_speciality   INTEGER
-);
-
 CREATE TABLE IF NOT EXISTS Specialities
 (
     id    INTEGER IDENTITY PRIMARY KEY,
     name  VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS DoctorsSpecialities
+(
+    id_doctor       INTEGER,
+    id_speciality   INTEGER,
+    FOREIGN KEY (id_doctor) REFERENCES Doctors,
+    FOREIGN KEY (id_speciality) REFERENCES Specialities
 );
 
 CREATE TABLE IF NOT EXISTS AppointmentSlots
