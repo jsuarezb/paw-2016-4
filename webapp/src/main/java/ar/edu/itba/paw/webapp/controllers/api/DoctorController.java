@@ -1,4 +1,4 @@
-package ar.edu.itba.paw.webapp.controllers.frontend;
+package ar.edu.itba.paw.webapp.controllers.api;
 
 
 import ar.edu.itba.paw.webapp.controllers.MethodNotAllowedException;
