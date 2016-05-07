@@ -86,7 +86,7 @@ public class AppointmentJdbcDao implements AppointmentDao {
                     rs.getInt(ID_COL),
                     rs.getInt(PATIENT_COL),
                     rs.getInt(DOCTOR_COL),
-                    slot,
+                    null,
                     rs.getDate(START_DATE_COL),
                     rs.getString(COMMENTS_COL)
             );
