@@ -1,3 +1,4 @@
+<%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
@@ -12,7 +13,7 @@
             <table class="table table-bordered">
                <thead>
                  <th>Día</th>
-                 <th>Hora inicio</th>
+                 <th>Fecha</th>
                  <th>Duración</th>
                  <th>Institución</th>
                  <th>Acciones</th>
@@ -20,6 +21,7 @@
                <tbody>
                     <c:forEach var="appointment" items="${ appointments }">
                       <joda:format value='${ appointment.date }' pattern='yyyy-MM-dd HH:mm' var="formattedDate" />
+                      <joda:format value='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var='readableDate' />
                       <tr>
                         <td>
                             <c:choose>
@@ -33,9 +35,11 @@
                                 <c:otherwise>-</c:otherwise>
                             </c:choose>
                         </td>
-                        <td>${ appointment.slot.hour }:00</td>
+                        <td>${ readableDate }</td>
                         <td>1 hs</td>
-                        <td>${ institution.address }</td>
+                        <td>
+                            <a href="/institutions/${ institution.id }">${ institution.name }</a>
+                        </td>
                         <td>
                             <form:form modelAttribute="newAppointment" action="/appointments" method="post" enctype="application/x-www-form-urlencoded">
                                 <form:input path="patientId" type="hidden" value="${ user.id }" />
@@ -51,7 +55,27 @@
             </table>
         </c:when>
         <c:otherwise>
-            <p>No hay turnos disponibles</p>
+            <p>No hay turnos disponibles esta semana</p>
         </c:otherwise>
     </c:choose>
+    <nav>
+        <joda:format value="${ prevWeek }" pattern="yyyy-MM-dd" var="formattedPrevWeek" />
+        <joda:format value="${ nextWeek }" pattern="yyyy-MM-dd" var="formattedNextWeek" />
+        <ul class="pager">
+            <c:choose>
+                <c:when test="${ null != prevWeek }">
+                    <c:set value="previous" var="previousWeekClass" />
+                </c:when>
+                <c:otherwise>
+                    <c:set value="previous disabled" var="previousWeekClass" />
+                </c:otherwise>
+            </c:choose>
+            <li class="${ previousWeekClass }">
+                <a href="/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
+            </li>
+            <li class="next">
+                <a href="/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots?date=${ formattedNextWeek }">Semana siguiente &gt;</a>
+            </li>
+        </ul>
+    </nav>
 </z:base>

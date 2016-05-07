@@ -1,8 +1,5 @@
 package ar.edu.itba.paw.models;
 
-/**
- * Created by santi698 on 24/03/16.
- */
 public class Institution {
     private final String name;
     private final Address address;

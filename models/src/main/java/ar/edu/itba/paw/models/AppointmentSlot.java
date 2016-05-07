@@ -2,17 +2,17 @@ package ar.edu.itba.paw.models;
 
 public class AppointmentSlot {
     private final int id;
+    private final Institution institution;
+    private final Doctor doctor;
     private final int dayOfWeek;
     private final int hour;
-    private final int institutionId;
-    private final int doctorId;
 
-    public AppointmentSlot(int id, int dayOfWeek, int hour, int institutionId, int doctorId) {
+    public AppointmentSlot(int id, int dayOfWeek, int hour, Institution institution, Doctor doctor) {
         this.id = id;
         this.dayOfWeek = dayOfWeek;
         this.hour = hour;
-        this.doctorId = doctorId;
-        this.institutionId = institutionId;
+        this.doctor = doctor;
+        this.institution = institution;
     }
 
     public int getId() {
@@ -27,12 +27,12 @@ public class AppointmentSlot {
         return hour;
     }
 
-    public int getInstitutionId() {
-        return institutionId;
+    public Institution getInstitution() {
+        return institution;
     }
 
-    public int getDoctorId() {
-        return doctorId;
+    public Doctor getDoctor() {
+        return doctor;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class AppointmentSlot {
                 "id=" + id +
                 ", dayOfWeek=" + dayOfWeek +
                 ", hour=" + hour +
-                ", institutionId=" + institutionId +
+                ", institution=" + institution +
                 '}';
     }
 }

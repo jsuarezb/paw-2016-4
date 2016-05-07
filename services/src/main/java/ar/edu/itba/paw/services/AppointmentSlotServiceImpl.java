@@ -2,10 +2,10 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Date;
 import java.util.List;
 
 @Service
@@ -26,7 +26,7 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
         return appointmentSlotDao.getByDoctor(doctorId);
     }
 
-    public List<AppointmentSlot> getAvailableByDoctor(int doctorId, Date week) {
+    public List<AppointmentSlot> getAvailableByDoctor(int doctorId, DateTime week) {
         return appointmentSlotDao.getAvailableByDoctor(doctorId, week);
     }
 

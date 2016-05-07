@@ -1,10 +1,10 @@
 package ar.edu.itba.paw.webapp.controllers.frontend;
 
 import ar.edu.itba.paw.models.*;
+import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.AppointmentSlotService;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.InstitutionService;
-import ar.edu.itba.paw.webapp.controllers.MethodNotAllowedException;
 import ar.edu.itba.paw.webapp.exceptions.ResourceNotFoundException;
 import ar.edu.itba.paw.webapp.forms.AppointmentForm;
 import org.joda.time.DateTime;
@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.sql.Date;
-import java.time.DayOfWeek;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Controller for the appointment slots of a doctor within an institution
@@ -32,6 +34,11 @@ public class InstitutionDoctorAppointmentController {
     private final static String DOCTOR_KEY = "doctor";
     private static final String LOGGED_PATIENT_KEY = "user";
     private static final String APPOINTMENT_FORM_MODEL_KEY = "newAppointment";
+    private static final String PREV_WEEK_KEY = "prevWeek";
+    private static final String NEXT_WEEK_KEY = "nextWeek";
+
+    @Autowired
+    private AppointmentService appointmentService;
 
     @Autowired
     private AppointmentSlotService appointmentSlotService;
@@ -53,43 +60,37 @@ public class InstitutionDoctorAppointmentController {
     public ModelAndView list(
             @PathVariable final int institution_id,
             @PathVariable final int doctor_id,
-            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date date)
-                throws MethodNotAllowedException {
+            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") DateTime weekDate) {
         ModelAndView model = new ModelAndView("institution_doctor_appointment");
 
         Institution institution = institutionService.get(institution_id);
         if (institution == null)
             throw new ResourceNotFoundException();
 
-        Doctor doctor = doctorService.get(institution_id);
+        Doctor doctor = doctorService.get(doctor_id);
         if (doctor == null)
             throw new ResourceNotFoundException();
 
         // TODO: get current patient from the current session
         Patient patient = new Patient(1, "Juan", "Pérez", "jperez@gmail.com", "wasd123");
 
-        DateTime jDate;
-        if (date == null) {
-            jDate = new DateTime(); // If no date is given, current week will be shown
-        } else {
-            jDate = new DateTime(date);
-        }
-        jDate = jDate.withDayOfWeek(DateTimeConstants.MONDAY)
+        if (weekDate == null)
+            weekDate = new DateTime();
+
+        weekDate = weekDate
+                .withDayOfWeek(DateTimeConstants.MONDAY)
                 .withTime(0, 0, 0, 0);
 
-        List<AppointmentSlot> slots = appointmentSlotService
-                .getAvailableByDoctor(doctor_id, new Date(jDate.getMillis()));
+        final DateTime prevWeek = weekDate.minusWeeks(1);
+        final DateTime nextWeek = weekDate.plusWeeks(1);
+        final DateTime currentWeek = DateTime.now()
+                .withDayOfWeek(DateTimeConstants.MONDAY)
+                .withTime(0, 0, 0, 0);
 
-        List<Appointment> availableAppointments = new ArrayList<>();
-        for (AppointmentSlot slot : slots) {
-            DateTime appoitmentDate = jDate
-                    .withHourOfDay(slot.getHour())
-                    .withDayOfWeek(slot.getDayOfWeek());
+        final boolean showPrevWeek = currentWeek.isBefore(prevWeek) || currentWeek.isEqual(prevWeek);
 
-            Appointment appointment = new Appointment(0, patient.getId(), doctor.getId(), slot, appoitmentDate, null);
-
-            availableAppointments.add(appointment);
-        }
+        final List<Appointment> availableAppointments = appointmentService
+                .getAvailableByDoctorInInstitution(doctor, institution, weekDate);
 
         Collections.sort(availableAppointments, appointmentComparator);
 
@@ -98,6 +99,8 @@ public class InstitutionDoctorAppointmentController {
         model.addObject(DOCTOR_KEY, doctor);
         model.addObject(LOGGED_PATIENT_KEY, patient);
         model.addObject(APPOINTMENT_FORM_MODEL_KEY, new AppointmentForm());
+        model.addObject(PREV_WEEK_KEY, showPrevWeek ? prevWeek : null);
+        model.addObject(NEXT_WEEK_KEY, nextWeek);
 
         return model;
     }
