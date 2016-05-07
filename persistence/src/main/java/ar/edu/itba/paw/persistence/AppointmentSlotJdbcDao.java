@@ -1,6 +1,8 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
+import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.Institution;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +15,6 @@ import javax.sql.DataSource;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,6 +37,12 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     private SimpleJdbcInsert simpleJdbcInsert;
 
     @Autowired
+    private InstitutionDao institutionDao;
+
+    @Autowired
+    private DoctorDao doctorDao;
+
+    @Autowired
     public AppointmentSlotJdbcDao(final DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
         simpleJdbcInsert = new SimpleJdbcInsert(ds).withTableName(TABLE_NAME)
@@ -52,7 +59,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
 
         int id = simpleJdbcInsert.executeAndReturnKey(values).intValue();
 
-        return new AppointmentSlot(id, dayOfWeek, startHour, institutionId, doctorId);
+        return getById(id);
     }
 
     public AppointmentSlot getById(int id) {
@@ -73,7 +80,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         return slots;
     }
 
-    public List<AppointmentSlot> getAvailableByDoctor(int doctorId, Date week) {
+    public List<AppointmentSlot> getAvailableByDoctor(int doctorId, DateTime week) {
         String sql =
                 "SELECT * FROM %s " +
                 "WHERE %s NOT IN " +
@@ -83,7 +90,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
                 AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
                 AppointmentJdbcDao.START_DATE_COL, DAYS_IN_WEEK);
 
-        DateTime startOfWeek = new DateTime(week)
+        DateTime startOfWeek = week
                 .withDayOfWeek(DateTimeConstants.MONDAY)
                 .withTime(0, 0, 0, 0);
 
@@ -91,6 +98,31 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
 
         List<AppointmentSlot> slots = jdbcTemplate
                 .query(query, rowMapper, new Date(startOfWeek.getMillis()), new Date(endOfWeek.getMillis()));
+
+        if (slots == null)
+            return new ArrayList<AppointmentSlot>();
+
+        return slots;
+    }
+
+    public List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId, DateTime week) {
+        String sql =
+                "SELECT * FROM %s " +
+                        "WHERE %s = ? AND %s NOT IN " +
+                        "(SELECT %s FROM %s WHERE %s >= ? AND %s < ?)";
+
+        String query = String.format(sql, TABLE_NAME, INSTITUTION_COL, ID_COL, AppointmentJdbcDao.SLOT_COL,
+                AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
+                AppointmentJdbcDao.START_DATE_COL, DAYS_IN_WEEK);
+
+        DateTime startOfWeek = week
+                .withDayOfWeek(DateTimeConstants.MONDAY)
+                .withTime(0, 0, 0, 0);
+
+        DateTime endOfWeek = startOfWeek.plusDays(7);
+
+        List<AppointmentSlot> slots = jdbcTemplate
+                .query(query, rowMapper, institutionId, new Date(startOfWeek.getMillis()), new Date(endOfWeek.getMillis()));
 
         if (slots == null)
             return new ArrayList<AppointmentSlot>();
@@ -107,15 +139,18 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         return slots;
     }
 
-    private static class AppointmentSlotRowMapper implements RowMapper<AppointmentSlot> {
+    private class AppointmentSlotRowMapper implements RowMapper<AppointmentSlot> {
 
         public AppointmentSlot mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Institution institution = institutionDao.getById(rs.getInt(INSTITUTION_COL));
+            Doctor doctor = doctorDao.getById(rs.getInt(DOCTOR_COL));
+
             return new AppointmentSlot(
                     rs.getInt(ID_COL),
                     rs.getInt(DAY_OF_WEEK_COL),
                     rs.getInt(START_HOUR_COL),
-                    rs.getInt(INSTITUTION_COL),
-                    rs.getInt(DOCTOR_COL)
+                    institution,
+                    doctor
             );
         }
 

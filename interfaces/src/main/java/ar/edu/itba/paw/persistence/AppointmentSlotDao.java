@@ -1,8 +1,8 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
+import org.joda.time.DateTime;
 
-import java.sql.Date;
 import java.util.List;
 
 public interface AppointmentSlotDao {
@@ -19,7 +19,7 @@ public interface AppointmentSlotDao {
      * @param week Start of the 7 days period to search slots for.
      * @return A list of available slots.
      */
-    List<AppointmentSlot> getAvailableByDoctor(int doctorId, Date week);
+    List<AppointmentSlot> getAvailableByDoctor(int doctorId, DateTime week);
 
     /**
      * Get all the slots for a doctor in a single institution
@@ -28,5 +28,7 @@ public interface AppointmentSlotDao {
      * @return A list of slots for a doctor in an institution.
      */
     List<AppointmentSlot> getByDoctorInInstitution(int doctorId, int institutionId);
+
+    List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId, DateTime weekStart);
 
 }

@@ -1,8 +1,8 @@
 package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
+import org.joda.time.DateTime;
 
-import java.sql.Date;
 import java.util.List;
 
 public interface AppointmentSlotService {
@@ -13,7 +13,7 @@ public interface AppointmentSlotService {
 
     List<AppointmentSlot> getByDoctor(int doctorId);
 
-    List<AppointmentSlot> getAvailableByDoctor(int doctorId, Date week);
+    List<AppointmentSlot> getAvailableByDoctor(int doctorId, DateTime week);
 
     List<AppointmentSlot> getByDoctorInInstitution(int doctorId, int institutionId);
 

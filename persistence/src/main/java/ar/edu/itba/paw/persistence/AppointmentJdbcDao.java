@@ -2,10 +2,14 @@ package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.AppointmentSlot;
+import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.Patient;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +17,7 @@ import javax.sql.DataSource;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -37,6 +42,12 @@ public class AppointmentJdbcDao implements AppointmentDao {
     private AppointmentSlotDao appointmentSlotDao;
 
     @Autowired
+    private PatientDao patientDao;
+
+    @Autowired
+    private DoctorDao doctorDao;
+
+    @Autowired
     public AppointmentJdbcDao(final DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
         simpleJdbcInsert = new SimpleJdbcInsert(ds).withTableName(TABLE_NAME)
@@ -54,9 +65,18 @@ public class AppointmentJdbcDao implements AppointmentDao {
 
         int id = simpleJdbcInsert.executeAndReturnKey(values).intValue();
 
-        AppointmentSlot slot = appointmentSlotDao.getById(slotId);
+        Appointment appointment = getById(id);
 
-        return new Appointment(id, patientId, doctorId, slot, startDate, comments);
+        return appointment;
+    }
+
+    public Appointment getById(int id) {
+        String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, ID_COL);
+        List<Appointment> list = jdbcTemplate.query(query, rowMapper, id);
+        if (list == null || list.isEmpty())
+            return null;
+
+        return list.get(0);
     }
 
     public List<Appointment> getByDoctor(int doctorId) {
@@ -68,7 +88,7 @@ public class AppointmentJdbcDao implements AppointmentDao {
         return list;
     }
 
-    public List<Appointment> getByPatient(int patientId) {
+    public List<Appointment> getByPatient(int patientId, int page) {
         String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, PATIENT_COL);
         List<Appointment> list = jdbcTemplate.query(query, rowMapper, patientId);
         if (list == null)
@@ -77,17 +97,35 @@ public class AppointmentJdbcDao implements AppointmentDao {
         return list;
     }
 
+    public boolean isDoctorAvailable(int doctorId, DateTime date) {
+        final Timestamp appointmentDate = new Timestamp(date.getMillis());
+        final String query = String.format("SELECT COUNT(*) FROM %s WHERE %s <= ? AND %s >= ? AND  %s = ?",
+                TABLE_NAME, START_DATE_COL, START_DATE_COL, DOCTOR_COL);
+
+        final Integer count = jdbcTemplate
+                .queryForObject(query, Integer.class, appointmentDate, appointmentDate, doctorId);
+
+        return count != null && count == 0;
+    }
+
+    public int delete(int appointmentId) {
+        final String query = String.format("DELETE FROM %s WHERE %s = ?", TABLE_NAME, ID_COL);
+
+        return jdbcTemplate.update(query, appointmentId);
+    }
 
     private class AppointmentRowMapper implements RowMapper<Appointment> {
 
         public Appointment mapRow(ResultSet rs, int rowNum) throws SQLException {
-            AppointmentSlot slot = appointmentSlotDao.getById(rs.getInt(SLOT_COL));
-            DateTime jDate = new DateTime(rs.getTimestamp(START_DATE_COL));
+            final Patient patient = patientDao.getById(rs.getInt(PATIENT_COL));
+            final Doctor doctor = doctorDao.getById(rs.getInt(DOCTOR_COL));
+            final AppointmentSlot slot = appointmentSlotDao.getById(rs.getInt(SLOT_COL));
+            final DateTime jDate = new DateTime(rs.getTimestamp(START_DATE_COL));
 
             return new Appointment(
                     rs.getInt(ID_COL),
-                    rs.getInt(PATIENT_COL),
-                    rs.getInt(DOCTOR_COL),
+                    patient,
+                    doctor,
                     slot,
                     jDate,
                     rs.getString(COMMENTS_COL)

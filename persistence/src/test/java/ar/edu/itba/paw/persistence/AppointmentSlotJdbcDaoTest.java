@@ -39,8 +39,8 @@ public class AppointmentSlotJdbcDaoTest {
         assertNotNull(slot);
         assertEquals(DAY_OF_WEEK, slot.getDayOfWeek());
         assertEquals(START_HOUR, slot.getHour());
-        assertEquals(INSTITUTION_ID, slot.getInstitutionId());
-        assertEquals(DOCTOR_ID, slot.getDoctorId());
+        assertEquals(INSTITUTION_ID, slot.getInstitution());
+        assertEquals(DOCTOR_ID, slot.getDoctor());
     }
 
     @Test
