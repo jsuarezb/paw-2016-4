@@ -16,6 +16,8 @@
     <org.hibernate.hibernate-validator.version>5.2.4.Final</org.hibernate.hibernate-validator.version>
     <javax.validation.validation-api.version>1.1.0.Final</javax.validation.validation-api.version>
     <javax.servlet.jsp.jstl.version>1.2</javax.servlet.jsp.jstl.version>
+    <joda-time.version>2.9.3</joda-time.version>
+    <joda-time-jsptags.version>1.1.1</joda-time-jsptags.version>
   </properties>
   <build>
     <plugins>
@@ -97,6 +99,16 @@
         <artifactId>mockito-all</artifactId>
         <version>${mockito.version}</version>
         <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time</artifactId>
+        <version>${joda-time.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>joda-time</groupId>
+        <artifactId>joda-time-jsptags</artifactId>
+        <version>${joda-time-jsptags.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

@@ -1,26 +1,41 @@
 package ar.edu.itba.paw.models;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
-/**
- * Created by santi698 on 24/03/16.
- */
 public class Appointment {
+    private final int id;
+    private final int patientId;
+    private final int doctorId;
     private final AppointmentSlot slot;
-    private final Date date;
+    private final DateTime date;
     private final String comments;
 
-    public Appointment(AppointmentSlot slot, Date date, String comments) {
+    public Appointment(int id, int patientId, int doctorId, AppointmentSlot slot, DateTime date, String comments) {
+        this.id = id;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
         this.slot = slot;
         this.date = date;
         this.comments = comments;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public int getPatientId() {
+        return patientId;
+    }
+
+    public int getDoctorId() {
+        return doctorId;
     }
 
     public AppointmentSlot getSlot() {
         return slot;
     }
 
-    public Date getDate() {
+    public DateTime getDate() {
         return date;
     }
 
@@ -35,22 +50,20 @@ public class Appointment {
 
         Appointment that = (Appointment) o;
 
-        if (!slot.equals(that.slot)) return false;
-        return date.equals(that.date);
+        return id == that.id;
 
     }
 
     @Override
     public int hashCode() {
-        int result = slot.hashCode();
-        result = 31 * result + date.hashCode();
-        return result;
+        return id;
     }
 
     @Override
     public String toString() {
         return "Appointment{" +
-                "slot=" + slot +
+                "id=" + id +
+                ", slot=" + slot +
                 ", date=" + date +
                 ", comments='" + comments + '\'' +
                 '}';

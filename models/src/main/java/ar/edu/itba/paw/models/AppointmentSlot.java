@@ -1,31 +1,38 @@
 package ar.edu.itba.paw.models;
 
-import java.time.DayOfWeek;
-
-/**
- * Created by santi698 on 24/03/16.
- */
 public class AppointmentSlot {
-    private final DayOfWeek dayOfWeek;
-    private final Integer hour;
-    private final Institution institution;
+    private final int id;
+    private final int dayOfWeek;
+    private final int hour;
+    private final int institutionId;
+    private final int doctorId;
 
-    public AppointmentSlot(DayOfWeek dayOfWeek, Integer hour, Institution institution) {
+    public AppointmentSlot(int id, int dayOfWeek, int hour, int institutionId, int doctorId) {
+        this.id = id;
         this.dayOfWeek = dayOfWeek;
         this.hour = hour;
-        this.institution = institution;
+        this.doctorId = doctorId;
+        this.institutionId = institutionId;
     }
 
-    public DayOfWeek getDayOfWeek() {
+    public int getId() {
+        return id;
+    }
+
+    public int getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public Integer getHour() {
+    public int getHour() {
         return hour;
     }
 
-    public Institution getInstitution() {
-        return institution;
+    public int getInstitutionId() {
+        return institutionId;
+    }
+
+    public int getDoctorId() {
+        return doctorId;
     }
 
     @Override
@@ -35,26 +42,22 @@ public class AppointmentSlot {
 
         AppointmentSlot that = (AppointmentSlot) o;
 
-        if (dayOfWeek != that.dayOfWeek) return false;
-        if (!hour.equals(that.hour)) return false;
-        return institution.equals(that.institution);
+        return id == that.id;
 
     }
 
     @Override
     public int hashCode() {
-        int result = dayOfWeek.hashCode();
-        result = 31 * result + hour.hashCode();
-        result = 31 * result + institution.hashCode();
-        return result;
+        return id;
     }
 
     @Override
     public String toString() {
         return "AppointmentSlot{" +
-                "dayOfWeek=" + dayOfWeek +
+                "id=" + id +
+                ", dayOfWeek=" + dayOfWeek +
                 ", hour=" + hour +
-                ", institution=" + institution +
+                ", institutionId=" + institutionId +
                 '}';
     }
 }
