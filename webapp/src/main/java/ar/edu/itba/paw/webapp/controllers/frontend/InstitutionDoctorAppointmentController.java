@@ -25,7 +25,7 @@ import java.util.*;
  * Controller for the appointment slots of a doctor within an institution
  */
 @Controller
-public class InstitutionDoctorAppointmentController {
+public class InstitutionDoctorAppointmentController extends BaseController {
 
     private final static String APPOINTMENTS_KEY = "appointments";
     private final static String INSTITUTION_KEY = "institution";

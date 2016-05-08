@@ -10,7 +10,7 @@ import ar.edu.itba.paw.models.Doctor;
 
 @RequestMapping("/doctors/{doctor_id}")
 @Controller
-public class DoctorDetailController {
+public class DoctorDetailController extends BaseController {
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
 	public Object list() throws MethodNotAllowedException {
 		ModelAndView model = new ModelAndView("doctor");

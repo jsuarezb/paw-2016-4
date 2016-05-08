@@ -17,12 +17,12 @@
         <c:forEach var="doctor" items="${doctors}">
           <tr>
             <td>
-              <a href="/doctors/${ doctor.id }">
+              <a href="/grupo4/doctors/${ doctor.id }">
                 ${ doctor.name }
               </a>
             </td>
             <td>
-              <a href="/doctors/${ doctor.id }">
+              <a href="/grupo4/doctors/${ doctor.id }">
                 ${ doctor.lastName }
               </a>
             </td>

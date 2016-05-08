@@ -15,7 +15,7 @@ import javax.validation.Valid;
  * Created by santi698 on 11/04/16.
  */
 @Controller
-public class LoginController {
+public class LoginController extends BaseController {
     @Autowired
     private PatientService patientService;
 
@@ -23,18 +23,4 @@ public class LoginController {
     public String login(@ModelAttribute LoginForm loginForm) {
         return "login";
     }
-
-    @RequestMapping(path = "/login", method = RequestMethod.POST)
-    public String doLogin(@ModelAttribute @Valid LoginForm loginForm, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "login";
-        }
-
-        if (patientService.login(loginForm.getEmail(), loginForm.getPassword())) {
-            return "redirect:/";
-        } else {
-            return "login";
-        }
-    }
-
 }

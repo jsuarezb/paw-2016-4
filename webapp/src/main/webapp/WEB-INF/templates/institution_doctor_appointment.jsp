@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <z:base title="Index">
-  <a href="/institutions/${ institution.id }/doctors/${ doctor.id }">
+  <a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }">
     <h1>${ institution.name } / ${ doctor.name } ${ doctor.lastName }</h1>
   </a>
     <c:choose>

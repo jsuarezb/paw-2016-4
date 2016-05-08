@@ -14,7 +14,7 @@
       <c:forEach var="institution" items="${institutions}">
         <tr>
           <td>
-            <a href="/institutions/${ institution.id }">${ institution.name }</a>
+            <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a>
           </td>
           <td>
             ${ institution.address.streetName } ${institution.address.streetNumber}, ${institution.address.city}, ${institution.address.state}, ${institution.address.country }
