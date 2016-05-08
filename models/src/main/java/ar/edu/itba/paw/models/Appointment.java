@@ -1,5 +1,4 @@
 package ar.edu.itba.paw.models;
-
 import org.joda.time.DateTime;
 
 public class Appointment {

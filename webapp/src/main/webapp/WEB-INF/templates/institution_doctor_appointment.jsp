@@ -4,7 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <z:base title="Index">
-  <a href="/institutions/${ institution.id }/doctors/${ doctor.id }">
+  <a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }">
     <h1>${ institution.name } / ${ doctor.name } ${ doctor.lastName }</h1>
   </a>
     <c:choose>
@@ -37,13 +37,15 @@
                         <td>1 hs</td>
                         <td>${ institution.address }</td>
                         <td>
-                            <form:form modelAttribute="newAppointment" action="/appointments" method="post" enctype="application/x-www-form-urlencoded">
-                                <form:input path="patientId" type="hidden" value="${ user.id }" />
-                                <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
-                                <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
-                                <form:input path="startDate" type="hidden" value="${ formattedDate }" />
-                                <button type="submit" class="btn btn-success">Reservar</button>
-                            </form:form>
+                            <c:if test="${ patient != null }">
+                                <form:form modelAttribute="newAppointment" action="/grupo4/appointments" method="post" enctype="application/x-www-form-urlencoded">
+                                    <form:input path="patientId" type="hidden" value="${ user.id }" />
+                                    <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
+                                    <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
+                                    <form:input path="startDate" type="hidden" value="${ formattedDate }" />
+                                    <button type="submit" class="btn btn-success">Reservar</button>
+                                </form:form>
+                            </c:if>
                         </td>
                       <tr>
                     </c:forEach>

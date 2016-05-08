@@ -50,6 +50,9 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         ds.setUrl("jdbc:postgresql://localhost/paw_app");
         ds.setUsername("paw_app");
         ds.setPassword("paw_app");
+        //ds.setUrl("jdbc:postgresql://10.16.1.110/grupo4");
+        //ds.setUsername("grupo4");
+        //ds.setPassword("aa1fahFu");
         return ds;
     }
 

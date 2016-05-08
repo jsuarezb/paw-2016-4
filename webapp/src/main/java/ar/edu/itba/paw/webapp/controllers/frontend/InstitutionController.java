@@ -19,7 +19,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/institutions")
-public class InstitutionController {
+public class InstitutionController extends BaseController {
 
     private static final String INSTITUTIONS_ATTRIBUTE = "institutions";
     private static final String INSTITUTION_ATTRIBUTE = "institution";

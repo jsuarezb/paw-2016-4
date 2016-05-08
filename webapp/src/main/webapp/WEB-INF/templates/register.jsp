@@ -3,7 +3,7 @@
 
 <z:base title="Registro">
   <div class='container'>
-    <form:form class="form-horizontal" method='post' action="/patients" modelAttribute="patientForm">
+    <form:form class="form-horizontal" method='post' action="/grupo4/patients" modelAttribute="patientForm">
       <div class="form-group">
         <label for="name" class="col-sm-2 control-label">
           Name

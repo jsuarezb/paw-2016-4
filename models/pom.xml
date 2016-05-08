@@ -7,6 +7,10 @@
       <groupId>joda-time</groupId>
       <artifactId>joda-time</artifactId>
     </dependency>
+    <dependency>
+      <groupId>joda-time</groupId>
+      <artifactId>joda-time</artifactId>
+    </dependency>
   </dependencies>
   <parent>
     <groupId>ar.edu.itba.paw</groupId>

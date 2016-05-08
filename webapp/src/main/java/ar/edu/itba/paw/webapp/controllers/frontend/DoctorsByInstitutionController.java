@@ -14,7 +14,7 @@ import java.util.List;
 
 
 @Controller
-public class DoctorsByInstitutionController {
+public class DoctorsByInstitutionController extends BaseController {
 
 	@RequestMapping("/institutions/{institution_id}/doctors")
     public Object list(@PathVariable final int institution_id) throws MethodNotAllowedException {

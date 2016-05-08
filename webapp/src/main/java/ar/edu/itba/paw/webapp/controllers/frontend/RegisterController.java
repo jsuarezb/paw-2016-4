@@ -4,8 +4,11 @@ import ar.edu.itba.paw.webapp.forms.DoctorForm;
 import ar.edu.itba.paw.webapp.forms.PatientForm;
 import ar.edu.itba.paw.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +20,7 @@ import javax.validation.Valid;
  */
 
 @Controller
-public class RegisterController {
+public class RegisterController extends BaseController {
     @Autowired
     private PatientService patientService;
 
@@ -31,10 +34,15 @@ public class RegisterController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        patientService.create(patientForm.getName(),
-                              patientForm.getLastName(),
-                              patientForm.getEmail(),
-                              patientForm.getPassword());
+        try {
+            patientService.create(patientForm.getName(),
+                    patientForm.getLastName(),
+                    patientForm.getEmail(),
+                    patientForm.getPassword());
+        } catch (DuplicateKeyException e) {
+            bindingResult.addError(new FieldError("patient", "email", "Email already registered"));
+            return "register";
+        }
         // Process form
         return "redirect:/";
     }

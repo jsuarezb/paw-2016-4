@@ -1,4 +1,5 @@
 <%@tag description="Base template" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@attribute name="title"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -14,9 +15,9 @@
     <title>${title}</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/grupo4/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="/css/styles.css" rel="stylesheet">
+    <link href="/grupo4/css/styles.css" rel="stylesheet">
   </head>
 
   <body>
@@ -29,16 +30,27 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="/">ChoPido Turnos</a>
+          <a class="navbar-brand" href="/grupo4">ChoPido Turnos</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li><a href="/institutions">Instituciones</a></li>
-            <li><a href="/appointments">Mis turnos</a></li>
+            <li><a href="/grupo4/institutions">Instituciones</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login">Log in</a></li>
-            <li><a href="/register">Register</a></li>
+            <c:if test="${patient == null}">
+            <li><a href="/grupo4/login">Log in</a></li>
+            <li><a href="/grupo4/register">Register</a></li>
+            </c:if>
+            <c:if test="${patient != null}">
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${patient.email} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                  <li><a href="/grupo4/profile">Profile</a></li>
+                  <li><a href="/grupo4/appointments">Mis turnos</a></li>
+                  <li><a href="/grupo4/logout">Log out</a></li>
+                </ul>
+              </li>
+            </c:if>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
@@ -51,7 +63,7 @@
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/grupo4/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/grupo4/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   </body>
 </html>
