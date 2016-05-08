@@ -145,8 +145,13 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
             Institution institution = institutionDao.getById(rs.getInt(INSTITUTION_COL));
             Doctor doctor = doctorDao.getById(rs.getInt(DOCTOR_COL));
 
-            return new AppointmentSlot(rs.getInt(ID_COL), rs.getInt(DAY_OF_WEEK_COL), rs.getInt(START_HOUR_COL),
-                    institution, doctor);
+            return new AppointmentSlot(
+                    rs.getInt(ID_COL),
+                    rs.getInt(DAY_OF_WEEK_COL),
+                    rs.getInt(START_HOUR_COL),
+                    institution,
+                    doctor
+            );
         }
 
     }
