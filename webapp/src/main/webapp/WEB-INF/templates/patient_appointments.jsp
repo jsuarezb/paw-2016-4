@@ -16,7 +16,7 @@
                             <dl class="dl-horizontal">
                               <dt>Institución</dt>
                               <dd>
-                                <a href="/institutions/${ appointment.slot.institution.id }">${ appointment.slot.institution.name }</a>
+                                <a href="/grupo4/institutions/${ appointment.slot.institution.id }">${ appointment.slot.institution.name }</a>
                               </dd>
                               <dt>Fecha</dt>
                               <dd>${ formattedDate }</dd>

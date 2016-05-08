@@ -38,7 +38,7 @@
                         <td>${ readableDate }</td>
                         <td>1 hs</td>
                         <td>
-                            <a href="/institutions/${ institution.id }">${ institution.name }</a>
+                            <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a>
                         </td>
                         <td>
                             <c:if test="${ patient != null }">
@@ -73,10 +73,10 @@
                 </c:otherwise>
             </c:choose>
             <li class="${ previousWeekClass }">
-                <a href="/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
+                <a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
             </li>
             <li class="next">
-                <a href="/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots?date=${ formattedNextWeek }">Semana siguiente &gt;</a>
+                <a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots?date=${ formattedNextWeek }">Semana siguiente &gt;</a>
             </li>
         </ul>
     </nav>
