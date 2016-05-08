@@ -35,7 +35,6 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a href="/grupo4/institutions">Instituciones</a></li>
-            <li><a href="/grupo4/appointments">Mis turnos</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <c:if test="${patient == null}">
@@ -47,6 +46,7 @@
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${patient.email} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                   <li><a href="/grupo4/profile">Profile</a></li>
+                  <li><a href="/grupo4/appointments">Mis turnos</a></li>
                   <li><a href="/grupo4/logout">Log out</a></li>
                 </ul>
               </li>

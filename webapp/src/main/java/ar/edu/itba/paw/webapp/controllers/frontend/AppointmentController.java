@@ -29,7 +29,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/appointments")
-public class AppointmentController {
+public class AppointmentController extends BaseController {
 
     private static final String APPOINTMENT_KEY = "appointment";
     private static final String APPOINTMENTS_KEY = "appointments";
@@ -60,8 +60,7 @@ public class AppointmentController {
     public ModelAndView list() {
         final ModelAndView mav = new ModelAndView("patient_appointments");
 
-        // TODO: get patient from session
-        Patient patient = new Patient(1, "Juan", "Pérez", "jperez@gmail.com", "wasd123");
+        Patient patient = currentPatient();
         List<Appointment> patientAppointments = as.getByPatient(patient.getId());
 
         mav.addObject(APPOINTMENTS_KEY, patientAppointments);
