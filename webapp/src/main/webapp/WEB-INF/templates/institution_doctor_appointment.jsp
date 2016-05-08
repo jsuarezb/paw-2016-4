@@ -38,6 +38,9 @@
                         <td>${ readableDate }</td>
                         <td>1 hs</td>
                         <td>
+                            <a href="/institutions/${ institution.id }">${ institution.name }</a>
+                        </td>
+                        <td>
                             <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a>
                         </td>
                         <td>
