@@ -65,8 +65,7 @@ public class InstitutionDoctorAppointmentController extends BaseController {
         if (doctor == null)
             throw new ResourceNotFoundException();
 
-        // TODO: get current patient from the current session
-        Patient patient = new Patient(1, "Juan", "Pérez", "jperez@gmail.com", "wasd123");
+        Patient patient = currentPatient();
 
         DateTime jDate;
         if (date == null) {
@@ -82,11 +81,12 @@ public class InstitutionDoctorAppointmentController extends BaseController {
 
         List<Appointment> availableAppointments = new ArrayList<>();
         for (AppointmentSlot slot : slots) {
+            int patientId = (patient == null ? 0 : patient.getId());
             DateTime appoitmentDate = jDate
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(0, patient.getId(), doctor.getId(), slot, appoitmentDate, null);
+            Appointment appointment = new Appointment(0, patientId, doctor.getId(), slot, appoitmentDate, null);
 
             availableAppointments.add(appointment);
         }
