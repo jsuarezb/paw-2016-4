@@ -5,6 +5,9 @@ import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.webapp.controllers.BadRequestException;
 import ar.edu.itba.paw.webapp.forms.AppointmentForm;
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
@@ -30,6 +33,7 @@ public class AppointmentController {
 
     private static final String APPOINTMENT_KEY = "appointment";
     private static final String APPOINTMENTS_KEY = "appointments";
+
     @Autowired
     AppointmentService as;
 
@@ -37,17 +41,15 @@ public class AppointmentController {
     public ModelAndView create(@Valid @ModelAttribute("newAppointment") final AppointmentForm appointmentForm,
                                final BindingResult errors,
                                final HttpSession session) {
-        if (errors.hasErrors()) {
+        if (errors.hasErrors())
             throw new BadRequestException();
-        }
 
         final Appointment appointment = as.create(appointmentForm.getPatientId(), appointmentForm.getDoctorId(),
-                appointmentForm.getSlotId(), new Date(appointmentForm.getStartDate().getMillis()), appointmentForm.getComment());
+                appointmentForm.getSlotId(), appointmentForm.getStartDate(), appointmentForm.getComment());
 
         if (appointment == null)
             throw new HttpServerErrorException(HttpStatus.INTERNAL_SERVER_ERROR);
 
-        // TODO maybe redirect to user appointments
         final ModelAndView mav = new ModelAndView("appointment_registered");
         mav.addObject(APPOINTMENT_KEY, appointment);
 

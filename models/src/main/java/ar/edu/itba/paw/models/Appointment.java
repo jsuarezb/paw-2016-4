@@ -1,16 +1,16 @@
 package ar.edu.itba.paw.models;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 public class Appointment {
     private final int id;
     private final int patientId;
     private final int doctorId;
     private final AppointmentSlot slot;
-    private final Date date;
+    private final DateTime date;
     private final String comments;
 
-    public Appointment(int id, int patientId, int doctorId, AppointmentSlot slot, Date date, String comments) {
+    public Appointment(int id, int patientId, int doctorId, AppointmentSlot slot, DateTime date, String comments) {
         this.id = id;
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -35,7 +35,7 @@ public class Appointment {
         return slot;
     }
 
-    public Date getDate() {
+    public DateTime getDate() {
         return date;
     }
 

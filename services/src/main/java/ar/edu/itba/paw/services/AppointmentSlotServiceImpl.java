@@ -1,13 +1,11 @@
 package ar.edu.itba.paw.services;
 
-import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.DayOfWeek;
 import java.util.List;
 
 @Service
@@ -16,7 +14,7 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
     @Autowired
     private AppointmentSlotDao appointmentSlotDao;
 
-    public AppointmentSlot create(int institutionId, int doctorId, DayOfWeek dayOfWeek, int startHour) {
+    public AppointmentSlot create(int institutionId, int doctorId, int dayOfWeek, int startHour) {
         return appointmentSlotDao.create(institutionId, doctorId, dayOfWeek, startHour);
     }
 

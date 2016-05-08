@@ -44,19 +44,19 @@ public class SpecialityJdbcDao implements SpecialityDao {
 
     public Speciality searchByName(String name) {
         String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, NAME_COL);
-        List<Speciality> list = jdbcTemplate.query(query, rowMapper);
-        if(list == null){
+        List<Speciality> list = jdbcTemplate.query(query, rowMapper, name);
+        if (list == null || list.isEmpty())
             return null;
-        }
+
         return list.get(0);
     }
 
     public Speciality getById(Integer id) {
         String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, ID_COL);
         List<Speciality> list = jdbcTemplate.query(query, rowMapper, id);
-        if(list == null){
+        if (list == null || list.isEmpty())
             return null;
-        }
+
         return list.get(0);
     }
 
