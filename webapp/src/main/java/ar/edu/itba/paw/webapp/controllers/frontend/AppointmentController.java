@@ -4,24 +4,18 @@ import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.webapp.controllers.BadRequestException;
+import ar.edu.itba.paw.webapp.exceptions.ResourceNotFoundException;
 import ar.edu.itba.paw.webapp.forms.AppointmentForm;
-import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormat;
-import org.joda.time.format.DateTimeFormatter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.sql.Date;
 import java.util.List;
 
 /**
@@ -33,6 +27,7 @@ public class AppointmentController extends BaseController {
 
     private static final String APPOINTMENT_KEY = "appointment";
     private static final String APPOINTMENTS_KEY = "appointments";
+    private static final String DOCTOR_KEY = "doctor";
 
     @Autowired
     AppointmentService as;
@@ -54,6 +49,17 @@ public class AppointmentController extends BaseController {
         mav.addObject(APPOINTMENT_KEY, appointment);
 
         return mav;
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE, value = "/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Integer id) {
+        if (id == null)
+            throw new ResourceNotFoundException();
+
+        int n = as.cancel(id);
+        if (n <= 0)
+            throw new ResourceNotFoundException();
     }
 
     @RequestMapping(method = { RequestMethod.GET })

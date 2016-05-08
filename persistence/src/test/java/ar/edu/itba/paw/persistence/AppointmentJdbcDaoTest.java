@@ -53,8 +53,8 @@ public class AppointmentJdbcDaoTest {
 
     @Test
     public void testGetByPatient() {
-        final List<Appointment> appointments = appointmentDao.getByPatient(PATIENT_ID);
-        final List<Appointment> emptyAppointments = appointmentDao.getByPatient(INVALID_ID);
+        final List<Appointment> appointments = appointmentDao.getByPatient(PATIENT_ID, 0);
+        final List<Appointment> emptyAppointments = appointmentDao.getByPatient(INVALID_ID, 0);
 
         assertNotNull(appointments);
         assertNotEquals(0, appointments.size());
