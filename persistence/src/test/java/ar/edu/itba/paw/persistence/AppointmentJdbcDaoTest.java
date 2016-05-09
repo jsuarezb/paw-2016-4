@@ -44,8 +44,8 @@ public class AppointmentJdbcDaoTest {
                 dateTime, COMMENT);
 
         assertNotNull(appointment);
-        assertEquals(PATIENT_ID, appointment.getPatientId());
-        assertEquals(DOCTOR_ID, appointment.getDoctorId());
+        assertEquals(PATIENT_ID, appointment.getPatient().getId());
+        assertEquals(DOCTOR_ID, appointment.getDoctor().getId());
         assertEquals(SLOT_ID, appointment.getSlot().getId());
         assertEquals(DATE_MILLI, appointment.getDate().getMillis());
         assertEquals(COMMENT, appointment.getComments());
