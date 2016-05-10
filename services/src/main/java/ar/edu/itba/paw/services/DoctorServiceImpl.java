@@ -20,15 +20,15 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorDao.getAll();
     }
 
-    public Doctor get(Integer id) {
-        return doctorDao.getById(id);
+    public Doctor get(Integer id) { return doctorDao.getById(id);
     }
 
     public Doctor searchByName(String name, String last_name) {
         return doctorDao.searchByName(name, last_name);
     }
 
-    public List<Doctor> searchBySpeciality(Integer speciality_id) {
-        return doctorDao.searchBySpeciality(speciality_id);
+    public List<Doctor> searchBySpeciality(Integer speciality_id) { return doctorDao.searchBySpeciality(speciality_id);
     }
+
+    public List<Doctor> getDoctorsByInstitution (Integer id) { return doctorDao.getDoctorsByInstitution(id); }
 }

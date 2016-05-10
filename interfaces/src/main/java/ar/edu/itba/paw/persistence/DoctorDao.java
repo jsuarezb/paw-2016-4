@@ -16,4 +16,12 @@ public interface DoctorDao {
     Doctor getById(final Integer id);
 
     List<Doctor> searchBySpeciality(final Integer speciality_id);
+
+    /**
+     * Get all doctors of an institution.
+     *
+     * * @param id Institution id.
+     * @return A list with the doctors of an institution.
+     */
+    List<Doctor> getDoctorsByInstitution(Integer id);
 }

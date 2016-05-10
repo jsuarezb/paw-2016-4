@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.Speciality;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by agophurmuz on 4/22/16.
@@ -20,6 +22,8 @@ public class DoctorJdbcDao implements DoctorDao {
 
     private static final String DOCTOR_TABLE_NAME = "doctors";
     private static final String DOCTORS_SPECIALITIES_TABLE_NAME = "doctorsSpecialities";
+    private static final String APPOINTMENT_SLOT_TABLE_NAME = "AppointmentSlots";
+
     //Table Doctor
     private static final String ID_COL = "id";
     private static final String NAME_COL = "name";
@@ -29,9 +33,15 @@ public class DoctorJdbcDao implements DoctorDao {
     //Table doctorsSpecialities
     private static final String ID_DOCTOR_COL = "id_doctor";
     private static final String ID_SPECIALITY_COL = "id_speciality";
+    //Table AppointmentSlots
+    private static final String DOCTOR_COL = "doctor";
+    private static final String INSTITUTION_COL = "institution";
 
     private JdbcTemplate jdbcTemplate;
     private DoctorRowMapper rowMapper;
+
+    @Autowired
+    private SpecialityDao specialityDao;
 
     @Autowired
     public DoctorJdbcDao(final DataSource ds) {
@@ -76,11 +86,22 @@ public class DoctorJdbcDao implements DoctorDao {
 
     }
 
+    public List<Doctor> getDoctorsByInstitution(Integer institution_id) {
+        String query = String.format("select * from %s where %s IN (select distinct %s from %s where %s = ?)", DOCTOR_TABLE_NAME, ID_COL, DOCTOR_COL, APPOINTMENT_SLOT_TABLE_NAME, INSTITUTION_COL);
+        List<Doctor> list = jdbcTemplate.query(query, rowMapper, institution_id);
+        if (list == null)
+            return new ArrayList<Doctor>();
 
-    private static class DoctorRowMapper implements RowMapper<Doctor>{
+        return list;
+    }
+
+    private class DoctorRowMapper implements RowMapper<Doctor>{
 
         public Doctor mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Doctor(rs.getInt(ID_COL), rs.getString(NAME_COL), rs.getString(LAST_NAME_COL), "", rs.getString(EMAIL_COL), rs.getString(PASSWORD_COL));
+
+            Set<Speciality> specialities = specialityDao.getByDoctorId(rs.getInt(ID_COL));
+
+            return new Doctor(rs.getInt(ID_COL), rs.getString(NAME_COL), rs.getString(LAST_NAME_COL), specialities, rs.getString(EMAIL_COL), rs.getString(PASSWORD_COL));
         }
     }
 }

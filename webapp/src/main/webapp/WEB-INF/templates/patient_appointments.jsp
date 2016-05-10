@@ -11,7 +11,7 @@
                 <c:forEach var="appointment" items="${ appointments }">
                     <joda:format value='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var="formattedDate" />
                     <div class="list-group-item">
-                        <h4 class="list-group-item-heading">${ appointment.slot.doctor.speciality } - Dr. ${ appointment.slot.doctor.name } ${ appointment.slot.doctor.lastName }</h4>
+                        <h4 class="list-group-item-heading">${ appointment.slot.doctor.specialities } - Dr. ${ appointment.slot.doctor.name } ${ appointment.slot.doctor.lastName }</h4>
                         <div class="list-group-item-text">
                             <dl class="dl-horizontal">
                               <dt>Institución</dt>
