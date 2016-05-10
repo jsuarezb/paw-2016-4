@@ -29,8 +29,8 @@ public class SpecialityJdbcDao implements SpecialityDao {
     private static final String NAME_COL = "name";
 
     //table doctorsSpecialities
-    private static final String ID_DOCTOR_COL = "id_doctor";
-    private static final String ID_SPECIALITY_COL = "id_speciality";
+    private static final String ID_DOCTOR_COL = "doctor_id";
+    private static final String ID_SPECIALITY_COL = "speciality_id";
 
     private JdbcTemplate jdbcTemplate;
     private SpecialityRowMapper rowMapper;

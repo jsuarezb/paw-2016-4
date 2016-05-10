@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <z:base title="Perfil del doctor ${doctor.name} ${doctor.lastName}">
   <div class="panel panel-default">
     <div class="panel-body">
@@ -12,6 +12,12 @@
         </c:forEach>
       </ul>
       <p>${doctor.email}</p>
+      <p>Telefonos:</p>
+      <ul class="list-inline">
+          <c:forEach var="phone" items="${ doctor.phones }">
+            <li>${ phone }</li>
+          </c:forEach>
+      </ul>
     </div>
   </div>
 </z:base>
