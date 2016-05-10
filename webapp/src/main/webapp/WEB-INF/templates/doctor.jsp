@@ -12,12 +12,14 @@
         </c:forEach>
       </ul>
       <p>${doctor.email}</p>
-      <p>Telefonos:</p>
-      <ul class="list-inline">
-          <c:forEach var="phone" items="${ doctor.phones }">
-            <li>${ phone }</li>
-          </c:forEach>
-      </ul>
+      <c:if test="${ not empty doctor.phones }">
+      <span>Telefonos:</span>
+          <ul class="list-inline">
+              <c:forEach var="phone" items="${ doctor.phones }">
+                <li>${ phone }</li>
+              </c:forEach>
+          </ul>
+      </c:if>
     </div>
   </div>
 </z:base>
