@@ -79,7 +79,7 @@ public class SpecialityInstitutionAppointmentSlotController extends BaseControll
         final boolean showPrevWeek = currentWeek.isBefore(prevWeek) || currentWeek.isEqual(prevWeek);
 
         final List<Appointment> availableAppointmentsSlots = appointmentService
-                .getBySpecialityInInstitution(speciality, institution, weekDate);
+                .getAvailableBySpecialityInInstitution(speciality, institution, weekDate);
 
 
         model.addObject(APPOINTMENTS_KEY, availableAppointmentsSlots);

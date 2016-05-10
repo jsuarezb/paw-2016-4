@@ -69,16 +69,4 @@ public class AppointmentSlotJdbcDaoTest {
         // TODO learn how to test time based tests
     }
 
-    @Test
-    public void testGetByDoctorInInstitution() {
-        final List<AppointmentSlot> slots = asDao.getByDoctorInInstitution(DOCTOR_ID, INSTITUTION_ID);
-        final List<AppointmentSlot> emptySlots = asDao.getByDoctorInInstitution(DOCTOR_ID, INVALID_ID);
-
-        assertNotNull(slots);
-        assertNotEquals(0, slots.size());
-
-        assertNotNull(emptySlots);
-        assertNotEquals(0, slots.size());
-    }
-
 }

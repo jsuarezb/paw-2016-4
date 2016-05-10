@@ -15,6 +15,4 @@ public interface AppointmentSlotService {
 
     List<AppointmentSlot> getAvailableByDoctor(int doctorId, DateTime week);
 
-    List<AppointmentSlot> getByDoctorInInstitution(int doctorId, int institutionId);
-
 }

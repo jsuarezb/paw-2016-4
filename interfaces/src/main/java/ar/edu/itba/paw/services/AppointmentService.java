@@ -23,7 +23,7 @@ public interface AppointmentService {
      */
     int cancel(int appointmentId);
 
-    List<Appointment> getBySpecialityInInstitution(Speciality speciality, Institution institution, DateTime weekStart);
+    List<Appointment> getAvailableBySpecialityInInstitution(Speciality speciality, Institution institution, DateTime weekStart);
 
-    List<Appointment> getBySpeciality(Speciality speciality, DateTime weekStart);
+    List<Appointment> getAvailableBySpeciality(Speciality speciality, DateTime weekStart);
 }

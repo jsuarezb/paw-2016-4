@@ -27,12 +27,11 @@ public interface AppointmentSlotDao {
      * @param institutionId Id of the institution.
      * @return A list of slots for a doctor in an institution.
      */
-    List<AppointmentSlot> getByDoctorInInstitution(int doctorId, int institutionId);
 
     List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId, DateTime weekStart);
 
-    List<AppointmentSlot> getBySpecialityInInstitution(int speciality_id, int institutios_id, DateTime week);
+    List<AppointmentSlot> getAvailableBySpecialityInInstitution(int speciality_id, int institution_id, DateTime week);
 
-    List<AppointmentSlot> getBySpeciality(int speciality_id, DateTime week);
+    List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, DateTime week);
 
 }

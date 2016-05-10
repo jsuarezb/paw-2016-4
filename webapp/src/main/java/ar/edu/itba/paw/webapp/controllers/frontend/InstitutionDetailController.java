@@ -23,8 +23,7 @@ public class InstitutionDetailController extends BaseController{
 
     @RequestMapping("/institutions/{institution_id}")
     public ModelAndView list(
-            @PathVariable final Integer institution_id,
-            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") DateTime weekDate) {
+            @PathVariable final Integer institution_id) {
         ModelAndView model = new ModelAndView("institution_detail");
 
         Institution institution = institutionService.get(institution_id);

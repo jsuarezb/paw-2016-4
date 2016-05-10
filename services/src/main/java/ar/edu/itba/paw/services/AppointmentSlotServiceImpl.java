@@ -29,9 +29,4 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
     public List<AppointmentSlot> getAvailableByDoctor(int doctorId, DateTime week) {
         return appointmentSlotDao.getAvailableByDoctor(doctorId, week);
     }
-
-    public List<AppointmentSlot> getByDoctorInInstitution(int doctorId, int institutionId) {
-        return appointmentSlotDao.getByDoctorInInstitution(doctorId, institutionId);
-    }
-
 }

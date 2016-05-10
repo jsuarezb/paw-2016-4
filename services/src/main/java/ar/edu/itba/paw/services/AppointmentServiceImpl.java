@@ -54,10 +54,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointments;
     }
 
-    public List<Appointment> getBySpecialityInInstitution(Speciality speciality, Institution institution, DateTime weekStart) {
+    public List<Appointment> getAvailableBySpecialityInInstitution(Speciality speciality, Institution institution, DateTime weekStart) {
         final List<Appointment> appointments = new ArrayList<Appointment>();
         final List<AppointmentSlot> availableSlots = slotDao
-                .getBySpecialityInInstitution(speciality.getId(), institution.getId(), weekStart);
+                .getAvailableBySpecialityInInstitution(speciality.getId(), institution.getId(), weekStart);
 
         for (AppointmentSlot slot : availableSlots) {
             DateTime appointmentTime = weekStart
@@ -73,10 +73,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointments;
     }
 
-    public List<Appointment> getBySpeciality(Speciality speciality, DateTime weekStart) {
+    public List<Appointment> getAvailableBySpeciality(Speciality speciality, DateTime weekStart) {
         final List<Appointment> appointments = new ArrayList<Appointment>();
         final List<AppointmentSlot> availableSlots = slotDao
-                .getBySpeciality(speciality.getId(), weekStart);
+                .getAvailableBySpeciality(speciality.getId(), weekStart);
 
         for (AppointmentSlot slot : availableSlots) {
             DateTime appointmentTime = weekStart

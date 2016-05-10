@@ -1,11 +1,9 @@
 package ar.edu.itba.paw.webapp.controllers.frontend;
 
 import ar.edu.itba.paw.models.Appointment;
-import ar.edu.itba.paw.models.Institution;
 import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.services.AppointmentService;
-import ar.edu.itba.paw.services.InstitutionService;
 import ar.edu.itba.paw.services.SpecialityService;
 import ar.edu.itba.paw.webapp.exceptions.ResourceNotFoundException;
 import ar.edu.itba.paw.webapp.forms.AppointmentForm;
@@ -70,7 +68,7 @@ public class SpecialityAppointmentController extends BaseController{
         final boolean showPrevWeek = currentWeek.isBefore(prevWeek) || currentWeek.isEqual(prevWeek);
 
         final List<Appointment> availableAppointmentsSlots = appointmentService
-                .getBySpeciality(speciality, weekDate);
+                .getAvailableBySpeciality(speciality, weekDate);
 
 
         model.addObject(APPOINTMENTS_KEY, availableAppointmentsSlots);
