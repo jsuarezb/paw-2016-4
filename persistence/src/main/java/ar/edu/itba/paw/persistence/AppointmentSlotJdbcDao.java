@@ -26,8 +26,8 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     private static final String TABLE_NAME_APPOINTMENTSLOTS = "AppointmentSlots";
 
     private static final String ID_COL = "id";
-    private static final String INSTITUTION_COL = "institution";
-    private static final String DOCTOR_COL = "doctor";
+    private static final String INSTITUTION_COL = "institution_id";
+    private static final String DOCTOR_COL = "doctor_id";
     private static final String DAY_OF_WEEK_COL = "day_of_week";
     private static final String START_HOUR_COL = "start_hour";
     private static final int DAYS_IN_WEEK = 7;

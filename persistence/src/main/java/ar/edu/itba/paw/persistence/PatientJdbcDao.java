@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.models.PatientPhone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -28,6 +29,9 @@ public class PatientJdbcDao implements PatientDao {
     private JdbcTemplate jdbcTemplate;
     private SimpleJdbcInsert simpleJdbcInsert;
     private PatientRowMapper rowMapper;
+
+    @Autowired
+    private PatientPhoneDao phoneDao;
 
     @Autowired
     public PatientJdbcDao(final DataSource ds) {
@@ -63,7 +67,7 @@ public class PatientJdbcDao implements PatientDao {
 
         int id = simpleJdbcInsert.executeAndReturnKey(values).intValue();
 
-        return new Patient(id, name, last_name, email, password);
+        return new Patient(id, name, last_name, email, password, new ArrayList<PatientPhone>());
     }
 
     public Patient findByEmail(final String email) {
@@ -77,14 +81,20 @@ public class PatientJdbcDao implements PatientDao {
         return list.get(0);
     }
 
-    private static class PatientRowMapper implements RowMapper<Patient> {
+    private class PatientRowMapper implements RowMapper<Patient> {
 
         public Patient mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Patient(rs.getInt(ID_COL),
-                               rs.getString(NAME_COL),
-                               rs.getString(LAST_NAME_COL),
-                               rs.getString(EMAIL_COL),
-                               rs.getString(PASSWORD_COL));
+            final int id = rs.getInt(ID_COL);
+            final List<PatientPhone> phones = phoneDao.getByPatientId(id);
+
+            return new Patient(
+                    rs.getInt(ID_COL),
+                    rs.getString(NAME_COL),
+                    rs.getString(LAST_NAME_COL),
+                    rs.getString(EMAIL_COL),
+                    rs.getString(PASSWORD_COL),
+                    phones
+            );
         }
     }
 

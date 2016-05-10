@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.DoctorPhone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -27,11 +28,14 @@ public class DoctorJdbcDao implements DoctorDao {
     private static final String EMAIL_COL = "email";
     private static final String PASSWORD_COL = "password";
     //Table doctorsSpecialities
-    private static final String ID_DOCTOR_COL = "id_doctor";
-    private static final String ID_SPECIALITY_COL = "id_speciality";
+    private static final String ID_DOCTOR_COL = "doctor_id";
+    private static final String ID_SPECIALITY_COL = "speciality_id";
 
     private JdbcTemplate jdbcTemplate;
     private DoctorRowMapper rowMapper;
+
+    @Autowired
+    private DoctorPhoneDao phonesDao;
 
     @Autowired
     public DoctorJdbcDao(final DataSource ds) {
@@ -77,10 +81,21 @@ public class DoctorJdbcDao implements DoctorDao {
     }
 
 
-    private static class DoctorRowMapper implements RowMapper<Doctor>{
+    private class DoctorRowMapper implements RowMapper<Doctor>{
 
         public Doctor mapRow(ResultSet rs, int rowNum) throws SQLException {
-            return new Doctor(rs.getInt(ID_COL), rs.getString(NAME_COL), rs.getString(LAST_NAME_COL), "", rs.getString(EMAIL_COL), rs.getString(PASSWORD_COL));
+            final int doctorId = rs.getInt(ID_COL);
+            List<DoctorPhone> phones = phonesDao.getByDoctorId(doctorId);
+
+            return new Doctor(
+                    rs.getInt(ID_COL),
+                    rs.getString(NAME_COL),
+                    rs.getString(LAST_NAME_COL),
+                    "",
+                    rs.getString(EMAIL_COL),
+                    rs.getString(PASSWORD_COL),
+                    phones
+            );
         }
     }
 }
