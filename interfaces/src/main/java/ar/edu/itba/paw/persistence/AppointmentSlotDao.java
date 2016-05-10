@@ -31,4 +31,8 @@ public interface AppointmentSlotDao {
 
     List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId, DateTime weekStart);
 
+    List<AppointmentSlot> getBySpecialityInInstitution(int speciality_id, int institutios_id, DateTime week);
+
+    List<AppointmentSlot> getBySpeciality(int speciality_id, DateTime week);
+
 }

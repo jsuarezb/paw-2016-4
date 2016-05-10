@@ -5,9 +5,11 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <z:base title="Index">
-  <a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }">
-    <h1>${ institution.name } / ${ doctor.name } ${ doctor.lastName }</h1>
-  </a>
+
+    <ol class="breadcrumb">
+        <li><a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a></li>
+        <li><a href="/grupo4/doctors/${ doctor.id }">Dr. ${ doctor.name }, ${ doctor.lastName }</a></li>
+    </ol>
     <c:choose>
         <c:when test="${ not empty appointments }">
             <table class="table table-bordered">
@@ -15,7 +17,6 @@
                  <th>Día</th>
                  <th>Fecha</th>
                  <th>Duración</th>
-                 <th>Institución</th>
                  <th>Acciones</th>
                </thead>
                <tbody>
@@ -37,9 +38,7 @@
                         </td>
                         <td>${ readableDate }</td>
                         <td>1 hs</td>
-                        <td>
-                            <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a>
-                        </td>
+
                         <td>
                             <c:if test="${ patient != null }">
                                 <form:form modelAttribute="newAppointment" action="/grupo4/appointments" method="post" enctype="application/x-www-form-urlencoded">

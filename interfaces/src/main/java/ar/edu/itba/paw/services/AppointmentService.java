@@ -1,8 +1,6 @@
 package ar.edu.itba.paw.services;
 
-import ar.edu.itba.paw.models.Appointment;
-import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Institution;
+import ar.edu.itba.paw.models.*;
 import org.joda.time.DateTime;
 
 import java.sql.Date;
@@ -25,4 +23,7 @@ public interface AppointmentService {
      */
     int cancel(int appointmentId);
 
+    List<Appointment> getBySpecialityInInstitution(Speciality speciality, Institution institution, DateTime weekStart);
+
+    List<Appointment> getBySpeciality(Speciality speciality, DateTime weekStart);
 }

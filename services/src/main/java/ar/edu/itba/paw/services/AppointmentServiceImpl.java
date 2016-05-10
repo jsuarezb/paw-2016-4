@@ -1,9 +1,6 @@
 package ar.edu.itba.paw.services;
 
-import ar.edu.itba.paw.models.Appointment;
-import ar.edu.itba.paw.models.AppointmentSlot;
-import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Institution;
+import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.persistence.AppointmentDao;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
 import org.joda.time.DateTime;
@@ -51,6 +48,44 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withDayOfWeek(slot.getDayOfWeek());
 
             Appointment appointment = new Appointment(0, null, doctor, slot, appointmentTime, null);
+            appointments.add(appointment);
+        }
+
+        return appointments;
+    }
+
+    public List<Appointment> getBySpecialityInInstitution(Speciality speciality, Institution institution, DateTime weekStart) {
+        final List<Appointment> appointments = new ArrayList<Appointment>();
+        final List<AppointmentSlot> availableSlots = slotDao
+                .getBySpecialityInInstitution(speciality.getId(), institution.getId(), weekStart);
+
+        for (AppointmentSlot slot : availableSlots) {
+            DateTime appointmentTime = weekStart
+                    .withDayOfWeek(DateTimeConstants.MONDAY)
+                    .withTime(0, 0, 0, 0)
+                    .withHourOfDay(slot.getHour())
+                    .withDayOfWeek(slot.getDayOfWeek());
+
+            Appointment appointment = new Appointment(0, null, slot.getDoctor(), slot, appointmentTime, null);
+            appointments.add(appointment);
+        }
+
+        return appointments;
+    }
+
+    public List<Appointment> getBySpeciality(Speciality speciality, DateTime weekStart) {
+        final List<Appointment> appointments = new ArrayList<Appointment>();
+        final List<AppointmentSlot> availableSlots = slotDao
+                .getBySpeciality(speciality.getId(), weekStart);
+
+        for (AppointmentSlot slot : availableSlots) {
+            DateTime appointmentTime = weekStart
+                    .withDayOfWeek(DateTimeConstants.MONDAY)
+                    .withTime(0, 0, 0, 0)
+                    .withHourOfDay(slot.getHour())
+                    .withDayOfWeek(slot.getDayOfWeek());
+
+            Appointment appointment = new Appointment(0, null, slot.getDoctor(), slot, appointmentTime, null);
             appointments.add(appointment);
         }
 

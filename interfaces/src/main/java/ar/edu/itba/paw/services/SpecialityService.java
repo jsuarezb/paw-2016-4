@@ -12,4 +12,8 @@ public interface SpecialityService {
     List<Speciality> getAll();
 
     Speciality searchSpecialityByDescription(final String description);
+
+    Speciality searchByName(final String name);
+
+    Speciality getById(final Integer id);
 }

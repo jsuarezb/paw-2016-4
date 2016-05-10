@@ -23,7 +23,7 @@ import java.util.Map;
 @Repository
 public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
 
-    private static final String TABLE_NAME = "AppointmentSlots";
+    private static final String TABLE_NAME_APPOINTMENTSLOTS = "AppointmentSlots";
 
     private static final String ID_COL = "id";
     private static final String INSTITUTION_COL = "institution";
@@ -31,6 +31,11 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     private static final String DAY_OF_WEEK_COL = "day_of_week";
     private static final String START_HOUR_COL = "start_hour";
     private static final int DAYS_IN_WEEK = 7;
+
+    private static final String TABLE_NAME_DOCTORSSPECIALITIES = "DoctorsSpecialities";
+
+    private static final String ID_DOCTOR_COL = "id_doctor";
+    private static final String ID_SPECIALITY_COL = "id_speciality";
 
     private JdbcTemplate jdbcTemplate;
     private AppointmentSlotRowMapper rowMapper;
@@ -45,7 +50,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     @Autowired
     public AppointmentSlotJdbcDao(final DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
-        simpleJdbcInsert = new SimpleJdbcInsert(ds).withTableName(TABLE_NAME)
+        simpleJdbcInsert = new SimpleJdbcInsert(ds).withTableName(TABLE_NAME_APPOINTMENTSLOTS)
                 .usingGeneratedKeyColumns(ID_COL);
         rowMapper = new AppointmentSlotRowMapper();
     }
@@ -63,7 +68,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     }
 
     public AppointmentSlot getById(int id) {
-        String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, ID_COL);
+        String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME_APPOINTMENTSLOTS, ID_COL);
         List<AppointmentSlot> slots = jdbcTemplate.query(query, rowMapper, id);
         if (slots == null || slots.isEmpty())
             return null;
@@ -72,7 +77,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     }
 
     public List<AppointmentSlot> getByDoctor(int doctorId) {
-        String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, DOCTOR_COL);
+        String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME_APPOINTMENTSLOTS, DOCTOR_COL);
         List<AppointmentSlot> slots = jdbcTemplate.query(query, rowMapper, doctorId);
         if (slots == null)
             return new ArrayList<AppointmentSlot>();
@@ -86,7 +91,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
                 "WHERE %s NOT IN " +
                     "(SELECT %s FROM %s WHERE %s >= ? AND %s < ?)";
 
-        String query = String.format(sql, TABLE_NAME, ID_COL, AppointmentJdbcDao.SLOT_COL,
+        String query = String.format(sql, TABLE_NAME_APPOINTMENTSLOTS, ID_COL, AppointmentJdbcDao.SLOT_COL,
                 AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
                 AppointmentJdbcDao.START_DATE_COL, DAYS_IN_WEEK);
 
@@ -111,9 +116,9 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
                         "WHERE %s = ? AND %s NOT IN " +
                         "(SELECT %s FROM %s WHERE %s >= ? AND %s < ?)";
 
-        String query = String.format(sql, TABLE_NAME, INSTITUTION_COL, ID_COL, AppointmentJdbcDao.SLOT_COL,
+        String query = String.format(sql, TABLE_NAME_APPOINTMENTSLOTS, INSTITUTION_COL, ID_COL, AppointmentJdbcDao.SLOT_COL,
                 AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
-                AppointmentJdbcDao.START_DATE_COL, DAYS_IN_WEEK);
+                AppointmentJdbcDao.START_DATE_COL);
 
         DateTime startOfWeek = week
                 .withDayOfWeek(DateTimeConstants.MONDAY)
@@ -131,11 +136,59 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     }
 
     public List<AppointmentSlot> getByDoctorInInstitution(int doctorId, int institutionId) {
-        String query = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?", TABLE_NAME, DOCTOR_COL, INSTITUTION_COL);
+        String query = String.format("SELECT * FROM %s WHERE %s = ? AND %s = ?", TABLE_NAME_APPOINTMENTSLOTS, DOCTOR_COL, INSTITUTION_COL);
         List<AppointmentSlot> slots = jdbcTemplate.query(query, rowMapper, doctorId, institutionId);
         if (slots == null)
             return new ArrayList<AppointmentSlot>();
 
+        return slots;
+    }
+
+    public List<AppointmentSlot> getBySpecialityInInstitution(int speciality_id, int institutios_id, DateTime week){
+        String query = String.format("SELECT * FROM %s " +
+                "WHERE %s = ? AND %s IN " +
+                " (SELECT %s FROM %s WHERE %s = ?) AND %s NOT IN " +
+                "(SELECT %s FROM %s WHERE %s >= ? AND %s < ? )", TABLE_NAME_APPOINTMENTSLOTS, INSTITUTION_COL, DOCTOR_COL,
+                ID_DOCTOR_COL, TABLE_NAME_DOCTORSSPECIALITIES, ID_SPECIALITY_COL, ID_COL, AppointmentJdbcDao.SLOT_COL,
+                AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
+                AppointmentJdbcDao.START_DATE_COL);
+
+        DateTime startOfWeek = week
+                .withDayOfWeek(DateTimeConstants.MONDAY)
+                .withTime(0, 0, 0, 0);
+
+        DateTime endOfWeek = startOfWeek.plusDays(7);
+
+        List<AppointmentSlot> slots = jdbcTemplate.query(query, rowMapper, institutios_id, speciality_id,
+                new Date(startOfWeek.getMillis()), new Date(endOfWeek.getMillis()));
+
+        if (slots == null){
+            return new ArrayList<AppointmentSlot>();
+        }
+        return slots;
+    }
+
+    public List<AppointmentSlot> getBySpeciality(int speciality_id, DateTime week){
+        String query = String.format("SELECT * FROM %s " +
+                        " WHERE %s IN " +
+                        " (SELECT %s FROM %s WHERE %s = ?) AND %s NOT IN " +
+                        "(SELECT %s FROM %s WHERE %s >= ? AND %s < ? )", TABLE_NAME_APPOINTMENTSLOTS, DOCTOR_COL,
+                ID_DOCTOR_COL, TABLE_NAME_DOCTORSSPECIALITIES, ID_SPECIALITY_COL, ID_COL, AppointmentJdbcDao.SLOT_COL,
+                AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
+                AppointmentJdbcDao.START_DATE_COL);
+
+        DateTime startOfWeek = week
+                .withDayOfWeek(DateTimeConstants.MONDAY)
+                .withTime(0, 0, 0, 0);
+
+        DateTime endOfWeek = startOfWeek.plusDays(7);
+
+        List<AppointmentSlot> slots = jdbcTemplate.query(query, rowMapper, speciality_id,
+                new Date(startOfWeek.getMillis()), new Date(endOfWeek.getMillis()));
+
+        if (slots == null){
+            return new ArrayList<AppointmentSlot>();
+        }
         return slots;
     }
 
