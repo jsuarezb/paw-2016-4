@@ -34,7 +34,7 @@ public class SpecialityJdbcDao implements SpecialityDao {
     }
 
     public List<Speciality> getAll() {
-        String query = String.format("SELECT * FROM %s", TABLE_NAME);
+        String query = String.format("SELECT * FROM %s ORDER BY %s", TABLE_NAME, NAME_COL);
         List<Speciality> list = jdbcTemplate.query(query, rowMapper);
         if(list == null){
             return new ArrayList<Speciality>();
