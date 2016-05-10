@@ -129,12 +129,6 @@ WHERE NOT EXISTS (
 );
 
 INSERT INTO AppointmentSlots (id, institution_id, doctor_id, day_of_week, start_hour)
-SELECT 5, 1, 1, 1, 14
-WHERE NOT EXISTS (
-    SELECT * FROM AppointmentSlots WHERE id = 5
-);
-
-INSERT INTO AppointmentSlots (id, institution_id, doctor_id, day_of_week, start_hour)
 SELECT 6, 1, 2, 2, 10
 WHERE NOT EXISTS (
     SELECT * FROM AppointmentSlots WHERE id = 6

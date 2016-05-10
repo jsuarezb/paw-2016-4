@@ -18,6 +18,9 @@
     <link href="/grupo4/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <link href="/grupo4/css/styles.css" rel="stylesheet">
+    <c:if test="${patient != null}">
+      <link href="/grupo4/css/patients_styles.css" rel="stylesheet">
+    </c:if>
   </head>
 
   <body>
@@ -38,16 +41,16 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <c:if test="${patient == null}">
-            <li><a href="/grupo4/login">Log in</a></li>
-            <li><a href="/grupo4/register">Register</a></li>
+            <li><a href="/grupo4/login">Iniciar Sesión</a></li>
+            <li><a href="/grupo4/register">Registrarse</a></li>
             </c:if>
             <c:if test="${patient != null}">
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${patient.email} <span class="caret"></span></a>
                 <ul class="dropdown-menu">
-                  <li><a href="/grupo4/profile">Profile</a></li>
+                  <!--<li><a href="/grupo4/profile">Profile</a></li>-->
                   <li><a href="/grupo4/appointments">Mis turnos</a></li>
-                  <li><a href="/grupo4/logout">Log out</a></li>
+                  <li><a href="/grupo4/logout">Cerrar sesión</a></li>
                 </ul>
               </li>
             </c:if>
