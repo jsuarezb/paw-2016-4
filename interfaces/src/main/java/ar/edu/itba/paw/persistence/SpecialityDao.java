@@ -14,4 +14,6 @@ public interface SpecialityDao {
     Speciality searchByName(final String name);
 
     Speciality getById(final Integer id);
+
+    List<Speciality> getByDoctorId(final Integer id);
 }

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <z:base title="Index">
   <c:if test="${institution.id == 1 || institution.id == 2}">
-    <h1>Lista de Doctores en: <a href="/institutions/${ institution.id }">${ institution.name }</a></h1>
+    <h1>Lista de Doctores en: <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a></h1>
     <h3>Direccion: ${ institution.address.streetName } ${ institution.address.streetNumber } ${ institution.address.apartment }, ${ institution.address.city }, ${ institution.address.state }, ${ institution.address.country }</h3>
     <table class="table table-bordered">
       <thead>
@@ -26,7 +26,14 @@
                 ${ doctor.lastName }
               </a>
             </td>
-            <td>${ doctor.speciality }</td>
+            <td>
+              <ul class="list-inline">
+                <c:forEach var="speciality" items="${ doctor.specialities }">
+                <li>${ speciality.name }</li>
+                </c:forEach>
+              </ul>
+            </td>
+
             <td>${ doctor.email }</td>
           </tr>
           </a>

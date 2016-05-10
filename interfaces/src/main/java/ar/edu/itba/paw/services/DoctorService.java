@@ -17,4 +17,12 @@ public interface DoctorService {
 
     List<Doctor> searchBySpeciality(final Integer speciality_id);
 
+    /**
+     * Get the doctors of an institution by its id
+     * @param id Id of institution to search for
+     * @return An array of doctors, null if there's no doctors
+     *      for the specified id
+     */
+    List<Doctor> getDoctorsByInstitution(Integer id);
+
 }
