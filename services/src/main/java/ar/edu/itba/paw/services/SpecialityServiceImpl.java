@@ -23,4 +23,14 @@ public class SpecialityServiceImpl implements SpecialityService {
     public Speciality searchSpecialityByDescription(String description) {
         return null;
     }
+
+    public Speciality searchByName(String name) {
+        return specialityDao.searchByName(name);
+    }
+
+    public Speciality getById(Integer id) {
+        return specialityDao.getById(id);
+    }
+
+
 }
