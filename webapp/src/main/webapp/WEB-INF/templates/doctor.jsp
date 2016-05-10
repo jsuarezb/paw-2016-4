@@ -8,12 +8,14 @@
       <h2>${doctor.name}, ${doctor.lastName}</h2>
       <h3>${doctor.speciality}</h3>
       <p>${doctor.email}</p>
-      <p>Telefonos:</p>
-      <ul>
-          <c:forEach var="phone" items="${ doctor.phones }">
-            <li>${ phone }</li>
-          </c:forEach>
-      </ul>
+      <c:if test="${ not empty doctor.phones }">
+      <span>Telefonos:</span>
+          <ul class="list-inline">
+              <c:forEach var="phone" items="${ doctor.phones }">
+                <li>${ phone }</li>
+              </c:forEach>
+          </ul>
+      </c:if>
     </div>
   </div>
 </z:base>

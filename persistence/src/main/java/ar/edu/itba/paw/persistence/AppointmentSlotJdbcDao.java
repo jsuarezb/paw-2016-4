@@ -34,8 +34,8 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
 
     private static final String TABLE_NAME_DOCTORSSPECIALITIES = "DoctorsSpecialities";
 
-    private static final String ID_DOCTOR_COL = "id_doctor";
-    private static final String ID_SPECIALITY_COL = "id_speciality";
+    private static final String ID_DOCTOR_COL = "doctor_id";
+    private static final String ID_SPECIALITY_COL = "speciality_id";
 
     private JdbcTemplate jdbcTemplate;
     private AppointmentSlotRowMapper rowMapper;
