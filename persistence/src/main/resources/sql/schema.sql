@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS Patients (
     id              SERIAL PRIMARY KEY,
     name            VARCHAR(100) NOT NULL,
     last_name       VARCHAR(100) NOT NULL,
-    email           VARCHAR(100) NOT NULL,
+    email           VARCHAR(100) NOT NULL UNIQUE,
     password        VARCHAR(100) NOT NULL
 );
 
@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS Doctors (
     id          SERIAL PRIMARY KEY,
     name        VARCHAR(100) NOT NULL,
     last_name   VARCHAR(100) NOT NULL,
-    email       VARCHAR(100) NOT NULL,
+    email       VARCHAR(100) NOT NULL UNIQUE,
     password    VARCHAR(100) NOT NULL
 );
 
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS DoctorsSpecialities (
 
 CREATE TABLE IF NOT EXISTS Specialities (
     id    SERIAL PRIMARY KEY,
-    name  VARCHAR(100) NOT NULL
+    name  VARCHAR(100) NOT NULL UNIQUE
 );
 
 CREATE TABLE IF NOT EXISTS AppointmentSlots (

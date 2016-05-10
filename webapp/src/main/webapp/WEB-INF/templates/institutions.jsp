@@ -2,7 +2,7 @@
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <z:base title="Index">
-  <h1>Elija la institución donde desea pedir un turno</h1>
+  <h1>Instituciones</h1>
     <div class="row">
       <c:forEach var="institution" items="${institutions}">
         <div class="col-md-4">
