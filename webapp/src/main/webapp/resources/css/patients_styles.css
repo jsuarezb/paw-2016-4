@@ -1,0 +1,38 @@
+
+.color-primary-0 { color: #305BB6 }	/* Main Primary color */
+.color-primary-1 { color: #E5E7EC }
+.color-primary-2 { color: #708CC8 }
+.color-primary-3 { color: #0B3795 }
+.color-primary-4 { color: #022164 }
+.navbar-inverse {
+    background-color: #022164;
+    border-color: #0B3795;
+}
+
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse .navbar-brand {
+    color: #D5D7DC;
+}
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-brand:hover {
+    color: #708CC8;
+}
+
+body {
+    background-color: #E5E7EC;
+}
+
+a {
+    color: #305BB6;
+}
+
+.table-bordered {
+    border: 1px solid #666;
+}
+
+.table-bordered > tbody > tr > td, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > td, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > thead > tr > th {
+    border: 1px solid #666;
+}
+
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse .navbar-nav > .open > a:hover {
+    color: #fff;
+    background-color: #0B3795;
+}

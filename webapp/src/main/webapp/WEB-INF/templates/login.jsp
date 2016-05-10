@@ -5,6 +5,9 @@
 
 <z:base title="Iniciar sesión">
   <div class='container'>
+    <h2>
+      Iniciar sesión
+    </h2>
     <form:form method='post' action="/grupo4/login" modelAttribute="loginForm">
       <div class="form-group">
         <label for="email" class="control-label">Email</label>
@@ -25,7 +28,7 @@
         </div>
       </div>
       <div class="form-group">
-        <button type="submit" class="btn btn-default">Log in</button>
+        <button type="submit" class="btn btn-success">Log in</button>
       </div>
     </form:form>
   </div>

@@ -18,7 +18,7 @@ import java.util.List;
  */
 
 @Controller
-@RequestMapping("/institutions")
+@RequestMapping("/")
 public class InstitutionController extends BaseController {
 
     private static final String INSTITUTIONS_ATTRIBUTE = "institutions";
@@ -35,7 +35,7 @@ public class InstitutionController extends BaseController {
 		return modelAndView;
 	}
 
-    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/institutions/{id}", method = RequestMethod.GET)
     public ModelAndView show(@PathVariable final Integer id) {
         ModelAndView modelAndView = new ModelAndView("institution_detail");
         Institution institution = institutionService.get(id);
