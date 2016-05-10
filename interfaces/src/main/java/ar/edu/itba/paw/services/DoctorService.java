@@ -23,6 +23,6 @@ public interface DoctorService {
      * @return An array of doctors, null if there's no doctors
      *      for the specified id
      */
-    List<Doctor> getDoctorsByInstitution(Integer id);
+    List<Doctor> getDoctorsByInstitution(Integer institution_id);
 
 }

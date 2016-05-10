@@ -1,6 +1,6 @@
 package ar.edu.itba.paw.models;
 
-import java.util.List;
+import java.util.Set;
 
 /**
  * Created by santi698 on 24/03/16.
@@ -9,11 +9,11 @@ public class Doctor {
     private final int id;
     private final String name;
     private final String last_name;
-    private final List<Speciality> specialities;
+    private final Set<Speciality> specialities;
     private final String email;
     private final String password;
 
-    public Doctor(int id, String name, String last_name, List<Speciality> specialities, String email, String password) {
+    public Doctor(int id, String name, String last_name, Set<Speciality> specialities, String email, String password) {
         this.id = id;
         this.name = name;
         this.last_name = last_name;
@@ -34,7 +34,7 @@ public class Doctor {
         return last_name;
     }
 
-    public List<Speciality> getSpecialities() {
+    public Set<Speciality> getSpecialities() {
         return specialities;
     }
 

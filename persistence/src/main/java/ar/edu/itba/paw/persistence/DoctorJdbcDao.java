@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by agophurmuz on 4/22/16.
@@ -98,7 +99,7 @@ public class DoctorJdbcDao implements DoctorDao {
 
         public Doctor mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-            List<Speciality> specialities = specialityDao.getByDoctorId(rs.getInt(ID_COL));
+            Set<Speciality> specialities = specialityDao.getByDoctorId(rs.getInt(ID_COL));
 
             return new Doctor(rs.getInt(ID_COL), rs.getString(NAME_COL), rs.getString(LAST_NAME_COL), specialities, rs.getString(EMAIL_COL), rs.getString(PASSWORD_COL));
         }

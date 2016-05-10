@@ -10,7 +10,9 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by agophurmuz on 4/22/16.
@@ -66,9 +68,9 @@ public class SpecialityJdbcDao implements SpecialityDao {
         return list.get(0);
     }
 
-    public List<Speciality> getByDoctorId(Integer doctor_id) {
+    public Set<Speciality> getByDoctorId(Integer doctor_id) {
         String query = String.format("SELECT * FROM %s WHERE %s IN (SELECT %s FROM %s where %s = ?)", SPECIALITIES_TABLE_NAME, ID_COL,ID_SPECIALITY_COL, DOCTORS_SPECIALITIES_TABLE_NAME, ID_DOCTOR_COL);
-        List<Speciality> list = jdbcTemplate.query(query, rowMapper, doctor_id);
+        Set<Speciality> list = new HashSet<Speciality>(jdbcTemplate.query(query, rowMapper, doctor_id));
 
         if (list == null || list.isEmpty())
             return null;
