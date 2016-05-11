@@ -9,15 +9,19 @@
         <thead>
         <tr>
             <th>Especialidad</th>
+            <th>Acciones</th>
         </tr>
         </thead>
         <tbody>
             <c:forEach var="speciality" items="${specialities}">
             <tr>
+                <td>${ speciality.name }</td>
                 <td>
-                  ${ speciality.name }
-                  <a href="/grupo4/institutions/${institution.id}/specialities/${speciality.id}/appointment_slots"> Pedir turno
-                  </a>
+                  <c:if test="${patient != null}">
+                    <a class="btn btn-success" href="/grupo4/institutions/${institution.id}/specialities/${speciality.id}/appointment_slots">
+  		      Pedir turno
+                    </a>
+                  </c:if>
                 </td>
             </tr>
             </c:forEach>

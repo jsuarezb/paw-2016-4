@@ -10,13 +10,14 @@
           <th>Doctor</th>
           <th>Especialidad</th>
           <th>Correo Electronico</th>
+          <th>Acciones</th>
         </tr>
       </thead>
       <tbody>
         <c:forEach var="doctor" items="${doctors}">
           <tr>
             <td>
-              <a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots">
+              <a href="/grupo4/doctors/${doctor.id}">
                 ${ doctor.name } ${ doctor.lastName }
               </a>
             </td>
@@ -28,6 +29,14 @@
               </ul>
             </td>
             <td>${ doctor.email }</td>
+            <c:if test="${patient != null}">
+              <td>
+                <a class="btn btn-success"
+                   href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots">
+                  Pedir turno
+                </a>
+              </td>
+            </c:if>
           </tr>
           </a>
         </c:forEach>
