@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.webapp.controllers.frontend;
 
+import ar.edu.itba.paw.models.Appointment;
+import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.webapp.controllers.MethodNotAllowedException;
 import ar.edu.itba.paw.webapp.exceptions.ResourceNotFoundException;
@@ -12,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.itba.paw.models.Doctor;
 
+import java.util.List;
+
 
 @RequestMapping("/doctors/{doctor_id}")
 @Controller
@@ -22,8 +26,11 @@ public class DoctorDetailController extends BaseController {
 	@Autowired
 	private DoctorService doctorService;
 
+	@Autowired
+	private AppointmentService appointmentService;
+
 	@RequestMapping(method = RequestMethod.GET, produces = "text/html")
-	public Object list(@PathVariable final Integer doctor_id) throws MethodNotAllowedException {
+	public Object list(@PathVariable final Integer doctor_id) {
 
 		ModelAndView model = new ModelAndView("doctor");
 
@@ -35,4 +42,5 @@ public class DoctorDetailController extends BaseController {
 
 		return model;
 	}
+
 }

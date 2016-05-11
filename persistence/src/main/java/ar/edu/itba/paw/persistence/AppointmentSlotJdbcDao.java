@@ -88,10 +88,10 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     public List<AppointmentSlot> getAvailableByDoctor(int doctorId, DateTime week) {
         String sql =
                 "SELECT * FROM %s " +
-                "WHERE %s NOT IN " +
+                "WHERE %s = ? AND %s NOT IN " +
                     "(SELECT %s FROM %s WHERE %s >= ? AND %s < ?)";
 
-        String query = String.format(sql, TABLE_NAME_APPOINTMENTSLOTS, ID_COL, AppointmentJdbcDao.SLOT_COL,
+        String query = String.format(sql, TABLE_NAME_APPOINTMENTSLOTS, DOCTOR_COL, ID_COL, AppointmentJdbcDao.SLOT_COL,
                 AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
                 AppointmentJdbcDao.START_DATE_COL, DAYS_IN_WEEK);
 
@@ -102,7 +102,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         DateTime endOfWeek = startOfWeek.plusDays(7);
 
         List<AppointmentSlot> slots = jdbcTemplate
-                .query(query, rowMapper, new Date(startOfWeek.getMillis()), new Date(endOfWeek.getMillis()));
+                .query(query, rowMapper, doctorId, new Date(startOfWeek.getMillis()), new Date(endOfWeek.getMillis()));
 
         if (slots == null)
             return new ArrayList<AppointmentSlot>();
