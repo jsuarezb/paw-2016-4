@@ -35,6 +35,25 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentDao.getByPatient(patientId, 0);
     }
 
+    public List<Appointment> getAvailableByDoctor(final Doctor doctor, final DateTime weekStart) {
+        final List<Appointment> appointments = new ArrayList<Appointment>();
+        final List<AppointmentSlot> availableSlots = slotDao
+                .getAvailableByDoctor(doctor.getId(), weekStart);
+
+        for (AppointmentSlot slot : availableSlots) {
+            DateTime appointmentTime = weekStart
+                    .withDayOfWeek(DateTimeConstants.MONDAY)
+                    .withTime(0, 0, 0, 0)
+                    .withHourOfDay(slot.getHour())
+                    .withDayOfWeek(slot.getDayOfWeek());
+
+            Appointment appointment = new Appointment(0, null, doctor, slot, appointmentTime, null);
+            appointments.add(appointment);
+        }
+
+        return appointments;
+    }
+
     public List<Appointment> getAvailableByDoctorInInstitution(Doctor doctor, Institution institution, DateTime weekStart) {
         final List<Appointment> appointments = new ArrayList<Appointment>();
         final List<AppointmentSlot> availableSlots = slotDao

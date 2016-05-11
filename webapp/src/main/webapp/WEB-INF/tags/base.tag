@@ -36,9 +36,6 @@
           <a class="navbar-brand" href="/grupo4">ChoPido Turnos</a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="/grupo4/institutions">Instituciones</a></li>
-          </ul>
           <ul class="nav navbar-nav navbar-right">
             <c:if test="${patient == null}">
             <li><a href="/grupo4/login">Iniciar Sesión</a></li>

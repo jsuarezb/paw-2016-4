@@ -11,18 +11,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
-<z:base title="Index">
-    <h1> ${ speciality.name } </h1>
+<z:base title="Turnos - ${ speciality.name }">
+    <h1>Turnos - ${ speciality.name }</h1>
     <c:choose>
         <c:when test="${ not empty appointments }">
             <table class="table table-bordered">
                 <thead>
-                <th>Día</th>
-                <th>Fecha</th>
-                <th>Duración</th>
-                <th>Doctor</th>
-                <th>Institucion</th>
-                <th>Acciones</th>
+                    <th>Día</th>
+                    <th>Fecha</th>
+                    <th>Duración</th>
+                    <th>Doctor</th>
+                    <th>Institucion</th>
+                    <th>Acciones</th>
                 </thead>
                 <tbody>
                 <c:forEach var="appointment" items="${ appointments }">
@@ -44,7 +44,7 @@
                     <td>${ readableDate }</td>
                     <td>1 hs</td>
                     <td>
-                        <a href="/grupo4/doctors/${ appointment.doctor.id }"> Dr. ${ appointment.doctor.name }, ${ appointment.doctor.lastName }</a>
+                        <a href="/grupo4/doctors/${ appointment.doctor.id }">${ appointment.doctor.name } ${ appointment.doctor.lastName }</a>
                     </td>
                     <td>
                         <a href="/grupo4/institutions/${ appointment.slot.institution.id }">${ appointment.slot.institution.name }</a>

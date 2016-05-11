@@ -5,11 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <z:base title="Turnos - ${ doctor.name } ${ doctor.lastName }">
-    <ol class="breadcrumb">
-        <li><a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a></li>
-        <li><a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots">Dr. ${ doctor.name }, ${ doctor.lastName }</a></li>
-    </ol>
-    <h1>Turnos - <a href="/grupo4/doctors/${ doctor.id }">${ doctor.name } ${ doctor.lastName }</a></h1>
+    <h1>Turnos - ${ doctor.name } ${ doctor.lastName }</h1>
     <c:choose>
         <c:when test="${ not empty appointments }">
             <table class="table table-bordered">
@@ -17,6 +13,7 @@
                  <th>Día</th>
                  <th>Fecha</th>
                  <th>Duración</th>
+                 <th>Institución</th>
                  <th>Acciones</th>
                </thead>
                <tbody>
@@ -38,7 +35,9 @@
                         </td>
                         <td>${ readableDate }</td>
                         <td>1 hs</td>
-
+                        <td>
+                            <a href="/grupo4/institutions/${ appointment.slot.institution.id }">${ appointment.slot.institution.name }</a>
+                        </td>
                         <td>
                             <c:if test="${ patient != null }">
                                 <form:form modelAttribute="newAppointment" action="/grupo4/appointments" method="post" enctype="application/x-www-form-urlencoded">
@@ -72,10 +71,10 @@
                 </c:otherwise>
             </c:choose>
             <li class="${ previousWeekClass }">
-                <a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
+                <a href="/grupo4/doctors/${ doctor.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
             </li>
             <li class="next">
-                <a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots?date=${ formattedNextWeek }">Semana siguiente &gt;</a>
+                <a href="/grupo4/doctors/${ doctor.id }/appointment_slots?date=${ formattedNextWeek }">Semana siguiente &gt;</a>
             </li>
         </ul>
     </nav>

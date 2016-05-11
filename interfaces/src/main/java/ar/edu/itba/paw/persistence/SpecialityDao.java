@@ -16,5 +16,7 @@ public interface SpecialityDao {
 
     Speciality getById(final Integer id);
 
-    Set<Speciality> getByDoctorId(final Integer doctor_id);
+    Set<Speciality> getByDoctorId(final Integer doctorId);
+
+    Set<Speciality> getByInstitutionId(final Integer institutionId);
 }
