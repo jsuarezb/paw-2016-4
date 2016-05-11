@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: agophurmuz
-  Date: 5/8/16
-  Time: 23:21
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,7 +5,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <z:base title="Index">
-
     <ol class="breadcrumb">
         <li><a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a></li>
         <li>${ speciality.name }</li>

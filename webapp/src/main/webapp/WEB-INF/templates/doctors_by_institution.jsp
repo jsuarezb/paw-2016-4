@@ -1,15 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<z:base title="Index">
-  <c:if test="${institution != null}">
-    <h1>Lista de Doctores en: <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a></h1>
-    <h3>Direccion: ${ institution.address.streetName } ${ institution.address.streetNumber } ${ institution.address.apartment }, ${ institution.address.city }, ${ institution.address.state }, ${ institution.address.country }</h3>
+<z:base title="Doctores - ${ institution.name }">
+    <h1>Doctores - <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a></h1>
+    <h3>${ institution.address.streetName } ${ institution.address.streetNumber } ${ institution.address.apartment }, ${ institution.address.city }, ${ institution.address.state }, ${ institution.address.country }</h3>
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Nombre</th>
-          <th>Apellido</th>
+          <th>Doctor</th>
           <th>Especialidad</th>
           <th>Correo Electronico</th>
         </tr>
@@ -18,13 +16,8 @@
         <c:forEach var="doctor" items="${doctors}">
           <tr>
             <td>
-              <a href="/grupo4/doctors/${ doctor.id }">
-                ${ doctor.name }
-              </a>
-            </td>
-            <td>
-              <a href="/grupo4/doctors/${ doctor.id }">
-                ${ doctor.lastName }
+              <a href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots">
+                ${ doctor.name } ${ doctor.lastName }
               </a>
             </td>
             <td>
@@ -34,15 +27,10 @@
                 </c:forEach>
               </ul>
             </td>
-
             <td>${ doctor.email }</td>
           </tr>
           </a>
         </c:forEach>
       </tbody>
     </table>
-  </c:if>
-  <c:if test="${institution ==null}">
-  <h3>Oops! 404 Not Found</h3>
-  </c:if>
 </z:base>

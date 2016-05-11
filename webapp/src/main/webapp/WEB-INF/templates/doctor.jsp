@@ -6,7 +6,7 @@
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h1>${doctor.lastName}, ${doctor.name}</h1>
+          <h1>${doctor.name} ${doctor.lastName}</h1>
         </div>
         <div class="panel-body">
           <dl class="dl-horizontal">

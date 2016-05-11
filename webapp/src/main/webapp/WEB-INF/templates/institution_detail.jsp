@@ -1,9 +1,7 @@
-
-
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 
-<z:base title="Index">
+<z:base title="${ institution.name }">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-primary">

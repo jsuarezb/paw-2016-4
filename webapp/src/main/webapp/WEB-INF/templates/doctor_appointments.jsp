@@ -4,11 +4,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
-<z:base title="Turnos - Dr. ${ doctor.name } ${ doctor.lastName }">
-    <ol class="breadcrumb">
-        <li><a href="/grupo4/doctors/${ doctor.id }">Dr. ${ doctor.name }, ${ doctor.lastName }</a></li>
-    </ol>
-    <h1>Turnos - Dr. ${ doctor.name } ${ doctor.lastName }</h1>
+<z:base title="Turnos - ${ doctor.name } ${ doctor.lastName }">
+    <h1>Turnos - ${ doctor.name } ${ doctor.lastName }</h1>
     <c:choose>
         <c:when test="${ not empty appointments }">
             <table class="table table-bordered">
