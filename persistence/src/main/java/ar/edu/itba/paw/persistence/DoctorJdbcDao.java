@@ -1,7 +1,10 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Doctor;
+<<<<<<< HEAD
 import ar.edu.itba.paw.models.Speciality;
+=======
+>>>>>>> 672279be09800f80ad576a7327112af2988a535d
 import ar.edu.itba.paw.models.DoctorPhone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -35,8 +38,8 @@ public class DoctorJdbcDao implements DoctorDao {
     private static final String ID_DOCTOR_COL = "doctor_id";
     private static final String ID_SPECIALITY_COL = "speciality_id";
     //Table AppointmentSlots
-    private static final String DOCTOR_COL = "doctor";
-    private static final String INSTITUTION_COL = "institution";
+    private static final String DOCTOR_COL = "doctor_id";
+    private static final String INSTITUTION_COL = "institution_id";
 
     private JdbcTemplate jdbcTemplate;
     private DoctorRowMapper rowMapper;

@@ -15,7 +15,8 @@ public class Doctor {
     private final String password;
     private final List<DoctorPhone> phones;
 
-    public Doctor(int id, String name, String last_name, Set<Speciality> specialities, String email, String password, List<DoctorPhone> phones) {
+    public Doctor(int id, String name, String last_name, Set<Speciality> specialities, String email, String password,
+                  List<DoctorPhone> phones) {
         this.id = id;
         this.name = name;
         this.last_name = last_name;
