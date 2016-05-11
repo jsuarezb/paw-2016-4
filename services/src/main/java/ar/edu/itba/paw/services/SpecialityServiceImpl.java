@@ -11,9 +11,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by agophurmuz on 4/22/16.
- */
 @Service
 public class SpecialityServiceImpl implements SpecialityService {
 
@@ -40,13 +37,6 @@ public class SpecialityServiceImpl implements SpecialityService {
     }
 
     public Set<Speciality> getByInstitutionId(Integer institution_id) {
-        List<Doctor> doctors = doctorDao.getDoctorsByInstitution(institution_id);
-
-        Set<Speciality> specialities = new HashSet<Speciality>();
-        for ( Doctor doctor : doctors) {
-            for (Speciality speciality: doctor.getSpecialities())
-                specialities.add(speciality);
-        }
-        return specialities;
+        return specialityDao.getByInstitutionId(institution_id);
     }
 }

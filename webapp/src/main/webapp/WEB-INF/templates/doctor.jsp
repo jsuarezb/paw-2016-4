@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<z:base title="Perfil del doctor ${doctor.name} ${doctor.lastName}">
+<z:base title="${doctor.name} ${doctor.lastName}">
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-primary">
