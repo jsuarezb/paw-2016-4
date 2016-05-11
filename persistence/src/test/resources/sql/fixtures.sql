@@ -19,7 +19,8 @@ INSERT INTO DoctorsSpecialities VALUES
 (1, 1), (1, 2), (2, 2);
 
 INSERT INTO Patients VALUES
-(1, 'José', 'Rodríguez', 'jrodriguez@hotmail.com', 'pass');
+(1, 'José', 'Rodríguez', 'jrodriguez@hotmail.com', 'pass'),
+(2, 'Pepe', 'Paz', 'ppaz@mailinator.com', 'pepepaz');
 
 INSERT INTO AppointmentSlots VALUES
 (1, 1, 1, 4, 10),
