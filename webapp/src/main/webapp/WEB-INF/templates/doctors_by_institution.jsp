@@ -2,7 +2,7 @@
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <z:base title="Index">
-  <c:if test="${institution.id == 1 || institution.id == 2}">
+  <c:if test="${institution != null}">
     <h1>Lista de Doctores en: <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a></h1>
     <h3>Direccion: ${ institution.address.streetName } ${ institution.address.streetNumber } ${ institution.address.apartment }, ${ institution.address.city }, ${ institution.address.state }, ${ institution.address.country }</h3>
     <table class="table table-bordered">
@@ -42,7 +42,7 @@
       </tbody>
     </table>
   </c:if>
-  <c:if test="${institution.id != 1 && institution.id != 2}">
-  <h3>No hay instituciones con identificador numero: ${ wrongId }</h3>
+  <c:if test="${institution ==null}">
+  <h3>Oops! 404 Not Found</h3>
   </c:if>
 </z:base>
