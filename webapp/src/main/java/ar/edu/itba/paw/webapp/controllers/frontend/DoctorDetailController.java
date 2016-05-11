@@ -2,6 +2,7 @@ package ar.edu.itba.paw.webapp.controllers.frontend;
 
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.webapp.controllers.MethodNotAllowedException;
+import ar.edu.itba.paw.webapp.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,6 +28,8 @@ public class DoctorDetailController extends BaseController {
 		ModelAndView model = new ModelAndView("doctor");
 
 		final Doctor doctor = doctorService.get(doctor_id);
+        if (doctor == null)
+            throw new ResourceNotFoundException();
 
 		model.addObject(DOCTOR_KEY, doctor);
 

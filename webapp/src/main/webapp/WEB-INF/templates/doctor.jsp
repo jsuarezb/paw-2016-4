@@ -4,14 +4,21 @@
 <z:base title="Perfil del doctor ${doctor.name} ${doctor.lastName}">
   <div class="panel panel-default">
     <div class="panel-body">
-      <h1>Doctor</h1>
-      <h2>${doctor.name}, ${doctor.lastName}</h2>
-      <ul class="list-inline">
-        <c:forEach var="speciality" items="${ doctor.specialities }">
-          <h3><li>${ speciality.name }</li></h3>
-        </c:forEach>
-      </ul>
-      <p>${doctor.email}</p>
+        <c:choose>
+        <c:when test="${ doctor != null}">
+          <h1>Doctor</h1>
+          <h2>${doctor.name}, ${doctor.lastName}</h2>
+          <ul class="list-inline">
+            <c:forEach var="speciality" items="${ doctor.specialities }">
+              <h3><li>${ speciality.name }</li></h3>
+            </c:forEach>
+          </ul>
+          <p>${doctor.email}</p>
+        </c:when>
+        <c:otherwise>
+            <h1>Oops! 404 Not Found</h1>
+        </c:otherwise>
+        </c:choose>
     </div>
   </div>
 </z:base>
