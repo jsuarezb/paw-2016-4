@@ -1,10 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Doctor;
-<<<<<<< HEAD
 import ar.edu.itba.paw.models.Speciality;
-=======
->>>>>>> 672279be09800f80ad576a7327112af2988a535d
 import ar.edu.itba.paw.models.DoctorPhone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
