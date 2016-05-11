@@ -14,7 +14,11 @@
         <tbody>
             <c:forEach var="speciality" items="${specialities}">
             <tr>
-                <td>${ speciality.name }</td>
+                <td>
+                  ${ speciality.name }
+                  <a href="/grupo4/institutions/${institution.id}/specialities/${speciality.id}/appointment_slots"> Pedir turno
+                  </a>
+                </td>
             </tr>
             </c:forEach>
         </tbody>

@@ -46,7 +46,7 @@ public class SpecialityInstitutionAppointmentSlotController extends BaseControll
     @Autowired
     private SpecialityService specialityService;
 
-    @RequestMapping("/institutions/{institution_id}/speciality/{speciality_id}/appointment_slots")
+    @RequestMapping("/institutions/{institution_id}/specialities/{speciality_id}/appointment_slots")
     public ModelAndView list(
             @PathVariable final Integer institution_id,
             @PathVariable final Integer speciality_id,
