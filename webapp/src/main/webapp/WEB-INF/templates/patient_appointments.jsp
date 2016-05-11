@@ -35,6 +35,10 @@
                               <dt>Fecha</dt>
                               <dd>${ formattedDate }</dd>
                             </dl>
+                            <button class="appointment-delete btn btn-danger btn-danger"
+                                    data-url="/grupo4/appointments/${appointment.id}">
+                                Cancelar turno
+                            </button>
                         </div>
                     </div>
                 </c:forEach>

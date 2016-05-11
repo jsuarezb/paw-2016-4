@@ -68,5 +68,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/grupo4/bower_components/jquery/dist/jquery.js"></script>
     <script src="/grupo4/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/grupo4/scripts/appointments.js"></script>
   </body>
 </html>
