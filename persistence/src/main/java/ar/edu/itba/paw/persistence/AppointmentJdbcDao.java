@@ -28,9 +28,9 @@ public class AppointmentJdbcDao implements AppointmentDao {
 
     public static final String TABLE_NAME = "Appointments";
     public static final String ID_COL = "id";
-    public static final String PATIENT_COL = "patient";
-    public static final String DOCTOR_COL = "doctor";
-    public static final String SLOT_COL = "slot";
+    public static final String PATIENT_COL = "patient_id";
+    public static final String DOCTOR_COL = "doctor_id";
+    public static final String SLOT_COL = "slot_id";
     public static final String START_DATE_COL = "start_date";
     public static final String COMMENTS_COL = "comments";
 

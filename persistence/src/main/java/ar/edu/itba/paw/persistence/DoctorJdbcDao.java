@@ -2,6 +2,7 @@ package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Speciality;
+import ar.edu.itba.paw.models.DoctorPhone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -31,17 +32,20 @@ public class DoctorJdbcDao implements DoctorDao {
     private static final String EMAIL_COL = "email";
     private static final String PASSWORD_COL = "password";
     //Table doctorsSpecialities
-    private static final String ID_DOCTOR_COL = "id_doctor";
-    private static final String ID_SPECIALITY_COL = "id_speciality";
+    private static final String ID_DOCTOR_COL = "doctor_id";
+    private static final String ID_SPECIALITY_COL = "speciality_id";
     //Table AppointmentSlots
-    private static final String DOCTOR_COL = "doctor";
-    private static final String INSTITUTION_COL = "institution";
+    private static final String DOCTOR_COL = "doctor_id";
+    private static final String INSTITUTION_COL = "institution_id";
 
     private JdbcTemplate jdbcTemplate;
     private DoctorRowMapper rowMapper;
 
     @Autowired
     private SpecialityDao specialityDao;
+
+    @Autowired
+    private DoctorPhoneDao phonesDao;
 
     @Autowired
     public DoctorJdbcDao(final DataSource ds) {
@@ -98,10 +102,19 @@ public class DoctorJdbcDao implements DoctorDao {
     private class DoctorRowMapper implements RowMapper<Doctor>{
 
         public Doctor mapRow(ResultSet rs, int rowNum) throws SQLException {
+            final Set<Speciality> specialities = specialityDao.getByDoctorId(rs.getInt(ID_COL));
+            final int doctorId = rs.getInt(ID_COL);
+            List<DoctorPhone> phones = phonesDao.getByDoctorId(doctorId);
 
-            Set<Speciality> specialities = specialityDao.getByDoctorId(rs.getInt(ID_COL));
-
-            return new Doctor(rs.getInt(ID_COL), rs.getString(NAME_COL), rs.getString(LAST_NAME_COL), specialities, rs.getString(EMAIL_COL), rs.getString(PASSWORD_COL));
+            return new Doctor(
+                    rs.getInt(ID_COL),
+                    rs.getString(NAME_COL),
+                    rs.getString(LAST_NAME_COL),
+                    specialities,
+                    rs.getString(EMAIL_COL),
+                    rs.getString(PASSWORD_COL),
+                    phones
+            );
         }
     }
 }

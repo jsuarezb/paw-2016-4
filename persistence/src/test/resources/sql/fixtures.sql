@@ -7,6 +7,10 @@ INSERT INTO Doctors VALUES
 (1, 'Juán', 'Pérez', 'jperez@gmail.com', 'wasd123'),
 (2, 'Carlos', 'López', 'clopez@gmail.com', 'jkl789');
 
+INSERT INTO DoctorsPhones VALUES
+(1, '48092031'),
+(1, '49953829');
+
 INSERT INTO Specialities VALUES
 (1, 'Clinico'),
 (2, 'Traumatologo');

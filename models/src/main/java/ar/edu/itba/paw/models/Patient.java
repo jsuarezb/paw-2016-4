@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.models;
 
+import java.util.List;
+
 /**
  * Created by santi698 on 24/03/16.
  */
@@ -9,17 +11,20 @@ public class Patient {
     private final String last_name;
     private final String email;
     private final String password;
+    private final List<PatientPhone> phones;
 
     public Patient(final int id,
                    final String name,
                    final String last_name,
                    final String email,
-                   final String password) {
+                   final String password,
+                   List<PatientPhone> phones) {
         this.id = id;
         this.name = name;
         this.last_name = last_name;
         this.email = email;
         this.password = password;
+        this.phones = phones;
     }
 
     public int getId() {
@@ -40,6 +45,10 @@ public class Patient {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<PatientPhone> getPhones() {
+        return phones;
     }
 
     @Override
