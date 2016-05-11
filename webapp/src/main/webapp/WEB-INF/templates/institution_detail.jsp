@@ -2,17 +2,25 @@
 
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
+
 <z:base title="Index">
-  <div class="panel panel-default">
-    <div class="panel-body">
-      <h1>Institucion</h1>
-      <h2>${institution.name}</h2>
-      <h3>${institution.address.streetName} ${institution.address.streetNumber}</h3>
-      <p>${institution.address.city} - ${institution.address.state}, ${institution.address.country}</p>
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h1>${ institution.name }</h1>
+        </div>
+        <div class="panel-body">
+          <img class="img-responsive center-block" src="http://placehold.it/400x300"/>
+          <br>
+          <address>
+            ${ institution.address.streetName } ${ institution.address.streetNumber }<br>
+            ${ institution.address.city } - ${ institution.address.state }, ${ institution.address.country }
+          </address>
+          <a class="btn btn-default" href="/grupo4/institutions/${institution.id}/doctors">Ver doctores</a>
+          <a class="btn btn-default" href="/grupo4/institutions/${institution.id}/specialities">Ver especialidades</a>
+        </div>
+      </div>
     </div>
   </div>
 </z:base>

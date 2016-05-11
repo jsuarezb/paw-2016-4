@@ -3,49 +3,42 @@
 
 <z:base title="Registro">
   <div class='container'>
-    <form:form class="form-horizontal" method='post' action="/grupo4/patients" modelAttribute="patientForm">
+    <h2>
+      Ingrese sus datos
+    </h2>
+    <form:form method='post' action="/grupo4/patients" modelAttribute="patientForm">
       <div class="form-group">
-        <label for="name" class="col-sm-2 control-label">
-          Name
+        <label for="name" class="control-label">
+          Nombre
         </label>
-        <div class="col-sm-10">
-          <form:input path="name" class="form-control" placeholder="Name"/>
-          <form:errors path="name" />
-        </div>
+        <form:input path="name" class="form-control" placeholder="Name"/>
+        <form:errors path="name" />
       </div>
       <div class="form-group">
-        <label for="lastName" class="col-sm-2 control-label">
-          Last Name
+        <label for="lastName" class="control-label">
+          Apellido
         </label>
-        <div class="col-sm-10">
-          <form:input path="lastName" class="form-control" placeholder="Last Name"/>
-          <form:errors path="lastName" />
-        </div>
+        <form:input path="lastName" class="form-control" placeholder="Last Name"/>
+        <form:errors path="lastName" />
       </div>
       <div class="form-group">
-        <label for="email" class="col-sm-2 control-label">
+        <label for="email" class="control-label">
           Email
         </label>
-        <div class="col-sm-10">
-          <form:input path="email" class="form-control" placeholder="Email"/>
-          <form:errors path="email" />
-        </div>
+        <form:input path="email" class="form-control" placeholder="Email"/>
+        <form:errors path="email" />
       </div>
       <div class="form-group">
-        <label for="password" class="col-sm-2 control-label">
+        <label for="password" class="control-label">
           Password
         </label>
-        <div class="col-sm-10">
-          <form:password class="form-control" path="password" placeholder="Password"/>
-          <form:errors path="password" />
-        </div>
+        <form:password class="form-control" path="password" placeholder="Password"/>
+        <form:errors path="password" />
       </div>
       <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-          <button type="submit" class="btn btn-default">
-            Register
-          </button>
-        </div>
+        <button type="submit" class="btn btn-success">
+          Registrarse
+        </button>
       </div>
     </form:form>
   </div>

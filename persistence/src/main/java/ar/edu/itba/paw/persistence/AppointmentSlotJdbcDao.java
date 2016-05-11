@@ -77,7 +77,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
     }
 
     public List<AppointmentSlot> getByDoctor(int doctorId) {
-        String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME_APPOINTMENTSLOTS, DOCTOR_COL);
+        String query = String.format("SELECT * FROM %s WHERE %s = ? ORDER BY day_of_week, start_hour", TABLE_NAME_APPOINTMENTSLOTS, DOCTOR_COL);
         List<AppointmentSlot> slots = jdbcTemplate.query(query, rowMapper, doctorId);
         if (slots == null)
             return new ArrayList<AppointmentSlot>();
@@ -89,7 +89,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         String sql =
                 "SELECT * FROM %s " +
                 "WHERE %s NOT IN " +
-                    "(SELECT %s FROM %s WHERE %s >= ? AND %s < ?)";
+                    "(SELECT %s FROM %s WHERE %s >= ? AND %s < ?) ORDER BY day_of_week, start_hour";
 
         String query = String.format(sql, TABLE_NAME_APPOINTMENTSLOTS, ID_COL, AppointmentJdbcDao.SLOT_COL,
                 AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
@@ -114,7 +114,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         String sql =
                 "SELECT * FROM %s " +
                         "WHERE %s = ? AND %s = ? AND %s NOT IN " +
-                        "(SELECT %s FROM %s WHERE %s >= ? AND %s < ?)";
+                        "(SELECT %s FROM %s WHERE %s >= ? AND %s < ?) ORDER BY day_of_week, start_hour";
 
         String query = String.format(sql, TABLE_NAME_APPOINTMENTSLOTS, INSTITUTION_COL, DOCTOR_COL, ID_COL, AppointmentJdbcDao.SLOT_COL,
                 AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
@@ -140,7 +140,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         String query = String.format("SELECT * FROM %s " +
                 "WHERE %s = ? AND %s IN " +
                 " (SELECT %s FROM %s WHERE %s = ?) AND %s NOT IN " +
-                "(SELECT %s FROM %s WHERE %s >= ? AND %s < ? )", TABLE_NAME_APPOINTMENTSLOTS, INSTITUTION_COL, DOCTOR_COL,
+                "(SELECT %s FROM %s WHERE %s >= ? AND %s < ? ) ORDER BY day_of_week, start_hour", TABLE_NAME_APPOINTMENTSLOTS, INSTITUTION_COL, DOCTOR_COL,
                 ID_DOCTOR_COL, TABLE_NAME_DOCTORSSPECIALITIES, ID_SPECIALITY_COL, ID_COL, AppointmentJdbcDao.SLOT_COL,
                 AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
                 AppointmentJdbcDao.START_DATE_COL);
@@ -164,7 +164,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         String query = String.format("SELECT * FROM %s " +
                         " WHERE %s IN " +
                         " (SELECT %s FROM %s WHERE %s = ?) AND %s NOT IN " +
-                        "(SELECT %s FROM %s WHERE %s >= ? AND %s < ? )", TABLE_NAME_APPOINTMENTSLOTS, DOCTOR_COL,
+                        "(SELECT %s FROM %s WHERE %s >= ? AND %s < ? ) ORDER BY day_of_week, start_hour", TABLE_NAME_APPOINTMENTSLOTS, DOCTOR_COL,
                 ID_DOCTOR_COL, TABLE_NAME_DOCTORSSPECIALITIES, ID_SPECIALITY_COL, ID_COL, AppointmentJdbcDao.SLOT_COL,
                 AppointmentJdbcDao.TABLE_NAME, AppointmentJdbcDao.START_DATE_COL,
                 AppointmentJdbcDao.START_DATE_COL);

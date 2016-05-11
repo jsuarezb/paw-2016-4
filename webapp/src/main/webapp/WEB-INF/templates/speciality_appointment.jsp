@@ -82,7 +82,7 @@
                 </c:otherwise>
             </c:choose>
             <li class="${ previousWeekClass }">
-                <a href="/grupo4/institutions/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
+                <a href="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
             </li>
             <li class="next">
                 <a href="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedNextWeek }">Semana siguiente &gt;</a>
