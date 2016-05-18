@@ -1,31 +1,35 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Appointment;
+import ar.edu.itba.paw.models.AppointmentSlot;
+import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.Patient;
 import org.joda.time.DateTime;
 
-import java.sql.Date;
 import java.util.List;
 
 public interface AppointmentDao {
 
-    Appointment create(int patientId, int doctorId, int slotId, DateTime startDate, String comments);
+    //Appointment create(int patientId, int doctorId, int slotId, DateTime startDate, String comments);
 
-    List<Appointment> getByDoctor(int doctorId);
+    Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot, DateTime startDate, String comments);
 
-    List<Appointment> getByPatient(int patientId, int page);
+    List<Appointment> getByDoctor(Doctor doctor);
+
+    List<Appointment> getByPatient(Patient patient, int page);
 
     /**
      * Check if the doctor has an appointment already at the given time.
-     * @param doctorId Id of the doctor.
+     * @param doctor Id of the doctor.
      * @param time Time of the appointment.
      * @return True if the doctor is free, else false.
      */
-    boolean isDoctorAvailable(int doctorId, DateTime time);
+    boolean isDoctorAvailable(Doctor doctor, DateTime time);
 
     /**
      * Delete the appointment.
      * @param appointmentId Id of the appointment.
      */
-    int delete(int appointmentId);
+    boolean delete(int appointmentId);
 
 }

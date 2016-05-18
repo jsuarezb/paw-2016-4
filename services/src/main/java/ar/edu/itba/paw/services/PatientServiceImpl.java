@@ -34,7 +34,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     public Patient findByEmail(final String email) {
-        return patientDao.findByEmail(email);
+        return patientDao.getByEmail(email);
     }
 
     /* default */ void setPatientDao(final PatientDao patientDao) {

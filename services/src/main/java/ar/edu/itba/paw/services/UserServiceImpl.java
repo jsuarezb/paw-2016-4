@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
+
     public User register(final String username, final String password) {
         return userDao.create(username, password);
     }

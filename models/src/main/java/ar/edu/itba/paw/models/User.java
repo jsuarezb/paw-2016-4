@@ -1,12 +1,23 @@
 package ar.edu.itba.paw.models;
 
-/**
- * Created by socamica on 16/03/16.
- */
+import javax.persistence.*;
+
+@Entity
+@Table(name = "users")
 public class User {
-	private final int id;
-    private final String username;
-    private final String password;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
+    @SequenceGenerator(sequenceName = "users_id_seq", name = "users_id_seq", allocationSize = 1)
+    private int id;
+
+    @Column(length = 100, nullable = false)
+    private String username;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
+    /* package */ User(){ }
 
     public User(final int id, final String username, final String password) {
     	this.id = id;

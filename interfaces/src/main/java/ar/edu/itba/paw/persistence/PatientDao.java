@@ -29,7 +29,7 @@ public interface PatientDao {
      * @param email Email to match with.
      * @return A patient. Null if there's no patient with that email.
      */
-    Patient findByEmail(final String email);
+    Patient getByEmail(final String email);
 
     Patient create(String name, String last_name, String email, String password);
 }

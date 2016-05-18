@@ -1,12 +1,10 @@
-package ar.edu.itba.paw.persistence;
+package ar.edu.itba.paw.persistence.jdbc;
 
 import ar.edu.itba.paw.models.Patient;
-import ar.edu.itba.paw.models.PatientPhone;
-import org.springframework.beans.factory.annotation.Autowired;
+import ar.edu.itba.paw.persistence.PatientDao;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -16,7 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
 public class PatientJdbcDao implements PatientDao {
 
     private static final String TABLE_NAME = "patients";
@@ -30,10 +27,6 @@ public class PatientJdbcDao implements PatientDao {
     private SimpleJdbcInsert simpleJdbcInsert;
     private PatientRowMapper rowMapper;
 
-    @Autowired
-    private PatientPhoneDao phoneDao;
-
-    @Autowired
     public PatientJdbcDao(final DataSource ds) {
         jdbcTemplate = new JdbcTemplate(ds);
         simpleJdbcInsert = new SimpleJdbcInsert(ds).withTableName(TABLE_NAME).usingGeneratedKeyColumns("id");
@@ -44,8 +37,7 @@ public class PatientJdbcDao implements PatientDao {
         String query = String.format("SELECT * FROM %s", TABLE_NAME);
         List<Patient> list = jdbcTemplate.query(query, rowMapper);
         if (list == null)
-            return new ArrayList<Patient>();
-
+            return new ArrayList<>();
         return list;
     }
 
@@ -59,7 +51,7 @@ public class PatientJdbcDao implements PatientDao {
     }
 
     public Patient create(String name, String last_name, String email, String password) {
-        Map<String, Object> values = new HashMap<String, Object>();
+        Map<String, Object> values = new HashMap<>();
         values.put("name", name);
         values.put("last_name", last_name);
         values.put("email", email);
@@ -67,10 +59,10 @@ public class PatientJdbcDao implements PatientDao {
 
         int id = simpleJdbcInsert.executeAndReturnKey(values).intValue();
 
-        return new Patient(id, name, last_name, email, password, new ArrayList<PatientPhone>());
+        return new Patient(id, name, last_name, email, password);
     }
 
-    public Patient findByEmail(final String email) {
+    public Patient getByEmail(final String email) {
         String query = String.format("SELECT * FROM %s WHERE %s = '%s'", TABLE_NAME, EMAIL_COL, email);
         List<Patient> list = jdbcTemplate.query(query, rowMapper);
         if (list == null || list.size() == 0)
@@ -84,16 +76,12 @@ public class PatientJdbcDao implements PatientDao {
     private class PatientRowMapper implements RowMapper<Patient> {
 
         public Patient mapRow(ResultSet rs, int rowNum) throws SQLException {
-            final int id = rs.getInt(ID_COL);
-            final List<PatientPhone> phones = phoneDao.getByPatientId(id);
-
             return new Patient(
                     rs.getInt(ID_COL),
                     rs.getString(NAME_COL),
                     rs.getString(LAST_NAME_COL),
                     rs.getString(EMAIL_COL),
-                    rs.getString(PASSWORD_COL),
-                    phones
+                    rs.getString(PASSWORD_COL)
             );
         }
     }

@@ -45,8 +45,8 @@ public class InstitutionJdbcDaoTest {
 
     @Test
     public void testSearchByName() {
-        final List<Institution> institutions = iDao.searchByName(INSTITUTION_NAME);
-        final List<Institution> emptyInstitutions = iDao.searchByName(INVALID_NAME);
+        final List<Institution> institutions = iDao.getByName(INSTITUTION_NAME);
+        final List<Institution> emptyInstitutions = iDao.getByName(INVALID_NAME);
 
         assertNotNull(institutions);
         assertNotEquals(0, institutions.size());

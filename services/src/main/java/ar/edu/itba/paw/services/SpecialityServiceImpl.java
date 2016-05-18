@@ -7,6 +7,7 @@ import ar.edu.itba.paw.persistence.SpecialityDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class SpecialityServiceImpl implements SpecialityService {
     }
 
     public Speciality searchByName(String name) {
-        return specialityDao.searchByName(name);
+        return specialityDao.getByName(name);
     }
 
     public Speciality getById(Integer id) {
@@ -37,6 +38,7 @@ public class SpecialityServiceImpl implements SpecialityService {
     }
 
     public Set<Speciality> getByInstitutionId(Integer institution_id) {
-        return specialityDao.getByInstitutionId(institution_id);
+        // TODO: return specialityDao.getByInstitutionId(institution_id);
+        return Collections.emptySet();
     }
 }

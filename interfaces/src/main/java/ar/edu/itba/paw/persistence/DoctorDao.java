@@ -11,11 +11,9 @@ public interface DoctorDao {
 
     List<Doctor> getAll();
 
-    Doctor searchByName(final String name, final String last_name);
-
     Doctor getById(final Integer id);
 
-    List<Doctor> searchBySpeciality(final Integer speciality_id);
+    List<Doctor> getBySpeciality(final Integer speciality_id);
 
     /**
      * Get all doctors of an institution.

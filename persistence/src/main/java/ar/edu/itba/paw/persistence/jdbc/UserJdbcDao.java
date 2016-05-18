@@ -1,4 +1,4 @@
-package ar.edu.itba.paw.persistence;
+package ar.edu.itba.paw.persistence.jdbc;
 
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.persistence.UserDao;
@@ -19,7 +19,7 @@ import java.util.Map;
  * Hello world!
  *
  */
-@Repository
+
 public class UserJdbcDao implements UserDao {
     private final JdbcTemplate jdbcTemplate;
     private final SimpleJdbcInsert jdbcInsert;

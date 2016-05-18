@@ -27,6 +27,6 @@ public interface InstitutionDao {
      * @param name Name to match with.
      * @return A non null list of institutions whose name matches the given name.
      */
-    List<Institution> searchByName(final String name);
+    List<Institution> getByName(final String name);
 
 }

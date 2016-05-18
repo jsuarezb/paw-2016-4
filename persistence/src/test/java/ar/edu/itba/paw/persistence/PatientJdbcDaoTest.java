@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Patient;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +49,8 @@ public class PatientJdbcDaoTest {
 
     @Test
     public void testFindByEmail() {
-        final Patient patient = pDao.findByEmail(EMAIL);
-        final Patient nullPatient = pDao.findByEmail(INVALID_EMAIL);
+        final Patient patient = pDao.getByEmail(EMAIL);
+        final Patient nullPatient = pDao.getByEmail(INVALID_EMAIL);
 
         assertNotNull(patient);
         assertEquals(EMAIL, patient.getEmail());

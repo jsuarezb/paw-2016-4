@@ -22,7 +22,7 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     public List<Institution> findByName(String name) {
-        return institutionDao.searchByName(name);
+        return institutionDao.getByName(name);
     }
 
     /* default */ void setInstitutionDao(InstitutionDao institutionDao) {

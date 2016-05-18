@@ -24,10 +24,11 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     public Doctor searchByName(String name, String last_name) {
-        return doctorDao.searchByName(name, last_name);
+        // TODO return doctorDao.getByName(name, last_name);
+        return null;
     }
 
-    public List<Doctor> searchBySpeciality(Integer speciality_id) { return doctorDao.searchBySpeciality(speciality_id);
+    public List<Doctor> searchBySpeciality(Integer speciality_id) { return doctorDao.getBySpeciality(speciality_id);
     }
 
     public List<Doctor> getDoctorsByInstitution (Integer id) { return doctorDao.getDoctorsByInstitution(id); }

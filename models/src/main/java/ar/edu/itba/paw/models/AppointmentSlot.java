@@ -1,11 +1,29 @@
 package ar.edu.itba.paw.models;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "appointment_slots")
 public class AppointmentSlot {
-    private final int id;
-    private final Institution institution;
-    private final Doctor doctor;
-    private final int dayOfWeek;
-    private final int hour;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointment_slots_id_seq")
+    @SequenceGenerator(sequenceName = "appointment_slots_id_seq", name = "appointment_slots_id_seq", allocationSize = 1)
+    private int id;
+
+    @OneToOne
+    private Institution institution;
+
+    @OneToOne
+    private Doctor doctor;
+
+    @Column(nullable = false)
+    private int dayOfWeek;
+
+    @Column(nullable = false)
+    private int hour;
+
+    /* package */ AppointmentSlot(){ }
 
     public AppointmentSlot(int id, int dayOfWeek, int hour, Institution institution, Doctor doctor) {
         this.id = id;

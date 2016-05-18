@@ -1,6 +1,7 @@
-package ar.edu.itba.paw.persistence;
+package ar.edu.itba.paw.persistence.jdbc;
 
 import ar.edu.itba.paw.models.Speciality;
+import ar.edu.itba.paw.persistence.SpecialityDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -18,7 +19,7 @@ import java.util.Set;
  * Created by agophurmuz on 4/22/16.
  */
 
-@Repository
+
 public class SpecialityJdbcDao implements SpecialityDao {
 
     private static final String SPECIALITIES_TABLE_NAME = "specialities";
@@ -50,7 +51,7 @@ public class SpecialityJdbcDao implements SpecialityDao {
         return list;
     }
 
-    public Speciality searchByName(String name) {
+    public Speciality getByName(String name) {
         String query = String.format("SELECT * FROM %s WHERE %s = ?", SPECIALITIES_TABLE_NAME, NAME_COL);
         List<Speciality> list = jdbcTemplate.query(query, rowMapper, name);
         if (list == null || list.isEmpty())
@@ -68,11 +69,11 @@ public class SpecialityJdbcDao implements SpecialityDao {
         return list.get(0);
     }
 
-    public Set<Speciality> getByDoctorId(Integer doctor_id) {
+    public List<Speciality> getByDoctorId(Integer doctor_id) {
         String query = String.format("SELECT * FROM %s WHERE %s IN (SELECT %s FROM %s where %s = ?)", SPECIALITIES_TABLE_NAME, ID_COL,ID_SPECIALITY_COL, DOCTORS_SPECIALITIES_TABLE_NAME, ID_DOCTOR_COL);
 
         // No need to null check as I'm creating new instance
-        return new HashSet<Speciality>(jdbcTemplate.query(query, rowMapper, doctor_id));
+        return new ArrayList<>(jdbcTemplate.query(query, rowMapper, doctor_id));
     }
 
     public Set<Speciality> getByInstitutionId(Integer institutionId) {

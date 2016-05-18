@@ -1,12 +1,21 @@
 package ar.edu.itba.paw.models;
 
 
-/**
- * Created by agophurmuz on 4/20/16.
- */
+import javax.persistence.*;
+
+@Entity
+@Table(name = "specialities")
 public class Speciality {
-    private final int id;
-    private final String name;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "specialities_id_seq")
+    @SequenceGenerator(sequenceName = "specialities_id_seq", name = "specialities_id_seq", allocationSize = 1)
+    private int id;
+
+    @Column(length = 100, nullable = false)
+    private String name;
+
+    /* package */ Speciality(){ }
 
     public Speciality(int id, String name){
         this.id = id;

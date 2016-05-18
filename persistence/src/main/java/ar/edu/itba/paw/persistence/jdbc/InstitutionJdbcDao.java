@@ -1,4 +1,4 @@
-package ar.edu.itba.paw.persistence;
+package ar.edu.itba.paw.persistence.jdbc;
 
 import ar.edu.itba.paw.models.Address;
 import ar.edu.itba.paw.models.Institution;
@@ -6,7 +6,6 @@ import ar.edu.itba.paw.persistence.InstitutionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
@@ -14,7 +13,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
+
 public class InstitutionJdbcDao implements InstitutionDao {
 
     private static final String TABLE_NAME = "institutions";
@@ -54,7 +53,7 @@ public class InstitutionJdbcDao implements InstitutionDao {
         return list.get(0);
     }
 
-    public List<Institution> searchByName(final String name) {
+    public List<Institution> getByName(final String name) {
         String query = String.format("SELECT * FROM %s WHERE %s LIKE ?", TABLE_NAME, NAME_COL);
         List<Institution> list = jdbcTemplate.query(query, rowMapper, name);
         if (list == null)

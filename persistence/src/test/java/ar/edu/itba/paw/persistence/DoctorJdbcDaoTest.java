@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.persistence.jdbc.DoctorJdbcDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,8 @@ public class DoctorJdbcDaoTest {
 
     @Test
     public void testSearchByName() {
-        final Doctor doctor = dDao.searchByName(FIRST_NAME, LAST_NAME);
-        final Doctor nullDoctor = dDao.searchByName(INVALID_NAME, LAST_NAME);
+        final Doctor doctor = dDao.getByName(FIRST_NAME, LAST_NAME);
+        final Doctor nullDoctor = dDao.getByName(INVALID_NAME, LAST_NAME);
 
         assertNotNull(doctor);
         assertEquals(FIRST_NAME, doctor.getName());

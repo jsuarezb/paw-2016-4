@@ -1,20 +1,20 @@
-package ar.edu.itba.paw.persistence;
+package ar.edu.itba.paw.persistence.jdbc;
 
 import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.persistence.AppointmentDao;
+import ar.edu.itba.paw.persistence.AppointmentSlotDao;
+import ar.edu.itba.paw.persistence.DoctorDao;
+import ar.edu.itba.paw.persistence.PatientDao;
 import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -23,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+
 public class AppointmentJdbcDao implements AppointmentDao {
 
     public static final String TABLE_NAME = "Appointments";
@@ -55,11 +55,12 @@ public class AppointmentJdbcDao implements AppointmentDao {
         rowMapper = new AppointmentRowMapper();
     }
 
-    public Appointment create(int patientId, int doctorId, int slotId, DateTime startDate, String comments) {
-        Map<String, Object> values = new HashMap<String, Object>();
-        values.put(PATIENT_COL, patientId);
-        values.put(DOCTOR_COL, doctorId);
-        values.put(SLOT_COL, slotId);
+    public Appointment create(Patient patient, Doctor doctor, AppointmentSlot slot,
+                              DateTime startDate, String comments) {
+        Map<String, Object> values = new HashMap<>();
+        values.put(PATIENT_COL, patient.getId());
+        values.put(DOCTOR_COL, doctor.getId());
+        values.put(SLOT_COL, slot.getId());
         values.put(START_DATE_COL, startDate.toDate());
         values.put(COMMENTS_COL, comments);
 
@@ -79,39 +80,39 @@ public class AppointmentJdbcDao implements AppointmentDao {
         return list.get(0);
     }
 
-    public List<Appointment> getByDoctor(int doctorId) {
+    public List<Appointment> getByDoctor(Doctor doctor) {
         String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, DOCTOR_COL);
-        List<Appointment> list = jdbcTemplate.query(query, rowMapper, doctorId);
+        List<Appointment> list = jdbcTemplate.query(query, rowMapper, doctor);
         if (list == null)
             return new ArrayList<Appointment>();
 
         return list;
     }
 
-    public List<Appointment> getByPatient(int patientId, int page) {
+    public List<Appointment> getByPatient(Patient patient, int page) {
         String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, PATIENT_COL);
-        List<Appointment> list = jdbcTemplate.query(query, rowMapper, patientId);
+        List<Appointment> list = jdbcTemplate.query(query, rowMapper, patient);
         if (list == null)
             return new ArrayList<Appointment>();
 
         return list;
     }
 
-    public boolean isDoctorAvailable(int doctorId, DateTime date) {
+    public boolean isDoctorAvailable(Doctor doctor, DateTime date) {
         final Timestamp appointmentDate = new Timestamp(date.getMillis());
         final String query = String.format("SELECT COUNT(*) FROM %s WHERE %s <= ? AND %s >= ? AND  %s = ?",
                 TABLE_NAME, START_DATE_COL, START_DATE_COL, DOCTOR_COL);
 
         final Integer count = jdbcTemplate
-                .queryForObject(query, Integer.class, appointmentDate, appointmentDate, doctorId);
+                .queryForObject(query, Integer.class, appointmentDate, appointmentDate, doctor);
 
         return count != null && count == 0;
     }
 
-    public int delete(int appointmentId) {
+    public boolean delete(int appointmentId) {
         final String query = String.format("DELETE FROM %s WHERE %s = ?", TABLE_NAME, ID_COL);
 
-        return jdbcTemplate.update(query, appointmentId);
+        return jdbcTemplate.update(query, appointmentId) == 1;
     }
 
     private class AppointmentRowMapper implements RowMapper<Appointment> {

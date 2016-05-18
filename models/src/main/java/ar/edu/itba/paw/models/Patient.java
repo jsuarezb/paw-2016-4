@@ -1,30 +1,39 @@
 package ar.edu.itba.paw.models;
 
-import java.util.List;
+import javax.persistence.*;
 
-/**
- * Created by santi698 on 24/03/16.
- */
+@Entity
+@Table(name = "patients")
 public class Patient {
-    private final int id;
-    private final String name;
-    private final String last_name;
-    private final String email;
-    private final String password;
-    private final List<PatientPhone> phones;
 
-    public Patient(final int id,
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patients_id_seq")
+    @SequenceGenerator(sequenceName = "patients_id_seq", name = "patients_id_seq", allocationSize = 1)
+    private int id;
+
+    @Column(length = 100, nullable = false)
+    private String name;
+
+    @Column(length = 100, nullable = false)
+    private String lastName;
+
+    @Column(length = 100, nullable = false, unique = true)
+    private String email;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
+    /* package */ Patient(){ }
+
+    public Patient(final Integer id,
                    final String name,
-                   final String last_name,
+                   final String lastName,
                    final String email,
-                   final String password,
-                   List<PatientPhone> phones) {
-        this.id = id;
+                   final String password) {
         this.name = name;
-        this.last_name = last_name;
+        this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.phones = phones;
     }
 
     public int getId() {
@@ -35,8 +44,8 @@ public class Patient {
         return name;
     }
 
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
     public String getEmail() {
@@ -45,10 +54,6 @@ public class Patient {
 
     public String getPassword() {
         return password;
-    }
-
-    public List<PatientPhone> getPhones() {
-        return phones;
     }
 
     @Override
@@ -72,9 +77,8 @@ public class Patient {
         return "Patient{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", last_name='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }

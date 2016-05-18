@@ -1,15 +1,18 @@
-package ar.edu.itba.paw.persistence;
+package ar.edu.itba.paw.persistence.jdbc;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Institution;
+import ar.edu.itba.paw.persistence.AppointmentSlotDao;
+import ar.edu.itba.paw.persistence.DoctorDao;
+import ar.edu.itba.paw.persistence.InstitutionDao;
+import ar.edu.itba.paw.persistence.jdbc.AppointmentJdbcDao;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
-import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.sql.Date;
@@ -20,7 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Repository
+
 public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
 
     public static final String TABLE_NAME_APPOINTMENTSLOTS = "AppointmentSlots";

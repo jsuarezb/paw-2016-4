@@ -3,6 +3,8 @@ package ar.edu.itba.paw.services;
 import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.persistence.AppointmentDao;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
+import ar.edu.itba.paw.persistence.DoctorDao;
+import ar.edu.itba.paw.persistence.PatientDao;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +22,25 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private AppointmentSlotDao slotDao;
 
-    public Appointment create(int patientId, int doctorId, int slotId, DateTime startDate, String comment) {
-        if (!appointmentDao.isDoctorAvailable(doctorId, startDate))
+    @Autowired
+    private DoctorDao doctorDao;
+
+    @Autowired
+    private PatientDao patientDao;
+
+    public Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot,
+                              DateTime startDate, String comment) {
+        if (!appointmentDao.isDoctorAvailable(doctor, startDate))
             return null;
-
-        return appointmentDao.create(patientId, doctorId, slotId, startDate, comment);
+        return appointmentDao.create(patient, doctor, appointmentSlot, startDate, comment);
     }
 
-    public List<Appointment> getByDoctor(int doctorId) {
-        return appointmentDao.getByDoctor(doctorId);
+    public List<Appointment> getByDoctor(Doctor doctor) {
+        return appointmentDao.getByDoctor(doctor);
     }
 
-    public List<Appointment> getByPatient(int patientId) {
-        return appointmentDao.getByPatient(patientId, 0);
+    public List<Appointment> getByPatient(Patient patient) {
+        return appointmentDao.getByPatient(patient, 0);
     }
 
     public List<Appointment> getAvailableByDoctor(final Doctor doctor, final DateTime weekStart) {
@@ -47,7 +55,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(0, null, doctor, slot, appointmentTime, null);
+            Appointment appointment = new Appointment(null, doctor, slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
@@ -66,7 +74,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(0, null, doctor, slot, appointmentTime, null);
+            Appointment appointment = new Appointment(null, doctor, slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
@@ -85,7 +93,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(0, null, slot.getDoctor(), slot, appointmentTime, null);
+            Appointment appointment = new Appointment(null, slot.getDoctor(), slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
@@ -104,14 +112,14 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(0, null, slot.getDoctor(), slot, appointmentTime, null);
+            Appointment appointment = new Appointment(null, slot.getDoctor(), slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
         return appointments;
     }
 
-    public int cancel(int appointmentId) {
+    public boolean cancel(int appointmentId) {
         return appointmentDao.delete(appointmentId);
     }
 }

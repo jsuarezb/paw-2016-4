@@ -40,7 +40,7 @@ public class InstitutionServiceImplTest {
 
         List<Institution> searchList = new ArrayList<Institution>();
         searchList.add(institution1);
-        when(dao.searchByName(SEARCH_NAME)).thenReturn(searchList);
+        when(dao.getByName(SEARCH_NAME)).thenReturn(searchList);
 
         when(dao.getById(ID)).thenReturn(institution1);
 

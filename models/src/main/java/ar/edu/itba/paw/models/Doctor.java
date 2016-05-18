@@ -1,29 +1,42 @@
 package ar.edu.itba.paw.models;
 
+import javax.persistence.*;
 import java.util.Set;
 import java.util.List;
 
-/**
- * Created by santi698 on 24/03/16.
- */
+@Entity
+@Table(name = "doctors")
 public class Doctor {
-    private final int id;
-    private final String name;
-    private final String last_name;
-    private final Set<Speciality> specialities;
-    private final String email;
-    private final String password;
-    private final List<DoctorPhone> phones;
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doctors_id_seq")
+    @SequenceGenerator(sequenceName = "doctors_id_seq", name = "doctors_id_seq", allocationSize = 1)
+    private int id;
 
-    public Doctor(int id, String name, String last_name, Set<Speciality> specialities, String email, String password,
-                  List<DoctorPhone> phones) {
+    @Column(length = 100, nullable = false)
+    private String name;
+
+    @Column(length = 100, nullable = false)
+    private String last_name;
+
+    @OneToMany
+    private List<Speciality> specialities;
+
+    @Column(length = 100, nullable = false, unique = true)
+    private String email;
+
+    @Column(length = 100, nullable = false)
+    private String password;
+
+    /* package */ Doctor() {  }
+
+    public Doctor(int id, String name, String last_name, List<Speciality> specialities,
+                  String email, String password) {
         this.id = id;
         this.name = name;
         this.last_name = last_name;
         this.specialities = specialities;
         this.email = email;
         this.password = password;
-        this.phones = phones;
     }
 
     public String getName() {
@@ -38,7 +51,7 @@ public class Doctor {
         return last_name;
     }
 
-    public Set<Speciality> getSpecialities() {
+    public List<Speciality> getSpecialities() {
         return specialities;
     }
 
@@ -48,10 +61,6 @@ public class Doctor {
 
     public String getPassword() {
         return password;
-    }
-
-    public List<DoctorPhone> getPhones() {
-        return phones;
     }
 
     @Override
@@ -79,7 +88,6 @@ public class Doctor {
                 ", last_name='" + last_name + '\'' +
                 ", specialities='" + specialities + '\'' +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 '}';
     }
 }

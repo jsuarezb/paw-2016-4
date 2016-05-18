@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Speciality;
+import ar.edu.itba.paw.persistence.jdbc.SpecialityJdbcDao;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class SpecialityJdbcDaoTest {
 
     @Test
     public void testSearchByName() {
-        final Speciality speciality = sDao.searchByName(SPECIALITY_NAME);
-        final Speciality nullSpeciality = sDao.searchByName(INVALID_SPECIALITY_NAME);
+        final Speciality speciality = sDao.getByName(SPECIALITY_NAME);
+        final Speciality nullSpeciality = sDao.getByName(INVALID_SPECIALITY_NAME);
 
         assertNotNull(speciality);
         assertEquals(SPECIALITY_NAME, speciality.getName());
