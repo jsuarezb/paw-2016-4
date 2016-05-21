@@ -6,7 +6,8 @@
     <h2>
       Ingrese sus datos
     </h2>
-    <form:form method='post' action="<c:url value='/patients'/>" modelAttribute="patientForm">
+    <c:url value='/patients' var="url"/>
+    <form:form method='post' action="${url}" modelAttribute="patientForm">
       <div class="form-group">
         <label for="name" class="control-label">
           Nombre

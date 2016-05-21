@@ -11,10 +11,6 @@ import java.sql.Date;
  * Form object modelling a new appointment request
  */
 public class AppointmentForm {
-
-    @NotNull
-    private int patientId;
-
     @NotNull
     private int doctorId;
 
@@ -26,14 +22,6 @@ public class AppointmentForm {
 
     @Length(max = 255)
     private String comment;
-
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
 
     public int getDoctorId() {
         return doctorId;

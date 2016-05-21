@@ -48,10 +48,10 @@
                         </a>
                     </td>
                     <td>
+                        <c:url value='/appointments' var="url"/>
                         <form:form modelAttribute="newAppointment"
-                                   action="<c:url value='/appointments'/>" method="post"
+                                   action="${url}" method="post"
                                    enctype="application/x-www-form-urlencoded">
-                            <form:input path="patientId" type="hidden" value="${ user.id }" />
                             <form:input path="doctorId" type="hidden" value="${ appointment.doctor.id }" />
                             <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
                             <form:input path="startDate" type="hidden" value="${ formattedDate }" />
