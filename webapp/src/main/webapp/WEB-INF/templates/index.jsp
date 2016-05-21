@@ -6,7 +6,7 @@
     <h1>ChoPido Turnos</h1>
     <div id="home-specialities">
         <c:forEach var="speciality" items="${ specialities }">
-          <a href="/grupo4/speciality/${ speciality.id }/appointment_slots">
+          <a href="<c:url value='/speciality/${ speciality.id }/appointment_slots'/>">
             <span class="label label-primary">${ speciality.name }</span>
           </a>
         </c:forEach>

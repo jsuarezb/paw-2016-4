@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: agophurmuz
-  Date: 5/9/16
-  Time: 19:11
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -44,13 +37,18 @@
                     <td>${ readableDate }</td>
                     <td>1 hs</td>
                     <td>
-                        <a href="/grupo4/doctors/${ appointment.doctor.id }">${ appointment.doctor.name } ${ appointment.doctor.lastName }</a>
+                        <a href="<c:url value='/doctors/${ appointment.doctor.id }'/>">
+                            ${ appointment.doctor.name } ${ appointment.doctor.lastName }
+                        </a>
                     </td>
                     <td>
-                        <a href="/grupo4/institutions/${ appointment.slot.institution.id }">${ appointment.slot.institution.name }</a>
+                        <a href="<c:url value='/institutions/${ appointment.slot.institution.id }'/>">
+                            ${ appointment.slot.institution.name }
+                        </a>
                     </td>
                     <td>
-                        <form:form modelAttribute="newAppointment" action="/grupo4/appointments" method="post" enctype="application/x-www-form-urlencoded">
+                        <form:form modelAttribute="newAppointment" action="<c:url value='/appointments'/>"
+                                   method="post" enctype="application/x-www-form-urlencoded">
                             <form:input path="patientId" type="hidden" value="${ user.id }" />
                             <form:input path="doctorId" type="hidden" value="${ appointment.doctor.id }" />
                             <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
@@ -80,10 +78,14 @@
                 </c:otherwise>
             </c:choose>
             <li class="${ previousWeekClass }">
-                <a href="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
+                <a href="<c:url value='/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }'/>">
+                    &lt; Semana anterior
+                </a>
             </li>
             <li class="next">
-                <a href="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedNextWeek }">Semana siguiente &gt;</a>
+                <a href="<c:url value='/speciality/${ speciality.id }/appointment_slots?date=${ formattedNextWeek }'/>">
+                    Semana siguiente &gt;
+                </a>
             </li>
         </ul>
     </nav>

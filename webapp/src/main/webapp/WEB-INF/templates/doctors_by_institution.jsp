@@ -2,7 +2,7 @@
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <z:base title="Doctores - ${ institution.name }">
-    <h1>Doctores - <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a></h1>
+    <h1>Doctores - <a href="<c:url value='/institutions/${ institution.id }'/>">${ institution.name }</a></h1>
     <h3>${ institution.address.streetName } ${ institution.address.streetNumber } ${ institution.address.apartment }, ${ institution.address.city }, ${ institution.address.state }, ${ institution.address.country }</h3>
     <table class="table table-bordered">
       <thead>
@@ -17,7 +17,7 @@
         <c:forEach var="doctor" items="${doctors}">
           <tr>
             <td>
-              <a href="/grupo4/doctors/${doctor.id}">
+              <a href="<c:url value='/doctors/${doctor.id}'/>">
                 ${ doctor.name } ${ doctor.lastName }
               </a>
             </td>
@@ -32,7 +32,7 @@
             <c:if test="${patient != null}">
               <td>
                 <a class="btn btn-success"
-                   href="/grupo4/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots">
+                   href="<c:url value='/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots'/>">
                   Pedir turno
                 </a>
               </td>

@@ -39,7 +39,7 @@
                             <a href="/grupo4/institutions/${ appointment.slot.institution.id }">${ appointment.slot.institution.name }</a>
                         </td>
                         <td>
-                            <form:form modelAttribute="newAppointment" action="/grupo4/appointments" method="post" enctype="application/x-www-form-urlencoded">
+                            <form:form modelAttribute="newAppointment" action="<c:url value='/appointments'/>" method="post" enctype="application/x-www-form-urlencoded">
                                 <form:input path="patientId" type="hidden" value="${ user.id }" />
                                 <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
                                 <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
@@ -69,10 +69,10 @@
                 </c:otherwise>
             </c:choose>
             <li class="${ previousWeekClass }">
-                <a href="/grupo4/doctors/${ doctor.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
+                <a href="<c:url value='/doctors/${ doctor.id }/appointment_slots?date=${ formattedPrevWeek }'/>">&lt; Semana anterior</a>
             </li>
             <li class="next">
-                <a href="/grupo4/doctors/${ doctor.id }/appointment_slots?date=${ formattedNextWeek }">Semana siguiente &gt;</a>
+                <a href="<c:url value='/doctors/${ doctor.id }/appointment_slots?date=${ formattedNextWeek }'/>">Semana siguiente &gt;</a>
             </li>
         </ul>
     </nav>
