@@ -11,14 +11,14 @@
         <label for="name" class="control-label">
           Nombre
         </label>
-        <form:input path="name" class="form-control" placeholder="Name"/>
+        <form:input path="name" class="form-control" placeholder="Nombre"/>
         <form:errors path="name" />
       </div>
       <div class="form-group">
         <label for="lastName" class="control-label">
           Apellido
         </label>
-        <form:input path="lastName" class="form-control" placeholder="Last Name"/>
+        <form:input path="lastName" class="form-control" placeholder="Apellido"/>
         <form:errors path="lastName" />
       </div>
       <div class="form-group">

@@ -14,6 +14,8 @@ public interface AppointmentService {
 
     List<Appointment> getByPatient(int patientId);
 
+    List<Appointment> getAvailableByDoctor(Doctor doctor, DateTime weekStart);
+
     List<Appointment> getAvailableByDoctorInInstitution(Doctor doctor, Institution institution, DateTime weekStart);
 
     /**

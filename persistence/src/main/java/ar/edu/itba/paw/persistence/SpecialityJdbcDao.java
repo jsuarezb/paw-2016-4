@@ -70,12 +70,28 @@ public class SpecialityJdbcDao implements SpecialityDao {
 
     public Set<Speciality> getByDoctorId(Integer doctor_id) {
         String query = String.format("SELECT * FROM %s WHERE %s IN (SELECT %s FROM %s where %s = ?)", SPECIALITIES_TABLE_NAME, ID_COL,ID_SPECIALITY_COL, DOCTORS_SPECIALITIES_TABLE_NAME, ID_DOCTOR_COL);
-        Set<Speciality> list = new HashSet<Speciality>(jdbcTemplate.query(query, rowMapper, doctor_id));
 
-        if (list == null || list.isEmpty())
-            return null;
+        // No need to null check as I'm creating new instance
+        return new HashSet<Speciality>(jdbcTemplate.query(query, rowMapper, doctor_id));
+    }
 
-        return list;
+    public Set<Speciality> getByInstitutionId(Integer institutionId) {
+        String sql = "SELECT * FROM %s " +
+                "WHERE EXISTS ( " +
+                    "SELECT * FROM %s " +
+                    "WHERE %s.%s = %s.%s AND EXISTS ( " +
+                        "SELECT * FROM %s " +
+                        "WHERE %s.%s = %s.%s " +
+                        "AND %s.%s = ? ) )";
+
+        String query = String.format(sql, SPECIALITIES_TABLE_NAME,
+                DOCTORS_SPECIALITIES_TABLE_NAME, SPECIALITIES_TABLE_NAME, ID_COL, DOCTORS_SPECIALITIES_TABLE_NAME,
+                ID_SPECIALITY_COL, AppointmentSlotJdbcDao.TABLE_NAME_APPOINTMENTSLOTS,
+                AppointmentSlotJdbcDao.TABLE_NAME_APPOINTMENTSLOTS, AppointmentSlotJdbcDao.DOCTOR_COL,
+                DOCTORS_SPECIALITIES_TABLE_NAME, ID_DOCTOR_COL, AppointmentSlotJdbcDao.TABLE_NAME_APPOINTMENTSLOTS,
+                AppointmentSlotJdbcDao.INSTITUTION_COL);
+
+        return new HashSet<Speciality>(jdbcTemplate.query(query, rowMapper, institutionId));
     }
 
     private static class SpecialityRowMapper implements RowMapper<Speciality>{
