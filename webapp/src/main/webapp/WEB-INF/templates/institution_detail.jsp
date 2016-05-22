@@ -15,8 +15,14 @@
             ${ institution.address.streetName } ${ institution.address.streetNumber }<br>
             ${ institution.address.city } - ${ institution.address.state }, ${ institution.address.country }
           </address>
-          <a class="btn btn-default" href="/grupo4/institutions/${institution.id}/doctors">Ver doctores</a>
-          <a class="btn btn-default" href="/grupo4/institutions/${institution.id}/specialities">Ver especialidades</a>
+          <a class="btn btn-default"
+             href="<c:url value='/institutions/${institution.id}/doctors'/>">
+            Ver doctores
+          </a>
+          <a class="btn btn-default"
+             href="<c:url value='/institutions/${institution.id}/specialities'/>">
+            Ver especialidades
+          </a>
         </div>
       </div>
     </div>

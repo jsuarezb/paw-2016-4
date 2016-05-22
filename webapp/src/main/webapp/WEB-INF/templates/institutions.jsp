@@ -12,13 +12,18 @@
             </div>
             <div class="panel-body">
               <p class="lead">
-                <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a>
+                <a href="<c:url value='/institutions/${ institution.id }'/>">
+                  ${ institution.name }
+                </a>
               </p>
               <p>
-                ${ institution.address.streetName } ${institution.address.streetNumber}, ${institution.address.city}, ${institution.address.state}, ${institution.address.country }
+                ${ institution.address.streetName } ${institution.address.streetNumber},
+                ${institution.address.city}, ${institution.address.state},
+                ${institution.address.country }
               </p>
               <div class="text-center">
-                <a href="/grupo4/institutions/${institution.id}/specialities" class="btn btn-primary">
+                <a href="<c:url value='/institutions/${institution.id}/specialities'/>"
+                   class="btn btn-primary">
                   Ver especialidades
                 </a>
               </div>

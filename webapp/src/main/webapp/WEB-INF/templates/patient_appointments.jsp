@@ -12,7 +12,7 @@
                     <joda:format value='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var="formattedDate" />
                     <div class="list-group-item">
                         <h3 class="list-group-item-heading">
-                            <a href="/grupo4/doctors/${ appointment.slot.doctor.id}">
+                            <a href="<c:url value='/doctors/${ appointment.slot.doctor.id}'/>">
                                 ${ appointment.slot.doctor.name } ${ appointment.slot.doctor.lastName }
                             </a>
                         </h3>
@@ -28,7 +28,7 @@
                               </dd>
                               <dt>Institución</dt>
                               <dd>
-                                <a href="/grupo4/institutions/${ appointment.slot.institution.id }">
+                                <a href="<c:url value='/institutions/${ appointment.slot.institution.id }'/>">
                                     ${ appointment.slot.institution.name }
                                 </a>
                               </dd>
@@ -36,7 +36,7 @@
                               <dd>${ formattedDate }</dd>
                             </dl>
                             <button class="appointment-delete btn btn-danger btn-danger"
-                                    data-url="/grupo4/appointments/${appointment.id}">
+                                    data-url="<c:url value='/appointments/${appointment.id}'/>">
                                 Cancelar turno
                             </button>
                         </div>

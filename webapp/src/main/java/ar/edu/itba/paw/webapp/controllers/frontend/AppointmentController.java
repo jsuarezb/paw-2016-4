@@ -39,7 +39,7 @@ public class AppointmentController extends BaseController {
         if (errors.hasErrors())
             throw new BadRequestException();
 
-        final Appointment appointment = as.create(appointmentForm.getPatientId(), appointmentForm.getDoctorId(),
+        final Appointment appointment = as.create(currentPatient().getId(), appointmentForm.getDoctorId(),
                 appointmentForm.getSlotId(), appointmentForm.getStartDate(), appointmentForm.getComment());
 
         if (appointment == null)

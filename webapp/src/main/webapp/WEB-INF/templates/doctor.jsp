@@ -32,7 +32,7 @@
             </c:if>
           </dl>
           <div class="text-center">
-            <a class="btn btn-success" href="/grupo4/doctors/${doctor.id}/appointment_slots">
+            <a class="btn btn-success" href="<c:url value='/doctors/${doctor.id}/appointment_slots'/>">
               Pedir turno con ${doctor.name}
             </a>
           </div>

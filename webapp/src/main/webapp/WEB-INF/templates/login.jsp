@@ -8,7 +8,8 @@
     <h2>
       Iniciar sesión
     </h2>
-    <form:form method='post' action="/grupo4/login" modelAttribute="loginForm">
+    <c:url value='/login' var="url"/>
+    <form:form method='post' action="${url}" modelAttribute="loginForm">
       <div class="form-group">
         <label for="email" class="control-label">Email</label>
         <form:input type="email" path="email" class="form-control" placeholder="Email"/>
