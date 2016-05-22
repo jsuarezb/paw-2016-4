@@ -1,15 +1,34 @@
 package ar.edu.itba.paw.models;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "address")
 public class Address {
 
     private static final String PRINT_FORMAT = "%s %d, %s %s %s %s";
 
-    private final String streetName;
-    private final Integer streetNumber;
-    private final String apartment;
-    private final String city;
-    private final String state;
-    private final String country;
+    @Column(length = 100, nullable = false)
+    private String streetName;
+
+    @Column(nullable = false)
+    private Integer streetNumber;
+
+    @Column(length = 100, nullable = false)
+    private String apartment;
+
+    @Column(length = 100, nullable = false)
+    private String city;
+
+    @Column(length = 100, nullable = false)
+    private String state;
+
+    @Column(length = 100, nullable = false)
+    private String country;
+
+    /* package */ //Address() { }
 
     public Address(String streetName, Integer streetNumber, String apartment, String city, String state, String country) {
         this.streetName = streetName;

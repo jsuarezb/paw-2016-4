@@ -20,7 +20,7 @@ public class SpecialityHibernateDao implements SpecialityDao {
     private EntityManager em;
 
     public List<Speciality> getAll() {
-        final TypedQuery<Speciality> query = em.createQuery("from specialities", Speciality.class);
+        final TypedQuery<Speciality> query = em.createQuery("FROM specialities", Speciality.class);
         return query.getResultList();
     }
 

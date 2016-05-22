@@ -54,7 +54,7 @@ public class Institution {
     public String toString() {
         return "Institution{" +
                 "name='" + name + '\'' +
-                ", address=" + address +
+                //", address=" + address +
                 '}';
     }
     public int getId() {

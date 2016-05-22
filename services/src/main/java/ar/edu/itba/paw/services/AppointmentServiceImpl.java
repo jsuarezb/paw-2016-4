@@ -46,7 +46,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Appointment> getAvailableByDoctor(final Doctor doctor, final DateTime weekStart) {
         final List<Appointment> appointments = new ArrayList<Appointment>();
         final List<AppointmentSlot> availableSlots = slotDao
-                .getAvailableByDoctor(doctor.getId(), weekStart);
+                .getAvailableByDoctor(doctor, weekStart);
 
         for (AppointmentSlot slot : availableSlots) {
             DateTime appointmentTime = weekStart
@@ -55,7 +55,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(null, doctor, slot, appointmentTime, null);
+            Appointment appointment = new Appointment(0, null, doctor, slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
@@ -74,7 +74,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(null, doctor, slot, appointmentTime, null);
+            Appointment appointment = new Appointment(0, null, doctor, slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
@@ -93,7 +93,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(null, slot.getDoctor(), slot, appointmentTime, null);
+            Appointment appointment = new Appointment(0, null, slot.getDoctor(), slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
@@ -112,12 +112,13 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withHourOfDay(slot.getHour())
                     .withDayOfWeek(slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(null, slot.getDoctor(), slot, appointmentTime, null);
+            Appointment appointment = new Appointment(0, null, slot.getDoctor(), slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
         return appointments;
     }
+
 
     public boolean cancel(int appointmentId) {
         return appointmentDao.delete(appointmentId);

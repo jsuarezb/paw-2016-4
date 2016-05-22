@@ -19,8 +19,7 @@ public class User {
 
     /* package */ User(){ }
 
-    public User(final int id, final String username, final String password) {
-    	this.id = id;
+    public User(final String username, final String password) {
         this.username = username;
         this.password = password;
     }

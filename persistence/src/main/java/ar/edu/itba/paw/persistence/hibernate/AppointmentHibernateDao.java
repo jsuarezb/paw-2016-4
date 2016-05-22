@@ -32,7 +32,7 @@ public class AppointmentHibernateDao implements AppointmentDao {
     public List<Appointment> getByDoctor(Doctor doctor) {
         final TypedQuery<Appointment> query = em.createQuery("FROM appointments AS a JOIN appointment_slot AS asl " +
                 "ON a.appointment_slot_id = asl.id WHERE asl.doctor_id = :doctor_id", Appointment.class);
-        query.setParameter("doctor_id", doctor);
+        query.setParameter("doctor_id", doctor.getId());
         return query.getResultList();
 
     }
@@ -40,7 +40,7 @@ public class AppointmentHibernateDao implements AppointmentDao {
     public List<Appointment> getByPatient(Patient patient, int page) {
         final TypedQuery<Appointment> query = em.createQuery("FROM appointments AS a JOIN patients AS p " +
                 "ON p.patients_id = p.id WHERE p.id = :patient_id", Appointment.class);
-        query.setParameter("patient_id", patient);
+        query.setParameter("patient_id", patient.getId());
         return query.getResultList();
     }
 

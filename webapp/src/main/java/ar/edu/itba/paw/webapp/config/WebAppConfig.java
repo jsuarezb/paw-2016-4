@@ -14,6 +14,7 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.DefaultServletHandlerConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -26,6 +27,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+
+@EnableTransactionManagement
 @ComponentScan({"ar.edu.itba.paw.webapp.controllers",
                 "ar.edu.itba.paw.persistence.hibernate",
                 "ar.edu.itba.paw.services"})
@@ -81,15 +84,11 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     }
     reemplazo por PlatformTransactikonManager  */
 
-    @Bean
-    public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
-        return new JpaTransactionManager(emf);
-    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         final LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
-        factoryBean.setPackagesToScan("ar.edu.itba.paw.model");
+        factoryBean.setPackagesToScan("ar.edu.itba.paw.models");
         factoryBean.setDataSource(dataSource());
 
         final JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -106,6 +105,11 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         factoryBean.setJpaProperties(properties);
 
         return factoryBean;
+    }
+
+    @Bean
+    public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {
+        return new JpaTransactionManager(emf);
     }
 
     @Override

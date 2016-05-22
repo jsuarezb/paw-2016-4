@@ -5,6 +5,7 @@ import ar.edu.itba.paw.persistence.DoctorDao;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.util.List;
@@ -37,5 +38,17 @@ public class DoctorHibernateDao implements DoctorDao {
                 "where d.institution_id = :institution_id", Doctor.class);
         query.setParameter("institution_id", institutionId);
         return query.getResultList();
+    }
+
+    public Doctor getByName(String name, String lastName) {
+        final TypedQuery<Doctor> query = em.createQuery("FROM doctors as d " +
+                "WHERE d.name = :name AND d.last_name = :last_name", Doctor.class);
+        query.setParameter("name", name);
+        query.setParameter("last_name", lastName);
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
     }
 }

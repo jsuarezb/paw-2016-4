@@ -6,7 +6,6 @@ import ar.edu.itba.paw.models.Institution;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
 import ar.edu.itba.paw.persistence.DoctorDao;
 import ar.edu.itba.paw.persistence.InstitutionDao;
-import ar.edu.itba.paw.persistence.jdbc.AppointmentJdbcDao;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -58,10 +57,10 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         rowMapper = new AppointmentSlotRowMapper();
     }
 
-    public AppointmentSlot create(int institutionId, int doctorId, int dayOfWeek, int startHour) {
+    public AppointmentSlot create(Institution institution, Doctor doctor, int dayOfWeek, int startHour) {
         Map<String, Object> values = new HashMap<String, Object>();
-        values.put(INSTITUTION_COL, institutionId);
-        values.put(DOCTOR_COL, doctorId);
+        values.put(INSTITUTION_COL, institution);
+        values.put(DOCTOR_COL, doctor);
         values.put(DAY_OF_WEEK_COL, dayOfWeek);
         values.put(START_HOUR_COL, startHour);
 
@@ -88,7 +87,7 @@ public class AppointmentSlotJdbcDao implements AppointmentSlotDao {
         return slots;
     }
 
-    public List<AppointmentSlot> getAvailableByDoctor(int doctorId, DateTime week) {
+    public List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, DateTime week) {
         String sql =
                 "SELECT * FROM %s " +
                 "WHERE %s = ? AND %s NOT IN " +

@@ -22,4 +22,6 @@ public interface DoctorDao {
      * @return A list with the doctors of an institution.
      */
     List<Doctor> getDoctorsByInstitution(Integer id);
+
+    Doctor getByName(String name, String last_name);
 }

@@ -25,8 +25,7 @@ public class AppointmentSlot {
 
     /* package */ AppointmentSlot(){ }
 
-    public AppointmentSlot(int id, int dayOfWeek, int hour, Institution institution, Doctor doctor) {
-        this.id = id;
+    public AppointmentSlot(int dayOfWeek, int hour, Institution institution, Doctor doctor) {
         this.dayOfWeek = dayOfWeek;
         this.hour = hour;
         this.doctor = doctor;
