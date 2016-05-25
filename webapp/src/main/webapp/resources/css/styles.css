@@ -6,3 +6,35 @@
 #home-specialities .label {
     font-size: 100%;
 }
+
+.nav-pills>li>a {
+    border-radius: 4px;
+    background-color: gainsboro;
+}
+
+.category-bar {
+    margin-bottom: 15px;
+}
+
+.form-control-filter {
+    width: 200px;
+    margin-bottom: 15px;
+}
+
+.btn-search {
+    float: right;
+}
+
+.filter-container {
+    height: 200px;
+    margin-left: 370px;
+    padding-top: 60px;
+
+
+}
+
+.form-label {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    vertical-align: middle;
+}
