@@ -3,6 +3,7 @@ package ar.edu.itba.paw.persistence.hibernate;
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.persistence.UserDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -18,6 +19,7 @@ public class UserHibernateDao implements UserDao {
     @PersistenceContext
     private EntityManager em;
 
+    @Transactional
     public User create(String username, String password) {
         User user = new User(username, password);
         em.persist(user);
@@ -25,7 +27,7 @@ public class UserHibernateDao implements UserDao {
     }
 
     public User getByUsername(String username) {
-        final TypedQuery<User> query = em.createQuery("from users as u where u.username = :username", User.class);
+        final TypedQuery<User> query = em.createQuery("from User as u where u.username = :username", User.class);
         query.setParameter("username", username);
         try {
             return query.getSingleResult();

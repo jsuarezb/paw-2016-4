@@ -20,12 +20,12 @@ public class SpecialityHibernateDao implements SpecialityDao {
     private EntityManager em;
 
     public List<Speciality> getAll() {
-        final TypedQuery<Speciality> query = em.createQuery("FROM specialities", Speciality.class);
+        final TypedQuery<Speciality> query = em.createQuery("FROM Speciality ", Speciality.class);
         return query.getResultList();
     }
 
     public Speciality getByName(String name) {
-        final TypedQuery<Speciality> query = em.createQuery("from specialities as s " +
+        final TypedQuery<Speciality> query = em.createQuery("from Speciality  as s " +
                 "where s.name = :name", Speciality.class);
         query.setParameter("name", name);
         try {
@@ -40,7 +40,7 @@ public class SpecialityHibernateDao implements SpecialityDao {
     }
 
     public List<Speciality> getByDoctorId(Integer doctorId) {
-        final TypedQuery<Speciality> query = em.createQuery("from specialities as s join doctors_specialities as ds " +
+        final TypedQuery<Speciality> query = em.createQuery("from Speciality  as s join doctors_specialities as ds " +
                 "on s.id = ds.doctor_id where ds.doctor_id = :doctor_id", Speciality.class);
         query.setParameter("doctor_id", doctorId);
         return query.getResultList();

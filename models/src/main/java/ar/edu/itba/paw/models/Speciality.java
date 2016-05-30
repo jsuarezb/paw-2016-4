@@ -10,19 +10,18 @@ public class Speciality {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "specialities_id_seq")
     @SequenceGenerator(sequenceName = "specialities_id_seq", name = "specialities_id_seq", allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(length = 100, nullable = false)
     private String name;
 
     /* package */ Speciality(){ }
 
-    public Speciality(int id, String name){
-        this.id = id;
+    public Speciality(String name){
         this.name = name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

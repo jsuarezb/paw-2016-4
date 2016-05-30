@@ -1,23 +1,25 @@
 package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.*;
-import org.joda.time.DateTime;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AppointmentService {
 
     Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot,
-                       DateTime startDate, String comment);
+                       LocalDateTime startDate, String comment);
 
     List<Appointment> getByDoctor(Doctor doctor);
 
     List<Appointment> getByPatient(Patient patient);
 
-    List<Appointment> getAvailableByDoctor(Doctor doctor, DateTime weekStart);
+    List<Appointment> getAvailableByDoctor(Doctor doctor, LocalDateTime from);
 
-    List<Appointment> getAvailableByDoctorInInstitution(Doctor doctor, Institution institution, DateTime weekStart);
+    List<Appointment> getAvailableByDoctorInInstitution(Doctor doctor, Institution institution, LocalDateTime weekStart);
 
+    //FIXME
+    List<Appointment> getAll();
     /**
      * Cancel an appointment.
      * @param appointmentId Id of the appointment.
@@ -25,7 +27,8 @@ public interface AppointmentService {
      */
     boolean cancel(int appointmentId);
 
-    List<Appointment> getAvailableBySpecialityInInstitution(Speciality speciality, Institution institution, DateTime weekStart);
+    List<Appointment> getAvailableBySpecialityInInstitution(Speciality speciality, Institution institution, LocalDateTime weekStart);
 
-    List<Appointment> getAvailableBySpeciality(Speciality speciality, DateTime weekStart);
+    List<Appointment> getAvailableBySpeciality(Speciality speciality, LocalDateTime weekStart);
+
 }

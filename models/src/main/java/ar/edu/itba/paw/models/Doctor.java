@@ -10,7 +10,7 @@ public class Doctor {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doctors_id_seq")
     @SequenceGenerator(sequenceName = "doctors_id_seq", name = "doctors_id_seq", allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(length = 100, nullable = false)
     private String name;
@@ -18,8 +18,10 @@ public class Doctor {
     @Column(length = 100, nullable = false)
     private String last_name;
 
-    @OneToMany
-    private List<Speciality> specialities;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "doctors_specialities", joinColumns = {
+            @JoinColumn(name = "doctor_id", referencedColumnName = "id") })
+    private Set<Speciality> specialities;
 
     @Column(length = 100, nullable = false, unique = true)
     private String email;
@@ -29,9 +31,8 @@ public class Doctor {
 
     /* package */ Doctor() {  }
 
-    public Doctor(int id, String name, String last_name, List<Speciality> specialities,
-                  String email, String password) {
-        this.id = id;
+    public Doctor(String name, String last_name,
+                  Set<Speciality> specialities, String email, String password) {
         this.name = name;
         this.last_name = last_name;
         this.specialities = specialities;
@@ -43,7 +44,7 @@ public class Doctor {
         return name;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -51,7 +52,7 @@ public class Doctor {
         return last_name;
     }
 
-    public List<Speciality> getSpecialities() {
+    public Set<Speciality> getSpecialities() {
         return specialities;
     }
 

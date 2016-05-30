@@ -28,12 +28,12 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 
-@EnableTransactionManagement
+@EnableWebMvc
 @ComponentScan({"ar.edu.itba.paw.webapp.controllers",
                 "ar.edu.itba.paw.persistence.hibernate",
                 "ar.edu.itba.paw.services"})
-@EnableWebMvc
 @Configuration
+@EnableTransactionManagement
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     private static final String RESOURCES_LOCATION = "/resources/";
@@ -97,10 +97,12 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         final Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
+        properties.setProperty("jadira.usertype.autoRegisterUserTypes", "true");
+        
 
         // Si ponen esto en prod, hay tabla!!!
-        //hibernateProperties.setProperty("hibernate.show_sql", "true");
-        //hibernateProperties.setProperty("format_sql", "true");
+        properties.setProperty("hibernate.show_sql", "true");
+        properties.setProperty("format_sql", "true");
 
         factoryBean.setJpaProperties(properties);
 

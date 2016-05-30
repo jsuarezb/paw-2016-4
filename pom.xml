@@ -23,6 +23,7 @@
     <org.slf4j.version>1.7.21</org.slf4j.version>
     <org.hibernate.version>5.1.0.Final</org.hibernate.version>
     <org.hibernate.jpa.version>1.0.0.Final</org.hibernate.jpa.version>
+    <org.jadira.usertype.version>3.0.0.CR1</org.jadira.usertype.version>
   </properties>
   <build>
     <plugins>
@@ -151,6 +152,11 @@
         <groupId>joda-time</groupId>
         <artifactId>joda-time-jsptags</artifactId>
         <version>${joda-time-jsptags.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.jadira.usertype</groupId>
+        <artifactId>usertype.core</artifactId>
+        <version>org.jadira.usertype.version</version>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>

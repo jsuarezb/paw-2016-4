@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -42,7 +45,7 @@ public class SpecialityAppointmentController extends BaseController{
     @RequestMapping("/speciality/{speciality_id}/appointment_slots")
     public ModelAndView list(
             @PathVariable final Integer speciality_id,
-            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") DateTime weekDate) {
+            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime weekDate) {
         ModelAndView model = new ModelAndView("speciality_appointment");
 
 
@@ -53,17 +56,11 @@ public class SpecialityAppointmentController extends BaseController{
         Patient patient = currentPatient();
 
         if (weekDate == null)
-            weekDate = new DateTime();
+            weekDate = LocalDateTime.now();
 
-        weekDate = weekDate
-                .withDayOfWeek(DateTimeConstants.MONDAY)
-                .withTime(0, 0, 0, 0);
-
-        final DateTime prevWeek = weekDate.minusWeeks(1);
-        final DateTime nextWeek = weekDate.plusWeeks(1);
-        final DateTime currentWeek = DateTime.now()
-                .withDayOfWeek(DateTimeConstants.MONDAY)
-                .withTime(0, 0, 0, 0);
+        final LocalDateTime prevWeek = weekDate.minusWeeks(1);
+        final LocalDateTime nextWeek = weekDate.plusWeeks(1);
+        final LocalDateTime currentWeek = LocalDateTime.now();
 
         final boolean showPrevWeek = currentWeek.isBefore(prevWeek) || currentWeek.isEqual(prevWeek);
 

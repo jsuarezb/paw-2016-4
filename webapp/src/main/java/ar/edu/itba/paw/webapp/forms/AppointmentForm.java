@@ -1,11 +1,10 @@
 package ar.edu.itba.paw.webapp.forms;
 
 import org.hibernate.validator.constraints.Length;
-import org.joda.time.DateTime;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
-import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * Form object modelling a new appointment request
@@ -18,7 +17,7 @@ public class AppointmentForm {
     private int slotId;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm")
-    private DateTime startDate;
+    private LocalDateTime startDate;
 
     @Length(max = 255)
     private String comment;
@@ -39,11 +38,11 @@ public class AppointmentForm {
         this.slotId = slotId;
     }
 
-    public DateTime getStartDate() {
+    public LocalDateTime getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(DateTime startDate) {
+    public void setStartDate(LocalDateTime startDate) {
         this.startDate = startDate;
     }
 

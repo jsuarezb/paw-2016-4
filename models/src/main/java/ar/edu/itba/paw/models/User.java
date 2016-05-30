@@ -9,7 +9,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
     @SequenceGenerator(sequenceName = "users_id_seq", name = "users_id_seq", allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(length = 100, nullable = false)
     private String username;
@@ -37,7 +37,7 @@ public class User {
         return password;
     }
 
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 }

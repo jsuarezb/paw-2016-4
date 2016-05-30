@@ -29,9 +29,9 @@ public class InstitutionServiceImplTest {
         MockitoAnnotations.initMocks(this);
 
         Address address1 = new Address("Av. Coronel Diaz", 2211, null, "CABA", "Bs As", "Argentina");
-        Institution institution1 = new Institution(1, "Clinica del Sol", address1);
+        Institution institution1 = new Institution("Clinica del Sol", address1);
         Address address2 = new Address("Cerviño", 3356, null, "CABA", "Bs As", "Argentina");
-        Institution institution2 = new Institution(2, "Hospital Fernandez", address2);
+        Institution institution2 = new Institution("Hospital Fernandez", address2);
 
         List<Institution> allInstitutions = new ArrayList<Institution>();
         allInstitutions.add(institution1);
@@ -60,7 +60,6 @@ public class InstitutionServiceImplTest {
         Institution institution = service.get(ID);
 
         assertNotNull(institution);
-        assertEquals(ID, institution.getId());
         assertEquals("Clinica del Sol", institution.getName());
     }
 

@@ -9,38 +9,38 @@ public class AppointmentSlot {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointment_slots_id_seq")
     @SequenceGenerator(sequenceName = "appointment_slots_id_seq", name = "appointment_slots_id_seq", allocationSize = 1)
-    private int id;
+    private Integer id;
 
-    @OneToOne
+    @ManyToOne
     private Institution institution;
 
-    @OneToOne
+    @ManyToOne
     private Doctor doctor;
 
     @Column(nullable = false)
-    private int dayOfWeek;
+    private Integer dayOfWeek;
 
     @Column(nullable = false)
-    private int hour;
+    private Integer hour;
 
     /* package */ AppointmentSlot(){ }
 
-    public AppointmentSlot(int dayOfWeek, int hour, Institution institution, Doctor doctor) {
+    public AppointmentSlot(Integer dayOfWeek, Integer hour, Institution institution, Doctor doctor) {
         this.dayOfWeek = dayOfWeek;
         this.hour = hour;
         this.doctor = doctor;
         this.institution = institution;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public int getDayOfWeek() {
+    public Integer getDayOfWeek() {
         return dayOfWeek;
     }
 
-    public int getHour() {
+    public Integer getHour() {
         return hour;
     }
 

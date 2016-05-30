@@ -75,8 +75,8 @@ public class AppointmentController extends BaseController {
         if (id == null)
             throw new ResourceNotFoundException();
 
-        int n = as.cancel(id);
-        if (n <= 0)
+        boolean n = as.cancel(id);
+        if (!n)
             throw new ResourceNotFoundException();
     }
 

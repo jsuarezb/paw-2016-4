@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "patients")
@@ -9,7 +10,7 @@ public class Patient {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patients_id_seq")
     @SequenceGenerator(sequenceName = "patients_id_seq", name = "patients_id_seq", allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(length = 100, nullable = false)
     private String name;
@@ -23,10 +24,12 @@ public class Patient {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @OneToMany
+    private List<Appointment> appointments;
+
     /* package */ Patient(){ }
 
-    public Patient(final Integer id,
-                   final String name,
+    public Patient(final String name,
                    final String lastName,
                    final String email,
                    final String password) {
@@ -36,7 +39,7 @@ public class Patient {
         this.password = password;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -54,6 +57,10 @@ public class Patient {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<Appointment> getAppointments() {
+        return appointments;
     }
 
     @Override

@@ -19,7 +19,7 @@ public class InstitutionHibernateDao implements InstitutionDao {
     private EntityManager em;
 
     public List<Institution> getAll() {
-        final TypedQuery<Institution> query = em.createQuery("from institutions", Institution.class);
+        final TypedQuery<Institution> query = em.createQuery("from Institution", Institution.class);
         return query.getResultList();
     }
 
@@ -28,7 +28,7 @@ public class InstitutionHibernateDao implements InstitutionDao {
     }
 
     public List<Institution> getByName(String name) {
-        final TypedQuery<Institution> query = em.createQuery("from institutions as i " +
+        final TypedQuery<Institution> query = em.createQuery("from Institution as i " +
                 "where i.name = :name", Institution.class);
         query.setParameter("name", name);
         return query.getResultList();

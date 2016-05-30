@@ -1,14 +1,17 @@
 package ar.edu.itba.paw.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "address")
 public class Address {
 
     private static final String PRINT_FORMAT = "%s %d, %s %s %s %s";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_id_seq")
+    @SequenceGenerator(sequenceName = "address_id_seq", name = "address_id_seq", allocationSize = 1)
+    private Integer id;
 
     @Column(length = 100, nullable = false)
     private String streetName;
@@ -28,7 +31,7 @@ public class Address {
     @Column(length = 100, nullable = false)
     private String country;
 
-    /* package */ //Address() { }
+    /* package */ Address() { }
 
     public Address(String streetName, Integer streetNumber, String apartment, String city, String state, String country) {
         this.streetName = streetName;
@@ -61,6 +64,10 @@ public class Address {
 
     public String getCountry() {
         return country;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,7 +29,7 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
         return appointmentSlotDao.getByDoctor(doctor);
     }
 
-    public List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, DateTime week) {
+    public List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, LocalDateTime week) {
         return appointmentSlotDao.getAvailableByDoctor(doctor, week);
     }
 }

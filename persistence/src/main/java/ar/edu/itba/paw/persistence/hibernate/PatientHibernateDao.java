@@ -3,6 +3,7 @@ package ar.edu.itba.paw.persistence.hibernate;
 import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.persistence.PatientDao;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -20,7 +21,7 @@ public class PatientHibernateDao implements PatientDao {
     private EntityManager em;
 
     public List<Patient> getAll() {
-        final TypedQuery<Patient> query = em.createQuery("from patients", Patient.class);
+        final TypedQuery<Patient> query = em.createQuery("from Patient", Patient.class);
         return query.getResultList();
     }
 
@@ -29,7 +30,7 @@ public class PatientHibernateDao implements PatientDao {
     }
 
     public Patient getByEmail(String email) {
-        final TypedQuery<Patient> query = em.createQuery("from patients as p where p.email = :email", Patient.class);
+        final TypedQuery<Patient> query = em.createQuery("from Patient as p where p.email = :email", Patient.class);
         query.setParameter("email", email);
         try {
             return query.getSingleResult();
@@ -38,6 +39,7 @@ public class PatientHibernateDao implements PatientDao {
         }
     }
 
+    @Transactional
     public Patient create(String name, String lastName, String email, String password) {
         Patient patient = new Patient(name, lastName, email, password);
         em.persist(patient);

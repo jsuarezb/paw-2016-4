@@ -4,19 +4,22 @@ import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Patient;
-import org.joda.time.DateTime;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AppointmentDao {
 
     //Appointment create(int patientId, int doctorId, int slotId, DateTime startDate, String comments);
 
-    Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot, DateTime startDate, String comments);
+    Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot, LocalDateTime startDate, String comments);
 
     List<Appointment> getByDoctor(Doctor doctor);
 
     List<Appointment> getByPatient(Patient patient, int page);
+
+    //FIXME
+    List<Appointment> getAll();
 
     /**
      * Check if the doctor has an appointment already at the given time.
@@ -24,7 +27,7 @@ public interface AppointmentDao {
      * @param time Time of the appointment.
      * @return True if the doctor is free, else false.
      */
-    boolean isDoctorAvailable(Doctor doctor, DateTime time);
+    boolean isDoctorAvailable(Doctor doctor, LocalDateTime time);
 
     /**
      * Delete the appointment.

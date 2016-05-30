@@ -1,7 +1,9 @@
 package ar.edu.itba.paw.webapp.controllers.frontend;
 
 
+import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.Speciality;
+import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.SpecialityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,12 +19,17 @@ public class IndexController extends BaseController {
     @Autowired
     private SpecialityService specialityService;
 
+    @Autowired
+    private AppointmentService appointmentService;
+
     @RequestMapping("/")
     public ModelAndView index() {
         ModelAndView mav = new ModelAndView("index");
 
         List<Speciality> specialities = specialityService.getAll();
         mav.addObject(SPECIALITIES_KEY, specialities);
+
+        List<Appointment> appointments = appointmentService.getAll();
 
         return mav;
     }

@@ -1,10 +1,12 @@
 package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.persistence.DoctorDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -20,8 +22,7 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorDao.getAll();
     }
 
-    public Doctor get(Integer id) { return doctorDao.getById(id);
-    }
+    public Doctor get(Integer id) { return doctorDao.getById(id); }
 
     public Doctor searchByName(String name, String last_name) {
         // TODO return doctorDao.getByName(name, last_name);

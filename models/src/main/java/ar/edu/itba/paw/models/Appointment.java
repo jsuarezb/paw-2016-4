@@ -1,49 +1,40 @@
 package ar.edu.itba.paw.models;
-import org.joda.time.DateTime;
+
+
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "appointments")
 public class Appointment {
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointments_id_seq")
     @SequenceGenerator(sequenceName = "appointments_id_seq", name = "appointments_id_seq", allocationSize = 1)
-    private int id;
+    private Integer id;
 
-    @OneToOne
+    @ManyToOne
     private Patient patient;
-
-    //No tendria que tener un Doctor
-    private Doctor doctor;
 
     @ManyToOne
     private AppointmentSlot slot;
 
     @Column(nullable = false)
-    private DateTime date;
+    private LocalDateTime date;
 
     @Column(length = 250, nullable = false)
     private String comments;
 
     /* package */ Appointment(){ }
 
-    public Appointment(Integer id,
-                       Patient patient,
-                       Doctor doctor,
-                       AppointmentSlot slot,
-                       DateTime date,
-                       String comments) {
-        this.id = id;
+    public Appointment(Patient patient, AppointmentSlot slot, LocalDateTime date, String comments) {
         this.patient = patient;
-        this.doctor = doctor;
         this.slot = slot;
         this.date = date;
         this.comments = comments;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -51,15 +42,11 @@ public class Appointment {
         return patient;
     }
 
-    public Doctor getDoctor() {
-        return doctor;
-    }
-
     public AppointmentSlot getSlot() {
         return slot;
     }
 
-    public DateTime getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 

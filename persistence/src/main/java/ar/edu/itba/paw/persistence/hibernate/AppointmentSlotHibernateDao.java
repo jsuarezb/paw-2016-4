@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,25 +35,25 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     }
 
     public List<AppointmentSlot> getByDoctor(Doctor doctor) {
-        final TypedQuery<AppointmentSlot> query = em.createQuery("FROM appointments_slots AS asl " +
+        final TypedQuery<AppointmentSlot> query = em.createQuery("FROM AppointmentSlot AS asl " +
                 "WHERE asl.doctors_id = :doctor_id", AppointmentSlot.class);
         query.setParameter("doctor_id", doctor.getId());
         return query.getResultList();
     }
 
-    public List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, DateTime week) {
-        return null;
+    public List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, LocalDateTime week) {
+        return Collections.emptyList();
     }
 
-    public List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId, DateTime weekStart) {
-        return null;
+    public List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId, LocalDateTime weekStart) {
+        return Collections.emptyList();
     }
 
-    public List<AppointmentSlot> getAvailableBySpecialityInInstitution(int speciality_id, int institution_id, DateTime week) {
-        return null;
+    public List<AppointmentSlot> getAvailableBySpecialityInInstitution(int speciality_id, int institution_id, LocalDateTime week) {
+        return Collections.emptyList();
     }
 
-    public List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, DateTime week) {
-        return null;
+    public List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, LocalDateTime week) {
+        return Collections.emptyList();
     }
 }

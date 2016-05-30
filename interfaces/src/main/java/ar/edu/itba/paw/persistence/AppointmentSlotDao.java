@@ -5,6 +5,7 @@ import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Institution;
 import org.joda.time.DateTime;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AppointmentSlotDao {
@@ -21,7 +22,7 @@ public interface AppointmentSlotDao {
      * @param week Start of the 7 days period to search slots for.
      * @return A list of available slots.
      */
-    List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, DateTime week);
+    List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, LocalDateTime week);
 
     /**
      * Get all the slots for a doctor in a single institution
@@ -30,10 +31,10 @@ public interface AppointmentSlotDao {
      * @return A list of slots for a doctor in an institution.
      */
 
-    List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId, DateTime weekStart);
+    List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId, LocalDateTime weekStart);
 
-    List<AppointmentSlot> getAvailableBySpecialityInInstitution(int speciality_id, int institution_id, DateTime week);
+    List<AppointmentSlot> getAvailableBySpecialityInInstitution(int speciality_id, int institution_id, LocalDateTime week);
 
-    List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, DateTime week);
+    List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, LocalDateTime week);
 
 }

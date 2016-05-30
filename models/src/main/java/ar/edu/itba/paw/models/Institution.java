@@ -15,13 +15,12 @@ public class Institution {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "institutions_id_seq")
     @SequenceGenerator(sequenceName = "institutions_id_seq", name = "institutions_id_seq", allocationSize = 1)
-    private int id;
+    private Integer id;
 
 
     /* package */ Institution(){ }
 
-    public Institution(int id, String name, Address address) {
-        this.id = id;
+    public Institution(String name, Address address) {
         this.name = name;
         this.address = address;
     }
@@ -32,6 +31,10 @@ public class Institution {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     @Override
@@ -56,8 +59,5 @@ public class Institution {
                 "name='" + name + '\'' +
                 //", address=" + address +
                 '}';
-    }
-    public int getId() {
-        return id;
     }
 }
