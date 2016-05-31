@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <z:base title="Turnos - ${ speciality.name }">
     <h1>Turnos - ${ speciality.name }</h1>
     <c:choose>
@@ -19,8 +18,8 @@
                 </thead>
                 <tbody>
                 <c:forEach var="appointment" items="${ appointments }">
-                <joda:format value='${ appointment.date }' pattern='yyyy-MM-dd HH:mm' var="formattedDate" />
-                <joda:format value='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var='readableDate' />
+                <z:localDateTime date='${ appointment.date }' pattern='yyyy-MM-dd HH:mm' var='formattedDate' />
+                <z:localDateTime date='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var='readableDate' />
                 <tr>
                     <td>
                         <c:choose>
@@ -66,8 +65,8 @@
         </c:otherwise>
     </c:choose>
     <nav>
-        <joda:format value="${ prevWeek }" pattern="yyyy-MM-dd" var="formattedPrevWeek" />
-        <joda:format value="${ nextWeek }" pattern="yyyy-MM-dd" var="formattedNextWeek" />
+        <z:localDateTime date="${ prevWeek }" pattern="yyyy-MM-dd" var="formattedPrevWeek" />
+        <z:localDateTime date="${ nextWeek }" pattern="yyyy-MM-dd" var="formattedNextWeek" />
         <ul class="pager">
             <c:choose>
                 <c:when test="${ null != prevWeek }">
@@ -78,9 +77,7 @@
                 </c:otherwise>
             </c:choose>
             <li class="${ previousWeekClass }">
-                <a href="<c:url value='/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }'/>">
-                    &lt; Semana anterior
-                </a>
+                <a href="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }">&lt; Semana anterior</a>
             </li>
             <li class="next">
                 <a href="<c:url value='/speciality/${ speciality.id }/appointment_slots?date=${ formattedNextWeek }'/>">

@@ -1,7 +1,5 @@
 package ar.edu.itba.paw.models;
 
-
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -19,7 +17,7 @@ public class Appointment {
     @ManyToOne
     private AppointmentSlot slot;
 
-    @Column(nullable = false)
+    @Column(nullable = false, name = "start_date")
     private LocalDateTime date;
 
     @Column(length = 250, nullable = false)

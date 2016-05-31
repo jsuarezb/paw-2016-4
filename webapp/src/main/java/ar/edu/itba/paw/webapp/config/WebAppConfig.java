@@ -39,12 +39,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     private static final String RESOURCES_LOCATION = "/resources/";
     private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
-    // Array of paths inside target/classes/
-    private static final String[] schemaFiles = {
-            "sql/schema.sql",
-            "sql/fixtures.sql"
-    };
-
     @Bean
     public ViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -100,7 +94,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
         properties.setProperty("jadira.usertype.autoRegisterUserTypes", "true");
         
 
-        // Si ponen esto en prod, hay tabla!!!
+        // TODO Si ponen esto en prod, hay tabla!!!
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("format_sql", "true");
 
