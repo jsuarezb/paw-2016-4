@@ -11,6 +11,7 @@ public class AppointmentSlot {
     @SequenceGenerator(sequenceName = "appointment_slots_id_seq", name = "appointment_slots_id_seq", allocationSize = 1)
     private Integer id;
 
+    // TODO make (institution, doctor) pair a foreign key to works_in table
     @ManyToOne
     private Institution institution;
 

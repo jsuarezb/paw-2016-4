@@ -23,6 +23,14 @@ public class Doctor {
             @JoinColumn(name = "doctor_id", referencedColumnName = "id") })
     private Set<Speciality> specialities;
 
+    // TODO could this maybe be lazy?
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "works_in",
+            joinColumns = @JoinColumn(name = "doctor_id", nullable = false, updatable = false),
+            inverseJoinColumns = @JoinColumn(name = "institution_id", nullable = false, updatable = false))
+    private Set<Institution> institutions;
+
     @Column(length = 100, nullable = false, unique = true)
     private String email;
 
@@ -31,11 +39,13 @@ public class Doctor {
 
     /* package */ Doctor() {  }
 
-    public Doctor(String name, String last_name,
-                  Set<Speciality> specialities, String email, String password) {
+    public Doctor(Integer id, String name, String last_name, Set<Speciality> specialities,
+                  Set<Institution> institutions, String email, String password) {
+        this.id = id;
         this.name = name;
         this.last_name = last_name;
         this.specialities = specialities;
+        this.institutions = institutions;
         this.email = email;
         this.password = password;
     }
@@ -50,6 +60,10 @@ public class Doctor {
 
     public String getLastName() {
         return last_name;
+    }
+
+    public Set<Institution> getInstitutions() {
+        return institutions;
     }
 
     public Set<Speciality> getSpecialities() {
