@@ -17,7 +17,6 @@
 }
 
 .form-control-filter {
-    width: 200px;
     margin-bottom: 15px;
 }
 
@@ -26,11 +25,7 @@
 }
 
 .filter-container {
-    height: 200px;
-    margin-left: 370px;
     padding-top: 60px;
-
-
 }
 
 .form-label {

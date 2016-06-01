@@ -2,23 +2,25 @@ package ar.edu.itba.paw.webapp.forms;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * Created by lucascarmona on 24/5/16.
  */
 public class SearchBySpecialityForm {
 
-    @NotEmpty
-    private String speciality;
+    @NotNull
+    private Integer specialityId;
+
     @NotEmpty
     private String neighborhood;
-    @NotEmpty
 
-public String getSpeciality() {
-        return speciality;
+    public Integer getSpecialityId() {
+        return specialityId;
     }
 
-    public void setSpeciality(String speciality) {
-        this.speciality = speciality;
+    public void setSpecialityId(Integer speciality_id) {
+        this.specialityId = speciality_id;
     }
 
     public String getNeighborhood() {
@@ -32,7 +34,7 @@ public String getSpeciality() {
     @Override
     public String toString() {
         return "SearchBySpecialityForm{" +
-                "speciality='" + speciality + '\'' +
+                "specialityId='" + specialityId + '\'' +
                 ", neighborhood='" + neighborhood + '\'' +
                 '}';
     }

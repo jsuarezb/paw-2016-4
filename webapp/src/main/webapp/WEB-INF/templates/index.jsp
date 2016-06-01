@@ -8,72 +8,106 @@
         <h1>ChoPido Turnos</h1>
         <h4>Buscar por:</h4>
         <ul class="nav nav-pills nav-justified category-bar">
-            <li class="active"><a data-toggle="pill" href="#speciality">Especialidad</a></li>
-            <li><a data-toggle="pill" href="#doctor">Doctor</a></li>
+            <li class="active" data-form-id="searchBySpecialityForm">
+                <a data-toggle="pill" href="#speciality">
+                    Especialidad
+                </a>
+            </li>
+            <li>
+                <a data-toggle="pill" href="#doctor">
+                    Doctor
+                </a>
+            </li>
             <!--    <li><a data-toggle="pill" href="#neighborhood">Barrio</a></li>  -->
         </ul>
         <div class="tab-content filter-container">
             <div id="speciality" class="tab-pane fade in active">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <fieldset class="form-group">
-                            <label for="form_specialities" class="col-sm-2 control-label form-label">
-                                Especialidad
-                            </label>
-                            <select class="form-control form-control-filter  input-lg" id="form_specialities">
-                                <option id="option-speciality">Especialidad</option>
-                                <c:forEach var="speciality" items="${ specialities }">
-                                    <option id="option-${ speciality.name }">${ speciality.name }</option>
-                                </c:forEach>
-                            </select>
-
-                            <label for="form_neighborhood" class="col-sm-2 control-label form-label">
-                                Barrio
-                            </label>
-
-
-                            <select class="form-control form-control-filter  input-lg" id="form_neighborhood">
-                                <option id="option-speciality">Barrio</option>
-                                    <%-- <c:forEach var="neighborhood" items="${ neighborhoods }"> --%>
-                                    <%--    <option id="option-${ neighborhood.name }">${ neighborhood.name }</option> --%>
-                                    <%-- </c:forEach> --%>
-                                <option id="option-1">Belgrano</option>
-                                <option id="option-2">Colegiales</option>
-                                <option id="option-3">Flores</option>
-                                <option id="option-4">Nuñez</option>
-                                <option id="option-5">Palermo</option>
-                                <option id="option-6">Parque Patricios</option>
-                                <option id="option-7">Recoleta</option>
-                                <option id="option-8">Villa Devoto</option>
-                                <option id="option-9">Villa Urquiza</option>
-                                <option id="option-10">Villa del Parque</option>
-                            </select>
-                        </fieldset>
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <c:url value='/search_by_speciality' var="url"/>
+                        <form:form class="form-horizontal" method='get' action="${url}" modelAttribute="searchBySpecialityForm">
+                            <div class="form-group">
+                                <label for="speciality" class="col-sm-3 control-label form-label">
+                                    Especialidad
+                                </label>
+                                <div class="col-sm-9">
+                                    <form:select id="specialityId" path="specialityId"
+                                                 class="form-control form-control-filter input-lg">
+                                        <form:option value="-" label="Seleccione una Especialidad"/>
+                                        <c:forEach var="speciality" items="${ specialities }">
+                                            <form:option id="option-${ speciality.name }"
+                                                         label="${ speciality.name }"
+                                                         value="${ speciality.id }"/>
+                                        </c:forEach>
+                                    </form:select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="neighborhood" class="col-sm-3 control-label form-label">
+                                    Barrio
+                                </label>
+                                        <%-- <c:forEach var="neighborhood" items="${ neighborhoods }"> --%>
+                                        <%--    <option id="option-${ neighborhood.name }">${ neighborhood.name }</option> --%>
+                                        <%-- </c:forEach> --%>
+                                <div class="col-sm-9">
+                                    <form:select path="neighborhood"
+                                                 class="form-control form-control-filter input-lg"
+                                                 id="neighborhood">
+                                        <form:option value="-" label="Seleccione un Barrio"/>
+                                        <form:option id="option-1" label="Belgrano" value="Belgrano"/>
+                                        <form:option id="option-2" label="Colegiales" value="Colegiales"/>
+                                        <form:option id="option-3" label="Flores" value="Flores"/>
+                                        <form:option id="option-4" label="Nuñez" value="Nuñez"/>
+                                        <form:option id="option-5" label="Palermo" value="Palermo"/>
+                                        <form:option id="option-6" label="Parque Patricios" value="Parque Patricios"/>
+                                        <form:option id="option-7" label="Recoleta" value="Recoleta"/>
+                                        <form:option id="option-8" label="Villa Devoto" value="Villa Devoto"/>
+                                        <form:option id="option-9" label="Villa Urquiza" value="Villa Urquiza"/>
+                                        <form:option id="option-10" label="Villa del Parque" value="Villa del Parque"/>
+                                    </form:select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">
+                                    Registrarse
+                                </button>
+                            </div>
+                        </form:form>
                     </div>
                 </div>
             </div>
             <div id="doctor" class="tab-pane fade">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="name" class="col-sm-2 control-label form-label">
-                                Nombre
-                            </label>
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <c:url value='/search_by_doctor' var="url"/>
+                        <form:form class="form-horizontal" method='get' action="${url}" modelAttribute="searchByDoctorForm">
+                            <div class="form-group">
+                                <label for="name" class="col-sm-3 control-label form-label">
+                                    Nombre
+                                </label>
 
-                            <div class="col-sm-10 form-control-filter">
-                                <input id="name" name="name" placeholder="Nombre" class="form-control input-lg" type="text" value="">
+                                <div class="col-sm-9 form-control-filter">
+                                    <form:input id="name" name="name" path="name"
+                                                class="form-control input-lg"
+                                                placeholder="Nombre" type="text"/>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-12">
-                        <div class="form-group">
-                            <label for="lastName" class="col-sm-2 control-label form-label">
-                                Apellido
-                            </label>
-                            <div class="col-sm-10 form-control-filter">
-                                <input id="lastName" name="lastName" placeholder="Apellido" class="form-control input-lg" type="text" value="">
+                            <div class="form-group">
+                                <label for="lastName" class="col-sm-3 control-label form-label">
+                                    Apellido
+                                </label>
+                                <div class="col-sm-9 form-control-filter">
+                                    <form:input id="lastName" name="lastName"
+                                                path="lastName" class="form-control input-lg"
+                                                placeholder="Apellido" type="text"/>
+                                </div>
                             </div>
-                        </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">
+                                    Buscar
+                                </button>
+                            </div>
+                        </form:form>
                     </div>
                 </div>
             </div>
