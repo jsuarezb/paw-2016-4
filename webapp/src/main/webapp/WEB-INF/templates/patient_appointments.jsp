@@ -9,7 +9,7 @@
         <c:when test="${not empty appointments}">
             <div class="list-group">
                 <c:forEach var="appointment" items="${ appointments }">
-                    <joda:format value='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var="formattedDate" />
+                    <z:localDateTime date='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var="formattedDate" />
                     <div class="list-group-item">
                         <h3 class="list-group-item-heading">
                             <a href="<c:url value='/doctors/${ appointment.slot.doctor.id}'/>">
