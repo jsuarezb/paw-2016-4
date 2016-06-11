@@ -3,6 +3,7 @@ package ar.edu.itba.paw.persistence.hibernate;
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Institution;
+import ar.edu.itba.paw.models.WorksIn;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
@@ -24,8 +25,8 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     private EntityManager em;
 
 
-    public AppointmentSlot create(Institution institution, Doctor doctor, int dayOfWeek, int startHour) {
-        AppointmentSlot appointmentSlot = new AppointmentSlot(dayOfWeek, startHour, institution, doctor);
+    public AppointmentSlot create(WorksIn worksIn, int dayOfWeek, int startHour) {
+        AppointmentSlot appointmentSlot = new AppointmentSlot(dayOfWeek, startHour, worksIn);
         em.persist(appointmentSlot);
         return appointmentSlot;
     }
@@ -35,8 +36,9 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     }
 
     public List<AppointmentSlot> getByDoctor(Doctor doctor) {
-        final TypedQuery<AppointmentSlot> query = em.createQuery("FROM AppointmentSlot AS asl " +
-                "WHERE asl.doctors_id = :doctor_id", AppointmentSlot.class);
+        final TypedQuery<AppointmentSlot> query = em.createQuery(
+                "FROM AppointmentSlot AS slot JOIN slot.worksIn as worksIn" +
+                "WHERE worksIn.doctor_id = :doctor_id", AppointmentSlot.class);
         query.setParameter("doctor_id", doctor.getId());
         return query.getResultList();
     }

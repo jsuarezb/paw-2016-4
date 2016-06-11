@@ -15,21 +15,16 @@ public class Doctor {
     @Column(length = 100, nullable = false)
     private String name;
 
-    @Column(length = 100, nullable = false)
-    private String last_name;
+    @Column(name = "last_name", length = 100, nullable = false)
+    private String lastName;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "doctors_specialities", joinColumns = {
             @JoinColumn(name = "doctor_id", referencedColumnName = "id") })
     private Set<Speciality> specialities;
 
-    // TODO could this maybe be lazy?
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "works_in",
-            joinColumns = @JoinColumn(name = "doctor_id", nullable = false, updatable = false),
-            inverseJoinColumns = @JoinColumn(name = "institution_id", nullable = false, updatable = false))
-    private Set<Institution> institutions;
+    @OneToMany
+    private Set<WorksIn> worksIn;
 
     @Column(length = 100, nullable = false, unique = true)
     private String email;
@@ -37,33 +32,34 @@ public class Doctor {
     @Column(length = 100, nullable = false)
     private String password;
 
+    @SuppressWarnings("unused")
     /* package */ Doctor() {  }
 
-    public Doctor(Integer id, String name, String last_name, Set<Speciality> specialities,
-                  Set<Institution> institutions, String email, String password) {
+    public Doctor(Integer id, String name, String lastName, Set<Speciality> specialities,
+                  Set<WorksIn> worksIn, String email, String password) {
         this.id = id;
         this.name = name;
-        this.last_name = last_name;
+        this.lastName = lastName;
         this.specialities = specialities;
-        this.institutions = institutions;
         this.email = email;
         this.password = password;
+        this.worksIn = worksIn;
     }
 
     public String getName() {
         return name;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public Set<WorksIn> getWorksIn() {
+        return worksIn;
+    }
+
     public Integer getId() {
         return id;
-    }
-
-    public String getLastName() {
-        return last_name;
-    }
-
-    public Set<Institution> getInstitutions() {
-        return institutions;
     }
 
     public Set<Speciality> getSpecialities() {
@@ -100,7 +96,7 @@ public class Doctor {
         return "Doctor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", specialities='" + specialities + '\'' +
                 ", email='" + email + '\'' +
                 '}';

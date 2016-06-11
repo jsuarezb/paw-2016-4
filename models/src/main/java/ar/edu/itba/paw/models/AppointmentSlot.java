@@ -11,12 +11,9 @@ public class AppointmentSlot {
     @SequenceGenerator(sequenceName = "appointment_slots_id_seq", name = "appointment_slots_id_seq", allocationSize = 1)
     private Integer id;
 
-    // TODO make (institution, doctor) pair a foreign key to works_in table
     @ManyToOne
-    private Institution institution;
-
-    @ManyToOne
-    private Doctor doctor;
+    @JoinColumn(name = "works_in_id")
+    private WorksIn worksIn;
 
     @Column(nullable = false)
     private Integer dayOfWeek;
@@ -24,13 +21,13 @@ public class AppointmentSlot {
     @Column(nullable = false)
     private Integer hour;
 
+    @SuppressWarnings("unused")
     /* package */ AppointmentSlot(){ }
 
-    public AppointmentSlot(Integer dayOfWeek, Integer hour, Institution institution, Doctor doctor) {
+    public AppointmentSlot(Integer dayOfWeek, Integer hour, WorksIn worksIn) {
+        this.worksIn = worksIn;
         this.dayOfWeek = dayOfWeek;
         this.hour = hour;
-        this.doctor = doctor;
-        this.institution = institution;
     }
 
     public Integer getId() {
@@ -43,14 +40,6 @@ public class AppointmentSlot {
 
     public Integer getHour() {
         return hour;
-    }
-
-    public Institution getInstitution() {
-        return institution;
-    }
-
-    public Doctor getDoctor() {
-        return doctor;
     }
 
     @Override
@@ -73,9 +62,9 @@ public class AppointmentSlot {
     public String toString() {
         return "AppointmentSlot{" +
                 "id=" + id +
+                ", worksIn=" + worksIn +
                 ", dayOfWeek=" + dayOfWeek +
                 ", hour=" + hour +
-                ", institution=" + institution +
                 '}';
     }
 }

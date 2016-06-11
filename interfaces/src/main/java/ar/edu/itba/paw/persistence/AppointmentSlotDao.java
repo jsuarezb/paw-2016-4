@@ -3,6 +3,7 @@ package ar.edu.itba.paw.persistence;
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Institution;
+import ar.edu.itba.paw.models.WorksIn;
 import org.joda.time.DateTime;
 
 import java.time.LocalDateTime;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public interface AppointmentSlotDao {
 
-    AppointmentSlot create(Institution institution, Doctor doctor, int dayOfWeek, int startHour);
+    AppointmentSlot create(WorksIn worksIn, int dayOfWeek, int startHour);
 
     AppointmentSlot getById(int id);
 
