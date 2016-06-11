@@ -36,9 +36,13 @@
                     <td>${ readableDate }</td>
                     <td>1 hs</td>
                     <td>
+<<<<<<< e98640d16b8f53d6d141b7a8702f732d52c2bd95
                         <a href="<c:url value='/doctors/${ appointment.doctor.id }'/>">
                             ${ appointment.doctor.name } ${ appointment.doctor.lastName }
                         </a>
+=======
+                        <a href="/grupo4/doctors/${ appointment.slot.doctor.id }"> Dr. ${ appointment.slot.doctor.name }, ${ appointment.slot.doctor.lastName }</a>
+>>>>>>> Sent a mail to the doctor after a reservation has been made
                     </td>
                     <td>
                         <a href="<c:url value='/institutions/${ appointment.slot.institution.id }'/>">
@@ -46,14 +50,15 @@
                         </a>
                     </td>
                     <td>
-                        <c:url value='/appointments' var="url"/>
-                        <form:form modelAttribute="newAppointment" action="${url}"
-                                   method="post" enctype="application/x-www-form-urlencoded">
-                            <form:input path="doctorId" type="hidden" value="${ appointment.doctor.id }" />
-                            <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
-                            <form:input path="startDate" type="hidden" value="${ formattedDate }" />
-                            <button type="submit" class="btn btn-success">Reservar</button>
-                        </form:form>
+                        <c:if test="${ patient != null }">
+                            <form:form modelAttribute="newAppointment" action="/grupo4/appointments" method="post" enctype="application/x-www-form-urlencoded">
+                                <form:input path="patientId" type="hidden" value="${ user.id }" />
+                                <form:input path="doctorId" type="hidden" value="${ appointment.slot.doctor.id }" />
+                                <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
+                                <form:input path="startDate" type="hidden" value="${ formattedDate }" />
+                                <button type="submit" class="btn btn-success">Reservar</button>
+                            </form:form>
+                        </c:if>
                     </td>
                 <tr>
                     </c:forEach>

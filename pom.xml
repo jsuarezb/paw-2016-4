@@ -24,6 +24,7 @@
     <org.hibernate.version>5.1.0.Final</org.hibernate.version>
     <org.hibernate.jpa.version>1.0.0.Final</org.hibernate.jpa.version>
     <org.jadira.usertype.version>3.0.0.CR1</org.jadira.usertype.version>
+    <javax.mail.version>1.5.5</javax.mail.version>
   </properties>
   <build>
     <plugins>
@@ -48,6 +49,11 @@
       <dependency>
         <groupId>org.springframework</groupId>
         <artifactId>spring-context</artifactId>
+        <version>${org.springframework.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-context-support</artifactId>
         <version>${org.springframework.version}</version>
       </dependency>
       <dependency>
@@ -168,6 +174,16 @@
         <groupId>ch.qos.logback</groupId>
         <artifactId>logback-core</artifactId>
         <version>${logback.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>javax.mail</groupId>
+        <artifactId>javax.mail-api</artifactId>
+        <version>${javax.mail.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.sun.mail</groupId>
+        <artifactId>javax.mail</artifactId>
+        <version>${javax.mail.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

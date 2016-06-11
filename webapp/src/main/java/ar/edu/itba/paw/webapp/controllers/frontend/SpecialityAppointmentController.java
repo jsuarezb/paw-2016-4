@@ -20,6 +20,8 @@ import org.springframework.web.servlet.ModelAndView;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -45,7 +47,7 @@ public class SpecialityAppointmentController extends BaseController{
     @RequestMapping("/speciality/{speciality_id}/appointment_slots")
     public ModelAndView list(
             @PathVariable final Integer speciality_id,
-            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime weekDate) {
+            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date weekDateParam) {
         ModelAndView model = new ModelAndView("speciality_appointment");
 
 
@@ -55,8 +57,11 @@ public class SpecialityAppointmentController extends BaseController{
 
         Patient patient = currentPatient();
 
-        if (weekDate == null)
+        LocalDateTime weekDate;
+        if (weekDateParam == null)
             weekDate = LocalDateTime.now();
+        else
+            weekDate = LocalDateTime.ofInstant(weekDateParam.toInstant(), ZoneId.systemDefault());
 
         final LocalDateTime prevWeek = weekDate.minusWeeks(1);
         final LocalDateTime nextWeek = weekDate.plusWeeks(1);
@@ -66,7 +71,6 @@ public class SpecialityAppointmentController extends BaseController{
 
         final List<Appointment> availableAppointmentsSlots = appointmentService
                 .getAvailableBySpeciality(speciality, weekDate);
-
 
         model.addObject(APPOINTMENTS_KEY, availableAppointmentsSlots);
         model.addObject(SPECIALITY_KEY, speciality);

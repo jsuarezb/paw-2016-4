@@ -55,7 +55,7 @@ public class AppointmentHibernateDao implements AppointmentDao {
         /*final Timestamp appointmentDate = new Timestamp(date.getMillis());
         final String query = String.format("SELECT COUNT(*) FROM %s WHERE %s <= ? AND %s >= ? AND  %s = ?",
                 TABLE_NAME, START_DATE_COL, START_DATE_COL, DOCTOR_COL);*/
-        return false;
+        return true;
     }
 
     public boolean delete(int appointmentId) {

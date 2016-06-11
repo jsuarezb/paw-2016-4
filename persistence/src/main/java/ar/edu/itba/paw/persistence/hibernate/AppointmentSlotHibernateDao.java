@@ -54,6 +54,10 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     }
 
     public List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, LocalDateTime week) {
-        return Collections.emptyList();
+        final TypedQuery<AppointmentSlot> query = em.createQuery(
+                "FROM AppointmentSlot",
+                AppointmentSlot.class
+        );
+        return query.getResultList();
     }
 }

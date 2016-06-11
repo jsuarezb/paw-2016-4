@@ -27,11 +27,21 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private PatientDao patientDao;
 
+    @Autowired
+    private MailService mailService;
+
     public Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot,
                               LocalDateTime startDate, String comment) {
         if (!appointmentDao.isDoctorAvailable(doctor, startDate))
             return null;
-        return appointmentDao.create(patient, doctor, appointmentSlot, startDate, comment);
+
+        Appointment appointment = appointmentDao.create(patient, doctor, appointmentSlot, startDate, comment);
+        if (appointment != null) {
+            // TODO send a confirmation to patient too
+            mailService.sendAppointmentConfirmationToDoctor(appointment, doctor, patient);
+        }
+
+        return appointment;
     }
 
     public List<Appointment> getByDoctor(Doctor doctor) {
