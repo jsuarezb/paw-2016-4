@@ -12,7 +12,8 @@
             </div>
             <div class="panel-body">
               <p class="lead">
-                <a href="<c:url value='/institutions/${ institution.id }'/>">
+                <c:url value='/institutions/${ institution.id }' var="institution_url"/>
+                <a href="${institution_url}">
                   ${ institution.name }
                 </a>
               </p>
@@ -22,7 +23,8 @@
                 ${institution.address.country }
               </p>
               <div class="text-center">
-                <a href="<c:url value='/institutions/${institution.id}/specialities'/>"
+                <c:url value='/institutions/${institution.id}/specialities' var="specialities_url"/>
+                <a href="${specialities_url}"
                    class="btn btn-primary">
                   Ver especialidades
                 </a>

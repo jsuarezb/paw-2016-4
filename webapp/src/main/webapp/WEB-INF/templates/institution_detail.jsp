@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="z" tagdir="/WEB-INF/tags" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <z:base title="${ institution.name }">
   <div class="row">
@@ -15,12 +16,14 @@
             ${ institution.address.streetName } ${ institution.address.streetNumber }<br>
             ${ institution.address.city } - ${ institution.address.state }, ${ institution.address.country }
           </address>
+          <c:url value='/institutions/${institution.id}/doctors' var="doctors_url"/>
           <a class="btn btn-default"
-             href="<c:url value='/institutions/${institution.id}/doctors'/>">
+             href="${doctors_url}">
             Ver doctores
           </a>
+          <c:url value='/institutions/${institution.id}/specialities' var="specialities_url"/>
           <a class="btn btn-default"
-             href="<c:url value='/institutions/${institution.id}/specialities'/>">
+             href="${specialities_url}">
             Ver especialidades
           </a>
         </div>

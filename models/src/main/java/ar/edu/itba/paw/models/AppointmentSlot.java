@@ -42,6 +42,10 @@ public class AppointmentSlot {
         return hour;
     }
 
+    public WorksIn getWorksIn() {
+        return worksIn;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
