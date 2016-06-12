@@ -3,7 +3,7 @@ package ar.edu.itba.paw.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "address")
+@Table(name = "addresses")
 public class Address {
 
     private static final String PRINT_FORMAT = "%s %d, %s %s %s %s";
