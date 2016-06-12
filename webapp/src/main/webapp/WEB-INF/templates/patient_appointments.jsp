@@ -9,11 +9,14 @@
         <c:when test="${not empty appointments}">
             <div class="list-group">
                 <c:forEach var="appointment" items="${ appointments }">
+                    <c:set var="doctor" value="${appointment.slot.worksIn.doctor}"/>
+                    <c:set var="institution" value="${appointment.slot.worksIn.institution}"/>
                     <z:localDateTime date='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var="formattedDate" />
                     <div class="list-group-item">
                         <h3 class="list-group-item-heading">
-                            <a href="<c:url value='/doctors/${ appointment.slot.doctor.id}'/>">
-                                ${ appointment.slot.doctor.name } ${ appointment.slot.doctor.lastName }
+                            <c:url value='/doctors/${ doctor.id}' var="doctorUrl"/>
+                            <a href="${doctorUrl}">
+                                ${ doctor.name } ${ doctor.lastName }
                             </a>
                         </h3>
                         <div class="list-group-item-text">
@@ -28,9 +31,13 @@
                               </dd>
                               <dt>Institución</dt>
                               <dd>
+<<<<<<< f0d8bd498cde1d9530f0ff16e63624996d7b8087
                                 <a href="<c:url value='/institutions/${ appointment.slot.institution.id }'/>">
                                     ${ appointment.slot.institution.name }
                                 </a>
+=======
+                                <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a>
+>>>>>>> More fixes
                               </dd>
                               <dt>Fecha</dt>
                               <dd>${ formattedDate }</dd>

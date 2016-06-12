@@ -9,6 +9,6 @@
 <%@ variable alias="formattedDate" name-from-attribute="var" scope="AT_BEGIN" variable-class="java.lang.String" %>
 
 <c:set var="formattedDate">
-    <fmt:parseDate value="${ date }" pattern="yyyy-MM-dd'T'HH:mm:ss.SSS" type="date" var="parsedDate" />
+    <fmt:parseDate value="${ date }" pattern="yyyy-MM-dd'T'HH:mm" type="date" var="parsedDate" />
     <fmt:formatDate value="${ parsedDate }" pattern="${ pattern }" type="date" />
 </c:set>
