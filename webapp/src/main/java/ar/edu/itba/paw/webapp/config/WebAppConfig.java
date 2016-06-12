@@ -1,6 +1,8 @@
 package ar.edu.itba.paw.webapp.config;
 
 import org.postgresql.Driver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +34,8 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
+    private static final Logger LOG = LoggerFactory.getLogger(WebAppConfig.class);
+
     private static final String RESOURCES_LOCATION = "/resources/";
     private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
 
@@ -46,6 +50,8 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public DataSource dataSource() {
+        LOG.debug("Data source called"); // Testing that Logback is working here
+
         final SimpleDriverDataSource ds = new SimpleDriverDataSource();
         ds.setDriverClass(Driver.class);
         ds.setUrl("jdbc:postgresql://localhost/paw_app");
