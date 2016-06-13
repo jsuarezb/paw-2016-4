@@ -24,20 +24,17 @@
                               <dt>Especialidades</dt>
                               <dd>
                                 <ul class="list-inline">
-                                    <c:forEach var="speciality" items="${ appointment.slot.doctor.specialities }">
+                                    <c:forEach var="speciality" items="${ doctor.specialities }">
                                         <li>${ speciality.name }</li>
                                     </c:forEach>
                                 </ul>
                               </dd>
                               <dt>Institución</dt>
                               <dd>
-<<<<<<< f0d8bd498cde1d9530f0ff16e63624996d7b8087
-                                <a href="<c:url value='/institutions/${ appointment.slot.institution.id }'/>">
-                                    ${ appointment.slot.institution.name }
+                                <c:url value='/institutions/${ institution.id }' var="institution_url"/>
+                                <a href="${institution_url}">
+                                    ${ institution.name }
                                 </a>
-=======
-                                <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a>
->>>>>>> More fixes
                               </dd>
                               <dt>Fecha</dt>
                               <dd>${ formattedDate }</dd>

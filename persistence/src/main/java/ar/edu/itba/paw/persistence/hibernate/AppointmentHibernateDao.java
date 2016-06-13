@@ -15,9 +15,6 @@ import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Created by agophurmuz on 5/16/16.
- */
 @Repository
 public class AppointmentHibernateDao implements AppointmentDao {
 
