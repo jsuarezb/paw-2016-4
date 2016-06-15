@@ -40,6 +40,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         if (appointment != null) {
             // TODO send a confirmation to patient too
             mailService.sendAppointmentConfirmationToDoctor(appointment, doctor, patient);
+            mailService.sendAppointmentConfirmationToPatient(appointment,doctor,patient);
         }
 
         return appointment;
@@ -143,7 +144,18 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     public boolean cancel(int appointmentId) {
-        return appointmentDao.delete(appointmentId);
+        Appointment appointment = appointmentDao.getByid(appointmentId);
+        Doctor doctor = appointment.getSlot().getWorksIn().getDoctor();
+        Patient patient = appointment.getPatient();
+
+        boolean success = appointmentDao.delete(appointmentId);
+
+        if(success){
+            mailService.sendAppointmentCancellationToDoctor(appointment, doctor, patient);
+            mailService.sendAppointmentCancellationToPatient(appointment,doctor,patient);
+        }
+        return success;
+
     }
 
 }

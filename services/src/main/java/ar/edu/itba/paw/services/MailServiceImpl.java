@@ -66,6 +66,42 @@ public class MailServiceImpl implements MailService {
         }
     }
 
+    @Override
+    public void sendAppointmentCancellationToDoctor(Appointment appointment, Doctor doctor, Patient patient) {
+        final SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setFrom("no-reply@chopidoturnos.com");
+        msg.setSubject("Turno cancelado.");
+        msg.setTo(doctor.getEmail());
+        msg.setText("El paciente " + String.format("%s, %s", patient.getLastName(), patient.getName())
+                + " ha cancelado el turno para el día " + appointment.getDate().format(dateFmt)
+                + " a las " + appointment.getDate().format(timeFmt) + " hs"
+        );
+
+        try {
+            mailSender.send(msg);
+        } catch (MailException ex) {
+            LOG.error("Mail not sent.", ex);
+        }
+    }
+
+    @Override
+    public void sendAppointmentCancellationToPatient(Appointment appointment, Doctor doctor, Patient patient) {
+        final SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setFrom("chopidoturnos@gamil.com");
+        msg.setSubject("Turno cancelado.");
+        msg.setTo(patient.getEmail());
+        msg.setText("Usted canceló el turno del día " + appointment.getDate().format(dateFmt)
+                + " a las " + appointment.getDate().format(timeFmt) + " hs"
+                + String.format("%s, %s", doctor.getLastName(), doctor.getName())
+        );
+
+        try {
+            mailSender.send(msg);
+        } catch (MailException ex) {
+            // TODO log error
+        }
+    }
+
     @Bean
     private static MailSender mailSender() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
