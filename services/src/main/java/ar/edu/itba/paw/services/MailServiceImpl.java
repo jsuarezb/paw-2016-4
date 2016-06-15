@@ -53,7 +53,7 @@ public class MailServiceImpl implements MailService {
         final SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom("chopidoturnos@gamil.com");
         msg.setSubject("Turno reservado.");
-        msg.setTo("chopidoturnos@gamil.com");
+        msg.setTo(patient.getEmail());
         msg.setText("Usted reservó un turno para el día " + appointment.getDate().format(dateFmt)
                 + " a las " + appointment.getDate().format(timeFmt) + " hs"
                 + String.format("%s, %s", doctor.getLastName(), doctor.getName())
