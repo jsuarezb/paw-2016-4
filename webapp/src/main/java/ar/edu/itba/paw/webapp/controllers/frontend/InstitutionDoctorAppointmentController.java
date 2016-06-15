@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -52,9 +54,9 @@ public class InstitutionDoctorAppointmentController extends BaseController {
     public ModelAndView list(
             @PathVariable final int institution_id,
             @PathVariable final int doctor_id,
-            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDateTime weekDate) {
+            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date weekDateParam) {
         ModelAndView model = new ModelAndView("institution_doctor_appointment");
-
+        LocalDateTime weekDate = LocalDateTime.ofInstant(weekDateParam.toInstant(), ZoneId.systemDefault());
         Institution institution = institutionService.get(institution_id);
         if (institution == null)
             throw new ResourceNotFoundException();

@@ -12,7 +12,7 @@
           <h3><li>${ speciality.name }</li></h3>
         </c:forEach>
         <c:forEach var="worksIn" items="${ doctor.worksIn }">
-          <li>${ worksIn.institution }</li>
+          <li>${ worksIn.institution.name }</li>
         </c:forEach>
       </ul>
       <p>${doctor.email}</p>

@@ -2,10 +2,8 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Institution;
 import ar.edu.itba.paw.models.WorksIn;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
-import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -3,7 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="joda" uri="http://www.joda.org/joda/time/tags" %>
 <z:base title="Turnos - ${ doctor.name } ${ doctor.lastName }">
     <ol class="breadcrumb">
         <li>
@@ -34,8 +33,8 @@
                </thead>
                <tbody>
                     <c:forEach var="appointment" items="${ appointments }">
-                      <joda:format value='${ appointment.date }' pattern='yyyy-MM-dd HH:mm' var="formattedDate" />
-                      <joda:format value='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var='readableDate' />
+                      <z:localDateTime date='${ appointment.date }' pattern='yyyy-MM-dd HH:mm' var="formattedDate" />
+                      <z:localDateTime date='${ appointment.date }' pattern='dd/MM/yyyy HH:mm' var='readableDate' />
                       <tr>
                         <td>
                             <c:choose>
@@ -57,7 +56,6 @@
                             <form:form modelAttribute="newAppointment"
                                        action="${url}" method="post"
                                        enctype="application/x-www-form-urlencoded">
-                                <form:input path="patientId" type="hidden" value="${ user.id }" />
                                 <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
                                 <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
                                 <form:input path="startDate" type="hidden" value="${ formattedDate }" />
@@ -74,8 +72,8 @@
         </c:otherwise>
     </c:choose>
     <nav>
-        <joda:format value="${ prevWeek }" pattern="yyyy-MM-dd" var="formattedPrevWeek" />
-        <joda:format value="${ nextWeek }" pattern="yyyy-MM-dd" var="formattedNextWeek" />
+        <z:localDateTime date="${ prevWeek }" pattern="yyyy-MM-dd" var="formattedPrevWeek" />
+        <z:localDateTime date="${ nextWeek }" pattern="yyyy-MM-dd" var="formattedNextWeek" />
         <ul class="pager">
             <c:choose>
                 <c:when test="${ null != prevWeek }">

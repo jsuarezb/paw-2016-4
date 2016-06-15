@@ -67,6 +67,6 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="<c:url value='/bower_components/jquery/dist/jquery.js'/>"></script>
     <script src="<c:url value='/bower_components/bootstrap/dist/js/bootstrap.min.js'/>"></script>
-    <script src="<c:url value='/scripts/appointments.js'/></script>
+    <script src="<c:url value='/scripts/appointments.js'/>"></script>
   </body>
 </html>

@@ -8,9 +8,8 @@ import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.webapp.exceptions.ResourceNotFoundException;
 import ar.edu.itba.paw.webapp.forms.AppointmentForm;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,8 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoField;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -51,25 +55,25 @@ public class DoctorAppointmentsController extends BaseController {
     @RequestMapping(value = "/appointment_slots", method = RequestMethod.GET)
     public ModelAndView list(
             @PathVariable final Integer doctor_id,
-            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") DateTime weekDate) {
+            @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date weekDateParam) {
         ModelAndView mav = new ModelAndView("doctor_appointments");
-
+        LocalDateTime weekDate = LocalDateTime.ofInstant(weekDateParam.toInstant(), ZoneId.systemDefault());
         final Doctor doctor = doctorService.get(doctor_id);
         if (doctor == null)
             throw new ResourceNotFoundException();
 
         if (weekDate == null)
-            weekDate = new DateTime();
+            weekDate = LocalDateTime.now();
 
         weekDate = weekDate
-                .withDayOfWeek(DateTimeConstants.MONDAY)
-                .withTime(0, 0, 0, 0);
+                .with(ChronoField.DAY_OF_WEEK, DayOfWeek.MONDAY.getValue())
+                .with(ChronoField.SECOND_OF_DAY, 0);
 
-        final DateTime prevWeek = weekDate.minusWeeks(1);
-        final DateTime nextWeek = weekDate.plusWeeks(1);
-        final DateTime currentWeek = DateTime.now()
-                .withDayOfWeek(DateTimeConstants.MONDAY)
-                .withTime(0, 0, 0, 0);
+        final LocalDateTime prevWeek = weekDate.minusWeeks(1);
+        final LocalDateTime nextWeek = weekDate.plusWeeks(1);
+        final LocalDateTime currentWeek = LocalDateTime.now()
+                .with(ChronoField.DAY_OF_WEEK, DayOfWeek.MONDAY.getValue())
+                .with(ChronoField.SECOND_OF_DAY, 0);
 
         final boolean showPrevWeek = currentWeek.isBefore(prevWeek) || currentWeek.isEqual(prevWeek);
 

@@ -31,4 +31,6 @@ public interface AppointmentService {
 
     List<Appointment> getAvailableBySpeciality(Speciality speciality, LocalDateTime weekStart);
 
+    List<Appointment> getAvailableBySpecialityAndNeighborhood(Speciality speciality, String neiborhood, LocalDateTime weekStart);
+
 }

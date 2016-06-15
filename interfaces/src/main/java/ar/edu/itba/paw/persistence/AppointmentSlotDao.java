@@ -2,9 +2,8 @@ package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Institution;
+import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.models.WorksIn;
-import org.joda.time.DateTime;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,4 +37,5 @@ public interface AppointmentSlotDao {
 
     List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, LocalDateTime week);
 
+    List<AppointmentSlot> getAvailableBySpecialityAndNeighborhood(Speciality speciality, String neiborhood, LocalDateTime weekStart);
 }

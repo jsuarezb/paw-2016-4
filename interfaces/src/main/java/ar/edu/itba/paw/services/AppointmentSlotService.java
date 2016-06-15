@@ -2,9 +2,7 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Institution;
 import ar.edu.itba.paw.models.WorksIn;
-import org.joda.time.DateTime;
 
 import java.time.LocalDateTime;
 import java.util.List;
