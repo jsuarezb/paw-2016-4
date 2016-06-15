@@ -23,7 +23,7 @@ public class Doctor {
             @JoinColumn(name = "doctor_id", referencedColumnName = "id") })
     private Set<Speciality> specialities;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "doctor")
     private Set<WorksIn> worksIn;
 
     @Column(length = 100, nullable = false, unique = true)

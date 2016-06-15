@@ -4,9 +4,6 @@ import ar.edu.itba.paw.models.Doctor;
 
 import java.util.List;
 
-/**
- * Created by agophurmuz on 4/22/16.
- */
 public interface DoctorDao {
 
     List<Doctor> getAll();
@@ -24,4 +21,8 @@ public interface DoctorDao {
     List<Doctor> getDoctorsByInstitution(Integer id);
 
     Doctor getByName(String name, String last_name);
+
+    List<Doctor> searchByName(String name, String lastName, Integer page);
+
+    boolean hasNextPageForSearchByName(String name, String lastName, Integer page);
 }
