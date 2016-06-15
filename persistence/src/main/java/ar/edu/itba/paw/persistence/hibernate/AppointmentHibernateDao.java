@@ -61,4 +61,11 @@ public class AppointmentHibernateDao implements AppointmentDao {
         query.setParameter("id", appointmentId);
         return query.executeUpdate() == 1;
     }
+
+    @Override
+    public Appointment getByid(int appointmentId) {
+        TypedQuery<Appointment> query = em.createQuery("FROM Appointment AS a WHERE a.id = :id", Appointment.class);
+        query.setParameter("id", appointmentId);
+        return query.getSingleResult();
+    }
 }

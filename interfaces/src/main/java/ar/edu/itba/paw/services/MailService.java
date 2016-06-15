@@ -10,4 +10,8 @@ public interface MailService {
 
     void sendAppointmentConfirmationToPatient(final Appointment appointment, final Doctor doctor, final Patient patient);
 
+    void sendAppointmentCancellationToDoctor(final Appointment appointment, final Doctor doctor, final Patient patient);
+
+    void sendAppointmentCancellationToPatient(final Appointment appointment, final Doctor doctor, final Patient patient);
+
 }

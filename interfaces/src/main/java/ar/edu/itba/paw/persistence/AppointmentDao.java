@@ -35,4 +35,5 @@ public interface AppointmentDao {
      */
     boolean delete(int appointmentId);
 
+    Appointment getByid(int appointmentId);
 }
