@@ -43,7 +43,6 @@
                                 <c:if test="${ patient != null }">
                                     <form:form modelAttribute="newAppointment" action="/grupo4/appointments"
                                                method="post" enctype="application/x-www-form-urlencoded">
-                                        <form:input path="patientId" type="hidden" value="${ user.id }" />
                                         <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
                                         <form:input path="slotId" type="hidden" value="${ slot.id }" />
                                         <form:input path="startDate" type="hidden" value="${ formattedDate }" />
