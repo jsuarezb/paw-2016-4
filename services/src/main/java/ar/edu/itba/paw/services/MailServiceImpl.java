@@ -50,7 +50,20 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendAppointmentConfirmationToPatient(final Appointment appointment, final Doctor doctor,
                                                      final Patient patient) {
-        // TODO
+        final SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setFrom("chopidoturnos@gamil.com");
+        msg.setSubject("Turno reservado.");
+        msg.setTo("chopidoturnos@gamil.com");
+        msg.setText("Usted reservó un turno para el día " + appointment.getDate().format(dateFmt)
+                + " a las " + appointment.getDate().format(timeFmt) + " hs"
+                + String.format("%s, %s", doctor.getLastName(), doctor.getName())
+        );
+
+        try {
+            mailSender.send(msg);
+        } catch (MailException ex) {
+            // TODO log error
+        }
     }
 
     @Bean
