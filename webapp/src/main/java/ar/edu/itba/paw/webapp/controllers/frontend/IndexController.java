@@ -2,9 +2,11 @@ package ar.edu.itba.paw.webapp.controllers.frontend;
 
 
 import ar.edu.itba.paw.models.Appointment;
+import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.services.AppointmentService;
+import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.SpecialityService;
 import ar.edu.itba.paw.webapp.exceptions.ResourceNotFoundException;
 import ar.edu.itba.paw.webapp.forms.AppointmentForm;
@@ -13,10 +15,10 @@ import ar.edu.itba.paw.webapp.forms.SearchBySpecialityForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -36,12 +38,19 @@ public class IndexController extends BaseController {
     private static final String APPOINTMENT_FORM_MODEL_KEY = "newAppointment";
     private static final String PREV_WEEK_KEY = "prevWeek";
     private static final String NEXT_WEEK_KEY = "nextWeek";
+    private static final String DOCTORS_KEY = "doctors";
+    private static final String PAGE_KEY = "page";
+    private static final String SHOW_PREV_KEY = "showPrev";
+    private static final String SHOW_NEXT_KEY = "showNext";
 
     @Autowired
     private SpecialityService specialityService;
 
     @Autowired
     private AppointmentService appointmentService;
+
+    @Autowired
+    private DoctorService doctorService;
 
     @RequestMapping("/")
     public ModelAndView index(@ModelAttribute SearchBySpecialityForm searchBySpecialityForm,
@@ -92,21 +101,21 @@ public class IndexController extends BaseController {
         return model;    }
 
     @RequestMapping(path = "/search_by_doctor", method = RequestMethod.GET)
-    public ModelAndView searchByDoctor(@ModelAttribute @Valid SearchByDoctorForm searchByDoctorForm,
-                                       BindingResult bindingResult){
+    public ModelAndView searchByDoctor(
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String lastName,
+            @RequestParam(required = false, defaultValue = "0") Integer page
+    ){
+        final ModelAndView mav = new ModelAndView("doctors_list");
 
-        if (bindingResult.hasErrors()) {
-            return null;
-        }
-        try {
-            //patientService.create(patientForm.getName(),..);
+        final List<Doctor> doctors = doctorService.searchByName(name, lastName, page);
+        final boolean hasNextPage = doctorService.hasNextPageForSearchByName(name, lastName, page);
 
-        } catch (Exception e) {
-            bindingResult.addError(new FieldError("objectName","field","defaultMessage"));
-            return null;
-        }
-        // Process form
-        return new ModelAndView();
+        mav.addObject(DOCTORS_KEY, doctors);
+        mav.addObject(PAGE_KEY, page);
+        mav.addObject(SHOW_PREV_KEY, page > 0);
+        mav.addObject(SHOW_NEXT_KEY, hasNextPage);
 
+        return mav;
     }
 }
