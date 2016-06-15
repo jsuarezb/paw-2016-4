@@ -34,10 +34,14 @@
                             <td>${ readableDate }</td>
                             <td>1 hs</td>
                             <td>
-                                <a href="/grupo4/doctors/${ doctor.id }"> Dr. ${ doctor.name }, ${ doctor.lastName }</a>
+                                <a href="<c:url value="/doctors/${ doctor.id }"/>">
+                                    Dr. ${ doctor.name }, ${ doctor.lastName }
+                                </a>
                             </td>
                             <td>
-                                <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a>
+                                <a href="<c:url value="/institutions/${ institution.id }"/>">
+                                ${ institution.name }
+                                </a>
                             </td>
                             <td>
                                 <c:url value="/appointments" var="url" />
@@ -61,8 +65,12 @@
     <nav>
         <z:localDateTime date="${ prevWeek }" pattern="yyyy-MM-dd" var="formattedPrevWeek" />
         <z:localDateTime date="${ nextWeek }" pattern="yyyy-MM-dd" var="formattedNextWeek" />
-        <z:pager prevUrl="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }"
-                 nextUrl="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedNextWeek }"
+        <c:url value="/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }"
+               var="prevUrl"/>
+        <c:url value="/speciality/${ speciality.id }/appointment_slots?date=${ formattedNextWeek }"
+               var="nextUrl"/>
+        <z:pager prevUrl="${prevUrl}"
+                 nextUrl="${nextUrl}"
                  showPrev="${ null != prevWeek }"/>
     </nav>
 </z:base>

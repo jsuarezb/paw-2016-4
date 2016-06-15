@@ -35,7 +35,9 @@
                         <td>${ readableDate }</td>
                         <td>1 hs</td>
                         <td>
-                            <a href="/grupo4/institutions/${ appointment.slot.worksIn.institution.id }">${ appointment.slot.worksIn.institution.name }</a>
+                            <a href="<c:url value="/institutions/${ appointment.slot.worksIn.institution.id }"/> ">
+                                ${ appointment.slot.worksIn.institution.name }
+                            </a>
                         </td>
                         <td>
                             <c:url value='/appointments' var="url"/>
