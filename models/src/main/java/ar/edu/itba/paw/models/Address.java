@@ -31,9 +31,6 @@ public class Address {
     @Column(length = 100, nullable = false)
     private String country;
 
-    @Column(length = 100, nullable = true)
-    private String neighborhood;
-
     @SuppressWarnings("unused")
     /* package */ Address() { }
 
