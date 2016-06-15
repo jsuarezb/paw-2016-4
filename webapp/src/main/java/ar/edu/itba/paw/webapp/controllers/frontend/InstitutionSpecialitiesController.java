@@ -42,7 +42,7 @@ public class InstitutionSpecialitiesController extends BaseController{
             throw new ResourceNotFoundException();
         }
 
-        final List<Speciality> specialities = specialityService.getByInstitutionId(institution_id);
+        final Set<Speciality> specialities = specialityService.getByInstitutionId(institution_id);
 
         model.addObject(INSTITUTION_KEY, institution);
         model.addObject(SPECIALITIES_KEY, specialities);

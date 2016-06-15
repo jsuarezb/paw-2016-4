@@ -37,7 +37,7 @@ public class SpecialityServiceImpl implements SpecialityService {
         return specialityDao.getById(id);
     }
 
-    public List<Speciality> getByInstitutionId(Integer institution_id) {
+    public Set<Speciality> getByInstitutionId(Integer institution_id) {
         return specialityDao.getByInstitutionId(institution_id);
     }
 }

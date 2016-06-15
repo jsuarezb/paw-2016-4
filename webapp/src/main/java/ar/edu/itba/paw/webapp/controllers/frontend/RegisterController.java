@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.webapp.controllers.frontend;
 
+import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.webapp.forms.DoctorForm;
 import ar.edu.itba.paw.webapp.forms.PatientForm;
 import ar.edu.itba.paw.services.PatientService;
@@ -34,12 +35,11 @@ public class RegisterController extends BaseController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        try {
-            patientService.create(patientForm.getName(),
-                    patientForm.getLastName(),
-                    patientForm.getEmail(),
-                    patientForm.getPassword());
-        } catch (DuplicateKeyException e) {
+        Patient patient = patientService.create(patientForm.getName(),
+                patientForm.getLastName(),
+                patientForm.getEmail(),
+                patientForm.getPassword());
+        if (patient == null) {
             bindingResult.addError(new FieldError("patient", "email", "Email already registered"));
             return "register";
         }

@@ -42,6 +42,9 @@ public class PatientHibernateDao implements PatientDao {
     @Transactional
     public Patient create(String name, String lastName, String email, String password) {
         Patient patient = new Patient(name, lastName, email, password);
+        if (getByEmail(email) != null) {
+            return null;
+        }
         em.persist(patient);
         return patient;
     }

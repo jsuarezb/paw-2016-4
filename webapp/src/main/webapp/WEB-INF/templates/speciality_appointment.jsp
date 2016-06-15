@@ -40,16 +40,14 @@
                                 <a href="/grupo4/institutions/${ institution.id }">${ institution.name }</a>
                             </td>
                             <td>
-                                <c:if test="${ patient != null }">
-                                    <c:url value="/appointments" var="url" />
-                                    <form:form modelAttribute="newAppointment" action="${url}"
-                                               method="post" enctype="application/x-www-form-urlencoded">
-                                        <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
-                                        <form:input path="slotId" type="hidden" value="${ slot.id }" />
-                                        <form:input path="startDate" type="hidden" value="${ formattedDate }" />
-                                        <button type="submit" class="btn btn-success">Reservar</button>
-                                    </form:form>
-                                </c:if>
+                                <c:url value="/appointments" var="url" />
+                                <form:form modelAttribute="newAppointment" action="${url}"
+                                           method="post" enctype="application/x-www-form-urlencoded">
+                                    <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
+                                    <form:input path="slotId" type="hidden" value="${ slot.id }" />
+                                    <form:input path="startDate" type="hidden" value="${ formattedDate }" />
+                                    <button type="submit" class="btn btn-success">Reservar</button>
+                                </form:form>
                             </td>
                         <tr>
                     </c:forEach>

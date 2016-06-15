@@ -62,7 +62,6 @@ public class InstitutionDoctorAppointmentController extends BaseController {
         LocalDateTime weekDate;
         if (weekDateParam == null)
             weekDate = LocalDateTime.now()
-                        .with(ChronoField.DAY_OF_WEEK, DayOfWeek.MONDAY.getValue())
                         .with(ChronoField.SECOND_OF_DAY, 0);
         else
             weekDate = LocalDateTime.ofInstant(weekDateParam.toInstant(), ZoneId.systemDefault());
