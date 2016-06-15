@@ -42,8 +42,8 @@
                     <td>${ readableDate }</td>
                     <td>1 hs</td>
                     <td>
-                        <a href="<c:url value='/doctors/${ appointment.doctor.id }'/>">
-                            Dr. ${ appointment.doctor.name }, ${ appointment.doctor.lastName }
+                        <a href="<c:url value='/doctors/${ appointment.slot.worksIn.doctor.id }'/>">
+                            Dr. ${ appointment.slot.worksIn.doctor.name }, ${ appointment.slot.worksIn.doctor.lastName }
                         </a>
                     </td>
                     <td>
@@ -51,7 +51,7 @@
                         <form:form modelAttribute="newAppointment"
                                    action="${url}" method="post"
                                    enctype="application/x-www-form-urlencoded">
-                            <form:input path="doctorId" type="hidden" value="${ appointment.doctor.id }" />
+                            <form:input path="doctorId" type="hidden" value="${ appointment.slot.worksIn.doctor.id }" />
                             <form:input path="slotId" type="hidden" value="${ appointment.slot.id }" />
                             <form:input path="startDate" type="hidden" value="${ formattedDate }" />
                             <button type="submit" class="btn btn-success">Reservar</button>

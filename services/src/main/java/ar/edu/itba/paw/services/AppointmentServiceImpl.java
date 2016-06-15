@@ -8,6 +8,7 @@ import ar.edu.itba.paw.persistence.PatientDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
@@ -38,7 +39,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         Appointment appointment = appointmentDao.create(patient, doctor, appointmentSlot, startDate, comment);
         if (appointment != null) {
-            // TODO send a confirmation to patient too
             mailService.sendAppointmentConfirmationToDoctor(appointment, doctor, patient);
         }
 
@@ -61,7 +61,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         for (AppointmentSlot slot : availableSlots) {
             LocalDateTime appointmentTime = weekStart
-                    .withHour(slot.getHour());
+                    .withHour(slot.getHour())
+                    .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
             Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);
@@ -77,7 +78,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         for (AppointmentSlot slot : availableSlots) {
             LocalDateTime appointmentTime = weekStart
-                    .withHour(slot.getHour());
+                    .withHour(slot.getHour())
+                    .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
             Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);
@@ -98,7 +100,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         for (AppointmentSlot slot : availableSlots) {
             LocalDateTime appointmentTime = weekStart
-                    .withHour(slot.getHour());
+                    .withHour(slot.getHour())
+                    .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
             Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);
@@ -132,7 +135,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
         for (AppointmentSlot slot : availableSlots) {
             LocalDateTime appointmentTime = weekStart
-                    .withHour(slot.getHour());
+                    .withHour(slot.getHour())
+                    .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
             Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);

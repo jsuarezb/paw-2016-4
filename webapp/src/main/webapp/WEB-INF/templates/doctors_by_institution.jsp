@@ -29,14 +29,12 @@
               </ul>
             </td>
             <td>${ doctor.email }</td>
-            <c:if test="${patient != null}">
-              <td>
-                <a class="btn btn-success"
-                   href="<c:url value='/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots'/>">
-                  Pedir turno
-                </a>
-              </td>
-            </c:if>
+            <td>
+              <a class="btn btn-success"
+                 href="<c:url value='/institutions/${ institution.id }/doctors/${ doctor.id }/appointment_slots'/>">
+                Pedir turno
+              </a>
+            </td>
           </tr>
           </a>
         </c:forEach>

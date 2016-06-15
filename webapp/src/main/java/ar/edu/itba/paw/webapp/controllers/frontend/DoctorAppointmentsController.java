@@ -77,8 +77,7 @@ public class DoctorAppointmentsController extends BaseController {
 
         final boolean showPrevWeek = currentWeek.isBefore(prevWeek) || currentWeek.isEqual(prevWeek);
 
-        final List<Appointment> appointmentList = Collections.emptyList();
-        //TODO appointmentService.getAvailableByDoctor(doctor, weekDate);
+        final List<Appointment> appointmentList = appointmentService.getAvailableByDoctor(doctor, weekDate);
         Collections.sort(appointmentList, appointmentComparator);
 
         final Patient patient = currentPatient();

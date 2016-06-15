@@ -43,13 +43,12 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
 
     public List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
-                "SELECT slot " +
-                "FROM Appointment AS app " +
-                "RIGHT JOIN app.slot AS slot " +
-                "WHERE ((app.date > :start_date AND app.date < :end_date) " +
-                "OR app.date IS NULL) " +
-                "AND app.slot IS NULL " +
-                "AND slot.worksIn.doctor.id = :doctor_id"
+                "SELECT slot FROM AppointmentSlot AS slot " +
+                "WHERE slot NOT IN " +
+                    "(SELECT app.slot FROM Appointment AS app " +
+                    "WHERE app.date > :start_date AND app.date < :end_date " +
+                    "AND app.slot.worksIn.doctor.id = :doctor_id) " +
+                "ORDER BY slot.dayOfWeek, slot.hour"
                 ,
                 AppointmentSlot.class
         );
@@ -63,14 +62,13 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     public List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId,
                                                                    LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
-                "SELECT slot " +
-                "FROM Appointment AS app " +
-                "RIGHT JOIN app.slot AS slot " +
-                "WHERE ((app.date > :start_date AND app.date < :end_date) " +
-                "OR app.date IS NULL) " +
-                "AND app.slot IS NULL " +
-                "AND slot.worksIn.institution.id = :institution_id " +
-                "AND slot.worksIn.doctor.id= :doctor_id"
+                "SELECT slot FROM AppointmentSlot AS slot " +
+                        "WHERE slot NOT IN " +
+                        "(SELECT app.slot FROM Appointment AS app " +
+                        "WHERE app.date > :start_date AND app.date < :end_date " +
+                        "AND app.slot.worksIn.doctor.id = :doctor_id " +
+                        "AND app.slot.worksIn.institution.id = :institution_id) " +
+                        "ORDER BY slot.dayOfWeek, slot.hour"
                 ,
                 AppointmentSlot.class
         );
@@ -86,14 +84,15 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                                                                        int institution_id,
                                                                        LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
-                "SELECT slot " +
-                "FROM Appointment AS app " +
-                "RIGHT JOIN app.slot AS slot " +
-                "WHERE ((app.date > :start_date AND app.date < :end_date) " +
-                "OR app.date IS NULL) " +
-                "AND app.slot IS NULL " +
-                "AND slot.worksIn.institution.id = :institution_id " +
-                "AND slot.worksIn.doctor.specialities.speciality.id = :speciality_id"
+                "SELECT slot FROM AppointmentSlot AS slot " +
+                        "WHERE slot NOT IN " +
+                        "(SELECT app.slot " +
+                        "FROM Appointment AS app " +
+                        "JOIN app.slot.worksIn.doctor.specialities speciality " +
+                        "WHERE app.date > :start_date AND app.date < :end_date " +
+                        "AND speciality.id = :speciality_id " +
+                        "AND app.slot.worksIn.institution.id = :institution_id) " +
+                "ORDER BY slot.dayOfWeek, slot.hour"
                 ,
                 AppointmentSlot.class
         );
@@ -107,12 +106,14 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
 
     public List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
-                "SELECT slot " +
-                "FROM Appointment AS app " +
-                "RIGHT JOIN app.slot AS slot " +
-                "WHERE ((app.date > :start_date AND app.date < :end_date) " +
-                        "OR app.date IS NULL) " +
-                "AND app.slot IS NULL"
+                "SELECT slot FROM AppointmentSlot AS slot " +
+                        "WHERE slot NOT IN " +
+                        "(SELECT app.slot " +
+                        "FROM Appointment AS app " +
+                        "JOIN app.slot.worksIn.doctor.specialities speciality " +
+                        "WHERE app.date > :start_date AND app.date < :end_date " +
+                        "AND speciality.id = :speciality_id) " +
+                "ORDER BY slot.dayOfWeek, slot.hour"
                 ,
                 AppointmentSlot.class
         );
@@ -127,10 +128,14 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                                                                          LocalDateTime weekStart) {
 
         final TypedQuery<AppointmentSlot> query = em.createQuery("select slot " +
-                "from AppointmentSlot as slot JOIN slot.worksIn as worksIn JOIN worksIn.institution as institution " +
-                "JOIN worksIn.doctor as doctor JOIN institution.address as address " +
-                "JOIN doctor.specialities as speciality " +
-                "where address.neighborhood = :neighborhood AND speciality.id = :speciality_id", AppointmentSlot.class);
+                "from AppointmentSlot as slot " +
+                    "JOIN slot.worksIn as worksIn " +
+                    "JOIN worksIn.institution as institution " +
+                    "JOIN worksIn.doctor as doctor " +
+                    "JOIN institution.address as address " +
+                    "JOIN doctor.specialities as speciality " +
+                "where address.neighborhood = :neighborhood " +
+                    "AND speciality.id = :speciality_id", AppointmentSlot.class);
         query.setParameter("neighborhood", neighborhood);
         query.setParameter("speciality_id", speciality.getId());
         return query.getResultList();
