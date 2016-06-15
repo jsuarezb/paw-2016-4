@@ -4,6 +4,7 @@ package ar.edu.itba.paw.webapp.controllers.frontend;
 import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.models.Speciality;
+import ar.edu.itba.paw.services.AddressService;
 import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.SpecialityService;
 import ar.edu.itba.paw.webapp.exceptions.ResourceNotFoundException;
@@ -36,12 +37,16 @@ public class IndexController extends BaseController {
     private static final String APPOINTMENT_FORM_MODEL_KEY = "newAppointment";
     private static final String PREV_WEEK_KEY = "prevWeek";
     private static final String NEXT_WEEK_KEY = "nextWeek";
+    private static final String NEIGHBORHOODS_KEY = "neighborhoods";
 
     @Autowired
     private SpecialityService specialityService;
 
     @Autowired
     private AppointmentService appointmentService;
+
+    @Autowired
+    private AddressService addressService;
 
     @RequestMapping("/")
     public ModelAndView index(@ModelAttribute SearchBySpecialityForm searchBySpecialityForm,
@@ -51,16 +56,19 @@ public class IndexController extends BaseController {
         List<Speciality> specialities = specialityService.getAll();
         mav.addObject(SPECIALITIES_KEY, specialities);
 
+        List<String> neighborhoods = addressService.getAllNeighborhoods();
+        mav.addObject(NEIGHBORHOODS_KEY, neighborhoods);
+
         List<Appointment> appointments = appointmentService.getAll();
 
         return mav;
     }
-    @RequestMapping(path = "/search_by_speciality", method = RequestMethod.GET)
+        @RequestMapping(path = "/search_by_speciality", method = RequestMethod.GET)
     public ModelAndView searchBySpeciality(@ModelAttribute @Valid SearchBySpecialityForm searchBySpecialityForm,
                                            BindingResult bindingResult) {
         Integer speciality_id = searchBySpecialityForm.getSpecialityId();
         LocalDateTime weekDate = LocalDateTime.now();
-
+        String neighborhood = searchBySpecialityForm.getNeighborhood();
         ModelAndView model = new ModelAndView("speciality_appointment");
 
 
@@ -78,10 +86,10 @@ public class IndexController extends BaseController {
 
         final boolean showPrevWeek = currentWeek.isBefore(prevWeek) || currentWeek.isEqual(prevWeek);
 
+//        final List<Appointment> availableAppointmentsSlots = appointmentService
+//                .getAvailableBySpeciality(speciality, weekDate);
         final List<Appointment> availableAppointmentsSlots = appointmentService
-                .getAvailableBySpeciality(speciality, weekDate);
-
-
+                .getAvailableBySpecialityAndNeighborhood(speciality, neighborhood, weekDate);
         model.addObject(APPOINTMENTS_KEY, availableAppointmentsSlots);
         model.addObject(SPECIALITY_KEY, speciality);
         model.addObject(LOGGED_PATIENT_KEY, patient);

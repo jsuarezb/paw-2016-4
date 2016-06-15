@@ -1,14 +1,15 @@
 package ar.edu.itba.paw.persistence.hibernate;
 
+import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.WorksIn;
 import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.persistence.SpecialityDao;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by agophurmuz on 5/16/16.
@@ -44,5 +45,22 @@ public class SpecialityHibernateDao implements SpecialityDao {
                 "on s.id = ds.doctor_id where ds.doctor_id = :doctor_id", Speciality.class);
         query.setParameter("doctor_id", doctorId);
         return query.getResultList();
+    }
+
+    @Override
+    public Set<Speciality> getByInstitutionId(Integer institution_id) {
+
+        final TypedQuery<Doctor> query1= em.createQuery("FROM Doctor as d " +
+                "WHERE d.id IN (select w.doctor.id from WorksIn as w " +
+                                "WHERE w.institution.id = :institution_id)", Doctor.class);
+        query1.setParameter("institution_id", institution_id);
+        List<Doctor> doctors = query1.getResultList();
+        Set<Speciality> allSpecialities = new HashSet<Speciality>();
+        for (Doctor doctor : doctors) {
+            for (Speciality speciality : doctor.getSpecialities()) {
+                allSpecialities.add(speciality);
+            }
+        }
+        return allSpecialities;
     }
 }

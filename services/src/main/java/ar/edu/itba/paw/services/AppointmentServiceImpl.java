@@ -123,10 +123,25 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
 
+    public List<Appointment> getAvailableBySpecialityAndNeighborhood(Speciality speciality, String neiborhood, LocalDateTime weekStart){
+        final List<Appointment> appointments = new ArrayList<Appointment>();
+        final List<AppointmentSlot> availableSlots = slotDao
+                .getAvailableBySpecialityAndNeighborhood(speciality, neiborhood, weekStart);
+
+        for (AppointmentSlot slot : availableSlots) {
+            LocalDateTime appointmentTime = weekStart
+                    .withHour(slot.getHour());
+
+            Appointment appointment = new Appointment(null, slot, appointmentTime, null);
+            appointments.add(appointment);
+        }
+
+        return appointments;
+
+    }
+
     public boolean cancel(int appointmentId) {
         return appointmentDao.delete(appointmentId);
     }
-
-
 
 }

@@ -26,20 +26,24 @@ public class Address {
     private String city;
 
     @Column(length = 100, nullable = false)
-    private String state;
+    private String country;
 
     @Column(length = 100, nullable = false)
-    private String country;
+    private String state;
+
+    @Column(length = 100, nullable = true)
+    private String neighborhood;
 
     @SuppressWarnings("unused")
     /* package */ Address() { }
 
-    public Address(String streetName, Integer streetNumber, String apartment, String city, String state, String country) {
+    public Address(String streetName, Integer streetNumber, String apartment, String city, String state, String neighborhood, String country) {
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.apartment = apartment;
         this.city = city;
         this.state = state;
+        this.neighborhood = neighborhood;
         this.country = country;
     }
 
@@ -69,6 +73,10 @@ public class Address {
 
     public Integer getId() {
         return id;
+    }
+
+    public String getNeighborhood() {
+        return neighborhood;
     }
 
     @Override

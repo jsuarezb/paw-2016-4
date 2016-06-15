@@ -46,30 +46,39 @@
                                 <label for="neighborhood" class="col-sm-3 control-label form-label">
                                     Barrio
                                 </label>
-                                        <%-- <c:forEach var="neighborhood" items="${ neighborhoods }"> --%>
-                                        <%--    <option id="option-${ neighborhood.name }">${ neighborhood.name }</option> --%>
-                                        <%-- </c:forEach> --%>
                                 <div class="col-sm-9">
-                                    <form:select path="neighborhood"
-                                                 class="form-control form-control-filter input-lg"
-                                                 id="neighborhood">
+                                    <form:select id="neighborhood" path="neighborhood"
+                                                 class="form-control form-control-filter input-lg">
                                         <form:option value="-" label="Seleccione un Barrio"/>
-                                        <form:option id="option-1" label="Belgrano" value="Belgrano"/>
-                                        <form:option id="option-2" label="Colegiales" value="Colegiales"/>
-                                        <form:option id="option-3" label="Flores" value="Flores"/>
-                                        <form:option id="option-4" label="Nuñez" value="Nuñez"/>
-                                        <form:option id="option-5" label="Palermo" value="Palermo"/>
-                                        <form:option id="option-6" label="Parque Patricios" value="Parque Patricios"/>
-                                        <form:option id="option-7" label="Recoleta" value="Recoleta"/>
-                                        <form:option id="option-8" label="Villa Devoto" value="Villa Devoto"/>
-                                        <form:option id="option-9" label="Villa Urquiza" value="Villa Urquiza"/>
-                                        <form:option id="option-10" label="Villa del Parque" value="Villa del Parque"/>
+                                        <c:forEach var="neighborhood" items="${ neighborhoods }">
+                                            <form:option id="option-${ neighborhood }"
+                                                         label="${ neighborhood }"
+                                                         value="${ neighborhood }"/>
+                                        </c:forEach>
                                     </form:select>
                                 </div>
+
+                                <%--<div class="col-sm-9">--%>
+                                    <%--<form:select path="neighborhood"--%>
+                                                 <%--class="form-control form-control-filter input-lg"--%>
+                                                 <%--id="neighborhood">--%>
+                                        <%--<form:option value="-" label="Seleccione un Barrio"/>--%>
+                                        <%--<form:option id="option-1" label="Belgrano" value="Belgrano"/>--%>
+                                        <%--<form:option id="option-2" label="Colegiales" value="Colegiales"/>--%>
+                                        <%--<form:option id="option-3" label="Flores" value="Flores"/>--%>
+                                        <%--<form:option id="option-4" label="Nuñez" value="Nuñez"/>--%>
+                                        <%--<form:option id="option-5" label="Palermo" value="Palermo"/>--%>
+                                        <%--<form:option id="option-6" label="Parque Patricios" value="Parque Patricios"/>--%>
+                                        <%--<form:option id="option-7" label="Recoleta" value="Recoleta"/>--%>
+                                        <%--<form:option id="option-8" label="Villa Devoto" value="Villa Devoto"/>--%>
+                                        <%--<form:option id="option-9" label="Villa Urquiza" value="Villa Urquiza"/>--%>
+                                        <%--<form:option id="option-10" label="Villa del Parque" value="Villa del Parque"/>--%>
+                                    <%--</form:select>--%>
+                                <%--</div>--%>
                             </div>
                             <div class="form-group">
                                 <button type="submit" class="btn btn-success">
-                                    Registrarse
+                                    Buscar
                                 </button>
                             </div>
                         </form:form>
@@ -110,11 +119,6 @@
                         </form:form>
                     </div>
                 </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <button type="button" class="btn btn-success btn-search">Buscar</button>
             </div>
         </div>
     </div>
