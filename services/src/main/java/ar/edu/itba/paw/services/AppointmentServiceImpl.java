@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -107,13 +108,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     public List<Appointment> getAvailableBySpeciality(Speciality speciality, LocalDateTime weekStart) {
-        final List<Appointment> appointments = new ArrayList<Appointment>();
+        final List<Appointment> appointments = new ArrayList<>();
         final List<AppointmentSlot> availableSlots = slotDao
                 .getAvailableBySpeciality(speciality.getId(), weekStart);
 
         for (AppointmentSlot slot : availableSlots) {
             LocalDateTime appointmentTime = weekStart
-                    .withHour(slot.getHour());
+                    .withHour(slot.getHour())
+                    .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
             Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);

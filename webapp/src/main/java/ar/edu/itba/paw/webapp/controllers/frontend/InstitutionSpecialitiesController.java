@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -41,10 +42,10 @@ public class InstitutionSpecialitiesController extends BaseController{
             throw new ResourceNotFoundException();
         }
 
-        final Set<Speciality> specialities = specialityService.getByInstitutionId(institution_id);
+        final List<Speciality> specialities = specialityService.getByInstitutionId(institution_id);
 
-        model.addObject(INSTITUTION_KEY,institution);
-        model.addObject(SPECIALITIES_KEY,specialities);
+        model.addObject(INSTITUTION_KEY, institution);
+        model.addObject(SPECIALITIES_KEY, specialities);
 
         return model;
     }

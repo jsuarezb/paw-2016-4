@@ -43,7 +43,6 @@
                                 <c:if test="${ patient != null }">
                                     <form:form modelAttribute="newAppointment" action="/grupo4/appointments"
                                                method="post" enctype="application/x-www-form-urlencoded">
-                                        <form:input path="patientId" type="hidden" value="${ user.id }" />
                                         <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
                                         <form:input path="slotId" type="hidden" value="${ slot.id }" />
                                         <form:input path="startDate" type="hidden" value="${ formattedDate }" />
@@ -63,8 +62,8 @@
     <nav>
         <z:localDateTime date="${ prevWeek }" pattern="yyyy-MM-dd" var="formattedPrevWeek" />
         <z:localDateTime date="${ nextWeek }" pattern="yyyy-MM-dd" var="formattedNextWeek" />
-        <z:pager nextUrl="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }"
-                 prevUrl="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedNextWeek }"
+        <z:pager prevUrl="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedPrevWeek }"
+                 nextUrl="/grupo4/speciality/${ speciality.id }/appointment_slots?date=${ formattedNextWeek }"
                  showPrev="${ null != prevWeek }"/>
     </nav>
 </z:base>

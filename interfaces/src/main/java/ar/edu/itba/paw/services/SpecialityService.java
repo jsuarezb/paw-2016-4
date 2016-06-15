@@ -18,5 +18,5 @@ public interface SpecialityService {
 
     Speciality getById(final Integer id);
 
-    Set<Speciality> getByInstitutionId(final Integer id);
+    List<Speciality> getByInstitutionId(final Integer id);
 }

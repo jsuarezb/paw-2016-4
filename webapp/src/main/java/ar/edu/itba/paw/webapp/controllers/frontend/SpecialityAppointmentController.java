@@ -7,8 +7,6 @@ import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.SpecialityService;
 import ar.edu.itba.paw.webapp.exceptions.ResourceNotFoundException;
 import ar.edu.itba.paw.webapp.forms.AppointmentForm;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -17,9 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.List;
@@ -49,7 +45,6 @@ public class SpecialityAppointmentController extends BaseController{
             @PathVariable final Integer speciality_id,
             @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date weekDateParam) {
         ModelAndView model = new ModelAndView("speciality_appointment");
-
 
         Speciality speciality = specialityService.getById(speciality_id);
         if (speciality == null)

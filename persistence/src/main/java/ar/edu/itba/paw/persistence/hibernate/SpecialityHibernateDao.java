@@ -40,9 +40,24 @@ public class SpecialityHibernateDao implements SpecialityDao {
     }
 
     public List<Speciality> getByDoctorId(Integer doctorId) {
-        final TypedQuery<Speciality> query = em.createQuery("from Speciality  as s join doctors_specialities as ds " +
-                "on s.id = ds.doctor_id where ds.doctor_id = :doctor_id", Speciality.class);
+        final TypedQuery<Speciality> query = em.createQuery(
+                "SELECT ds FROM Doctor AS d " +
+                "JOIN d.specialities AS ds " +
+                "WHERE d.id = :doctor_id", Speciality.class);
         query.setParameter("doctor_id", doctorId);
+        return query.getResultList();
+    }
+
+    @Override
+    public List<Speciality> getByInstitutionId(Integer institutionId) {
+        final TypedQuery<Speciality> query = em.createQuery(
+                "SELECT ds FROM Doctor AS d " +
+                "JOIN d.specialities AS ds " +
+                "JOIN d.worksIn AS worksIn " +
+                "JOIN worksIn.institution AS institution " +
+                "WHERE institution.id = :institution_id"
+                , Speciality.class);
+        query.setParameter("institution_id", institutionId);
         return query.getResultList();
     }
 }

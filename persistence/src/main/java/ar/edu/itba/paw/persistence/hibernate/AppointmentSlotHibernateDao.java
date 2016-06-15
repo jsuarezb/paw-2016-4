@@ -2,16 +2,15 @@ package ar.edu.itba.paw.persistence.hibernate;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Institution;
 import ar.edu.itba.paw.models.WorksIn;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.List;
 
@@ -55,11 +54,20 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
         return Collections.emptyList();
     }
 
-    public List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, LocalDateTime week) {
+    public List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
-                "FROM AppointmentSlot",
+                "SELECT slot " +
+                "FROM Appointment AS app " +
+                "RIGHT JOIN app.slot AS slot " +
+                "WHERE ((app.date > :start_date AND app.date < :end_date) " +
+                        "OR app.date IS NULL) " +
+                "AND app.slot IS NULL"
+                ,
                 AppointmentSlot.class
         );
+        LocalDateTime endDate = startDate.plus(7, ChronoUnit.DAYS);
+        query.setParameter("start_date", startDate);
+        query.setParameter("end_date", endDate);
         return query.getResultList();
     }
 }
