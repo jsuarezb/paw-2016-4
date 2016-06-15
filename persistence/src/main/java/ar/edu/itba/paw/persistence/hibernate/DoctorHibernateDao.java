@@ -4,14 +4,13 @@ import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.persistence.DoctorDao;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.EntityManager;
-import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import javax.persistence.*;
 import java.util.List;
 
 @Repository
 public class DoctorHibernateDao implements DoctorDao {
+
+    private static final int DEFAULT_SIZE_OF_PAGE = 2;
 
     @PersistenceContext
     private EntityManager em;
@@ -54,5 +53,43 @@ public class DoctorHibernateDao implements DoctorDao {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    @Override
+    public List<Doctor> searchByName(String name, String lastName, Integer page) {
+        final TypedQuery<Doctor> query = em.createQuery(
+                "FROM Doctor AS d " +
+                "WHERE lower(d.name) LIKE lower(:name) AND lower(d.lastName) LIKE lower(:lastName) " +
+                "ORDER BY d.lastName, d.name ",
+                Doctor.class
+        );
+
+        query.setFirstResult(page * DEFAULT_SIZE_OF_PAGE);
+        query.setMaxResults(DEFAULT_SIZE_OF_PAGE);
+
+        query.setParameter("name", "%" + name + "%");
+        query.setParameter("lastName", "%" + lastName + "%");
+
+        return query.getResultList();
+    }
+
+    @Override
+    public boolean hasNextPageForSearchByName(String name, String lastName, Integer page) {
+        final TypedQuery<Doctor> query = em.createQuery(
+                "FROM Doctor AS d " +
+                "WHERE lower(d.name) LIKE lower(:name) AND lower(d.lastName) LIKE lower(:lastName) " +
+                "ORDER BY d.lastName, d.name ",
+                Doctor.class
+        );
+
+        query.setFirstResult((page + 1) * DEFAULT_SIZE_OF_PAGE);
+        query.setMaxResults(DEFAULT_SIZE_OF_PAGE);
+
+        query.setParameter("name", "%" + name + "%");
+        query.setParameter("lastName", "%" + lastName + "%");
+
+        int count = query.getResultList().size(); // Exception thrown when COUNT(*)ing
+
+        return count > 0;
     }
 }

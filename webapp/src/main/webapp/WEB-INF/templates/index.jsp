@@ -79,17 +79,16 @@
             <div id="doctor" class="tab-pane fade">
                 <div class="row">
                     <div class="col-lg-6 col-lg-offset-3">
-                        <c:url value='/search_by_doctor' var="url"/>
-                        <form:form class="form-horizontal" method='get' action="${url}" modelAttribute="searchByDoctorForm">
+                        <c:url value='/search_by_doctor' var="searchByNameUrl"/>
+                        <form class="form-horizontal" method='get' action="${ searchByNameUrl }"
+                              modelAttribute="searchByDoctorForm">
                             <div class="form-group">
                                 <label for="name" class="col-sm-3 control-label form-label">
                                     Nombre
                                 </label>
-
                                 <div class="col-sm-9 form-control-filter">
-                                    <form:input id="name" name="name" path="name"
-                                                class="form-control input-lg"
-                                                placeholder="Nombre" type="text"/>
+                                    <input id="name" name="name" class="form-control input-lg"
+                                           placeholder="Nombre" type="text"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -97,9 +96,8 @@
                                     Apellido
                                 </label>
                                 <div class="col-sm-9 form-control-filter">
-                                    <form:input id="lastName" name="lastName"
-                                                path="lastName" class="form-control input-lg"
-                                                placeholder="Apellido" type="text"/>
+                                    <input id="lastName" name="lastName" class="form-control input-lg"
+                                           placeholder="Apellido" type="text"/>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -107,7 +105,7 @@
                                     Buscar
                                 </button>
                             </div>
-                        </form:form>
+                        </form>
                     </div>
                 </div>
             </div>
