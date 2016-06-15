@@ -3,6 +3,8 @@ package ar.edu.itba.paw.services;
 import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Patient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailException;
@@ -12,9 +14,12 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
+import java.util.Properties;
 
 @Service
 public class MailServiceImpl implements MailService {
+
+    private static final Logger LOG = LoggerFactory.getLogger(MailServiceImpl.class);
 
     private static final DateTimeFormatter dateFmt = DateTimeFormatter.ofPattern("dd/MM/yy");
 
@@ -38,7 +43,7 @@ public class MailServiceImpl implements MailService {
         try {
             mailSender.send(msg);
         } catch (MailException ex) {
-            // TODO log error
+            LOG.error("Mail not sent.", ex);
         }
     }
 
@@ -53,8 +58,15 @@ public class MailServiceImpl implements MailService {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         mailSender.setProtocol("smtp");
-        mailSender.setHost("localhost");
-        mailSender.setPort(25);
+        mailSender.setHost("smtp.gmail.com");
+        mailSender.setPort(587);
+        mailSender.setUsername("chopidoturnos@gmail.com");
+        mailSender.setPassword("chopidoturnospaw2016");
+
+        final Properties properties = new Properties();
+        properties.setProperty("mail.smtp.auth", "true");
+        properties.setProperty("mail.smtp.starttls.enable", "true");
+        mailSender.setJavaMailProperties(properties);
 
         return mailSender;
     }
