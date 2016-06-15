@@ -41,7 +41,8 @@
                             </td>
                             <td>
                                 <c:if test="${ patient != null }">
-                                    <form:form modelAttribute="newAppointment" action="/appointments"
+                                    <c:url value="/appointments" var="url" />
+                                    <form:form modelAttribute="newAppointment" action="${url}"
                                                method="post" enctype="application/x-www-form-urlencoded">
                                         <form:input path="doctorId" type="hidden" value="${ doctor.id }" />
                                         <form:input path="slotId" type="hidden" value="${ slot.id }" />

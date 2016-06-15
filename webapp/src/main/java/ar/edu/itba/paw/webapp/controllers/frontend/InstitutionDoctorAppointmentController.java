@@ -15,8 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoField;
+import java.time.temporal.TemporalField;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -56,7 +59,13 @@ public class InstitutionDoctorAppointmentController extends BaseController {
             @PathVariable final int doctor_id,
             @RequestParam(value = "date", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date weekDateParam) {
         ModelAndView model = new ModelAndView("institution_doctor_appointment");
-        LocalDateTime weekDate = LocalDateTime.ofInstant(weekDateParam.toInstant(), ZoneId.systemDefault());
+        LocalDateTime weekDate;
+        if (weekDateParam == null)
+            weekDate = LocalDateTime.now()
+                        .with(ChronoField.DAY_OF_WEEK, DayOfWeek.MONDAY.getValue())
+                        .with(ChronoField.SECOND_OF_DAY, 0);
+        else
+            weekDate = LocalDateTime.ofInstant(weekDateParam.toInstant(), ZoneId.systemDefault());
         Institution institution = institutionService.get(institution_id);
         if (institution == null)
             throw new ResourceNotFoundException();
@@ -66,9 +75,6 @@ public class InstitutionDoctorAppointmentController extends BaseController {
             throw new ResourceNotFoundException();
 
         Patient patient = currentPatient();
-
-        if (weekDate == null)
-            weekDate = LocalDateTime.now();
 
         final LocalDateTime prevWeek = weekDate.minusWeeks(1);
         final LocalDateTime nextWeek = weekDate.plusWeeks(1);

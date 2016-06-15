@@ -44,12 +44,12 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     public List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
                 "SELECT slot " +
-                        "FROM Appointment AS app " +
-                        "RIGHT JOIN app.slot AS slot " +
-                        "WHERE ((app.date > :start_date AND app.date < :end_date) " +
-                        "OR app.date IS NULL) " +
-                        "AND app.slot IS NULL " +
-                        "AND slot.worksIn.doctor.id= :doctor_id"
+                "FROM Appointment AS app " +
+                "RIGHT JOIN app.slot AS slot " +
+                "WHERE ((app.date > :start_date AND app.date < :end_date) " +
+                "OR app.date IS NULL) " +
+                "AND app.slot IS NULL " +
+                "AND slot.worksIn.doctor.id = :doctor_id"
                 ,
                 AppointmentSlot.class
         );
@@ -92,7 +92,7 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                 "WHERE ((app.date > :start_date AND app.date < :end_date) " +
                 "OR app.date IS NULL) " +
                 "AND app.slot IS NULL " +
-                "AND slot.worksIn.instititution.id = :institution_id " +
+                "AND slot.worksIn.institution.id = :institution_id " +
                 "AND slot.worksIn.doctor.specialities.speciality.id = :speciality_id"
                 ,
                 AppointmentSlot.class
