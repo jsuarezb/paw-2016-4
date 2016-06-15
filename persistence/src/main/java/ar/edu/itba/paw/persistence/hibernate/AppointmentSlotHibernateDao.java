@@ -62,28 +62,16 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     }
 
     @Override
-    public List<AppointmentSlot> getAvailableBySpecialityAndNeighborhood(Speciality speciality, String neiborhood,
+    public List<AppointmentSlot> getAvailableBySpecialityAndNeighborhood(Speciality speciality, String neighborhood,
                                                                          LocalDateTime weekStart) {
 
-        final Query query1 = em.createQuery("select i.id " +
-                "FROM Institution as i where i.address IN (select a.id from Address as a where a.neighborhood = :neighborhood)");
-        query1.setParameter("neighborhood", neiborhood);
-        List<Integer> institutionsIds = query1.getResultList();
-
-        final Query query2 = em.createQuery("select d.id from Doctor as d join d.specialities as s where s.speciality_id = :speciality_id");
-        query2.setParameter("speciality_id", speciality.getId());
-        List<Integer> doctorIds = query2.getResultList();
-
-        final Query query3 = em.createQuery("select w.id from WorksIn as w " +
-                "where w.doctor_id IN (:doctorIds) AND w.institution IN (:institutionsIds)");
-        query3.setParameter("doctorIds", doctorIds);
-        query3.setParameter("institutionsIds", institutionsIds);
-        List<Integer> worksInIds = query3.getResultList();
-
-        final TypedQuery<AppointmentSlot> query = em.createQuery(
-                "FROM AppoinmentSlot as slot WHERE slot.worksIn IN (:worksInIds)", AppointmentSlot.class);
-        query.setParameter("worksInIds", worksInIds);
-
+        final TypedQuery<AppointmentSlot> query = em.createQuery("select slot " +
+                "from AppointmentSlot as slot JOIN slot.worksIn as worksIn JOIN worksIn.institution as institution " +
+                "JOIN worksIn.doctor as doctor JOIN institution.address as address " +
+                "JOIN doctor.specialities as speciality " +
+                "where address.neighborhood = :neighborhood AND speciality.id = :speciality_id", AppointmentSlot.class);
+        query.setParameter("neighborhood", neighborhood);
+        query.setParameter("speciality_id", speciality.getId());
         return query.getResultList();
     }
 }
