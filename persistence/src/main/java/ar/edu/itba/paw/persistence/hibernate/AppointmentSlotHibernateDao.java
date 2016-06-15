@@ -135,7 +135,9 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                     "JOIN institution.address as address " +
                     "JOIN doctor.specialities as speciality " +
                 "where address.neighborhood = :neighborhood " +
-                    "AND speciality.id = :speciality_id", AppointmentSlot.class);
+                    "AND speciality.id = :speciality_id " +
+                "ORDER BY slot.dayOfWeek, slot.hour",
+                AppointmentSlot.class);
         query.setParameter("neighborhood", neighborhood);
         query.setParameter("speciality_id", speciality.getId());
         return query.getResultList();

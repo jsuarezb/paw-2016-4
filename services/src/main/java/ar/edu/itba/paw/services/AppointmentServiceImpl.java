@@ -40,6 +40,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         Appointment appointment = appointmentDao.create(patient, doctor, appointmentSlot, startDate, comment);
         if (appointment != null) {
             mailService.sendAppointmentConfirmationToDoctor(appointment, doctor, patient);
+            mailService.sendAppointmentConfirmationToPatient(appointment, doctor, patient);
         }
 
         return appointment;

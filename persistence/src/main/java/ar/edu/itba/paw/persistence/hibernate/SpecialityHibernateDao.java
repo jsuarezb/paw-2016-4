@@ -51,14 +51,14 @@ public class SpecialityHibernateDao implements SpecialityDao {
     }
 
     @Override
-    public List<Speciality> getByInstitutionId(Integer institution_id) {
+    public Set<Speciality> getByInstitutionId(Integer institution_id) {
 
         final TypedQuery<Doctor> query1= em.createQuery("FROM Doctor as d " +
                 "WHERE d.id IN (select w.doctor.id from WorksIn as w " +
                                 "WHERE w.institution.id = :institution_id)", Doctor.class);
         query1.setParameter("institution_id", institution_id);
         List<Doctor> doctors = query1.getResultList();
-        List<Speciality> allSpecialities = new LinkedList<>();
+        Set<Speciality> allSpecialities = new HashSet<>();
         for (Doctor doctor : doctors) {
             for (Speciality speciality : doctor.getSpecialities()) {
                 allSpecialities.add(speciality);
