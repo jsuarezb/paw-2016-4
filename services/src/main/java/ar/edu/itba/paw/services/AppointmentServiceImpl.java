@@ -158,6 +158,9 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     public boolean cancel(final int appointmentId) {
         final Appointment appointment = appointmentDao.getByid(appointmentId);
+        if (appointment.getDate().compareTo(LocalDateTime.now()) < 0) {
+            return false;
+        }
         final Doctor doctor = appointment.getSlot().getWorksIn().getDoctor();
         final Patient patient = appointment.getPatient();
 

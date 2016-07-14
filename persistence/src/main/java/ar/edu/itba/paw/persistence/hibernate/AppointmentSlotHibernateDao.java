@@ -23,17 +23,19 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     private EntityManager em;
 
 
-    public AppointmentSlot create(WorksIn worksIn, int dayOfWeek, int startHour) {
+    public AppointmentSlot create(final WorksIn worksIn,
+                                  final int dayOfWeek,
+                                  final int startHour) {
         AppointmentSlot appointmentSlot = new AppointmentSlot(dayOfWeek, startHour, worksIn);
         em.persist(appointmentSlot);
         return appointmentSlot;
     }
 
-    public AppointmentSlot getById(int id) {
+    public AppointmentSlot getById(final int id) {
         return em.find(AppointmentSlot.class, id);
     }
 
-    public List<AppointmentSlot> getByDoctor(Doctor doctor) {
+    public List<AppointmentSlot> getByDoctor(final Doctor doctor) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
                 "FROM AppointmentSlot AS slot JOIN slot.worksIn as worksIn" +
                 "WHERE worksIn.doctor_id = :doctor_id", AppointmentSlot.class);
@@ -41,7 +43,8 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
         return query.getResultList();
     }
 
-    public List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, LocalDateTime startDate) {
+    public List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor,
+                                                      final LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
                 "SELECT slot FROM AppointmentSlot AS slot " +
                 "WHERE slot NOT IN " +
@@ -59,8 +62,9 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
         return query.getResultList();
     }
 
-    public List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId,
-                                                                   LocalDateTime startDate) {
+    public List<AppointmentSlot> getAvailableByDoctorInInstitution(final int doctorId,
+                                                                   final int institutionId,
+                                                                   final LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
                 "SELECT slot FROM AppointmentSlot AS slot " +
                         "WHERE slot NOT IN " +
@@ -80,9 +84,9 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
         return query.getResultList();
     }
 
-    public List<AppointmentSlot> getAvailableBySpecialityInInstitution(int speciality_id,
-                                                                       int institution_id,
-                                                                       LocalDateTime startDate) {
+    public List<AppointmentSlot> getAvailableBySpecialityInInstitution(final int speciality_id,
+                                                                       final int institution_id,
+                                                                       final LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
                 "SELECT slot FROM AppointmentSlot AS slot " +
                         "WHERE slot NOT IN " +
@@ -104,7 +108,8 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
         return query.getResultList();
     }
 
-    public List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, LocalDateTime startDate) {
+    public List<AppointmentSlot> getAvailableBySpeciality(final int speciality_id,
+                                                          final LocalDateTime startDate) {
         final TypedQuery<AppointmentSlot> query = em.createQuery(
                 "SELECT slot FROM AppointmentSlot AS slot " +
                         "WHERE slot NOT IN " +
@@ -124,22 +129,28 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     }
 
     @Override
-    public List<AppointmentSlot> getAvailableBySpecialityAndNeighborhood(Speciality speciality, String neighborhood,
-                                                                         LocalDateTime weekStart) {
-
-        final TypedQuery<AppointmentSlot> query = em.createQuery("select slot " +
-                "from AppointmentSlot as slot " +
-                    "JOIN slot.worksIn as worksIn " +
-                    "JOIN worksIn.institution as institution " +
-                    "JOIN worksIn.doctor as doctor " +
-                    "JOIN institution.address as address " +
-                    "JOIN doctor.specialities as speciality " +
-                "where address.neighborhood = :neighborhood " +
-                    "AND speciality.id = :speciality_id " +
-                "ORDER BY slot.dayOfWeek, slot.hour",
+    public List<AppointmentSlot> getAvailableBySpecialityAndNeighborhood(final Speciality speciality,
+                                                                         final String neighborhood,
+                                                                         final LocalDateTime weekStart) {
+        final TypedQuery<AppointmentSlot> query = em.createQuery(
+                "SELECT slot FROM AppointmentSlot AS slot " +
+                        "WHERE slot NOT IN " +
+                        "(SELECT app.slot " +
+                        "FROM Appointment AS app " +
+                        "JOIN app.slot.worksIn.doctor.specialities speciality " +
+                        "JOIN app.slot.worksIn.institution.address address " +
+                        "WHERE app.date > current_timestamp() " +
+                        "AND app.date > :start_date " +
+                        "AND app.date < :end_date " +
+                        "AND speciality.id = :speciality_id " +
+                        "AND address.neighborhood = :neighborhood) " +
+                        "ORDER BY slot.dayOfWeek, slot.hour";
                 AppointmentSlot.class);
         query.setParameter("neighborhood", neighborhood);
         query.setParameter("speciality_id", speciality.getId());
+        LocalDateTime endDate = weekStart.plus(7, ChronoUnit.DAYS);
+        query.setParameter("start_date", weekStart);
+        query.setParameter("end_date", endDate);
         return query.getResultList();
     }
 }
