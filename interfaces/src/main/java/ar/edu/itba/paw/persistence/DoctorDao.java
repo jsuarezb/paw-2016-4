@@ -18,11 +18,15 @@ public interface DoctorDao {
      * * @param id Institution id.
      * @return A list with the doctors of an institution.
      */
-    List<Doctor> getDoctorsByInstitution(Integer id);
+    List<Doctor> getDoctorsByInstitution(final Integer id);
 
-    Doctor getByName(String name, String last_name);
+    Doctor getByName(final String name, final String last_name);
 
-    List<Doctor> searchByName(String name, String lastName, Integer page);
+    List<Doctor> searchByName(final String name,
+                              final String lastName,
+                              final Integer page);
 
-    boolean hasNextPageForSearchByName(String name, String lastName, Integer page);
+    boolean hasNextPageForSearchByName(final String name,
+                                       final String lastName,
+                                       final Integer page);
 }

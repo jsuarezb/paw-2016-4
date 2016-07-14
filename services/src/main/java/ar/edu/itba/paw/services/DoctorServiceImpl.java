@@ -19,22 +19,29 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorDao.getAll();
     }
 
-    public Doctor get(Integer id) { return doctorDao.getById(id); }
+    public Doctor get(final Integer id) { return doctorDao.getById(id); }
 
-    public List<Doctor> searchByName(String name, String lastName, Integer page) {
+    public List<Doctor> searchByName(final String name,
+                                     final String lastName,
+                                     final Integer page) {
         if (page < 0)
             return Collections.emptyList();
 
         return doctorDao.searchByName(name, lastName, page);
     }
 
-    public List<Doctor> searchBySpeciality(Integer speciality_id) { return doctorDao.getBySpeciality(speciality_id);
+    public List<Doctor> searchBySpeciality(final Integer speciality_id) {
+        return doctorDao.getBySpeciality(speciality_id);
     }
 
-    public List<Doctor> getDoctorsByInstitution (Integer id) { return doctorDao.getDoctorsByInstitution(id); }
+    public List<Doctor> getDoctorsByInstitution (final Integer id) {
+        return doctorDao.getDoctorsByInstitution(id);
+    }
 
     @Override
-    public boolean hasNextPageForSearchByName(String name, String lastName, Integer page) {
+    public boolean hasNextPageForSearchByName(final String name,
+                                              final String lastName,
+                                              final Integer page) {
         return doctorDao.hasNextPageForSearchByName(name, lastName, page);
     }
 }

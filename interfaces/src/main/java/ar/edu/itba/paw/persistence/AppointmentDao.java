@@ -9,14 +9,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AppointmentDao {
+    Appointment create(final Patient patient, final Doctor doctor,
+                       final AppointmentSlot appointmentSlot,
+                       final LocalDateTime startDate,
+                       final String comments);
 
-    //Appointment create(int patientId, int doctorId, int slotId, DateTime startDate, String comments);
+    List<Appointment> getByDoctor(final Doctor doctor);
 
-    Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot, LocalDateTime startDate, String comments);
-
-    List<Appointment> getByDoctor(Doctor doctor);
-
-    List<Appointment> getByPatient(Patient patient, int page);
+    List<Appointment> getByPatient(final Patient patient, final int page);
 
     //FIXME
     List<Appointment> getAll();
@@ -27,13 +27,13 @@ public interface AppointmentDao {
      * @param time Time of the appointment.
      * @return True if the doctor is free, else false.
      */
-    boolean isDoctorAvailable(Doctor doctor, LocalDateTime time);
+    boolean isDoctorAvailable(final Doctor doctor, final LocalDateTime time);
 
     /**
      * Delete the appointment.
      * @param appointmentId Id of the appointment.
      */
-    boolean delete(int appointmentId);
+    boolean delete(final int appointmentId);
 
-    Appointment getByid(int appointmentId);
+    Appointment getByid(final int appointmentId);
 }

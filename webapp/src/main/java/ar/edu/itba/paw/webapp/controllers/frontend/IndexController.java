@@ -68,8 +68,6 @@ public class IndexController extends BaseController {
         List<String> neighborhoods = addressService.getAllNeighborhoods();
         mav.addObject(NEIGHBORHOODS_KEY, neighborhoods);
 
-        List<Appointment> appointments = appointmentService.getAll();
-
         return mav;
     }
         @RequestMapping(path = "/search_by_speciality", method = RequestMethod.GET)

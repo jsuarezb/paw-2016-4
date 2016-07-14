@@ -22,8 +22,10 @@ public class AppointmentHibernateDao implements AppointmentDao {
     private EntityManager em;
 
     @Transactional
-    public Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot, LocalDateTime startDate, String comments) {
-        Appointment appointment = new Appointment(patient, appointmentSlot, startDate, comments);
+    public Appointment create(final Patient patient, final Doctor doctor,
+                              final AppointmentSlot appointmentSlot, final LocalDateTime startDate,
+                              final String comments) {
+        final Appointment appointment = new Appointment(patient, appointmentSlot, startDate, comments);
         em.persist(appointment);
         return appointment;
     }
@@ -33,7 +35,7 @@ public class AppointmentHibernateDao implements AppointmentDao {
         return query.getResultList();
     }
     @Transactional
-    public List<Appointment> getByDoctor(Doctor doctor) {
+    public List<Appointment> getByDoctor(final Doctor doctor) {
         final TypedQuery<Appointment> query = em.createQuery("FROM Appointment AS a JOIN AppointmentSlot AS asl " +
                 "ON a.appointment_slot_id = asl.id WHERE asl.doctor_id = :doctor_id", Appointment.class);
         query.setParameter("doctor_id", doctor.getId());
@@ -41,30 +43,35 @@ public class AppointmentHibernateDao implements AppointmentDao {
 
     }
     @Transactional
-    public List<Appointment> getByPatient(Patient patient, int page) {
+    public List<Appointment> getByPatient(final Patient patient, final int page) {
         final TypedQuery<Appointment> query = em.createQuery("FROM Appointment AS a " +
                 "WHERE a.patient.id = :patient_id", Appointment.class);
         query.setParameter("patient_id", patient.getId());
         return query.getResultList();
     }
     @Transactional
-    public boolean isDoctorAvailable(Doctor doctor, LocalDateTime date) {
-        /*final Timestamp appointmentDate = new Timestamp(date.getMillis());
-        final String query = String.format("SELECT COUNT(*) FROM %s WHERE %s <= ? AND %s >= ? AND  %s = ?",
-                TABLE_NAME, START_DATE_COL, START_DATE_COL, DOCTOR_COL);*/
-        return true;
+    public boolean isDoctorAvailable(final Doctor doctor, final LocalDateTime date) {
+        final TypedQuery<Integer> query = em.createQuery(
+            "SELECT COUNT(*) " +
+            "FROM Appointment AS app " +
+              "JOIN app.slot.worksIn.doctor AS doctor " +
+            "WHERE app.date = :start_date AND " +
+              "doctor.id = :doctor_id", Integer.class);
+        query.setParameter("doctor_id", doctor.getId());
+        query.setParameter("start_date", date);
+        return query.getSingleResult() == 0;
     }
 
     @Transactional
-    public boolean delete(int appointmentId) {
-        Query query = em.createQuery("DELETE FROM Appointment WHERE id = :id");
+    public boolean delete(final int appointmentId) {
+        final Query query = em.createQuery("DELETE FROM Appointment WHERE id = :id");
         query.setParameter("id", appointmentId);
         return query.executeUpdate() == 1;
     }
 
     @Override
-    public Appointment getByid(int appointmentId) {
-        TypedQuery<Appointment> query = em.createQuery("FROM Appointment AS a WHERE a.id = :id", Appointment.class);
+    public Appointment getByid(final int appointmentId) {
+        final TypedQuery<Appointment> query = em.createQuery("FROM Appointment AS a WHERE a.id = :id", Appointment.class);
         query.setParameter("id", appointmentId);
         return query.getSingleResult();
     }

@@ -6,12 +6,20 @@ import ar.edu.itba.paw.models.Patient;
 
 public interface MailService {
 
-    void sendAppointmentConfirmationToDoctor(final Appointment appointment, final Doctor doctor, final Patient patient);
+    void sendAppointmentConfirmationToDoctor(final Appointment appointment,
+                                             final Doctor doctor,
+                                             final Patient patient);
 
-    void sendAppointmentConfirmationToPatient(final Appointment appointment, final Doctor doctor, final Patient patient);
+    void sendAppointmentConfirmationToPatient(final Appointment appointment,
+                                              final Doctor doctor,
+                                              final Patient patient);
 
-    void sendAppointmentCancellationToDoctor(final Appointment appointment, final Doctor doctor, final Patient patient);
+    void sendAppointmentCancellationToDoctor(final Appointment appointment,
+                                             final Doctor doctor,
+                                             final Patient patient);
 
-    void sendAppointmentCancellationToPatient(final Appointment appointment, final Doctor doctor, final Patient patient);
+    void sendAppointmentCancellationToPatient(final Appointment appointment,
+                                              final Doctor doctor,
+                                              final Patient patient);
 
 }

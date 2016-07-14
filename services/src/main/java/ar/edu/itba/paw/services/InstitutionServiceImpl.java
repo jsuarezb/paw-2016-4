@@ -17,15 +17,15 @@ public class InstitutionServiceImpl implements InstitutionService {
         return institutionDao.getAll();
     }
 
-    public Institution get(int id) {
+    public Institution get(final int id) {
         return institutionDao.getById(id);
     }
 
-    public List<Institution> findByName(String name) {
+    public List<Institution> findByName(final String name) {
         return institutionDao.getByName(name);
     }
 
-    /* default */ void setInstitutionDao(InstitutionDao institutionDao) {
+    /* default */ void setInstitutionDao(final InstitutionDao institutionDao) {
         this.institutionDao = institutionDao;
     }
 }

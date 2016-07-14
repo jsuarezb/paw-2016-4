@@ -10,11 +10,13 @@ import java.util.List;
 
 public interface AppointmentSlotDao {
 
-    AppointmentSlot create(WorksIn worksIn, int dayOfWeek, int startHour);
+    AppointmentSlot create(final WorksIn worksIn,
+                           final int dayOfWeek,
+                           final int startHour);
 
-    AppointmentSlot getById(int id);
+    AppointmentSlot getById(final int id);
 
-    List<AppointmentSlot> getByDoctor(Doctor doctor);
+    List<AppointmentSlot> getByDoctor(final Doctor doctor);
 
     /**
      * Get all the specified doctor available slots for a specified week.
@@ -22,7 +24,8 @@ public interface AppointmentSlotDao {
      * @param week Start of the 7 days period to search slots for.
      * @return A list of available slots.
      */
-    List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, LocalDateTime week);
+    List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor,
+                                               final LocalDateTime week);
 
     /**
      * Get all the slots for a doctor in a single institution
@@ -31,11 +34,18 @@ public interface AppointmentSlotDao {
      * @return A list of slots for a doctor in an institution.
      */
 
-    List<AppointmentSlot> getAvailableByDoctorInInstitution(int doctorId, int institutionId, LocalDateTime weekStart);
+    List<AppointmentSlot> getAvailableByDoctorInInstitution(final int doctorId,
+                                                            final int institutionId,
+                                                            final LocalDateTime weekStart);
 
-    List<AppointmentSlot> getAvailableBySpecialityInInstitution(int speciality_id, int institution_id, LocalDateTime week);
+    List<AppointmentSlot> getAvailableBySpecialityInInstitution(final int speciality_id,
+                                                                final int institution_id,
+                                                                final LocalDateTime week);
 
-    List<AppointmentSlot> getAvailableBySpeciality(int speciality_id, LocalDateTime week);
+    List<AppointmentSlot> getAvailableBySpeciality(final int speciality_id,
+                                                   final LocalDateTime week);
 
-    List<AppointmentSlot> getAvailableBySpecialityAndNeighborhood(Speciality speciality, String neiborhood, LocalDateTime weekStart);
+    List<AppointmentSlot> getAvailableBySpecialityAndNeighborhood(final Speciality speciality,
+                                                                  final String neiborhood,
+                                                                  final LocalDateTime weekStart);
 }

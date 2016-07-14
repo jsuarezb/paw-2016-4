@@ -7,16 +7,21 @@ import java.util.List;
 
 public interface AppointmentService {
 
-    Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot,
-                       LocalDateTime startDate, String comment);
+    Appointment create(final Patient patient,
+                       final Doctor doctor,
+                       final AppointmentSlot appointmentSlot,
+                       final LocalDateTime startDate,
+                       final String comment);
 
-    List<Appointment> getByDoctor(Doctor doctor);
+    List<Appointment> getByDoctor(final Doctor doctor);
 
-    List<Appointment> getByPatient(Patient patient);
+    List<Appointment> getByPatient(final Patient patient);
 
-    List<Appointment> getAvailableByDoctor(Doctor doctor, LocalDateTime from);
+    List<Appointment> getAvailableByDoctor(final Doctor doctor, final LocalDateTime from);
 
-    List<Appointment> getAvailableByDoctorInInstitution(Doctor doctor, Institution institution, LocalDateTime weekStart);
+    List<Appointment> getAvailableByDoctorInInstitution(final Doctor doctor,
+                                                        final Institution institution,
+                                                        final LocalDateTime weekStart);
 
     //FIXME
     List<Appointment> getAll();
@@ -25,12 +30,16 @@ public interface AppointmentService {
      * @param appointmentId Id of the appointment.
      * @return Amount of appointments deleted.
      */
-    boolean cancel(int appointmentId);
+    boolean cancel(final int appointmentId);
 
-    List<Appointment> getAvailableBySpecialityInInstitution(Speciality speciality, Institution institution, LocalDateTime weekStart);
+    List<Appointment> getAvailableBySpecialityInInstitution(final Speciality speciality,
+                                                            final Institution institution,
+                                                            final LocalDateTime weekStart);
 
-    List<Appointment> getAvailableBySpeciality(Speciality speciality, LocalDateTime weekStart);
+    List<Appointment> getAvailableBySpeciality(final Speciality speciality,
+                                               final LocalDateTime weekStart);
 
-    List<Appointment> getAvailableBySpecialityAndNeighborhood(Speciality speciality, String neiborhood, LocalDateTime weekStart);
-
+    List<Appointment> getAvailableBySpecialityAndNeighborhood(final Speciality speciality,
+                                                              final String neiborhood,
+                                                              final LocalDateTime weekStart);
 }

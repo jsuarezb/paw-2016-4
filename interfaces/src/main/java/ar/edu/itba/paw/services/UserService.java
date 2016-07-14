@@ -8,5 +8,5 @@ import ar.edu.itba.paw.models.User;
 public interface UserService {
     User register(final String username, final String password);
 
-    User getByUsername(String username);
+    User getByUsername(final String username);
 }

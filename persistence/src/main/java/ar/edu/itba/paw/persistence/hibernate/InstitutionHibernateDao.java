@@ -23,11 +23,11 @@ public class InstitutionHibernateDao implements InstitutionDao {
         return query.getResultList();
     }
 
-    public Institution getById(Integer id) {
+    public Institution getById(final Integer id) {
         return em.find(Institution.class, id);
     }
 
-    public List<Institution> getByName(String name) {
+    public List<Institution> getByName(final String name) {
         final TypedQuery<Institution> query = em.createQuery("from Institution as i " +
                 "where i.name = :name", Institution.class);
         query.setParameter("name", name);

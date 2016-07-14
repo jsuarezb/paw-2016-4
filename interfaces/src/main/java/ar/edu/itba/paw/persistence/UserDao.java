@@ -7,6 +7,5 @@ import ar.edu.itba.paw.models.User;
  */
 public interface UserDao {
     User create(final String username, final String password);
-
     User getByUsername(final String username);
 }

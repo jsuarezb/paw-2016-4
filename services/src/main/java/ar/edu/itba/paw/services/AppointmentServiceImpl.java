@@ -32,27 +32,27 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private MailService mailService;
 
-    public Appointment create(Patient patient, Doctor doctor, AppointmentSlot appointmentSlot,
-                              LocalDateTime startDate, String comment) {
+    public Appointment create(final Patient patient, final Doctor doctor,
+                              final AppointmentSlot appointmentSlot,
+                              final LocalDateTime startDate, final String comment) {
         if (!appointmentDao.isDoctorAvailable(doctor, startDate))
             return null;
 
-        Appointment appointment = appointmentDao.create(patient, doctor, appointmentSlot, startDate, comment);
+        final Appointment appointment = appointmentDao.create(patient, doctor, appointmentSlot, startDate, comment);
+
         if (appointment != null) {
             mailService.sendAppointmentConfirmationToDoctor(appointment, doctor, patient);
-
             mailService.sendAppointmentConfirmationToPatient(appointment, doctor, patient);
-
         }
 
         return appointment;
     }
 
-    public List<Appointment> getByDoctor(Doctor doctor) {
+    public List<Appointment> getByDoctor(final Doctor doctor) {
         return appointmentDao.getByDoctor(doctor);
     }
 
-    public List<Appointment> getByPatient(Patient patient) {
+    public List<Appointment> getByPatient(final Patient patient) {
         return appointmentDao.getByPatient(patient, 0);
     }
 
@@ -67,24 +67,26 @@ public class AppointmentServiceImpl implements AppointmentService {
                     .withHour(slot.getHour())
                     .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(null, slot, appointmentTime, null);
+            final Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
         return appointments;
     }
 
-    public List<Appointment> getAvailableByDoctorInInstitution(Doctor doctor, Institution institution, LocalDateTime weekStart) {
+    public List<Appointment> getAvailableByDoctorInInstitution(final Doctor doctor,
+                                                               final Institution institution,
+                                                               final LocalDateTime weekStart) {
         final List<Appointment> appointments = new ArrayList<>();
         final List<AppointmentSlot> availableSlots = slotDao
                 .getAvailableByDoctorInInstitution(doctor.getId(), institution.getId(), weekStart);
 
         for (AppointmentSlot slot : availableSlots) {
-            LocalDateTime appointmentTime = weekStart
+            final LocalDateTime appointmentTime = weekStart
                     .withHour(slot.getHour())
                     .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(null, slot, appointmentTime, null);
+            final Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
@@ -96,34 +98,37 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentDao.getAll();
     }
 
-    public List<Appointment> getAvailableBySpecialityInInstitution(Speciality speciality, Institution institution, LocalDateTime weekStart) {
+    public List<Appointment> getAvailableBySpecialityInInstitution(final Speciality speciality,
+                                                                   final Institution institution,
+                                                                   final LocalDateTime weekStart) {
         final List<Appointment> appointments = new ArrayList<Appointment>();
         final List<AppointmentSlot> availableSlots = slotDao
                 .getAvailableBySpecialityInInstitution(speciality.getId(), institution.getId(), weekStart);
 
         for (AppointmentSlot slot : availableSlots) {
-            LocalDateTime appointmentTime = weekStart
+            final LocalDateTime appointmentTime = weekStart
                     .withHour(slot.getHour())
                     .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(null, slot, appointmentTime, null);
+            final Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
         return appointments;
     }
 
-    public List<Appointment> getAvailableBySpeciality(Speciality speciality, LocalDateTime weekStart) {
+    public List<Appointment> getAvailableBySpeciality(final Speciality speciality,
+                                                      final LocalDateTime weekStart) {
         final List<Appointment> appointments = new ArrayList<>();
         final List<AppointmentSlot> availableSlots = slotDao
                 .getAvailableBySpeciality(speciality.getId(), weekStart);
 
         for (AppointmentSlot slot : availableSlots) {
-            LocalDateTime appointmentTime = weekStart
+            final LocalDateTime appointmentTime = weekStart
                     .withHour(slot.getHour())
                     .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(null, slot, appointmentTime, null);
+            final Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
@@ -131,17 +136,19 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
 
-    public List<Appointment> getAvailableBySpecialityAndNeighborhood(Speciality speciality, String neiborhood, LocalDateTime weekStart){
+    public List<Appointment> getAvailableBySpecialityAndNeighborhood(final Speciality speciality,
+                                                                     final String neiborhood,
+                                                                     final LocalDateTime weekStart){
         final List<Appointment> appointments = new ArrayList<Appointment>();
         final List<AppointmentSlot> availableSlots = slotDao
                 .getAvailableBySpecialityAndNeighborhood(speciality, neiborhood, weekStart);
 
         for (AppointmentSlot slot : availableSlots) {
-            LocalDateTime appointmentTime = weekStart
+            final LocalDateTime appointmentTime = weekStart
                     .withHour(slot.getHour())
                     .with(ChronoField.DAY_OF_WEEK, slot.getDayOfWeek());
 
-            Appointment appointment = new Appointment(null, slot, appointmentTime, null);
+            final Appointment appointment = new Appointment(null, slot, appointmentTime, null);
             appointments.add(appointment);
         }
 
@@ -149,19 +156,18 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     }
 
-    public boolean cancel(int appointmentId) {
-        Appointment appointment = appointmentDao.getByid(appointmentId);
-        Doctor doctor = appointment.getSlot().getWorksIn().getDoctor();
-        Patient patient = appointment.getPatient();
+    public boolean cancel(final int appointmentId) {
+        final Appointment appointment = appointmentDao.getByid(appointmentId);
+        final Doctor doctor = appointment.getSlot().getWorksIn().getDoctor();
+        final Patient patient = appointment.getPatient();
 
-        boolean success = appointmentDao.delete(appointmentId);
+        final boolean success = appointmentDao.delete(appointmentId);
 
         if(success){
             mailService.sendAppointmentCancellationToDoctor(appointment, doctor, patient);
-            mailService.sendAppointmentCancellationToPatient(appointment,doctor,patient);
+            mailService.sendAppointmentCancellationToPatient(appointment, doctor, patient);
         }
         return success;
 
     }
-
 }

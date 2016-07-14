@@ -20,7 +20,9 @@ public interface DoctorService {
      * @return An array of doctors, null if there's no doctors
      *      for the specified id
      */
-    List<Doctor> getDoctorsByInstitution(Integer institution_id);
+    List<Doctor> getDoctorsByInstitution(final Integer institution_id);
 
-    boolean hasNextPageForSearchByName(String name, String lastName, Integer page);
+    boolean hasNextPageForSearchByName(final String name,
+                                       final String lastName,
+                                       final Integer page);
 }

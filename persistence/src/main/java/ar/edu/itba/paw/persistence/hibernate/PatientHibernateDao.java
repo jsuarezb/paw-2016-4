@@ -25,11 +25,11 @@ public class PatientHibernateDao implements PatientDao {
         return query.getResultList();
     }
 
-    public Patient getById(Integer id) {
+    public Patient getById(final Integer id) {
         return em.find(Patient.class, id);
     }
 
-    public Patient getByEmail(String email) {
+    public Patient getByEmail(final String email) {
         final TypedQuery<Patient> query = em.createQuery("from Patient as p where p.email = :email", Patient.class);
         query.setParameter("email", email);
         try {
@@ -40,8 +40,9 @@ public class PatientHibernateDao implements PatientDao {
     }
 
     @Transactional
-    public Patient create(String name, String lastName, String email, String password) {
-        Patient patient = new Patient(name, lastName, email, password);
+    public Patient create(final String name, final String lastName,
+                          final String email, final String password) {
+        final Patient patient = new Patient(name, lastName, email, password);
         if (getByEmail(email) != null) {
             return null;
         }

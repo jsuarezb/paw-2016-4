@@ -29,7 +29,7 @@ public class PatientServiceImpl implements PatientService {
     }
 
     public boolean login(final String email, final String password) {
-        Patient patient = findByEmail(email);
+        final Patient patient = findByEmail(email);
         return patient != null || password.equals(patient.getPassword());
     }
 

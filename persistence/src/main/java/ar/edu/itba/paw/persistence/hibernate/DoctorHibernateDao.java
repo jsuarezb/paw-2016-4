@@ -20,11 +20,11 @@ public class DoctorHibernateDao implements DoctorDao {
         return query.getResultList();
     }
 
-    public Doctor getById(Integer id) {
+    public Doctor getById(final Integer id) {
         return em.find(Doctor.class, id);
     }
 
-    public List<Doctor> getBySpeciality(Integer specialityId) {
+    public List<Doctor> getBySpeciality(final Integer specialityId) {
         final TypedQuery<Doctor> query = em.createQuery(
                 "SELECT d FROM Doctor AS d" +
                 " JOIN d.specialities AS ds" +
@@ -33,7 +33,7 @@ public class DoctorHibernateDao implements DoctorDao {
         return query.getResultList();
     }
 
-    public List<Doctor> getDoctorsByInstitution(Integer institutionId) {
+    public List<Doctor> getDoctorsByInstitution(final Integer institutionId) {
         final TypedQuery<Doctor> query = em.createQuery(
                 "SELECT d FROM WorksIn as worksIn" +
                 " JOIN worksIn.doctor as d" +
@@ -42,8 +42,8 @@ public class DoctorHibernateDao implements DoctorDao {
         return query.getResultList();
     }
 
-    public Doctor getByName(String name, String lastName) {
-        final TypedQuery<Doctor> query = em.createQuery("" +
+    public Doctor getByName(final String name, final String lastName) {
+        final TypedQuery<Doctor> query = em.createQuery(
                 "FROM Doctor AS d " +
                 "WHERE d.name = :name AND d.lastName = :last_name", Doctor.class);
         query.setParameter("name", name);
@@ -56,7 +56,7 @@ public class DoctorHibernateDao implements DoctorDao {
     }
 
     @Override
-    public List<Doctor> searchByName(String name, String lastName, Integer page) {
+    public List<Doctor> searchByName(final String name, final String lastName, final Integer page) {
         final TypedQuery<Doctor> query = em.createQuery(
                 "FROM Doctor AS d " +
                 "WHERE lower(d.name) LIKE lower(:name) AND lower(d.lastName) LIKE lower(:lastName) " +
@@ -74,7 +74,7 @@ public class DoctorHibernateDao implements DoctorDao {
     }
 
     @Override
-    public boolean hasNextPageForSearchByName(String name, String lastName, Integer page) {
+    public boolean hasNextPageForSearchByName(final String name, final String lastName, final Integer page) {
         final TypedQuery<Doctor> query = em.createQuery(
                 "FROM Doctor AS d " +
                 "WHERE lower(d.name) LIKE lower(:name) AND lower(d.lastName) LIKE lower(:lastName) " +

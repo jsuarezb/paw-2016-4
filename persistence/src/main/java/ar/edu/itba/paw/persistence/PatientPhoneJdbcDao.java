@@ -10,6 +10,7 @@ import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -33,7 +34,7 @@ public class PatientPhoneJdbcDao implements PatientPhoneDao {
         String query = String.format("SELECT * FROM %s WHERE %s = ?", TABLE_NAME, PATIENT_COL);
         List<PatientPhone> list = jdbcTemplate.query(query, rowMapper, id);
         if (list == null)
-            return new ArrayList<PatientPhone>();
+            return Collections.emptyList();
 
         return list;
     }

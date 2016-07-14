@@ -26,7 +26,7 @@ public class SpecialityHibernateDao implements SpecialityDao {
         return query.getResultList();
     }
 
-    public Speciality getByName(String name) {
+    public Speciality getByName(final String name) {
         final TypedQuery<Speciality> query = em.createQuery("from Speciality  as s " +
                 "where s.name = :name", Speciality.class);
         query.setParameter("name", name);
@@ -37,11 +37,11 @@ public class SpecialityHibernateDao implements SpecialityDao {
         }
     }
 
-    public Speciality getById(Integer id) {
+    public Speciality getById(final Integer id) {
         return em.find(Speciality.class, id);
     }
 
-    public List<Speciality> getByDoctorId(Integer doctorId) {
+    public List<Speciality> getByDoctorId(final Integer doctorId) {
         final TypedQuery<Speciality> query = em.createQuery(
                 "SELECT ds FROM Doctor AS d " +
                 "JOIN d.specialities AS ds " +
@@ -51,32 +51,15 @@ public class SpecialityHibernateDao implements SpecialityDao {
     }
 
     @Override
-    public Set<Speciality> getByInstitutionId(Integer institution_id) {
+    public Set<Speciality> getByInstitutionId(final Integer institution_id) {
 
         final TypedQuery<Doctor> query1= em.createQuery("FROM Doctor as d " +
                 "WHERE d.id IN (select w.doctor.id from WorksIn as w " +
                                 "WHERE w.institution.id = :institution_id)", Doctor.class);
         query1.setParameter("institution_id", institution_id);
-        List<Doctor> doctors = query1.getResultList();
-        Set<Speciality> allSpecialities = new HashSet<>();
-        for (Doctor doctor : doctors) {
-            for (Speciality speciality : doctor.getSpecialities()) {
-                allSpecialities.add(speciality);
-            }
-        }
+        final List<Doctor> doctors = query1.getResultList();
+        final Set<Speciality> allSpecialities = new HashSet<>();
+        doctors.forEach(doctor -> allSpecialities.addAll(doctor.getSpecialities()));
         return allSpecialities;
     }
-
-//    @Override
-//    public List<Speciality> getByInstitutionId(Integer institutionId) {
-//        final TypedQuery<Speciality> query = em.createQuery(
-//                "SELECT ds FROM Doctor AS d " +
-//                "JOIN d.specialities AS ds " +
-//                "JOIN d.worksIn AS worksIn " +
-//                "JOIN worksIn.institution AS institution " +
-//                "WHERE institution.id = :institution_id"
-//                , Speciality.class);
-//        query.setParameter("institution_id", institutionId);
-//        return query.getResultList();
-//    }
 }

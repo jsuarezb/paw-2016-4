@@ -48,7 +48,8 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendAppointmentConfirmationToPatient(final Appointment appointment, final Doctor doctor,
+    public void sendAppointmentConfirmationToPatient(final Appointment appointment,
+                                                     final Doctor doctor,
                                                      final Patient patient) {
         final SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom("chopidoturnos@gamil.com");
@@ -67,7 +68,9 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendAppointmentCancellationToDoctor(Appointment appointment, Doctor doctor, Patient patient) {
+    public void sendAppointmentCancellationToDoctor(final Appointment appointment,
+                                                    final Doctor doctor,
+                                                    final Patient patient) {
         final SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom("no-reply@chopidoturnos.com");
         msg.setSubject("Turno cancelado.");
@@ -85,7 +88,9 @@ public class MailServiceImpl implements MailService {
     }
 
     @Override
-    public void sendAppointmentCancellationToPatient(Appointment appointment, Doctor doctor, Patient patient) {
+    public void sendAppointmentCancellationToPatient(final Appointment appointment,
+                                                     final Doctor doctor,
+                                                     final Patient patient) {
         final SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom("chopidoturnos@gamil.com");
         msg.setSubject("Turno cancelado.");
@@ -104,7 +109,7 @@ public class MailServiceImpl implements MailService {
 
     @Bean
     private static MailSender mailSender() {
-        JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
+        final JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 
         mailSender.setProtocol("smtp");
         mailSender.setHost("smtp.gmail.com");

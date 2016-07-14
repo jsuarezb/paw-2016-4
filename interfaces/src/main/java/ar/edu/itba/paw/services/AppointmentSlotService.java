@@ -9,12 +9,14 @@ import java.util.List;
 
 public interface AppointmentSlotService {
 
-    AppointmentSlot create(WorksIn worksIn, int dayOfWeek, int startHour);
+    AppointmentSlot create(final WorksIn worksIn,
+                           final int dayOfWeek,
+                           final int startHour);
 
-    AppointmentSlot getById(int id);
+    AppointmentSlot getById(final int id);
 
-    List<AppointmentSlot> getByDoctor(Doctor doctor);
+    List<AppointmentSlot> getByDoctor(final Doctor doctor);
 
-    List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, LocalDateTime week);
+    List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor, final LocalDateTime week);
 
 }

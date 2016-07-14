@@ -16,19 +16,21 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
     @Autowired
     private AppointmentSlotDao appointmentSlotDao;
 
-    public AppointmentSlot create(WorksIn worksIn, int dayOfWeek, int startHour) {
+    public AppointmentSlot create(final WorksIn worksIn,
+                                  final int dayOfWeek,
+                                  final int startHour) {
         return appointmentSlotDao.create(worksIn, dayOfWeek, startHour);
     }
 
-    public AppointmentSlot getById(int id) {
+    public AppointmentSlot getById(final int id) {
         return appointmentSlotDao.getById(id);
     }
 
-    public List<AppointmentSlot> getByDoctor(Doctor doctor) {
+    public List<AppointmentSlot> getByDoctor(final Doctor doctor) {
         return appointmentSlotDao.getByDoctor(doctor);
     }
 
-    public List<AppointmentSlot> getAvailableByDoctor(Doctor doctor, LocalDateTime week) {
+    public List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor, final LocalDateTime week) {
         return appointmentSlotDao.getAvailableByDoctor(doctor, week);
     }
 }

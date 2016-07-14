@@ -25,19 +25,19 @@ public class SpecialityServiceImpl implements SpecialityService {
         return specialityDao.getAll();
     }
 
-    public Speciality searchSpecialityByDescription(String description) {
+    public Speciality searchSpecialityByDescription(final String description) {
         return null;
     }
 
-    public Speciality searchByName(String name) {
+    public Speciality searchByName(final String name) {
         return specialityDao.getByName(name);
     }
 
-    public Speciality getById(Integer id) {
+    public Speciality getById(final Integer id) {
         return specialityDao.getById(id);
     }
 
-    public Set<Speciality> getByInstitutionId(Integer institution_id) {
+    public Set<Speciality> getByInstitutionId(final Integer institution_id) {
         return specialityDao.getByInstitutionId(institution_id);
     }
 }
