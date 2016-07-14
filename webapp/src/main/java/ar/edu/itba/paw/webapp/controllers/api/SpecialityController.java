@@ -28,7 +28,7 @@ public class SpecialityController {
     @GET
     @Path("/")
     @Produces(value = { MediaType.APPLICATION_JSON })
-    public Response listUsers() {
+    public Response listSpecialities() {
         final List<Speciality> allSpecialities = specialityService.getAll();
         System.out.println(allSpecialities.size());
         return Response.ok(new SpecialityList(allSpecialities)).build();

@@ -144,7 +144,7 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                         "AND app.date < :end_date " +
                         "AND speciality.id = :speciality_id " +
                         "AND address.neighborhood = :neighborhood) " +
-                        "ORDER BY slot.dayOfWeek, slot.hour";
+                        "ORDER BY slot.dayOfWeek, slot.hour",
                 AppointmentSlot.class);
         query.setParameter("neighborhood", neighborhood);
         query.setParameter("speciality_id", speciality.getId());

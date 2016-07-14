@@ -2,11 +2,13 @@ package ar.edu.itba.paw.models;
 
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 @Entity
 @Table(name = "specialities")
+@XmlRootElement
 public class Speciality {
 
     @Id
@@ -15,18 +17,20 @@ public class Speciality {
     private Integer id;
 
     @Column(length = 100, nullable = false)
-    public String name;
+    private String name;
 
-    /* package */ Speciality(){ }
+    public Speciality(){ }
 
     public Speciality(String name){
         this.name = name;
     }
 
+    @XmlAttribute
     public Integer getId() {
         return id;
     }
 
+    @XmlAttribute
     public String getName() {
         return name;
     }

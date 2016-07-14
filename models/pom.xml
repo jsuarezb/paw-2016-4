@@ -12,8 +12,8 @@
       <artifactId>hibernate-jpa-2.1-api</artifactId>
     </dependency>
     <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-annotations</artifactId>
+      <groupId>org.glassfish.jersey.media</groupId>
+      <artifactId>jersey-media-moxy</artifactId>
     </dependency>
   </dependencies>
   <parent>
