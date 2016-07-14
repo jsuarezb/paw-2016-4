@@ -2,7 +2,9 @@ package ar.edu.itba.paw.models;
 
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement
 @Entity
 @Table(name = "specialities")
 public class Speciality {
@@ -13,7 +15,7 @@ public class Speciality {
     private Integer id;
 
     @Column(length = 100, nullable = false)
-    private String name;
+    public String name;
 
     /* package */ Speciality(){ }
 
