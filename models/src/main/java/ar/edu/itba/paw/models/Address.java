@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
 
 @Entity
 @Table(name = "addresses")
@@ -75,6 +76,7 @@ public class Address {
         return id;
     }
 
+    @XmlAttribute
     public String getNeighborhood() {
         return neighborhood;
     }
