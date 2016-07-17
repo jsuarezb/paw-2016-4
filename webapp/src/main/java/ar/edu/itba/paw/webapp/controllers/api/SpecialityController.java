@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
+import ar.edu.itba.paw.models.ResponseList;
 import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.models.SpecialityList;
 import ar.edu.itba.paw.services.SpecialityService;
@@ -29,7 +30,6 @@ public class SpecialityController {
     @Produces(value = { MediaType.APPLICATION_JSON })
     public Response listSpecialities() {
         final List<Speciality> allSpecialities = specialityService.getAll();
-        System.out.println(allSpecialities.size());
         return Response.ok(new SpecialityList(allSpecialities)).build();
     }
 }

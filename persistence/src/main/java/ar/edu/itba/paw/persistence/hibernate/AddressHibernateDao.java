@@ -17,7 +17,7 @@ public class AddressHibernateDao implements AddressDao{
 
     @Override
     public List<String> getAllNeighborhoods() {
-        final Query query = em.createQuery("select distinct neighborhood FROM Address");
+        final Query query = em.createQuery("SELECT DISTINCT neighborhood FROM Address");
         return query.getResultList();
     }
 }

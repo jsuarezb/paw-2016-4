@@ -20,7 +20,7 @@ public class Address {
     @Column(nullable = false)
     private Integer streetNumber;
 
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = true)
     private String apartment;
 
     @Column(length = 100, nullable = false)
@@ -32,7 +32,7 @@ public class Address {
     @Column(length = 100, nullable = false)
     private String state;
 
-    @Column(length = 100, nullable = true)
+    @Column(length = 100, nullable = false)
     private String neighborhood;
 
     @SuppressWarnings("unused")

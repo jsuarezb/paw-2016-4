@@ -1,6 +1,6 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
-import ar.edu.itba.paw.models.NeighborhoodList;
+import ar.edu.itba.paw.models.ResponseList;
 import ar.edu.itba.paw.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -27,7 +27,6 @@ public class NeighborhoodController {
     @Produces(value = { MediaType.APPLICATION_JSON })
     public Response listSpecialities() {
         final List<String> allNeighborhoods = addressService.getAllNeighborhoods();
-        System.out.println(allNeighborhoods.size());
-        return Response.ok(new NeighborhoodList(allNeighborhoods)).build();
+        return Response.ok(new ResponseList(allNeighborhoods)).build();
     }
 }

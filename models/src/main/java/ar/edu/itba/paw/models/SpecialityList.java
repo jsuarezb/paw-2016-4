@@ -9,19 +9,19 @@ import java.util.List;
 @XmlRootElement
 public class SpecialityList {
 
-    public List<Speciality> specialityList;
+    public List<Speciality> list;
 
     public SpecialityList(List<Speciality> specialityList) {
-        this.specialityList = specialityList;
+        this.list = specialityList;
     }
 
     /* default */ SpecialityList(){}
 
-    public List<Speciality> getSpecialityList() {
-        return specialityList;
+    public List<Speciality> getList() {
+        return list;
     }
 
-    public void setSpecialityList(List<Speciality> specialityList) {
-        this.specialityList = specialityList;
+    public void setList(List<Speciality> specialityList) {
+        this.list = specialityList;
     }
 }
