@@ -29,20 +29,13 @@ public class PatientsController {
     @Path("/")
     @Produces(value = { MediaType.APPLICATION_JSON })
     public Response listPatients() {
-        final List<Patient> listPatients = patientService.getAll();
-        return Response.ok(new PatientList(listPatients)).build();
+        return Response.ok(new PatientList(patientService.getAll())).build();
     }
 
     @GET
     @Path("/{id}")
     @Produces(value = { MediaType.APPLICATION_JSON, })
     public Response getById(@PathParam("id") final Integer id) {
-        final Patient patient = patientService.get(id);
-        if( patient != null ){
-            return Response.ok(patient).build();
-        }
-        System.out.println("lalalalalaalalalalalalalaladsaf-------------------");
-        System.out.println("----------------------");
-        return null;
+        return Response.ok(patientService.get(id)).build();
     }
 }

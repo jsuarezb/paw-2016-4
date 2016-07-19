@@ -67,7 +67,6 @@ public class Patient {
         return password;
     }
 
-    @XmlAttribute
     public List<Appointment> getAppointments() {
         return appointments;
     }
