@@ -1,10 +1,13 @@
 package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "appointments")
+@XmlRootElement
 public class Appointment {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "appointments_id_seq")
@@ -32,10 +35,12 @@ public class Appointment {
         this.comments = comments;
     }
 
+    @XmlAttribute
     public Integer getId() {
         return id;
     }
 
+    @XmlAttribute
     public Patient getPatient() {
         return patient;
     }
@@ -44,10 +49,12 @@ public class Appointment {
         return slot;
     }
 
+    @XmlAttribute
     public LocalDateTime getDate() {
         return date;
     }
 
+    @XmlAttribute
     public String getComments() {
         return comments;
     }

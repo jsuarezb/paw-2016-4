@@ -1,10 +1,13 @@
 package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
 @Entity
 @Table(name = "patients")
+@XmlRootElement
 public class Patient {
 
     @Id
@@ -39,26 +42,32 @@ public class Patient {
         this.password = password;
     }
 
+    @XmlAttribute
     public Integer getId() {
         return id;
     }
 
+    @XmlAttribute
     public String getName() {
         return name;
     }
 
+    @XmlAttribute
     public String getLastName() {
         return lastName;
     }
 
+    @XmlAttribute
     public String getEmail() {
         return email;
     }
 
+    @XmlAttribute
     public String getPassword() {
         return password;
     }
 
+    @XmlAttribute
     public List<Appointment> getAppointments() {
         return appointments;
     }

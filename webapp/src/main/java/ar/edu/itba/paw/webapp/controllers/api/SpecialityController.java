@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -31,5 +32,18 @@ public class SpecialityController {
     public Response listSpecialities() {
         final List<Speciality> allSpecialities = specialityService.getAll();
         return Response.ok(new SpecialityList(allSpecialities)).build();
+    }
+
+    @GET
+    @Path("/{id}")
+    @Produces(value = { MediaType.APPLICATION_JSON, })
+    public Response getById(@PathParam("id") final Integer id) {
+        final Speciality speciality = specialityService.getById(id);
+
+        if (speciality != null) {
+            return Response.ok(speciality).build();
+        } else {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
     }
 }
