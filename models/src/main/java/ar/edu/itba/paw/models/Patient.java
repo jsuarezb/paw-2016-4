@@ -62,7 +62,6 @@ public class Patient {
         return email;
     }
 
-    @XmlAttribute
     public String getPassword() {
         return password;
     }
