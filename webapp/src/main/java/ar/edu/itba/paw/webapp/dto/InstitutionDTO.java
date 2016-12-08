@@ -3,9 +3,11 @@ package ar.edu.itba.paw.webapp.dto;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Institution;
 import ar.edu.itba.paw.models.Speciality;
+import ar.edu.itba.paw.models.WorksIn;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,7 +47,17 @@ public class InstitutionDTO {
         this.specialities = SpecialityDTO.fromSet(specialities);
     }
 
-    public static List<InstitutionDTO> fromList(List<Institution> institutions) {
+    public static List<InstitutionDTO> fromList(final List<Institution> institutions) {
+        if (institutions == null) {
+            return Collections.emptyList();
+        }
         return institutions.stream().map(i -> new InstitutionDTO(i)).collect(Collectors.toList());
+    }
+
+    public static Set<InstitutionDTO> fromWorksIn(final Set<WorksIn> worksIn) {
+        if (worksIn == null) {
+            return Collections.emptySet();
+        }
+        return worksIn.stream().map(w -> new InstitutionDTO(w.getInstitution())).collect(Collectors.toSet());
     }
 }

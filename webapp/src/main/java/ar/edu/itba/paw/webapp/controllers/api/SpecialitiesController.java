@@ -1,17 +1,16 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
-import ar.edu.itba.paw.models.ResponseList;
 import ar.edu.itba.paw.models.Speciality;
-import ar.edu.itba.paw.models.SpecialityList;
 import ar.edu.itba.paw.services.SpecialityService;
+import ar.edu.itba.paw.webapp.dto.InstitutionDTO;
+import ar.edu.itba.paw.webapp.dto.SpecialityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
@@ -27,18 +26,20 @@ public class SpecialitiesController extends ApiController {
     private SpecialityService specialityService;
 
     @GET
-    public Response listSpecialities() {
+    public Response index() {
         final List<Speciality> allSpecialities = specialityService.getAll();
-        return Response.ok(new SpecialityList(allSpecialities)).build();
+        GenericEntity<List<SpecialityDTO>> list = new GenericEntity<List<SpecialityDTO>>(SpecialityDTO.fromList(allSpecialities)) {
+        };
+        return ok(list);
     }
 
     @GET
     @Path("/{id}")
-    public Response getById(@PathParam("id") final Integer id) {
+    public Response show(@PathParam("id") final Integer id) {
         final Speciality speciality = specialityService.getById(id);
 
         if (speciality != null) {
-            return Response.ok(speciality).build();
+            return ok(new SpecialityDTO(speciality));
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }

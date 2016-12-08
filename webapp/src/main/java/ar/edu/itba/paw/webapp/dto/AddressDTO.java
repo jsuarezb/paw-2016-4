@@ -4,6 +4,7 @@ import ar.edu.itba.paw.models.Address;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,6 +45,9 @@ public class AddressDTO {
     }
 
     public static List<AddressDTO> fromList(List<Address> addresses) {
+        if (addresses == null) {
+            return Collections.emptyList();
+        }
         return addresses.stream().map(a -> new AddressDTO(a)).collect(Collectors.toList());
     }
 }

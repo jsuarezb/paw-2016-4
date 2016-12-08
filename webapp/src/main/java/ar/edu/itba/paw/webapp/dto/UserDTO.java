@@ -4,6 +4,7 @@ import ar.edu.itba.paw.models.User;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +28,9 @@ public class UserDTO {
     }
 
     public static List<UserDTO> fromList(List<User> users) {
+        if (users == null) {
+            return Collections.emptyList();
+        }
         return users.stream().map(u -> new UserDTO(u)).collect(Collectors.toList());
     }
-
 }

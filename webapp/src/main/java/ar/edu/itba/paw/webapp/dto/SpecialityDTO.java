@@ -5,6 +5,7 @@ import ar.edu.itba.paw.models.Speciality;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,5 +32,12 @@ public class SpecialityDTO {
             return Collections.emptySet();
         }
         return specialities.stream().map(s -> new SpecialityDTO(s)).collect(Collectors.toSet());
+    }
+
+    public static List<SpecialityDTO> fromList(final List<Speciality> specialities) {
+        if (specialities == null) {
+            return Collections.emptyList();
+        }
+        return specialities.stream().map(s -> new SpecialityDTO(s)).collect(Collectors.toList());
     }
 }

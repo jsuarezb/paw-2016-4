@@ -17,9 +17,9 @@ import java.util.List;
  * Created by agophurmuz on 7/17/16.
  */
 
-@Path("api/v1/available_appointments_slots")
+@Path("api/v1/appointments")
 @Component
-public class AvailableAppointmentsSlotsController extends ApiController {
+public class AppointmentsController extends ApiController {
 
     @Autowired
     private AppointmentService appointmentService;

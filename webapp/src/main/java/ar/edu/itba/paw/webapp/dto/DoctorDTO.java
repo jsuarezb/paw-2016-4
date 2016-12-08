@@ -24,6 +24,8 @@ public class DoctorDTO {
     private String email;
     @XmlElement
     private Set<SpecialityDTO> specialities;
+    @XmlElement
+    private Set<InstitutionDTO> institutions;
 
     public DoctorDTO() {
     }
@@ -34,6 +36,7 @@ public class DoctorDTO {
         this.last_name = doctor.getLastName();
         this.email = doctor.getEmail();
         this.specialities = SpecialityDTO.fromSet(doctor.getSpecialities());
+        this.institutions = InstitutionDTO.fromWorksIn(doctor.getWorksIn());
     }
 
     public static List<DoctorDTO> fromList(final List<Doctor> doctors) {
