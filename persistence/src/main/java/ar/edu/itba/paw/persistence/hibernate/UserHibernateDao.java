@@ -35,4 +35,14 @@ public class UserHibernateDao implements UserDao {
             return null;
         }
     }
+
+    public User getById(Integer id) {
+        final TypedQuery<User> query = em.createQuery("from User as u where u.id = :id", User.class);
+        query.setParameter("id", id);
+        try {
+            return query.getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

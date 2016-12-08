@@ -18,23 +18,20 @@ import java.util.List;
  * Created by agophurmuz on 7/19/16.
  */
 
-@Path("patients")
+@Path("api/v1/patients")
 @Component
-public class PatientsController {
+public class PatientsController extends ApiController {
 
     @Autowired
     private PatientService patientService;
 
     @GET
-    @Path("/")
-    @Produces(value = { MediaType.APPLICATION_JSON })
     public Response listPatients() {
         return Response.ok(new PatientList(patientService.getAll())).build();
     }
 
     @GET
     @Path("/{id}")
-    @Produces(value = { MediaType.APPLICATION_JSON, })
     public Response getById(@PathParam("id") final Integer id) {
         return Response.ok(patientService.get(id)).build();
     }

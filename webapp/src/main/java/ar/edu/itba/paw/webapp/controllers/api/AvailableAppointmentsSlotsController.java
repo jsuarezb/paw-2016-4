@@ -17,9 +17,9 @@ import java.util.List;
  * Created by agophurmuz on 7/17/16.
  */
 
-@Path("available-appointments-slots")
+@Path("api/v1/available_appointments_slots")
 @Component
-public class AvailableAppointmentsSlotsController {
+public class AvailableAppointmentsSlotsController extends ApiController {
 
     @Autowired
     private AppointmentService appointmentService;
@@ -28,8 +28,6 @@ public class AvailableAppointmentsSlotsController {
     private SpecialityService specialityService;
 
     @GET
-    @Path("/")
-    @Produces(value = { MediaType.APPLICATION_JSON })
     public Response listAvailableAppointmentsSlots(@QueryParam("speciality") int id,
                                                    @QueryParam("neighborhood") String neighborhood,
                                                    @QueryParam("week-date") String day) {

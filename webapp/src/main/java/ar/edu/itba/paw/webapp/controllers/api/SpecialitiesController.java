@@ -19,16 +19,14 @@ import java.util.List;
  * Created by agophurmuz on 7/14/16.
  */
 
-@Path("specialities")
+@Path("api/v1/specialities")
 @Component
-public class SpecialityController {
+public class SpecialitiesController extends ApiController {
 
     @Autowired
     private SpecialityService specialityService;
 
     @GET
-    @Path("/")
-    @Produces(value = { MediaType.APPLICATION_JSON })
     public Response listSpecialities() {
         final List<Speciality> allSpecialities = specialityService.getAll();
         return Response.ok(new SpecialityList(allSpecialities)).build();
@@ -36,7 +34,6 @@ public class SpecialityController {
 
     @GET
     @Path("/{id}")
-    @Produces(value = { MediaType.APPLICATION_JSON, })
     public Response getById(@PathParam("id") final Integer id) {
         final Speciality speciality = specialityService.getById(id);
 

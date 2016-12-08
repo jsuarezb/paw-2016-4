@@ -1,54 +1,51 @@
 package ar.edu.itba.paw.webapp.config;
 
-import ar.edu.itba.paw.webapp.auth.CPTUserDetailsService;
+import ar.edu.itba.paw.services.UserService;
+import ar.edu.itba.paw.webapp.filters.StatelessAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-
-import java.util.concurrent.TimeUnit;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@ComponentScan("ar.edu.itba.paw.webapp.auth")
+@ComponentScan("ar.edu.itba.paw.webapp.config")
 public class WebAuthConfig extends WebSecurityConfigurerAdapter {
+    public static final String APP_KEY = "5167nPYHKm5KTvFrSIkseTNJaLLAZOfB2K05/bmlbUI=";  // Created using openssl
 
     @Autowired
-    private CPTUserDetailsService userDetailsService;
+    private UserService userService;
 
-    @Override
-    protected void configure(final HttpSecurity http) throws Exception {
-        http.userDetailsService(userDetailsService)
-                .sessionManagement()
-                    .invalidSessionUrl("/login")
-                .and().authorizeRequests()
-                    .antMatchers("/login").anonymous()
-                    .antMatchers("/appointments").authenticated()
-                    .antMatchers("/**").permitAll()
-                .and().formLogin()
-                    .usernameParameter("email")
-                    .passwordParameter("password")
-                    .defaultSuccessUrl("/", false)
-                    .loginPage("/login")
-                .and().rememberMe()
-                    .rememberMeParameter("rememberme")
-                    .userDetailsService(userDetailsService)
-                    .key("mysupersecretketthatnobodyknowsabout")
-                    .tokenValiditySeconds((int) TimeUnit.DAYS.toSeconds(30))
-                .and().logout()
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/login")
-                .and().exceptionHandling()
-                    .accessDeniedPage("/403")
-                .and().csrf().disable();
+    public WebAuthConfig() {
+        super(true);
     }
 
     @Override
-    public void configure(final WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers("/css/**", "/scripts/**", "/favicon.ico", "/403", "/bower_components/**");
+    protected void configure(final HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests()
+                .antMatchers("/api/v1/login").permitAll()
+                .antMatchers("/api/v1/users").permitAll()
+                .antMatchers("/favicon.ico").permitAll()
+                .antMatchers("**/*.html").permitAll()
+                .antMatchers("**/*.css").permitAll()
+                .antMatchers("**/*.js").permitAll()
+                .anyRequest().authenticated().and()
+                .addFilterBefore(new StatelessAuthenticationFilter(userService), UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling().and()
+                .anonymous().and()
+                .servletApi().and()
+                .headers().cacheControl();
+    }
+
+    @Bean(name = "authenticationManager")
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return authenticationManager();
     }
 }

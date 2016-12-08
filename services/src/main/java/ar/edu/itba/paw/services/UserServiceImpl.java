@@ -20,4 +20,7 @@ public class UserServiceImpl implements UserService {
     public User getByUsername(final String username) {
         return userDao.getByUsername(username);
     }
+    public User getById(final Integer id) {
+        return userDao.getById(id);
+    }
 }

@@ -15,16 +15,14 @@ import java.util.List;
 /**
  * Created by agophurmuz on 7/14/16.
  */
-@Path("neighborhoods")
+@Path("api/v1/neighborhoods")
 @Component
-public class NeighborhoodController {
+public class NeighborhoodController extends ApiController {
 
     @Autowired
     private AddressService addressService;
 
     @GET
-    @Path("/")
-    @Produces(value = { MediaType.APPLICATION_JSON })
     public Response listSpecialities() {
         final List<String> allNeighborhoods = addressService.getAllNeighborhoods();
         return Response.ok(new ResponseList(allNeighborhoods)).build();

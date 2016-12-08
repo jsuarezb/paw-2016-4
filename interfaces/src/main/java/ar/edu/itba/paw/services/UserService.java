@@ -9,4 +9,6 @@ public interface UserService {
     User register(final String username, final String password);
 
     User getByUsername(final String username);
+
+    User getById(final Integer id);
 }
