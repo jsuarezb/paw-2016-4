@@ -2,7 +2,6 @@ package ar.edu.itba.paw.webapp.controllers.api;
 
 import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.services.SpecialityService;
-import ar.edu.itba.paw.webapp.dto.InstitutionDTO;
 import ar.edu.itba.paw.webapp.dto.SpecialityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
