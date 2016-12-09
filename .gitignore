@@ -27,4 +27,9 @@ target/
 .DS_Store
 
 # Bower components
-webapp/src/main/webapp/resources/bower_components
+bower_components
+node_modules
+node
+.sass-cache
+.tmp
+dist
