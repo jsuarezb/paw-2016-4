@@ -14,11 +14,14 @@ public interface DoctorDao {
 
     /**
      * Get all doctors of an institution.
-     *
+     * <p>
      * * @param id Institution id.
+     *
      * @return A list with the doctors of an institution.
      */
     List<Doctor> getDoctorsByInstitution(final Integer id);
+
+    Doctor getByEmail(final String email);
 
     Doctor getByName(final String name, final String last_name);
 

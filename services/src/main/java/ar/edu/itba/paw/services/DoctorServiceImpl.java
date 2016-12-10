@@ -34,6 +34,11 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorDao.getBySpeciality(speciality_id);
     }
 
+    @Override
+    public Doctor findByEmail(String email) {
+        return doctorDao.getByEmail(email);
+    }
+
     public List<Doctor> getDoctorsByInstitution (final Integer id) {
         return doctorDao.getDoctorsByInstitution(id);
     }

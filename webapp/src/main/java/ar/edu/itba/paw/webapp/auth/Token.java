@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.webapp.auth;
 
+import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.webapp.config.WebAuthConfig;
 import io.jsonwebtoken.*;
@@ -13,14 +14,14 @@ public class Token {
     private final static Long TOKEN_DURATION = 86400000L; // 1 Day
     private final static String SUBJECT = "USER_SESSION";
 
-    public static String create(final User user) {
+    public static String create(final Loggable user) {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, WebAuthConfig.APP_KEY)
                 .setSubject(SUBJECT)
                 .setIssuedAt(currentDate())
                 .setExpiration(expirationDate())
-                .setId(user.getId().toString())
-                .setIssuer(user.getUsername())
+                .setId(user.type())
+                .setIssuer(user.getEmail())
                 .compact();
     }
 
@@ -35,11 +36,25 @@ public class Token {
             if (body.getExpiration().before(currentDate())) {
                 throw new SignatureException("");
             }
-            return body.getIssuer();
+            return tokenIssuer(body.getId(), body.getIssuer());
 
         } catch (Exception e) {
             return null;
         }
+    }
+
+    private static final String DELIMITER = ";";
+
+    public static String tokenIssuer(final String type, final String email) {
+        return String.format("%s%s%s", type, DELIMITER, email);
+    }
+
+    public static String emailFromToken(final String decodedToken) {
+        return decodedToken.split(DELIMITER)[1];
+    }
+
+    public static String typeFromToken(final String decodedToken) {
+        return decodedToken.split(DELIMITER)[0];
     }
 
     private static Date currentDate() {

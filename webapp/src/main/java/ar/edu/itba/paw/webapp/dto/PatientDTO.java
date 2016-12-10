@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
  * Created by alebian on 12/8/16.
  */
 @XmlRootElement
-public class PatientDTO {
+public class PatientDTO extends UserDTO {
     @XmlElement
     private Integer id;
     @XmlElement
@@ -21,6 +21,8 @@ public class PatientDTO {
     private String last_name;
     @XmlElement
     private String email;
+    @XmlElement
+    private String type;
 
     public PatientDTO() {
     }
@@ -30,6 +32,7 @@ public class PatientDTO {
         this.first_name = patient.getName();
         this.last_name = patient.getLastName();
         this.email = patient.getEmail();
+        this.type = patient.type();
     }
 
     public static List<PatientDTO> fromList(final List<Patient> patients) {

@@ -1,7 +1,9 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
+import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.services.UserService;
+import ar.edu.itba.paw.webapp.dto.UserDTO;
 import ar.edu.itba.paw.webapp.params.UserParams;
 import ar.edu.itba.paw.webapp.utils.Pair;
 import ar.edu.itba.paw.webapp.validators.PasswordValidator;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
@@ -23,6 +26,13 @@ public class UsersController extends ApiController {
 
     @Autowired
     private UserService userService;
+
+    @GET
+    @Path("/me")
+    public Response me() {
+        System.out.println(getLoggedUser().type());
+        return ok(UserDTO.fromLoggable(getLoggedUser()));
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

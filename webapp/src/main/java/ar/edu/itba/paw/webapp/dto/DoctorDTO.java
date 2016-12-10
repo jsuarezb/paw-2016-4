@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.webapp.dto;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.User;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
  * Created by alebian on 12/8/16.
  */
 @XmlRootElement()
-public class DoctorDTO {
+public class DoctorDTO extends UserDTO {
     @XmlElement
     private Integer id;
     @XmlElement
@@ -22,6 +23,8 @@ public class DoctorDTO {
     private String last_name;
     @XmlElement
     private String email;
+    @XmlElement
+    private String type;
     @XmlElement
     private Set<SpecialityDTO> specialities;
     @XmlElement
@@ -37,6 +40,7 @@ public class DoctorDTO {
         this.email = doctor.getEmail();
         this.specialities = SpecialityDTO.fromSet(doctor.getSpecialities());
         this.institutions = InstitutionDTO.fromWorksIn(doctor.getWorksIn());
+        this.type = doctor.type();
     }
 
     public static List<DoctorDTO> fromList(final List<Doctor> doctors) {

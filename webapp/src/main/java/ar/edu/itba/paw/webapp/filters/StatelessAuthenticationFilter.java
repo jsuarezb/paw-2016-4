@@ -1,9 +1,12 @@
 package ar.edu.itba.paw.webapp.filters;
 
-import ar.edu.itba.paw.models.User;
-import ar.edu.itba.paw.services.UserService;
+import ar.edu.itba.paw.models.Loggable;
+import ar.edu.itba.paw.services.DoctorService;
+import ar.edu.itba.paw.services.PatientService;
+import ar.edu.itba.paw.webapp.auth.LoggedUserFinder;
 import ar.edu.itba.paw.webapp.auth.Token;
 import ar.edu.itba.paw.webapp.auth.UserAuthentication;
+import ar.edu.itba.paw.webapp.params.LoginParams;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -20,11 +23,13 @@ import java.io.IOException;
  */
 public class StatelessAuthenticationFilter extends GenericFilterBean {
     private static final String AUTH_HEADER_NAME = "Authorization";
-    private UserService userService;
+    private DoctorService doctorService;
+    private PatientService patientService;
 
-    public StatelessAuthenticationFilter(UserService userService) {
+    public StatelessAuthenticationFilter(final DoctorService doctorService, final PatientService patientService) {
         super();
-        this.userService = userService;
+        this.doctorService = doctorService;
+        this.patientService = patientService;
     }
 
     @Override
@@ -39,8 +44,12 @@ public class StatelessAuthenticationFilter extends GenericFilterBean {
     private Authentication getAuthentication(HttpServletRequest request) {
         final String token = request.getHeader(AUTH_HEADER_NAME);
         if (token != null) {
-            final String username = Token.decode(token);
-            final User user = userService.getByUsername(username);
+            final String decoded = Token.decode(token);
+            final Loggable user = LoggedUserFinder.getLoggedUser(
+                    new LoginParams(Token.emailFromToken(decoded), Token.typeFromToken(decoded)),
+                    doctorService,
+                    patientService);
+
             if (user != null) {
                 return new UserAuthentication(user);
             }

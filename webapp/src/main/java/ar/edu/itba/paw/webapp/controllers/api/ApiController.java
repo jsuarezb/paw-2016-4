@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
+import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.webapp.dto.ErrorDTO;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,8 +16,8 @@ import javax.ws.rs.core.Response;
 public class ApiController {
     final static String USER_DOES_NOT_EXIST = "User does not exist.";
 
-    protected User getLoggedUser() {
-        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    protected Loggable getLoggedUser() {
+        return (Loggable) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
     Response ok() {

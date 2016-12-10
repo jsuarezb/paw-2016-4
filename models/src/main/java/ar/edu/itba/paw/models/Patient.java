@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "patients")
 @XmlRootElement
-public class Patient {
+public class Patient implements Loggable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patients_id_seq")
@@ -94,5 +94,10 @@ public class Patient {
                 ", last_name='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public String type() {
+        return Loggable.PATIENT;
     }
 }

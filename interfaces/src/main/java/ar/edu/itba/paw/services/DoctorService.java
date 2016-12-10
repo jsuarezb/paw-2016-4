@@ -14,11 +14,14 @@ public interface DoctorService {
 
     List<Doctor> searchBySpeciality(final Integer speciality_id);
 
+    Doctor findByEmail(final String email);
+
     /**
      * Get the doctors of an institution by its id
+     *
      * @param id Id of institution to search for
      * @return An array of doctors, null if there's no doctors
-     *      for the specified id
+     * for the specified id
      */
     List<Doctor> getDoctorsByInstitution(final Integer institution_id);
 

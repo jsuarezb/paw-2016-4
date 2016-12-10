@@ -2,11 +2,10 @@ package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
 import java.util.Set;
-import java.util.List;
 
 @Entity
 @Table(name = "doctors")
-public class Doctor {
+public class Doctor implements Loggable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doctors_id_seq")
     @SequenceGenerator(sequenceName = "doctors_id_seq", name = "doctors_id_seq", allocationSize = 1)
@@ -20,7 +19,7 @@ public class Doctor {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "doctors_specialities", joinColumns = {
-            @JoinColumn(name = "doctor_id", referencedColumnName = "id") })
+            @JoinColumn(name = "doctor_id", referencedColumnName = "id")})
     private Set<Speciality> specialities;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "doctor")
@@ -33,7 +32,8 @@ public class Doctor {
     private String password;
 
     @SuppressWarnings("unused")
-    /* package */ Doctor() {  }
+    /* package */ Doctor() {
+    }
 
     public Doctor(Integer id, String name, String lastName, Set<Speciality> specialities,
                   Set<WorksIn> worksIn, String email, String password) {
@@ -100,5 +100,10 @@ public class Doctor {
                 ", specialities='" + specialities + '\'' +
                 ", email='" + email + '\'' +
                 '}';
+    }
+
+    @Override
+    public String type() {
+        return Loggable.DOCTOR;
     }
 }

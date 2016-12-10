@@ -1,5 +1,8 @@
 package ar.edu.itba.paw.webapp.dto;
 
+import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.Loggable;
+import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.models.User;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -11,26 +14,16 @@ import java.util.stream.Collectors;
 /**
  * Created by alebian on 12/8/16.
  */
-@XmlRootElement()
 public class UserDTO {
-    @XmlElement
-    private String username;
-
-    @XmlElement
-    private Integer id;
-
-    public UserDTO() {
-    }
-
-    public UserDTO(User user) {
-        this.username = user.getUsername();
-        this.id = user.getId();
-    }
-
-    public static List<UserDTO> fromList(List<User> users) {
-        if (users == null) {
-            return Collections.emptyList();
+    public static UserDTO fromLoggable(final Loggable user) {
+        UserDTO userDTO;
+        switch (user.type()) {
+            case Loggable.PATIENT:
+                return new PatientDTO((Patient) user);
+            case Loggable.DOCTOR:
+                return new DoctorDTO((Doctor) user);
+            default:
+                return null;
         }
-        return users.stream().map(u -> new UserDTO(u)).collect(Collectors.toList());
     }
 }

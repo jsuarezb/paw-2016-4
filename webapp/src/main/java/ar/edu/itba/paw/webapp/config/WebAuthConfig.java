@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.webapp.config;
 
+import ar.edu.itba.paw.services.DoctorService;
+import ar.edu.itba.paw.services.PatientService;
 import ar.edu.itba.paw.services.UserService;
 import ar.edu.itba.paw.webapp.filters.StatelessAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,10 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     public static final String APP_KEY = "5167nPYHKm5KTvFrSIkseTNJaLLAZOfB2K05/bmlbUI=";  // Created using openssl
 
     @Autowired
-    private UserService userService;
+    private DoctorService doctorService;
+
+    @Autowired
+    private PatientService patientService;
 
     public WebAuthConfig() {
         super(true);
@@ -36,7 +41,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("**/*.css").permitAll()
                 .antMatchers("**/*.js").permitAll()
                 .anyRequest().authenticated().and()
-                .addFilterBefore(new StatelessAuthenticationFilter(userService), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new StatelessAuthenticationFilter(doctorService, patientService), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().and()
                 .anonymous().and()
                 .servletApi().and()

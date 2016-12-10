@@ -1,15 +1,19 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
-import ar.edu.itba.paw.models.User;
-import ar.edu.itba.paw.services.UserService;
+import ar.edu.itba.paw.models.Loggable;
+import ar.edu.itba.paw.services.DoctorService;
+import ar.edu.itba.paw.services.PatientService;
+import ar.edu.itba.paw.webapp.auth.LoggedUserFinder;
 import ar.edu.itba.paw.webapp.auth.Token;
 import ar.edu.itba.paw.webapp.dto.TokenDTO;
-import ar.edu.itba.paw.webapp.params.UserParams;
+import ar.edu.itba.paw.webapp.params.LoginParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 /**
@@ -19,12 +23,16 @@ import javax.ws.rs.core.Response;
 @Component
 public class SessionsController extends ApiController {
     @Autowired
-    UserService userService;
+    DoctorService doctorService;
+
+    @Autowired
+    PatientService patientService;
 
     @POST
     @Path("/login")
-    public Response login(final UserParams input) {
-        User user = userService.getByUsername(input.username);
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response login(final LoginParams input) {
+        Loggable user = LoggedUserFinder.getLoggedUser(input, doctorService, patientService);
         if (user != null && user.getPassword().equals(input.password)) {
             return ok(new TokenDTO(Token.create(user)));
         }
