@@ -1,20 +1,76 @@
 <div class="jumbotron">
-	<h1>'Allo, 'Allo!</h1>
-	<p class="lead">
-		<img src="images/yeoman.png" alt="I'm Yeoman"><br />
-		{{'WELCOME_MESSAGE' | translate}}
-	</p>
-	<p><a class="btn btn-lg btn-success" ng-href="#">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
-</div>
-
-<div class="row marketing">
-	<h4>Angular-Require-Fullstack Generator contains</h4>
-	<ul>
-		<li>AngularJs</li>
-		<li>RequireJs</li>
-		<li>Bootstrap</li>
-		<li>i18n</li>
-		<li>Grunt</li>
-		<li>File revving</li>
-	</ul>
+  <h1>ChoPido Turnos</h1>
+  <h4>Buscar por:</h4>
+  <ul class="nav nav-pills nav-justified category-bar">
+    <li class="active" data-form-id="searchBySpecialityForm">
+      <a data-toggle="pill" href="#speciality">Especialidad</a>
+    </li>
+    <li>
+      <a data-toggle="pill" href="#doctor">Doctor</a>
+    </li>
+  </ul>
+  <div class="tab-content filter-container">
+    <div class="tab-pane fade in active" id="speciality">
+      <div class="row">
+        <div class="col-lg-6 col-lg-offset-3">
+          <form action="${url}" class="form-horizontal" method='get'>
+            <div class="form-group">
+              <label class="col-sm-3 control-label form-label" for=
+              "speciality">Especialidad</label>
+              <div class="col-sm-9">
+                <select class="form-control form-control-filter input-lg" id=
+                "specialityId">
+                </select>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-sm-3 control-label form-label" for=
+              "neighborhood">Barrio</label>
+              <div class="col-sm-9">
+                <select class="form-control form-control-filter input-lg" id=
+                "neighborhood">
+                </select>
+              </div>
+            </div>
+            <div class="col-sm-9">
+              <select class="form-control form-control-filter input-lg" id=
+              "neighborhood">
+              </select>
+            </div>
+          </form>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-success" type="submit">Buscar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="doctor">
+    <div class="row">
+      <div class="col-lg-6 col-lg-offset-3">
+        <form action="${%20searchByNameUrl%20}" class="form-horizontal" method=
+        'get'>
+          <div class="form-group">
+            <label class="col-sm-3 control-label form-label" for=
+            "name">Nombre</label>
+            <div class="col-sm-9 form-control-filter">
+              <input class="form-control input-lg" id="name" name="name"
+              placeholder="Nombre" type="text">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-3 control-label form-label" for=
+            "lastName">Apellido</label>
+            <div class="col-sm-9 form-control-filter">
+              <input class="form-control input-lg" id="lastName" name=
+              "lastName" placeholder="Apellido" type="text">
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-success" type="submit">Buscar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

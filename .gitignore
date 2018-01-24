@@ -13,6 +13,7 @@ hs_err_pid*
 
 # Build
 target/
+bin
 
 # Eclipse project files #
 .project
@@ -22,6 +23,9 @@ target/
 # IntelliJ project files #
 .idea
 *.iml
+
+#
+.vscode
 
 # Mac files
 .DS_Store

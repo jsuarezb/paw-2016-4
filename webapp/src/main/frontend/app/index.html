@@ -1,54 +1,50 @@
 <!doctype html>
 <html class="no-js">
-<head>
-  <meta charset="utf-8">
-  <title>ChoPidoTurnos</title>
-  <meta name="description" content="">
+  <head>
+    <meta charset="utf-8">
+    <title>ChoPidoTurnos</title>
+    <meta name="description" content="">
 
-  <!-- build:css(.tmp) styles/main.css -->
-  <link rel="stylesheet" href="styles/main.css">
-  <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- endbuild -->
 
-</head>
-<body ng-controller="IndexCtrl">
-  <!--[if lt IE 7]>
-  <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
-  <!-- Add your site or application content here -->
-  <div class="container">
-    <div class="header">
-      <ul class="nav nav-pills pull-right">
-        <li class="active"><a ng-href="#">Home</a></li>
-        <li><a ng-href="#/about">About</a></li>
-        <li><a ng-href="#">Contact</a></li>
-      </ul>
-      <h3 class="text-muted">ChoPidoTurnos</h3>
+  </head>
+  <body ng-controller="IndexCtrl">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">ChoPido Turnos</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#">Instituciones</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">Iniciar Sesión</a></li>
+            <li><a href="#">Registrarse</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FIXME <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Mis turnos</a></li>
+                <li><a href="#">Cerrar sesión</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="container container-main">
+      <div ng-view=""></div>
     </div>
-    <div ng-view=""></div>
-
-    <div class="footer">
-      <p><span class="glyphicon glyphicon-heart"></span> from the Yeoman team</p>
-    </div>
-  </div>
-
-  <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-  <script>
-   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-     m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-   ga('create', 'UA-XXXXX-X');
-   ga('send', 'pageview');
- </script>
-
- <!-- build:js(.) scripts/oldieshim.js -->
-  <!--[if lt IE 9]>
-  <script src="bower_components/es5-shim/es5-shim.js"></script>
-  <script src="bower_components/json3/lib/json3.js"></script>
-  <![endif]-->
-  <!-- endbuild -->
-  <script src="/scripts/paths.js"></script>
-  <script src="bower_components/requirejs/require.js" data-main="/scripts/build.js"></script>
-</body>
+    <script src="/scripts/paths.js"></script>
+    <script src="bower_components/requirejs/require.js" data-main="/scripts/build.js"></script>
+  </body>
 </html>
+
