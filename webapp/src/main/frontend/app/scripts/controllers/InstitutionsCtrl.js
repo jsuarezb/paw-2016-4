@@ -5,9 +5,10 @@ define(['ChoPidoTurnos', 'services/InstitutionsService'], function(ChoPidoTurnos
     var _this = this;
 
     institutionsService.getInstitutions().then(
-      function(result){
+      function(result) {
+        console.log(result);
         _this.institutions = result.data;
       }
-    )
+    );
   }]);
 });

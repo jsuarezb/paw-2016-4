@@ -1,19 +1,19 @@
 'use strict';
 define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
 
-  ChoPidoTurnos.service('InstitutionsService',['$http', function($http){
+  ChoPidoTurnos.service('InstitutionsService', ['$http', function($http) {
     return {
       getInstitutions: function() {
         return $http({
           method: 'GET',
           // change this to general
-          url: 'localhost:8080/grupo4/api/v1/institutions',
+          url: 'http://localhost:8080/grupo4/api/v1/institutions',
           headers: {
-            'content-type': 'application/x-www-form-urlencoded'
+            'content-type': 'application/json'
           },
           data: null
-        })
+        });
       }
-    }
+    };
   }]);
 });
