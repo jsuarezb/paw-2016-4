@@ -7,8 +7,8 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
         getAppointments: function() {
           return httpRequestBuilderService.buildHttpRequest('GET', 'appointments', null);
         },
-        getAppointment: function(appointmentId) {
-          return httpRequestBuilderService.buildHttpRequest('GET', 'appointments' + appointmentId, null);
+        getAppointmentsPatient: function(patientId) {
+          return httpRequestBuilderService.buildHttpRequest('GET', 'appointments/patient/' + patientId, null);
         }
       };
     }]);

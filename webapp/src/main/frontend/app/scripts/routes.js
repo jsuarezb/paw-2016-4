@@ -24,6 +24,10 @@ define([], function() {
             templateUrl: '/views/appointments.html',
             controller: 'AppointmentsCtrl'
           },
+          '/appointments/patient/:patientId': {
+            templateUrl: '/views/patientAppointments.html',
+            controller: 'AppointmentsCtrl'
+          },
           '/patients': {
             templateUrl: '/views/patients.html',
             controller: 'PatientsCtrl'
