@@ -1,11 +1,11 @@
 'use strict';
 define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoTurnos) {
-  ChoPidoTurnos.service('InstitutionsService', [
+  ChoPidoTurnos.service('PatientsService', [
     'httpRequestBuilderService',
     function (httpRequestBuilderService) {
       return {
-        getInstitutions: function() {
-          return httpRequestBuilderService.buildHttpRequest('GET', 'institutions', null);
+        getPatients: function() {
+          return httpRequestBuilderService.buildHttpRequest('GET', 'patients', null);
         }
       };
     }]);
