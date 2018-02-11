@@ -2,6 +2,7 @@ package ar.edu.itba.paw.webapp.controllers.api;
 
 import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.User;
+import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.UserService;
 import ar.edu.itba.paw.webapp.dto.UserDTO;
 import ar.edu.itba.paw.webapp.params.UserParams;

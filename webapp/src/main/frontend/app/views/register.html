@@ -1,0 +1,30 @@
+<div ng-controller="RegisterCtrl as ctrl" class='container'>
+  <h2>Ingrese sus datos</h2>
+  <form role="form" ng-submit="ctrl.register()" modelAttribute="patientForm">
+    <div class="form-group">
+      <label for="email" class="control-label">
+        Email
+      </label>
+      <input id="email" type="email" path="email" class="form-control" placeholder="Email" ng-model="email"/>
+    </div>
+    <div class="form-group">
+      <label for="name" class="control-label">Nombre</label>
+      <input id="name" path="name" class="form-control" placeholder="Nombre" ng-model="firstName"/>
+    </div>
+    <div class="form-group">
+      <label for="lastName" class="control-label">Apellido</label>
+      <input id="lastName" path="lastName" class="form-control" placeholder="Apellido" ng-model="lastName"/>
+    </div>
+    <div class="form-group">
+      <label for="password" class="control-label">Contraseña</label>
+      <input type="password" id="password" class="form-control" path="password" placeholder="Contraseña"
+             ng-model="password"/>
+    </div>
+    <div class="form-group">
+      <label for="password-confirmation" class="control-label">Confirmar Contraseña</label>
+      <input type="password" id="password-confirmation" class="form-control" path="password" placeholder="Confirmar Contraseña"
+             ng-model="passwordConfirmation"/>
+    </div>
+    <register-submit-btn></register-submit-btn>
+  </form>
+</div>

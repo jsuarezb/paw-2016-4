@@ -1,8 +1,8 @@
 'use strict';
 
-define(['ChoPidoTurnos', 'services/loginService'], function (ChoPidoTurnos) {
+define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
-    .controller('LoginCtrl', ['$scope', 'loginService', function ($scope, loginService) {
+    .controller('LoginCtrl', ['$scope', 'sessionService', function ($scope, sessionService) {
       const successLogin = (response) => {
         $scope.$broadcast('onLogInEnd');
         document.location.href = '/#';
@@ -21,7 +21,7 @@ define(['ChoPidoTurnos', 'services/loginService'], function (ChoPidoTurnos) {
           };
 
           $scope.$broadcast('onLogInStart');
-          loginService.login(data, successLogin, errorLogin);
+          sessionService.login(data, successLogin, errorLogin);
         }
       }
     }])

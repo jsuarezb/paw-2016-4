@@ -10,17 +10,18 @@ import java.util.regex.Pattern;
  */
 public class PasswordValidator {
     public static ar.edu.itba.paw.webapp.utils.Pair<Boolean, String> validate(String password, String confirmation) {
-        if (password == null || confirmation == null) {
+        if (password == null)
             return new Pair<>(false, "Password missing");
-        }
-        if (password.isEmpty() || password.length() < 8) {
+
+        if (password.isEmpty() || password.length() < 8)
             return new Pair<>(false, "Password lenght must be 8 or more");
-        }
+
         Pattern pattern = Pattern.compile("\\s");
         Matcher matcher = pattern.matcher(password);
-        if (matcher.find()) {
+
+        if (matcher.find())
             return new Pair<>(false, "Password must not contain whitespaces");
-        }
+
         if (password.equals(confirmation)) {
             return new Pair<>(true, "");
         } else {
