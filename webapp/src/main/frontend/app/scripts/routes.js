@@ -51,6 +51,10 @@ define([], function() {
           '/doctors/:doctorId': {
             templateUrl: '/views/doctors.html',
             controller: 'DoctorsCtrl'
+          },
+          '/login': {
+            templateUrl: '/views/login.html',
+            controller: 'LoginCtrl'
           }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */
