@@ -25,7 +25,13 @@ public class AppointmentHibernateDao implements AppointmentDao {
     public Appointment create(final Patient patient, final Doctor doctor,
                               final AppointmentSlot appointmentSlot, final LocalDateTime startDate,
                               final String comments) {
-        final Appointment appointment = new Appointment(patient, appointmentSlot, startDate, comments);
+        final Appointment appointment = Appointment.builder()
+                .setPatient(patient)
+                .setSlot(appointmentSlot)
+                .setDate(startDate)
+                .setComments(comments)
+                .build();
+
         em.persist(appointment);
         return appointment;
     }

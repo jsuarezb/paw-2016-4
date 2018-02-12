@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.models;
 
+import ar.edu.itba.paw.models.builders.AppointmentBuilder;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -57,6 +59,10 @@ public class Appointment {
     @XmlAttribute
     public String getComments() {
         return comments;
+    }
+
+    public static AppointmentBuilder builder() {
+        return new AppointmentBuilder();
     }
 
     @Override

@@ -21,7 +21,7 @@ public class UserHibernateDao implements UserDao {
 
     @Transactional
     public User create(String username, String password) {
-        User user = new User(username, password);
+        final User user = new User(username, password);
         em.persist(user);
         return user;
     }

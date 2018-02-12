@@ -1,5 +1,7 @@
 package ar.edu.itba.paw.models;
 
+import ar.edu.itba.paw.models.builders.AppointmentSlotBuilder;
+
 import javax.persistence.*;
 
 @Entity
@@ -43,6 +45,10 @@ public class AppointmentSlot {
 
     public WorksIn getWorksIn() {
         return worksIn;
+    }
+
+    public static AppointmentSlotBuilder builder() {
+        return new AppointmentSlotBuilder();
     }
 
     @Override
