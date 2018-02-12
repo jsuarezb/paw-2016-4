@@ -9,6 +9,12 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
         },
         getInstitution: function(institutionId) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'institutions/' + institutionId, null);
+        },
+        getInstitutionSpecialities: function(institutionId) {
+          return httpRequestBuilderService.buildHttpRequest('GET', 'institutions/' + institutionId + '/specialities', null);
+        },
+        getInstitutionDoctors: function (institutionId) {
+        return httpRequestBuilderService.buildHttpRequest('GET', 'institutions/' + institutionId + '/doctors', null);
         }
       };
     }]);

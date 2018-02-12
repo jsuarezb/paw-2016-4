@@ -1,0 +1,17 @@
+<div class="title" ng-app="ChoPidoTurnos" ng-controller="DoctorsCtrl as ctrl">
+  <h1>Perfil del Doctor</h1>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h2>Dr. {{ctrl.doctor.first_name}}, {{ctrl.doctor.last_name}}</h2>
+    </div>
+    <div class="panel-body">
+      <ul class="list-inline" ng-repeat="s in ctrl.doctor.specialities">
+        <h3><li>{{s.name}}</li></h3>
+      </ul>
+      <ul class="list-inline" ng-repeat="i in ctrl.doctor.institutions">
+        <li>{{i.name}}</li>
+      </ul>
+      <p>{{ctrl.doctor.email}}</p>
+    </div>
+  </div>
+</div>
