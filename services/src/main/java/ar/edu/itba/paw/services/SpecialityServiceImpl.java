@@ -40,4 +40,8 @@ public class SpecialityServiceImpl implements SpecialityService {
     public Set<Speciality> getByInstitutionId(final Integer institution_id) {
         return specialityDao.getByInstitutionId(institution_id);
     }
+
+    /* package */ void setSpecialityDao(SpecialityDao specialityDao) {
+        this.specialityDao = specialityDao;
+    }
 }
