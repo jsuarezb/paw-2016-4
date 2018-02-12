@@ -2,18 +2,19 @@ package ar.edu.itba.paw.webapp.controllers.api;
 
 import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.AppointmentsSlotsList;
+import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.PatientService;
 import ar.edu.itba.paw.services.SpecialityService;
+import ar.edu.itba.paw.webapp.auth.LoggedUserFinder;
 import ar.edu.itba.paw.webapp.dto.AppointmentDTO;
+import ar.edu.itba.paw.webapp.filters.StatelessAuthenticationFilter;
+import ar.edu.itba.paw.webapp.forms.AppointmentForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
@@ -60,5 +61,15 @@ public class AppointmentsController extends ApiController {
         else{
             return notFound();
         }
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response delete(@PathParam("id") final int id){
+        boolean n = appointmentService.cancel(id);
+        if(!n)
+            return notFound();
+        else
+            return ok(id);
     }
 }

@@ -37,6 +37,8 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/v1/login").permitAll()
                 .antMatchers("/api/v1/users").permitAll()
                 .antMatchers("/api/v1/appointments/patients/**").permitAll()
+                .antMatchers("/api/v1/institutions/**/specialities").permitAll()
+                .antMatchers("/api/v1/institutions/**/doctors").permitAll()
                 .antMatchers("/api/v1/**").permitAll()
                 .antMatchers("/api/v1/users/me").authenticated()
                 .antMatchers("/favicon.ico").permitAll()

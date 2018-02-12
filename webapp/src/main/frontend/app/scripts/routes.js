@@ -45,16 +45,24 @@ define([], function() {
             controller: 'SpecialitiesCtrl'
           },
           '/institutions/:institutionId': {
-            templateUrl: '/views/institutions.html',
+            templateUrl: '/views/institutionDetail.html',
             controller: 'InstitutionsCtrl'
           },
           '/doctors/:doctorId': {
-            templateUrl: '/views/doctors.html',
+            templateUrl: '/views/doctorDetail.html',
             controller: 'DoctorsCtrl'
           },
           '/login': {
             templateUrl: '/views/login.html',
             controller: 'LoginCtrl'
+          },
+          '/institutions/:institutionId/specialities' : {
+            templateUrl: '/views/institutionSpecialities.html',
+            controller: 'InstitutionsCtrl'
+          },
+          '/institutions/:institutionId/doctors' : {
+            templateUrl: '/views/institutionDoctors.html',
+            controller: 'InstitutionsCtrl'
           }
             /* ===== yeoman hook ===== */
             /* Do not remove these commented lines! Needed for auto-generation */
