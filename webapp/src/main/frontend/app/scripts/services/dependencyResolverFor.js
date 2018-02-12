@@ -5,21 +5,21 @@
  * used as routes in the routeProvider. They will be resolved when needed.
  */
 define([], function() {
+  return function(dependencies) {
+    console.log(dependencies);
+    var definition = {
+        resolver: ['$q', '$rootScope', function($q, $rootScope) {
+          var deferred = $q.defer();
+          require(dependencies, function() {
+            $rootScope.$apply(function() {
+              deferred.resolve();
+            });
+          });
 
-    return function(dependencies) {
-        var definition = {
-            resolver: ['$q', '$rootScope', function($q, $rootScope) {
-                var deferred = $q.defer();
-                require(dependencies, function() {
-                    $rootScope.$apply(function() {
-                        deferred.resolve();
-                    });
-                });
-
-                return deferred.promise;
-            }]
-        };
-
-        return definition;
+          return deferred.promise;
+        }]
     };
+
+    return definition;
+  };
 });

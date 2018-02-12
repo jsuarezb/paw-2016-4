@@ -2,25 +2,27 @@
 define(['routes',
   'services/dependencyResolverFor',
   'i18n/i18nLoader!',
+  'angularAMD',
   'angular',
-  'angular-route',
+  'angular-ui-router',
   'bootstrap',
   'angular-translate'],
-  function(config, dependencyResolverFor, i18n) {
+  function(config, dependencyResolverFor, i18n, angularAMD) {
     var ChoPidoTurnos = angular.module('ChoPidoTurnos', [
-      'ngRoute',
-      'pascalprecht.translate'
+      'pascalprecht.translate',
+      'ui.router'
     ]);
     ChoPidoTurnos
       .config(
-        ['$routeProvider',
+        ['$stateProvider',
         '$controllerProvider',
         '$compileProvider',
         '$filterProvider',
         '$provide',
         '$translateProvider',
-        function($routeProvider, $controllerProvider, $compileProvider, $filterProvider,
-                 $provide, $translateProvider, $locationProvider) {
+        '$urlServiceProvider',
+        function($stateProvider, $controllerProvider, $compileProvider, $filterProvider,
+                 $provide, $translateProvider, $urlServiceProvider) {
 
           ChoPidoTurnos.controller = $controllerProvider.register;
           ChoPidoTurnos.directive = $compileProvider.directive;
@@ -28,20 +30,13 @@ define(['routes',
           ChoPidoTurnos.factory = $provide.factory;
           ChoPidoTurnos.service = $provide.service;
 
-          $locationProvider.html5Mode(true);
-
           if (config.routes !== undefined) {
-            angular.forEach(config.routes, function(route, path) {
-              $routeProvider.when(path, {
-                templateUrl: route.templateUrl,
-                resolve: dependencyResolverFor(['controllers/' + route.controller]),
-                controller: route.controller,
-                gaPageTitle: route.gaPageTitle
-              });
+            angular.forEach(config.routes, function(route) {
+              $stateProvider.state(route);
             });
           }
           if (config.defaultRoutePath !== undefined) {
-            $routeProvider.otherwise({redirectTo: config.defaultRoutePath});
+            $urlServiceProvider.rules.otherwise('/');
           }
 
           $translateProvider.translations('preferredLanguage', i18n);
