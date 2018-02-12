@@ -49,4 +49,8 @@ public class DoctorServiceImpl implements DoctorService {
                                               final Integer page) {
         return doctorDao.hasNextPageForSearchByName(name, lastName, page);
     }
+
+    /* package */ void setDoctorDao(DoctorDao doctorDao) {
+        this.doctorDao = doctorDao;
+    }
 }

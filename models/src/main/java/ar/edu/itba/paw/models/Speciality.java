@@ -25,6 +25,11 @@ public class Speciality {
         this.name = name;
     }
 
+    public Speciality(Integer id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @XmlAttribute
     public Integer getId() {
         return id;

@@ -173,4 +173,24 @@ public class AppointmentServiceImpl implements AppointmentService {
         return success;
 
     }
+
+    /* package */ void setAppointmentDao(AppointmentDao appointmentDao) {
+        this.appointmentDao = appointmentDao;
+    }
+
+    /* package */ void setSlotDao(AppointmentSlotDao slotDao) {
+        this.slotDao = slotDao;
+    }
+
+    /* package */ void setDoctorDao(DoctorDao doctorDao) {
+        this.doctorDao = doctorDao;
+    }
+
+    /* package */ void setPatientDao(PatientDao patientDao) {
+        this.patientDao = patientDao;
+    }
+
+    /* package */ void setMailService(MailService mailService) {
+        this.mailService = mailService;
+    }
 }
