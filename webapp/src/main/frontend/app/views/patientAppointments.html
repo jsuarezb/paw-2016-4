@@ -1,0 +1,34 @@
+<div class="title container" ng-app="ChoPidoTurnos" ng-controller="AppointmentsCtrl as ctrl">
+  <h1>Mis turnos</h1>
+  <div class="list-group" ng-repeat="pa in ctrl.patientAppointment">
+      <div class="list-group-item">
+        <h3 class="list-group-item-heading">
+          <a href="${doctorUrl}">
+            Dr. {{pa.appointmentSlot.worksIn.doctor.first_name}} {{pa.appointmentSlot.worksIn.doctor.last_name}}
+          </a>
+        </h3>
+        <div class="list-group-item-text">
+          <dl class="dl-horizontal">
+            <dt>Especialidades</dt>
+            <dd>
+              <ul class="list-inline" ng-repeat="s in pa.appointmentSlot.worksIn.doctor.specialities">
+                  <li>{{s.name}}</li>
+              </ul>
+            </dd>
+            <dt>Institución</dt>
+            <dd>
+              <a href="#/institutions/{{pa.appointmentSlot.worksIn.institution.id}}">
+                {{pa.appointmentSlot.worksIn.institution.name}}
+              </a>
+            </dd>
+            <dt>Fecha</dt>
+            <dd>{{pa.date}}</dd>
+          </dl>
+          <button class="appointment-delete btn btn-danger btn-danger"
+                  data-url="<c:url value='/appointments/${appointment.id}'/>">
+            Cancelar turno
+          </button>
+        </div>
+      </div>
+  </div>
+</div>

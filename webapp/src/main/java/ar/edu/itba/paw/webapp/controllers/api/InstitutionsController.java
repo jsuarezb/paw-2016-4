@@ -6,7 +6,9 @@ import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.InstitutionService;
 import ar.edu.itba.paw.services.SpecialityService;
+import ar.edu.itba.paw.webapp.dto.DoctorDTO;
 import ar.edu.itba.paw.webapp.dto.InstitutionDTO;
+import ar.edu.itba.paw.webapp.dto.SpecialityDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -53,5 +55,29 @@ public class InstitutionsController extends ApiController {
         } else {
             return notFound();
         }
+    }
+
+    @GET
+    @Path("/{institution_id}/specialities")
+    public Response specialitiesForInstitution(@PathParam("institution_id") final int institution_id){
+        final Institution institution = institutionService.get(institution_id);
+        if(institution == null)
+            return notFound();
+        final Set<Speciality> specialities = specialityService.getByInstitutionId(institution_id);
+        GenericEntity<Set<SpecialityDTO>> list = new GenericEntity<Set<SpecialityDTO>>(SpecialityDTO.fromSet(specialities)){
+        };
+        return ok(list);
+    }
+
+    @GET
+    @Path("/{institution_id}/doctors")
+    public Response doctorsInInstitution(@PathParam("institution_id") final int institution_id){
+        Institution institution = institutionService.get(institution_id);
+        if(institution == null)
+            return notFound();
+        final List<Doctor> doctors = doctorService.getDoctorsByInstitution(institution_id);
+        GenericEntity<List<DoctorDTO>> list = new GenericEntity<List<DoctorDTO>>(DoctorDTO.fromList(doctors)){
+        };
+        return ok(list);
     }
 }

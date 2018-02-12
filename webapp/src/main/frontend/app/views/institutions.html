@@ -1,5 +1,31 @@
-<div ng-controller="InstitutionsCtrl as ctrl">
+<div class="title container" ng-app="ChoPidoTurnos" ng-controller="InstitutionsCtrl as ctrl">
   <h1>Instituciones</h1>
-  <p>{{ctrl.institutions}}<p/>
+  <div class="row">
+    <div class="col-md-4" ng-repeat="i in ctrl.institutions">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <img class="img-responsive" src="http://placehold.it/400x300"/>
+        </div>
+        <div class="panel-body">
+          <p class="lead">
+            <a href="#/institutions/{{i.id}}">
+              {{i.name}}
+            </a>
+          </p>
+          <p>
+            {{i.address.street_name }} {{i.address.street_number}},
+            {{i.address.neighborhood}},
+            {{i.address.city}}, {{i.address.state}},
+            {{i.address.country}}
+          </p>
+          <div class="text-center">
+            <a href="#/institutions/{{i.id}}/specialities"
+               class="btn btn-primary">
+              Ver especialidades
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-

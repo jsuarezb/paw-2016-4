@@ -1,0 +1,27 @@
+<div class="row container" ng-app="ChoPidoTurnos" ng-controller="InstitutionsCtrl as ctrl">
+  <div class="col-md-7">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h1>{{ctrl.institution.name}}</h1>
+      </div>
+      <div class="panel-body">
+        <img class="img-responsive center-block" src="http://placehold.it/400x300"/>
+        <br>
+        <address>
+          {{ctrl.institution.address.street_name}} {{ctrl.institution.address.street_number}}<br>
+          {{ctrl.institution.address.neighborhood}} {{ctrl.institution.address.city}} - {{ctrl.institution.address.state}},
+          {{ctrl.institution.address.country}}
+        </address>
+        <a class="btn btn-default"
+           href="#/institutions/{{ctrl.institution.id}}/doctors">
+          Ver doctores
+        </a>
+        <a class="btn btn-default"
+           href="#/institutions/{{ctrl.institution.id}}/specialities">
+          Ver especialidades
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>

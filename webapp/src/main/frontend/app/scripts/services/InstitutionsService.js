@@ -1,19 +1,21 @@
 'use strict';
-define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
-
-  ChoPidoTurnos.service('InstitutionsService', ['$http', function($http) {
-    return {
-      getInstitutions: function() {
-        return $http({
-          method: 'GET',
-          // change this to general
-          url: 'http://localhost:8080/grupo4/api/v1/institutions',
-          headers: {
-            'content-type': 'application/json'
-          },
-          data: null
-        });
-      }
-    };
-  }]);
+define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoTurnos) {
+  ChoPidoTurnos.service('InstitutionsService', [
+    'httpRequestBuilderService',
+    function (httpRequestBuilderService) {
+      return {
+        getInstitutions: function() {
+          return httpRequestBuilderService.buildHttpRequest('GET', 'institutions', null);
+        },
+        getInstitution: function(institutionId) {
+          return httpRequestBuilderService.buildHttpRequest('GET', 'institutions/' + institutionId, null);
+        },
+        getInstitutionSpecialities: function(institutionId) {
+          return httpRequestBuilderService.buildHttpRequest('GET', 'institutions/' + institutionId + '/specialities', null);
+        },
+        getInstitutionDoctors: function (institutionId) {
+        return httpRequestBuilderService.buildHttpRequest('GET', 'institutions/' + institutionId + '/doctors', null);
+        }
+      };
+    }]);
 });
