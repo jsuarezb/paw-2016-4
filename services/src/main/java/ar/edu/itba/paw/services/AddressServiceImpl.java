@@ -16,4 +16,8 @@ public class AddressServiceImpl implements AddressService {
     public List<String> getAllNeighborhoods() {
         return addressDao.getAllNeighborhoods();
     }
+
+    /* package */ void setAddressDao(AddressDao addressDao) {
+        this.addressDao = addressDao;
+    }
 }
