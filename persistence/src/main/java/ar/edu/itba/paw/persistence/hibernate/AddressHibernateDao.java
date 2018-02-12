@@ -16,6 +16,7 @@ public class AddressHibernateDao implements AddressDao{
     private EntityManager em;
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<String> getAllNeighborhoods() {
         final Query query = em.createQuery("SELECT DISTINCT neighborhood FROM Address");
         return query.getResultList();

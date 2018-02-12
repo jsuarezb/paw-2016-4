@@ -35,7 +35,6 @@ public class Address {
     @Column(length = 100, nullable = false)
     private String neighborhood;
 
-    @SuppressWarnings("unused")
     /* package */ Address() { }
 
     public Address(String streetName, Integer streetNumber, String apartment, String city, String state, String neighborhood, String country) {

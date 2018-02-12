@@ -19,7 +19,6 @@ public class WorksIn {
     @ManyToOne
     private Institution institution;
 
-    @SuppressWarnings("unused")
     /* package */ WorksIn() {}
 
     public WorksIn(Integer id, Doctor doctor, Institution institution) {

@@ -3,12 +3,9 @@ package ar.edu.itba.paw.services;
 import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.persistence.AppointmentDao;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
-import ar.edu.itba.paw.persistence.DoctorDao;
-import ar.edu.itba.paw.persistence.PatientDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
@@ -22,12 +19,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     @Autowired
     private AppointmentSlotDao slotDao;
-
-    @Autowired
-    private DoctorDao doctorDao;
-
-    @Autowired
-    private PatientDao patientDao;
 
     @Autowired
     private MailService mailService;
@@ -180,14 +171,6 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     /* package */ void setSlotDao(AppointmentSlotDao slotDao) {
         this.slotDao = slotDao;
-    }
-
-    /* package */ void setDoctorDao(DoctorDao doctorDao) {
-        this.doctorDao = doctorDao;
-    }
-
-    /* package */ void setPatientDao(PatientDao patientDao) {
-        this.patientDao = patientDao;
     }
 
     /* package */ void setMailService(MailService mailService) {

@@ -31,7 +31,6 @@ public class Doctor implements Loggable {
     @Column(length = 100, nullable = false)
     private String password;
 
-    @SuppressWarnings("unused")
     /* package */ Doctor() {
     }
 

@@ -21,7 +21,6 @@ public class AppointmentSlot {
     @Column(nullable = false)
     private Integer hour;
 
-    @SuppressWarnings("unused")
     /* package */ AppointmentSlot(){ }
 
     public AppointmentSlot(Integer dayOfWeek, Integer hour, WorksIn worksIn) {

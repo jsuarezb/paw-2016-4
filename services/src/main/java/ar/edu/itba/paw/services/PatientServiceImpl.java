@@ -30,7 +30,10 @@ public class PatientServiceImpl implements PatientService {
 
     public boolean login(final String email, final String password) {
         final Patient patient = findByEmail(email);
-        return patient != null || password.equals(patient.getPassword());
+        if (patient != null) {
+            return password.equals(patient.getPassword());
+        }
+        return false;
     }
 
     public Patient findByEmail(final String email) {

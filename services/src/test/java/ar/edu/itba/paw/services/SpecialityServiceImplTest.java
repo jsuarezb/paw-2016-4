@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.Speciality;
-import ar.edu.itba.paw.persistence.DoctorDao;
 import ar.edu.itba.paw.persistence.SpecialityDao;
 import org.junit.Before;
 import org.junit.Test;

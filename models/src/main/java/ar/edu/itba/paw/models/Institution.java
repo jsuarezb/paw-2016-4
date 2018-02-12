@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.models;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "institutions")
@@ -17,7 +16,6 @@ public class Institution {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "institutions_id_seq")
     @SequenceGenerator(sequenceName = "institutions_id_seq", name = "institutions_id_seq", allocationSize = 1)
     private Integer id;
-
 
     /* package */ Institution(){ }
 
