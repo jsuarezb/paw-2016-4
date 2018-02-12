@@ -56,11 +56,11 @@ define([], function() {
             templateUrl: '/views/login.html',
             controller: 'LoginCtrl'
           },
-          '/institutions/:institutionId/specialities' : {
+          '/institutions/:institutionId/specialities': {
             templateUrl: '/views/institutionSpecialities.html',
             controller: 'InstitutionsCtrl'
           },
-          '/institutions/:institutionId/doctors' : {
+          '/institutions/:institutionId/doctors': {
             templateUrl: '/views/institutionDoctors.html',
             controller: 'InstitutionsCtrl'
           },

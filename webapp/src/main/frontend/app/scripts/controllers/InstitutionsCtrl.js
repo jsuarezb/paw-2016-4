@@ -10,24 +10,27 @@ define(['ChoPidoTurnos', 'services/InstitutionsService'], function(ChoPidoTurnos
         console.log(result);
         _this.institutions = result.data;
       }
-    ),
-      institutionsService.getInstitution(this.params.institutionId).then(
-        function(result){
-          console.log(result);
-          _this.institution = result.data;
-        }
-      ),
-      institutionsService.getInstitutionSpecialities(this.params.institutionId).then(
-        function (result) {
-          console.log(result);
-          _this.specialities = result.data;
-        }
-      ),
-      institutionsService.getInstitutionDoctors(this.params.institutionId).then(
-        function(result) {
-          console.log(result);
-          _this.doctors = result.data;
-        }
-      );
+    );
+
+    institutionsService.getInstitution(this.params.institutionId).then(
+      function (result) {
+        console.log(result);
+        _this.institution = result.data;
+      }
+    );
+
+    institutionsService.getInstitutionSpecialities(this.params.institutionId).then(
+      function (result) {
+        console.log(result);
+        _this.specialities = result.data;
+      }
+    );
+
+    institutionsService.getInstitutionDoctors(this.params.institutionId).then(
+      function(result) {
+        console.log(result);
+        _this.doctors = result.data;
+      }
+    );
   }]);
 });

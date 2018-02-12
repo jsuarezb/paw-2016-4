@@ -1,16 +1,18 @@
 'use strict';
 
 define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
-  ChoPidoTurnos.service('sessionService', ['$http', function($http){
+  ChoPidoTurnos.service('sessionService', ['$http', function ($http) {
     return {
       login: function (data, success, error) {
         return $http
           .post('http://localhost:8080/grupo4/api/v1/login', data)
-          .then(function(response) { return response.data; })
-          .then(function(data) {
+          .then(function (response) {
+            return response.data;
+          })
+          .then(function (data) {
             localStorage.setItem('token', data.token);
             $http.defaults.headers.common.Authorization = data.token;
-            success(data)
+            success(data);
           }, error);
       },
 
@@ -20,15 +22,17 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
 
         return $http
           .post('http://localhost:8080/grupo4/api/v1/patients', data)
-          .then(function(response) { return response.data; })
+          .then(function(response) {
+            return response.data;
+          })
           .then(function(data) {
             this.login({
               email: email,
               password: password,
               type: 'patient' // TODO: change this
-            }, success, error)
+            }, success, error);
           }, error);
       }
-    }
-  }])
+    };
+  }]);
 });

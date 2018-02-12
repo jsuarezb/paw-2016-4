@@ -3,18 +3,18 @@
 define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
     .controller('LoginCtrl', ['$scope', 'sessionService', function ($scope, sessionService) {
-      const successLogin = function(response) {
+      var successLogin = function(response) {
         $scope.$broadcast('onLogInEnd');
         document.location.href = '/#';
-      }
+      };
 
-      const errorLogin = function(response) {
+      var errorLogin = function(response) {
         $scope.$broadcast('onLogInEnd');
-      }
+      };
 
       return {
         login: function() {
-          const data = {
+          var data = {
             email: $scope.email,
             password: $scope.password,
             type: 'patient' // TODO: update this
@@ -23,8 +23,8 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
           $scope.$broadcast('onLogInStart');
           sessionService.login(data, successLogin, errorLogin);
         }
-      }
-    }])
+      };
+    }]);
 
   ChoPidoTurnos
     .directive('loginForm', function() {
@@ -32,7 +32,7 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
         restrict: 'E',
         templateUrl: 'views/login-form.html',
         replace: true
-      }
+      };
     })
     .directive('loginSubmitBtn', function() {
       return {
@@ -50,8 +50,8 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
 
             scope.$on('onLogInEnd', function (event, args) {
               scope.isLogging = false;
-            })
+            });
         }
-      }
-    })
+      };
+    });
 });

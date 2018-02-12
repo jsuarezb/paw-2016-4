@@ -10,12 +10,13 @@ define(['ChoPidoTurnos', 'services/DoctorsService'], function(ChoPidoTurnos) {
         console.log(result);
         _this.doctors = result.data;
       }
-    ),
-      doctorsService.getDoctor(this.params.doctorId).then(
-        function (result) {
-          console.log(result);
-          _this.doctor = result.data;
-        }
-      );
+    );
+
+    doctorsService.getDoctor(this.params.doctorId).then(
+      function (result) {
+        console.log(result);
+        _this.doctor = result.data;
+      }
+    );
   }]);
 });

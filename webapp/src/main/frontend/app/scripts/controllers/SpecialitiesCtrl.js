@@ -1,5 +1,5 @@
 'use strict';
-define(['ChoPidoTurnos', 'services/SpecialitiesService'], function(ChoPidoTurnos) {
+define(['ChoPidoTurnos', 'services/specialitiesService'], function(ChoPidoTurnos) {
 
   ChoPidoTurnos.controller('SpecialitiesCtrl', ['SpecialitiesService', function(specialitiesService) {
     var _this = this;
