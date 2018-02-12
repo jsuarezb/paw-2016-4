@@ -7,25 +7,24 @@
 
   <div class="tab-content filter-container">
     <div class="tab-pane fade in active" id="speciality">
-
       <div class="row">
         <div class="col-lg-12 " >
-          <form action="${url}" class="form-horizontal" method='get' >
-              <div class="col-sm-3 col-sm-offset-1 form-group">
+          <form action="${url}"  method='get' >
+              <div class="col-sm-3 form-group">
                 <select class="search-filters form-control form-control-filter input-lg" ng-model="selectedInstitution" ng-options="institution.id as institution.name for institution in institutions">
                 </select>
               </div>
-              <div class="col-sm-3 col-sm-offset-1 form-group">
+              <div class="col-sm-3 form-group">
                 <select class="search-filters form-control form-control-filter input-lg" ng-model="selectedSpeciality" ng-options="speciality.id as speciality.name for speciality in specialities">
                 </select>
               </div>
 
-              <div class="col-sm-3 col-sm-offset-1 form-group">
+              <div class="col-sm-3 form-group">
                 <select class="form-control form-control-filter input-lg search-filters" ng-model="selectedNeighborhood" ng-options="neighborhood.id as neighborhood.name for neighborhood in neighborhoods">
                 </select>
               </div>
               <div class="col-sm-3 form-group">
-                <button class="btn btn-success search-filters" style="height: 60px" type="submit">Buscar</button>
+                <button class="btn btn-success search-filters home-search-button"  type="submit">Buscar</button>
               </div>
           </form>
         </div>

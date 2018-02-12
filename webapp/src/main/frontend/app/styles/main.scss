@@ -127,14 +127,16 @@ body {
   height: 46px!important;
   font-size: medium!important;
 }
-
+.home-search-button{
+  width: 100%!important;
+}
 
 /*
  * Custom translucent site header
  */
 
 .site-header {
-  background-color: rgba(240,240,240,0.98);
+  background-color: rgba(248,248,248,0.98);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   backdrop-filter: saturate(180%) blur(20px);
   height: 50px;
