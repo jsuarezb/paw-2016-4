@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public class DoctorHibernateDao implements DoctorDao {
 
-    private static final int DEFAULT_SIZE_OF_PAGE = 2;
+    private static final int DEFAULT_SIZE_OF_PAGE = 15;
 
     @PersistenceContext
     private EntityManager em;

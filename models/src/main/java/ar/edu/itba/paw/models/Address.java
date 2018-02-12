@@ -111,13 +111,5 @@ public class Address {
     @Override
     public String toString() {
         return String.format(PRINT_FORMAT, streetName, streetNumber, apartment, city, state, country);
-//        return "Address{" +
-//                "streetName='" + streetName + '\'' +
-//                ", streetNumber=" + streetNumber +
-//                ", apartment='" + apartment + '\'' +
-//                ", city='" + city + '\'' +
-//                ", state='" + state + '\'' +
-//                ", country='" + country + '\'' +
-//                '}';
     }
 }
