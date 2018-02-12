@@ -3,17 +3,17 @@
 define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
     .controller('LoginCtrl', ['$scope', 'sessionService', function ($scope, sessionService) {
-      const successLogin = (response) => {
+      const successLogin = function(response) {
         $scope.$broadcast('onLogInEnd');
         document.location.href = '/#';
       }
 
-      const errorLogin = (response) => {
+      const errorLogin = function(response) {
         $scope.$broadcast('onLogInEnd');
       }
 
       return {
-        login: () => {
+        login: function() {
           const data = {
             email: $scope.email,
             password: $scope.password,
