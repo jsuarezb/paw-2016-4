@@ -1,51 +1,41 @@
-<div class="jumbotron">
-  <h1>ChoPido Turnos</h1>
-  <h4>Buscar por:</h4>
-  <ul class="nav nav-pills nav-justified category-bar">
-    <li class="active" data-form-id="searchBySpecialityForm">
-      <a data-toggle="pill" href="#speciality">Especialidad</a>
-    </li>
-    <li>
-      <a data-toggle="pill" href="#doctor">Doctor</a>
-    </li>
-  </ul>
+
+<div class="text-center bgimg-1 landing-section">
+  <div class="main-header"></div>
+  <div class="main-header">
+    <h1 class="display-1 font-weight-normal" style="color:white">Reserva tu turno médico</h1>
+    <h2 class="font-weight-light" style="color:white">Más de 2500 profesionales a tu disposición en todo el país</h2>
+  </div>
+
   <div class="tab-content filter-container">
     <div class="tab-pane fade in active" id="speciality">
+
       <div class="row">
-        <div class="col-lg-6 col-lg-offset-3">
-          <form action="${url}" class="form-horizontal" method='get'>
-            <div class="form-group">
-              <label class="col-sm-3 control-label form-label" for=
-              "speciality">Especialidad</label>
-              <div class="col-sm-9">
-                <select class="form-control form-control-filter input-lg" id=
-                "specialityId">
+        <div class="col-lg-12 " >
+          <form action="${url}" class="form-horizontal" method='get' >
+              <div class="col-sm-3 col-sm-offset-1 form-group">
+                <select class="search-filters form-control form-control-filter input-lg" ng-model="selectedInstitution" ng-options="institution.id as institution.name for institution in institutions">
                 </select>
               </div>
-            </div>
-            <div class="form-group">
-              <label class="col-sm-3 control-label form-label" for=
-              "neighborhood">Barrio</label>
-              <div class="col-sm-9">
-                <select class="form-control form-control-filter input-lg" id=
-                "neighborhood">
+              <div class="col-sm-3 col-sm-offset-1 form-group">
+                <select class="search-filters form-control form-control-filter input-lg" ng-model="selectedSpeciality" ng-options="speciality.id as speciality.name for speciality in specialities">
                 </select>
               </div>
-            </div>
-            <div class="col-sm-9">
-              <select class="form-control form-control-filter input-lg" id=
-              "neighborhood">
-              </select>
-            </div>
+
+              <div class="col-sm-3 col-sm-offset-1 form-group">
+                <select class="form-control form-control-filter input-lg search-filters" ng-model="selectedNeighborhood" ng-options="neighborhood.id as neighborhood.name for neighborhood in neighborhoods">
+                </select>
+              </div>
+              <div class="col-sm-3 form-group">
+                <button class="btn btn-success search-filters" style="height: 60px" type="submit">Buscar</button>
+              </div>
           </form>
         </div>
-        <div class="form-group">
-          <button class="btn btn-success" type="submit">Buscar</button>
-        </div>
+
       </div>
     </div>
   </div>
-  <div class="tab-pane fade" id="doctor">
+
+<!--  <div class="tab-pane fade" id="doctor">
     <div class="row">
       <div class="col-lg-6 col-lg-offset-3">
         <form action="${%20searchByNameUrl%20}" class="form-horizontal" method=
@@ -71,6 +61,107 @@
           </div>
         </form>
       </div>
+
+  </div>-->
+</div>
+<div class="landing-section d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+  <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+    <div class="my-3 p-3">
+      <h2 class="display-5">Another headline</h2>
+      <p class="lead">And an even wittier subheading.</p>
     </div>
+    <div class="bg-dark box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+  </div>
+  <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+    <div class="my-3 py-3">
+      <h2 class="display-5">Another headline</h2>
+      <p class="lead">And an even wittier subheading.</p>
+    </div>
+    <div class="bg-light box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
   </div>
 </div>
+
+<div id="sobrenosotros" class="col-lg-12 bgimg-2 landing-section">
+  <div class="col-sm-4">
+    <h1 class=" section-uplightpadding display-5 font-weight-normal"style="color:black"> QUIÉNES SOMOS</h1>
+    <h2 class=" display-3 font-weight-light"style="color:black">
+      UNA NUEVA EXPERIENCIA PARA PLANIFICAR MEJOR TU AGENDA.</h2>
+    <p class=" lead font-weight-light"style="color:black">
+      ChoPidoturnos es la primer red de centros de médicos que te ofrece una solución simple para planificar tu agenda.</p>
+    <p class=" lead font-weight-light"style="color:black">
+      Nuestro equipo esta trabajando para presentarte los mejores centros médicos para que puedas programar tus turnos de forma sencilla y rápida.</p>
+  </div>
+</div>
+
+
+
+
+
+<div id="map" class="landing-section"></div>
+
+<footer class="container py-5">
+  <div class="row">
+    <div class="col-12 col-md">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mb-2"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
+      <small class="d-block mb-3 text-muted">&copy; 2017-2018</small>
+    </div>
+    <div class="col-6 col-md">
+      <h5>Features</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="#">Cool stuff</a></li>
+        <li><a class="text-muted" href="#">Random feature</a></li>
+        <li><a class="text-muted" href="#">Team feature</a></li>
+        <li><a class="text-muted" href="#">Stuff for developers</a></li>
+        <li><a class="text-muted" href="#">Another one</a></li>
+        <li><a class="text-muted" href="#">Last time</a></li>
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>Resources</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="#">Resource</a></li>
+        <li><a class="text-muted" href="#">Resource name</a></li>
+        <li><a class="text-muted" href="#">Another resource</a></li>
+        <li><a class="text-muted" href="#">Final resource</a></li>
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>Resources</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="#">Business</a></li>
+        <li><a class="text-muted" href="#">Education</a></li>
+        <li><a class="text-muted" href="#">Government</a></li>
+        <li><a class="text-muted" href="#">Gaming</a></li>
+      </ul>
+    </div>
+    <div class="col-6 col-md">
+      <h5>About</h5>
+      <ul class="list-unstyled text-small">
+        <li><a class="text-muted" href="#">Team</a></li>
+        <li><a class="text-muted" href="#">Locations</a></li>
+        <li><a class="text-muted" href="#">Privacy</a></li>
+        <li><a class="text-muted" href="#">Terms</a></li>
+      </ul>
+    </div>
+  </div>
+</footer>
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+  <script>function myMap() {
+    var mapOptions = {
+      center: new google.maps.LatLng(-34.5880643,-58.4615831),
+      zoom: 13,
+      mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+  }</script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://getbootstrap.com/dist/js/bootstrap.min.js"></script>
+  <script src="https://getbootstrap.com/assets/js/vendor/holder.min.js"></script>
+  <script src="https://getbootstrap.com/assets/js/vendor/popper.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
+

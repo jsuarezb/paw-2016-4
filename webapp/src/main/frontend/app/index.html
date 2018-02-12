@@ -9,40 +9,35 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
+    <!-- Bootstrap core CSS -->
+    <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
   </head>
   <body ng-controller="IndexCtrl">
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">ChoPido Turnos</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="#/institutions">Instituciones</a></li>
+
+    <nav class="site-header sticky-top py-1">
+      <div class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="py-2" href="#">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="d-block mx-auto"><circle cx="12" cy="12" r="10"></circle><line x1="14.31" y1="8" x2="20.05" y2="17.94"></line><line x1="9.69" y1="8" x2="21.17" y2="8"></line><line x1="7.38" y1="12" x2="13.12" y2="2.06"></line><line x1="9.69" y1="16" x2="3.95" y2="6.06"></line><line x1="14.31" y1="16" x2="2.83" y2="16"></line><line x1="16.62" y1="12" x2="10.88" y2="21.94"></line></svg>
+        </a>
+        <a class="py-2 d-none d-md-inline-block font-weight-light" href="#/institutions">Instituciones</a>
+        <a class="py-2 d-none d-md-inline-block font-weight-light" href="#/#sobrenosotros">Sobre nosotros</a>
+        <a class="py-2 d-none d-md-inline-block font-weight-light" href="#">Contacto</a>
+        <a class="py-2 d-none d-md-inline-block font-weight-light" href="/#/login">Iniciar Sesión</a>
+        <a class="py-2 d-none d-md-inline-block font-weight-light" href="/#/register">Registrarse</a>
+        <li class="dropdown py-2 d-none d-md-inline-block">
+          <a href="#" class="dropdown-toggle font-weight-light" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FIXME <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a class="font-weight-light" href="#/appointments/5">Mis turnos</a></li>
+            <li><a class="font-weight-light" href="#">Cerrar sesión</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="/#/login">Iniciar Sesión</a></li>
-            <li><a href="#">Registrarse</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">FIXME <span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#/appointments/5">Mis turnos</a></li>
-                <li><a href="#">Cerrar sesión</a></li>
-              </ul>
-            </li>
-          </ul>
-        </div>
+        </li>
       </div>
     </nav>
     <div class="container container-main">
       <div ng-view=""></div>
     </div>
+
     <script src="/scripts/paths.js"></script>
     <script src="bower_components/requirejs/require.js" data-main="/scripts/build.js"></script>
   </body>
