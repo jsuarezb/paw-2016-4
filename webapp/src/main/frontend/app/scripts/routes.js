@@ -4,10 +4,10 @@ define([], function() {
     return {
         defaultRoutePath: '/',
         routes: {
-            '/': {
-                templateUrl: '/views/home.html',
-                controller: 'HomeCtrl'
-            },
+          '/': {
+              templateUrl: '/views/home.html',
+              controller: 'HomeCtrl'
+          },
           '/institutions': {
             templateUrl: '/views/institutions.html',
             controller: 'InstitutionsCtrl'
