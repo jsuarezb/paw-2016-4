@@ -3,17 +3,17 @@
 define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
     .controller('RegisterCtrl', ['$scope', 'sessionService', function ($scope, sessionService) {
-      const successRegister = (response) => {
+      const successRegister = function(response) {
         $scope.$broadcast('onRegisterEnd');
         document.location.href = '/#';
       }
 
-      const errorRegister = (response) => {
+      const errorRegister = function(response) {
         $scope.$broadcast('onRegisterEnd');
       }
 
       return {
-        register: () => {
+        register: function() {
           const data = {
             email: $scope.email,
             firstName: $scope.firstName,
