@@ -33,4 +33,8 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
     public List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor, final LocalDateTime week) {
         return appointmentSlotDao.getAvailableByDoctor(doctor, week);
     }
+
+    /* package */ void setAppointmentSlotDao(AppointmentSlotDao appointmentSlotDao) {
+        this.appointmentSlotDao = appointmentSlotDao;
+    }
 }
