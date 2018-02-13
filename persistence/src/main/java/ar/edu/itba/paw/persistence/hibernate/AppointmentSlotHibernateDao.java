@@ -24,7 +24,12 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     public AppointmentSlot create(final WorksIn worksIn,
                                   final int dayOfWeek,
                                   final int startHour) {
-        AppointmentSlot appointmentSlot = new AppointmentSlot(dayOfWeek, startHour, worksIn);
+        final AppointmentSlot appointmentSlot = AppointmentSlot.builder()
+                .setDayOfWeek(dayOfWeek)
+                .setHour(startHour)
+                .setWorksIn(worksIn)
+                .build();
+
         em.persist(appointmentSlot);
         return appointmentSlot;
     }
@@ -53,7 +58,7 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                 ,
                 AppointmentSlot.class
         );
-        LocalDateTime endDate = startDate.plus(7, ChronoUnit.DAYS);
+        final LocalDateTime endDate = startDate.plus(7, ChronoUnit.DAYS);
         query.setParameter("start_date", startDate);
         query.setParameter("end_date", endDate);
         query.setParameter("doctor_id", doctor.getId());
@@ -74,7 +79,7 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                 ,
                 AppointmentSlot.class
         );
-        LocalDateTime endDate = startDate.plus(7, ChronoUnit.DAYS);
+        final LocalDateTime endDate = startDate.plus(7, ChronoUnit.DAYS);
         query.setParameter("start_date", startDate);
         query.setParameter("end_date", endDate);
         query.setParameter("institution_id", institutionId);
@@ -98,7 +103,7 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                 ,
                 AppointmentSlot.class
         );
-        LocalDateTime endDate = startDate.plus(7, ChronoUnit.DAYS);
+        final LocalDateTime endDate = startDate.plus(7, ChronoUnit.DAYS);
         query.setParameter("start_date", startDate);
         query.setParameter("end_date", endDate);
         query.setParameter("institution_id", institution_id);
@@ -120,7 +125,7 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                 ,
                 AppointmentSlot.class
         );
-        LocalDateTime endDate = startDate.plus(7, ChronoUnit.DAYS);
+        final LocalDateTime endDate = startDate.plus(7, ChronoUnit.DAYS);
         query.setParameter("start_date", startDate);
         query.setParameter("end_date", endDate);
         return query.getResultList();
@@ -146,7 +151,7 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                 AppointmentSlot.class);
         query.setParameter("neighborhood", neighborhood);
         query.setParameter("speciality_id", speciality.getId());
-        LocalDateTime endDate = weekStart.plus(7, ChronoUnit.DAYS);
+        final LocalDateTime endDate = weekStart.plus(7, ChronoUnit.DAYS);
         query.setParameter("start_date", weekStart);
         query.setParameter("end_date", endDate);
         return query.getResultList();
