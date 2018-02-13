@@ -1,5 +1,5 @@
-<div class="title container" ng-controller="InstitutionsCtrl as ctrl">
-  <h1>Doctores - <a href="#/institutions/{{institution.id}}">{{ctrl.institution.name}}</a></h1>
+<div class="title container" ng-controller="InstitutionDoctorsCtrl as ctrl">
+  <h1>Doctores - <a href="#/institutions/{{ctrl.institution.id}}">{{ctrl.institution.name}}</a></h1>
   <h3>{{ctrl.institution.address.street_name}} {{ctrl.institution.address.street_number}} {{institution.address.neighborhood}},
     {{ctrl.institution.address.city}}, {{ctrl.institution.address.state}}, {{ctrl.institution.address.country}}</h3>
   <table class="table table-bordered">

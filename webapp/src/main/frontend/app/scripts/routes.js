@@ -78,15 +78,15 @@ define(['angularAMD'], function(angularAMD) {
           url: '/institutions/:institutionId',
           name: 'institution',
           templateUrl: '/views/institutionDetail.html',
-          controller: 'InstitutionsCtrl',
-          controllerUrl: 'controllers/InstitutionsCtrl'
+          controller: 'InstitutionDetailCtrl',
+          controllerUrl: 'controllers/InstitutionDetailCtrl'
         }),
         angularAMD.route({
           url: '/doctors/:doctorId',
           name: 'doctor',
           templateUrl: '/views/doctorDetail.html',
-          controller: 'DoctorsCtrl',
-          controllerUrl: 'controllers/DoctorsCtrl'
+          controller: 'DoctorDetailCtrl',
+          controllerUrl: 'controllers/DoctorDetailCtrl'
         }),
         angularAMD.route({
           url: '/login',
@@ -99,15 +99,15 @@ define(['angularAMD'], function(angularAMD) {
           url: '/institutions/:institutionId/specialities',
           name: 'institutionSpecialities',
           templateUrl: '/views/institutionSpecialities.html',
-          controller: 'InstitutionsCtrl',
-          controllerUrl: 'controllers/InstitutionsCtrl'
+          controller: 'InstitutionSpecialitiesCtrl',
+          controllerUrl: 'controllers/InstitutionSpecialitiesCtrl'
         }),
         angularAMD.route({
           url: '/institutions/:institutionId/doctors',
           name: 'institutionDoctors',
           templateUrl: '/views/institutionDoctors.html',
-          controller: 'InstitutionsCtrl',
-          controllerUrl: 'controllers/InstitutionsCtrl'
+          controller: 'InstitutionDoctorsCtrl',
+          controllerUrl: 'controllers/InstitutionDoctorsCtrl'
         }),
         angularAMD.route({
           url: '/register',
