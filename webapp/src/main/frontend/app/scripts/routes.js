@@ -46,23 +46,23 @@ define([], function() {
           },
           '/institutions/:institutionId': {
             templateUrl: '/views/institutionDetail.html',
-            controller: 'InstitutionsCtrl'
+            controller: 'InstitutionDetailCtrl'
           },
           '/doctors/:doctorId': {
             templateUrl: '/views/doctorDetail.html',
-            controller: 'DoctorsCtrl'
+            controller: 'DoctorDetailCtrl'
           },
           '/login': {
             templateUrl: '/views/login.html',
             controller: 'LoginCtrl'
           },
-          '/institutions/:institutionId/specialities' : {
+          '/institutions/:institutionId/specialities': {
             templateUrl: '/views/institutionSpecialities.html',
-            controller: 'InstitutionsCtrl'
+            controller: 'InstitutionSpecialitiesCtrl'
           },
-          '/institutions/:institutionId/doctors' : {
+          '/institutions/:institutionId/doctors': {
             templateUrl: '/views/institutionDoctors.html',
-            controller: 'InstitutionsCtrl'
+            controller: 'InstitutionDoctorsCtrl'
           },
           '/register': {
             templateUrl: '/views/register.html',
