@@ -3,6 +3,13 @@
 define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
     .controller('RegisterCtrl', ['$scope', 'sessionService', function ($scope, sessionService) {
+      $scope.$on('onRegisterStart', function (event, args) {
+        $scope.isRegistering = true;
+      });
+
+      $scope.$on('onRegisterEnd', function (event, args) {
+        $scope.isRegistering = false;
+      });
       var successRegister = function(response) {
         $scope.$broadcast('onRegisterEnd');
         document.location.href = '/#';
@@ -15,11 +22,11 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
       return {
         register: function() {
           var data = {
-            email: $scope.email,
-            firstName: $scope.firstName,
-            lastName: $scope.lastName,
-            password: $scope.password,
-            passwordConfirmation: $scope.passwordConfirmation
+            email: this.email,
+            firstName: this.firstName,
+            lastName: this.lastName,
+            password: this.password,
+            passwordConfirmation: this.passwordConfirmation
           };
 
           $scope.$broadcast('onRegisterStart');
@@ -39,16 +46,7 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
               'Registrarse' +
             '</button>' +
           '</div>',
-        replace: true,
-        link: function(scope) {
-          scope.$on('onRegisterStart', function (event, args) {
-            scope.isRegistering = true;
-          });
-
-          scope.$on('onRegisterEnd', function (event, args) {
-            scope.isRegistering = false;
-          });
-        }
+        replace: true
       };
     });
 });
