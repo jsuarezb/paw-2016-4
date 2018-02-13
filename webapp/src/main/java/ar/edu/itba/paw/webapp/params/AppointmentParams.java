@@ -16,7 +16,10 @@ public class AppointmentParams {
     public int slotId;
 
     @XmlElement
-    public String startDate;
+    public Integer weekNumber;
+
+    @XmlElement
+    public Integer year;
 
     @XmlElement
     public String comment;

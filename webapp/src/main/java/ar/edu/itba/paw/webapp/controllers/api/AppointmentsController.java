@@ -45,9 +45,10 @@ public class AppointmentsController extends ApiController {
     @GET
     public Response listAvailableAppointmentsSlots(@QueryParam("speciality") int id,
                                                    @QueryParam("neighborhood") String neighborhood,
-                                                   @QueryParam("week-date") String day) {
+                                                   @QueryParam("week-number") Integer weekNumber,
+                                                   @QueryParam("year") Integer year){
         final List<Appointment> availableAppointmentsSlotsList = appointmentService
-                .getAvailableBySpecialityAndNeighborhood(specialityService.getById(id), neighborhood, LocalDateTime.parse(day));
+                .getAvailableBySpecialityAndNeighborhood(specialityService.getById(id), neighborhood, weekNumber, year);
         return Response.ok(new AppointmentsSlotsList(availableAppointmentsSlotsList)).build();
     }
 
@@ -89,7 +90,7 @@ public class AppointmentsController extends ApiController {
             return badRequest("AppointmentSlot does not exist");
 
         final Appointment appointment = appointmentService.create(patient, doctor, appointmentSlot,
-                LocalDateTime.parse(params.startDate), params.comment);
+                params.weekNumber, params.year, params.comment);
         if(appointment == null)
             return badRequest("");
         return ok(appointment);

@@ -58,13 +58,13 @@ public class AppointmentHibernateDao implements AppointmentDao {
     }
     @Transactional
     public boolean isDoctorAvailable(final Doctor doctor, final Integer weekNumber, final Integer year) {
-        final TypedQuery<Integer> query = em.createQuery(
+        final TypedQuery<Long> query = em.createQuery(
             "SELECT COUNT(*) " +
             "FROM Appointment AS app " +
               "JOIN app.slot.worksIn.doctor AS doctor " +
             "WHERE app.weekNumber = :week_number AND " +
                   "app.year = :year AND " +
-              "doctor.id = :doctor_id", Integer.class);
+              "doctor.id = :doctor_id", Long.class);
         query.setParameter("doctor_id", doctor.getId());
         query.setParameter("week_number", weekNumber);
         query.setParameter("year", year);
