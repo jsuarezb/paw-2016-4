@@ -1,9 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
-import ar.edu.itba.paw.models.Appointment;
-import ar.edu.itba.paw.models.AppointmentSlot;
-import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.models.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,6 +17,9 @@ public interface AppointmentDao {
 
     //FIXME
     List<Appointment> getAll();
+
+    List<Appointment> search(final Integer institution_id, final String neighborhood,
+                             final Integer speciality_id, final String firstName, final String lastName, final int page);
 
     /**
      * Check if the doctor has an appointment already at the given time.

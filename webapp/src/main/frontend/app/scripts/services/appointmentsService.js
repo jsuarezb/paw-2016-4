@@ -7,6 +7,10 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
         getAppointments: function() {
           return httpRequestBuilderService.buildHttpRequest('GET', 'appointments', null);
         },
+        searchAppointments: function(institution, speciality, neighborhood) {
+          return httpRequestBuilderService.buildHttpRequest('GET', 'appointments?speciality=' + speciality +
+            '&neighborhood=' + neighborhood + '&institution=' + institution);
+        },
         getAppointmentsPatient: function(patientId) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'appointments/patient/' + patientId, null);
         },

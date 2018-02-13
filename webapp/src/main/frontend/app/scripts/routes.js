@@ -40,6 +40,13 @@ define(['angularAMD'], function(angularAMD) {
           controllerUrl: 'controllers/AppointmentsCtrl'
         }),
         angularAMD.route({
+          url: '/appointments/search?speciality&neighborhood&institution',
+          name: 'appointmentSearch',
+          templateUrl: '/views/appointmentSearch.html',
+          controller: 'AppointmentSearchCtrl',
+          controllerUrl: 'controllers/AppointmentSearchCtrl'
+        }),
+        angularAMD.route({
           url: '/appointments/patient/:patientId',
           name: 'patientAppointments',
           templateUrl: '/views/patientAppointments.html',
