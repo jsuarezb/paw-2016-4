@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -23,12 +22,13 @@ public class AppointmentHibernateDao implements AppointmentDao {
 
     @Transactional
     public Appointment create(final Patient patient, final Doctor doctor,
-                              final AppointmentSlot appointmentSlot, final LocalDateTime startDate,
+                              final AppointmentSlot appointmentSlot,
+                              final Integer weekNumber, final Integer year,
                               final String comments) {
         final Appointment appointment = Appointment.builder()
                 .setPatient(patient)
                 .setSlot(appointmentSlot)
-                .setDate(startDate)
+                .setWeek(weekNumber, year)
                 .setComments(comments)
                 .build();
 
@@ -56,15 +56,17 @@ public class AppointmentHibernateDao implements AppointmentDao {
         return query.getResultList();
     }
     @Transactional
-    public boolean isDoctorAvailable(final Doctor doctor, final LocalDateTime date) {
+    public boolean isDoctorAvailable(final Doctor doctor, final Integer weekNumber, final Integer year) {
         final TypedQuery<Integer> query = em.createQuery(
             "SELECT COUNT(*) " +
             "FROM Appointment AS app " +
               "JOIN app.slot.worksIn.doctor AS doctor " +
-            "WHERE app.date = :start_date AND " +
+            "WHERE app.weekNumber = :week_number AND " +
+                  "app.year = :year AND " +
               "doctor.id = :doctor_id", Integer.class);
         query.setParameter("doctor_id", doctor.getId());
-        query.setParameter("start_date", date);
+        query.setParameter("week_number", weekNumber);
+        query.setParameter("year", year);
         return query.getSingleResult() == 0;
     }
 

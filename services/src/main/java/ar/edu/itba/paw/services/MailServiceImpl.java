@@ -13,6 +13,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Properties;
 
@@ -32,12 +33,13 @@ public class MailServiceImpl implements MailService {
     public void sendAppointmentConfirmationToDoctor(final Appointment appointment, final Doctor doctor,
                                                     final Patient patient) {
         final SimpleMailMessage msg = new SimpleMailMessage();
+        final LocalDateTime date = appointment.getDate();
         msg.setFrom("no-reply@chopidoturnos.com");
         msg.setSubject("Turno reservado.");
         msg.setTo(doctor.getEmail());
         msg.setText("El paciente " + String.format("%s, %s", patient.getLastName(), patient.getName())
-                + " reservó un turno para el día " + appointment.getDate().format(dateFmt)
-                + " a las " + appointment.getDate().format(timeFmt) + " hs"
+                + " reservó un turno para el día " + date.format(dateFmt)
+                + " a las " + date.format(timeFmt) + " hs"
         );
 
         try {
@@ -52,11 +54,12 @@ public class MailServiceImpl implements MailService {
                                                      final Doctor doctor,
                                                      final Patient patient) {
         final SimpleMailMessage msg = new SimpleMailMessage();
+        final LocalDateTime date = appointment.getDate();
         msg.setFrom("chopidoturnos@gamil.com");
         msg.setSubject("Turno reservado.");
         msg.setTo(patient.getEmail());
-        msg.setText("Usted reservó un turno para el día " + appointment.getDate().format(dateFmt)
-                + " a las " + appointment.getDate().format(timeFmt) + " hs"
+        msg.setText("Usted reservó un turno para el día " + date.format(dateFmt)
+                + " a las " + date.format(timeFmt) + " hs"
                 + String.format("%s, %s", doctor.getLastName(), doctor.getName())
         );
 
@@ -72,12 +75,13 @@ public class MailServiceImpl implements MailService {
                                                     final Doctor doctor,
                                                     final Patient patient) {
         final SimpleMailMessage msg = new SimpleMailMessage();
+        final LocalDateTime date = appointment.getDate();
         msg.setFrom("no-reply@chopidoturnos.com");
         msg.setSubject("Turno cancelado.");
         msg.setTo(doctor.getEmail());
         msg.setText("El paciente " + String.format("%s, %s", patient.getLastName(), patient.getName())
-                + " ha cancelado el turno para el día " + appointment.getDate().format(dateFmt)
-                + " a las " + appointment.getDate().format(timeFmt) + " hs"
+                + " ha cancelado el turno para el día " + date.format(dateFmt)
+                + " a las " + date.format(timeFmt) + " hs"
         );
 
         try {
@@ -92,11 +96,12 @@ public class MailServiceImpl implements MailService {
                                                      final Doctor doctor,
                                                      final Patient patient) {
         final SimpleMailMessage msg = new SimpleMailMessage();
+        final LocalDateTime date = appointment.getDate();
         msg.setFrom("chopidoturnos@gamil.com");
         msg.setSubject("Turno cancelado.");
         msg.setTo(patient.getEmail());
-        msg.setText("Usted canceló el turno del día " + appointment.getDate().format(dateFmt)
-                + " a las " + appointment.getDate().format(timeFmt) + " hs"
+        msg.setText("Usted canceló el turno del día " + date.format(dateFmt)
+                + " a las " + date.format(timeFmt) + " hs"
                 + String.format("%s, %s", doctor.getLastName(), doctor.getName())
         );
 

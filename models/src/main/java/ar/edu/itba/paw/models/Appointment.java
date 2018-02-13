@@ -2,10 +2,13 @@ package ar.edu.itba.paw.models;
 
 import ar.edu.itba.paw.models.builders.AppointmentBuilder;
 
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "appointments")
@@ -22,18 +25,22 @@ public class Appointment {
     @ManyToOne
     private AppointmentSlot slot;
 
-    @Column(nullable = false, name = "start_date")
-    private LocalDateTime date;
+    @Column(nullable = false, name = "week_number")
+    private Integer weekNumber;
+
+    @Column(nullable = false)
+    private Integer year;
 
     @Column(length = 250, nullable = false)
     private String comments;
 
     /* package */ Appointment(){ }
 
-    public Appointment(Patient patient, AppointmentSlot slot, LocalDateTime date, String comments) {
+    public Appointment(Patient patient, AppointmentSlot slot, Integer weekNumber, Integer year, String comments) {
         this.patient = patient;
         this.slot = slot;
-        this.date = date;
+        this.weekNumber = weekNumber;
+        this.year = year;
         this.comments = comments;
     }
 
@@ -52,8 +59,21 @@ public class Appointment {
     }
 
     @XmlAttribute
+    public Integer getWeekNumber() {
+        return weekNumber;
+    }
+
+    @XmlAttribute
+    public Integer getYear() {
+        return year;
+    }
+
     public LocalDateTime getDate() {
-        return date;
+        WeekFields weekFields = WeekFields.of(DayOfWeek.SUNDAY, 7);
+        return LocalDateTime.now()
+                            .withYear(year)
+                            .with(weekFields.weekOfYear(), weekNumber)
+                            .withHour(slot.getHour());
     }
 
     @XmlAttribute
@@ -86,7 +106,8 @@ public class Appointment {
         return "Appointment{" +
                 "id=" + id +
                 ", slot=" + slot +
-                ", date=" + date +
+                ", weekNumber=" + weekNumber +
+                ", year=" + year +
                 ", comments='" + comments + '\'' +
                 '}';
     }

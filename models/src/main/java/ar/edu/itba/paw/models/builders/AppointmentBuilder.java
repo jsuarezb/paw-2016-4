@@ -5,13 +5,16 @@ import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.models.errors.InvalidCreationOfPastAppointment;
 
-import java.time.LocalDateTime;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.WeekFields;
 
 public class AppointmentBuilder implements Builder<Appointment> {
 
     private Patient patient;
     private AppointmentSlot slot;
-    private LocalDateTime date;
+    private Integer weekNumber;
+    private Integer year;
     private String comments;
 
     public AppointmentBuilder setPatient(final Patient patient) {
@@ -24,8 +27,9 @@ public class AppointmentBuilder implements Builder<Appointment> {
         return this;
     }
 
-    public AppointmentBuilder setDate(final LocalDateTime date) {
-        this.date = date;
+    public AppointmentBuilder setWeek(final Integer weekNumber, final Integer year) {
+        this.weekNumber = weekNumber;
+        this.year = year;
         return this;
     }
 
@@ -36,9 +40,16 @@ public class AppointmentBuilder implements Builder<Appointment> {
 
     @Override
     public Appointment build() {
-        if (this.date.isBefore(LocalDateTime.now()))
+        LocalDate today = LocalDate.now();
+        WeekFields weekFields = WeekFields.of(DayOfWeek.SUNDAY, 7);
+        int currentWeekOfYear = today.get(weekFields.weekOfYear());
+        if (this.weekNumber < currentWeekOfYear) {
             throw new InvalidCreationOfPastAppointment();
+        }
+        if (this.weekNumber == currentWeekOfYear && this.slot.getDayOfWeek() <= today.getDayOfWeek().getValue()) {
+            throw new InvalidCreationOfPastAppointment();
+        }
 
-        return new Appointment(patient, slot, date, comments);
+        return new Appointment(patient, slot, weekNumber, year, comments);
     }
 }

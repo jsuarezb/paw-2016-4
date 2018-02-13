@@ -5,7 +5,6 @@ import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Speciality;
 import ar.edu.itba.paw.models.WorksIn;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AppointmentSlotDao {
@@ -25,7 +24,8 @@ public interface AppointmentSlotDao {
      * @return A list of available slots.
      */
     List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor,
-                                               final LocalDateTime week);
+                                               final Integer weekNumber,
+                                               final Integer year);
 
     /**
      * Get all the slots for a doctor in a single institution
@@ -36,16 +36,20 @@ public interface AppointmentSlotDao {
 
     List<AppointmentSlot> getAvailableByDoctorInInstitution(final int doctorId,
                                                             final int institutionId,
-                                                            final LocalDateTime weekStart);
+                                                            final Integer weekNumber,
+                                                            final Integer year);
 
     List<AppointmentSlot> getAvailableBySpecialityInInstitution(final int speciality_id,
                                                                 final int institution_id,
-                                                                final LocalDateTime week);
+                                                                final Integer weekNumber,
+                                                                final Integer year);
 
     List<AppointmentSlot> getAvailableBySpeciality(final int speciality_id,
-                                                   final LocalDateTime week);
+                                                   final Integer weekNumber,
+                                                   final Integer year);
 
     List<AppointmentSlot> getAvailableBySpecialityAndNeighborhood(final Speciality speciality,
                                                                   final String neiborhood,
-                                                                  final LocalDateTime weekStart);
+                                                                  final Integer weekNumber,
+                                                                  final Integer year);
 }
