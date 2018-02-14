@@ -18,8 +18,9 @@ public interface AppointmentDao {
     //FIXME
     List<Appointment> getAll();
 
-    List<Appointment> search(final Integer institution_id, final String neighborhood,
-                             final Integer speciality_id, final String firstName, final String lastName, final int page);
+    PagedResult<Appointment> search(final Integer institution_id, final String neighborhood,
+                                    final Integer speciality_id, final String firstName, final String lastName,
+                                    final int page);
 
     /**
      * Check if the doctor has an appointment already at the given time.
