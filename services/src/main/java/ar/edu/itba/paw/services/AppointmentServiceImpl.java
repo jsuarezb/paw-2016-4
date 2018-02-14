@@ -6,6 +6,7 @@ import ar.edu.itba.paw.persistence.AppointmentDao;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import sun.plugin.liveconnect.SecurityContextHelper;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;

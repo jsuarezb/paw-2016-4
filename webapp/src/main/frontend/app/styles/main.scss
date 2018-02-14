@@ -213,3 +213,17 @@ body {
   align-items: center;
   justify-content: center;
 }
+
+.week-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.week-navigation .week {
+  font-size: 1.3em;
+}
+
+.week-navigation .btn {
+  text-size: bold;
+}

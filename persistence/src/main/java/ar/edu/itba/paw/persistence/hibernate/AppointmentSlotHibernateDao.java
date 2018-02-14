@@ -44,7 +44,7 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                                                final String neighborhood, final String firstName, final String lastName,
                                                int page) {
         final StringBuilder baseQuery = new StringBuilder("FROM AppointmentSlot AS asl ")
-                .append("WHERE NOT EXISTS (SELECT ap.id FROM asl.appointments ap WHERE ap.id = 2) ")
+                .append("WHERE NOT EXISTS (SELECT ap.id FROM asl.appointments ap WHERE ap.id = 2) ") // TODO
                 .append("AND (:institution_id IS NULL OR asl.worksIn.institution.id = :institution_id) ")
                 .append("AND (:neighborhood IS NULL OR :neighborhood = '' OR asl.worksIn.institution.address.neighborhood = :neighborhood) ")
                 .append("AND (:speciality_id = -1 OR :speciality_id = ANY (SELECT spec.id FROM asl.worksIn.doctor.specialities AS spec)) ")

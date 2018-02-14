@@ -3,6 +3,7 @@ package ar.edu.itba.paw.webapp.dto;
 import ar.edu.itba.paw.models.Appointment;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.time.LocalDateTime;
 import java.util.Collections;
@@ -15,7 +16,7 @@ public class AppointmentDTO {
     @XmlElement
     private Integer id;
 
-    @XmlElement(required = false)
+    @XmlElement(nillable = true)
     private PatientDTO patient;
 
     @XmlElement

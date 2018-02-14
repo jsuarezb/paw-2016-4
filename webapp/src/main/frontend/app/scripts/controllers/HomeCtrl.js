@@ -26,14 +26,15 @@ define(['ChoPidoTurnos', 'services/specialitiesService', 'services/neighborhoods
         function(result) {
           console.log(result);
           $scope.neighborhoods = result.data;
-          $scope.selectedNeighborhoods = $scope.neighborhoods[0].id;
+          $scope.selectedNeighborhood = $scope.neighborhoods[0].name;
         }
       );
 
       $scope.searchAppointments = function() {
+      console.log($scope);
         $state.go('appointmentSearch', {
           speciality: $scope.selectedSpeciality,
-          neighborhood: $scope.selectedNeighborhoods,
+          neighborhood: $scope.selectedNeighborhood,
           institution: $scope.selectedInstitution
         });
       };

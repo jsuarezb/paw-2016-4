@@ -9,9 +9,11 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
         },
         getAppointmentsPatient: function() {
           return httpRequestBuilderService.buildHttpRequest('GET', 'appointments/patient', null);
-        searchAppointments: function(institution, speciality, neighborhood) {
+        },
+        searchAppointments: function(institution, speciality, neighborhood, weekOfYear, year, page) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'appointments?speciality=' + speciality +
-            '&neighborhood=' + neighborhood + '&institution=' + institution);
+            '&neighborhood=' + neighborhood + '&institution=' + institution + '&weekOfYear=' + weekOfYear +
+            '&year=' + year + '&page=' + page);
         },
         getAppointmentsPatient: function(patientId) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'appointments/patient/' + patientId, null);
