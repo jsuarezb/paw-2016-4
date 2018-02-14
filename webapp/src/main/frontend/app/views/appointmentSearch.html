@@ -1,33 +1,38 @@
 <div class="container">
   <h2>Turnos disponibles</h2>
   <div ng-show="appointmentsSearched && !emptyAppointments">
-    <h5>Encontramos estos turnos para vos.</h5>
-    <table class="table table-bordered">
-      <thead>
-      <th>Día</th>
-      <th>Fecha</th>
-      <th>Duración</th>
-      <th>Doctor</th>
-      <th>Acciones</th>
-      </thead>
-      <tbody>
-      <tr ng-repeat="appointment in appointments">
-        <td>{{ dayOfWeek(appointment.appointmentSlot) }}</td>
-        <td>{{ appointment.date | date: 'dd/MM/yyyy HH:mm' }}</td>
-        <td>1 hs</td>
-        <td>
-          <a ui-href="/doctors/{{ appointment.slot.worksIn.doctor.id }}">
-            Dr. {{ appointment.appointmentSlot.worksIn.doctor.first_name }}, {{ appointment.appointmentSlot.worksIn.doctor.last_name }}
-          </a>
-        </td>
-        <td>
-          <form ng-submit="bookAppointment(appointment)">
-            <button type="submit" class="btn btn-success">Reservar</button>
-          </form>
-        </td>
-      <tr>
-      </tbody>
-    </table>
+    <div ng-repeat="day in appointmentDays">
+      <h4 class="appointment-date">{{ dayOfWeek(day) }} - {{ day | date: 'dd/MM/yyyy' }}</h4>
+      <ul class="appointments-list">
+        <li ng-repeat="appointment in appointmentGroups[day]">
+          <div class="row">
+            <div class="col-xs-10 appointment-description">
+              <div class="row main-row">
+                <div class="appointment-doctor col-xs-10">
+                  Dr. {{ appointment.appointmentSlot.worksIn.doctor.first_name }} {{ appointment.appointmentSlot.worksIn.doctor.last_name }}
+                </div>
+                <div class="appointment-time col-xs-2">
+                  {{ appointment.date | date: 'HH:mm' }}
+                </div>
+              </div>
+              <div class="row detailed-row">
+                <div class="appointment-specialities col-xs-8">
+                  {{ appointment.appointmentSlot.worksIn.institution.name }}
+                </div>
+                <div class="appointment-institution col-xs-4">
+                  <!--{{ appointment.appointmentSlot.doctor.specialities. }}-->
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-2 appointment-actions">
+              <form ng-submit="bookAppointment(appointment)">
+                <button type="submit" class="btn btn-success">Reservar</button>
+              </form>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
   <p ng-show="appointmentsSearched && emptyAppointments">No hay turnos disponibles</p>
   <nav>
