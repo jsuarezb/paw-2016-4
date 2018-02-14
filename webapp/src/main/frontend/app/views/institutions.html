@@ -8,7 +8,7 @@
         </div>
         <div class="panel-body">
           <p class="lead">
-            <a href="#/institutions/{{i.id}}">
+            <a ui-sref="institution({institutionId:'{{i.id}}'})">
               {{i.name}}
             </a>
           </p>
@@ -19,7 +19,7 @@
             {{i.address.country}}
           </p>
           <div class="text-center">
-            <a href="#/institutions/{{i.id}}/specialities"
+            <a ui-sref="institutionSpecialities({institutionId:'{{i.id}}'})"
                class="btn btn-primary">
               Ver especialidades
             </a>

@@ -14,7 +14,7 @@
     <tbody>
       <tr ng-repeat="d in ctrl.doctors">
         <td>
-          <a href="<c:url value='/doctors/${doctor.id}'/>">
+          <a ui-sref="doctor({doctorId:'{{d.id}}'})">
             Dr. {{d.first_name}} {{d.last_name}}
           </a>
         </td>

@@ -1,9 +1,9 @@
 'use strict';
 define(['ChoPidoTurnos', 'services/InstitutionsService'], function(ChoPidoTurnos) {
 
-  ChoPidoTurnos.controller('InstitutionDetailCtrl', ['InstitutionsService', '$routeParams', function (institutionsService, $routeParams) {
+  ChoPidoTurnos.controller('InstitutionDetailCtrl', ['InstitutionsService', '$stateParams', function (institutionsService, $stateParams) {
     var _this = this;
-    this.params = $routeParams;
+    this.params = $stateParams;
 
     institutionsService.getInstitution(this.params.institutionId).then(
       function(result){

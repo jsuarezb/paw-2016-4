@@ -1,9 +1,8 @@
 'use strict';
 define(['ChoPidoTurnos', 'services/DoctorsService'], function(ChoPidoTurnos) {
 
-  ChoPidoTurnos.controller('DoctorsCtrl', ['DoctorsService', '$routeParams', function(doctorsService, $routeParams) {
+  ChoPidoTurnos.controller('DoctorsCtrl', ['DoctorsService', function(doctorsService) {
     var _this = this;
-    this.params = $routeParams;
 
     doctorsService.getDoctors().then(
       function(result) {

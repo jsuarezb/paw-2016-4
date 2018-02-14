@@ -9,7 +9,7 @@
         <h3><li>{{s.name}}</li></h3>
       </ul>
       <ul class="list-inline" ng-repeat="i in ctrl.doctor.institutions">
-        <li><a href="#/institutions/{{i.id}}">{{i.name}}</a></li>
+        <li><a ui-sref="institution({institutionId:'{{i.id}}'})">{{i.name}}</a></li>
       </ul>
       <p>{{ctrl.doctor.email}}</p>
     </div>

@@ -1,4 +1,4 @@
-<div class="row container" ng-controller="InstitutionDetailCtrl as ctrl">
+<div class="container" ng-controller="InstitutionDetailCtrl as ctrl">
   <div class="col-md-7">
     <div class="panel panel-primary">
       <div class="panel-heading">
@@ -12,16 +12,13 @@
           {{ctrl.institution.address.neighborhood}} {{ctrl.institution.address.city}} - {{ctrl.institution.address.state}},
           {{ctrl.institution.address.country}}
         </address>
-        <a class="btn btn-default"
-           href="#/institutions/{{ctrl.institution.id}}/doctors">
+        <a ui-sref="institutionDoctors({institutionId:ctrl.institution.id})" class="btn btn-primary">
           Ver doctores
         </a>
-        <a class="btn btn-default"
-           href="#/institutions/{{ctrl.institution.id}}/specialities">
+        <a ui-sref="institutionSpecialities({institutionId:ctrl.institution.id})" class="btn btn-primary">
           Ver especialidades
         </a>
       </div>
     </div>
   </div>
-
 </div>
