@@ -2,15 +2,30 @@
 
 define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
-    .controller('LoginCtrl', ['$scope', 'sessionService', function ($scope, sessionService) {
+    .controller('LoginCtrl', ['$scope', '$state', '$window', 'sessionService', function ($scope, $state, $window, sessionService) {
       $scope.type = 'patient';
+
       var successLogin = function(response) {
         $scope.$broadcast('onLogInEnd');
-        document.location.href = '/#';
+
+        $window.location.reload();
+        $state.go('home');
       };
 
       var errorLogin = function(response) {
         $scope.$broadcast('onLogInEnd');
+
+        switch (response.status) {
+          case 401:
+            $scope.loginError = 'Usuario o contraseña incorrectos';
+            break;
+          case 500:
+            $scope.loginError = 'Error del servidor. Ya fuimos notificados del error y en breve lo solucionaremos.';
+            break;
+          default:
+            $scope.loginError = 'Error de la aplicación. Ya fuimos notificados del error y en breve lo solucionaremos.';
+            break;
+        }
       };
 
       return {
@@ -21,6 +36,7 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
             type: $scope.type
           };
 
+          $scope.loginError = null;
           $scope.$broadcast('onLogInStart');
           sessionService.login(data, successLogin, errorLogin);
         }
