@@ -15,7 +15,7 @@ public class AppointmentDTO {
     @XmlElement
     private Integer id;
 
-    @XmlElement
+    @XmlElement(required = false)
     private PatientDTO patient;
 
     @XmlElement

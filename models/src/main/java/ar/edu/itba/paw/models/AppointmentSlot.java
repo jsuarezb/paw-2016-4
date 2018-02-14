@@ -3,6 +3,7 @@ package ar.edu.itba.paw.models;
 import ar.edu.itba.paw.models.builders.AppointmentSlotBuilder;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "appointment_slots")
@@ -22,6 +23,9 @@ public class AppointmentSlot {
 
     @Column(nullable = false)
     private Integer hour;
+
+    @OneToMany(mappedBy = "slot", fetch = FetchType.LAZY)
+    private Set<Appointment> appointments;
 
     /* package */ AppointmentSlot(){ }
 

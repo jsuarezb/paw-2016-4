@@ -1,9 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
-import ar.edu.itba.paw.models.AppointmentSlot;
-import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Speciality;
-import ar.edu.itba.paw.models.WorksIn;
+import ar.edu.itba.paw.models.*;
 
 import java.util.List;
 
@@ -14,6 +11,11 @@ public interface AppointmentSlotDao {
                            final int startHour);
 
     AppointmentSlot getById(final int id);
+
+    PagedResult<AppointmentSlot> search(final Integer weekNumber, final Integer year,
+                                        final Integer institutionId, final Integer specialityId,
+                                        final String neighborhood, final String firstName, final String lastName,
+                                        final int page);
 
     List<AppointmentSlot> getByDoctor(final Doctor doctor);
 
