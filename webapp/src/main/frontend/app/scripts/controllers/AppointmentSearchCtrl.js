@@ -10,8 +10,13 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
       var neighborhood = $stateParams.neighborhood || '';
 
       appointmentService.searchAppointments(institution, speciality, neighborhood).then(function (data) {
+        var page = data.data;
+
         $scope.appointmentsSearched = true;
-        $scope.appointments = data.data;
+        $scope.appointments = page.results;
+        $scope.emptyAppointments = page.results.length === 0;
+        $scope.hasPreviousPage = page.page > 0;
+        $scope.hasNextPage = Math.floor(page.total / page.pageSize) > page.page;
         console.log(data.data);
       });
 
@@ -24,11 +29,12 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
           case 5: return 'Viernes';
           case 6: return 'Sabado';
           case 7: return 'Domingo';
+          default: return '-';
         }
-      }
+      };
 
       $scope.bookAppointment = function(appointment) {
         console.log(appointment);
-      }
+      };
   }]);
 });

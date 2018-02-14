@@ -4,18 +4,14 @@ import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.PatientService;
 import ar.edu.itba.paw.services.SpecialityService;
-import ar.edu.itba.paw.webapp.auth.LoggedUserFinder;
 import ar.edu.itba.paw.webapp.dto.AppointmentDTO;
-import ar.edu.itba.paw.webapp.dto.AppointmentSlotDTO;
-import ar.edu.itba.paw.webapp.filters.StatelessAuthenticationFilter;
-import ar.edu.itba.paw.webapp.forms.AppointmentForm;
+import ar.edu.itba.paw.webapp.dto.PagedResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,12 +39,18 @@ public class AppointmentsController extends ApiController {
                                                    @QueryParam("firstName") String firstName,
                                                    @QueryParam("lastName") String lastName,
                                                    @DefaultValue("0") @QueryParam("page") int page) {
-        final List<Appointment> appointments =
+        final PagedResult<Appointment> pageResult =
                 appointmentService.search(institution_id, neighborhood, speciality_id, firstName, lastName, page);
-        final GenericEntity<List<AppointmentDTO>> list =
-                new GenericEntity<List<AppointmentDTO>>(AppointmentDTO.fromList(appointments)){};
+        final List<AppointmentDTO> appointments =
+                pageResult.getResults().stream().map(AppointmentDTO::new).collect(Collectors.toList());
 
-        return Response.ok(list).build();
+        final PagedResultDTO<AppointmentDTO> pagedResultDTO = new PagedResultDTO<>(appointments, pageResult.getPage(),
+                pageResult.getPageSize(), pageResult.getTotal());
+
+        final GenericEntity<PagedResultDTO<AppointmentDTO>> entity =
+                new GenericEntity<PagedResultDTO<AppointmentDTO>>(pagedResultDTO){};
+
+        return Response.ok(entity).build();
     }
 
     @GET
