@@ -155,6 +155,20 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     }
 
+    @Override
+    public List<Appointment> getIncomingAppointments(final Doctor doctor) {
+        final LocalDateTime now = LocalDateTime.now();
+
+        return appointmentDao.getIncomingAppointments(doctor, now);
+    }
+
+    @Override
+    public List<Appointment> getPastAppointments(Doctor doctor) {
+        final LocalDateTime now = LocalDateTime.now();
+
+        return appointmentDao.getPastAppointments(doctor, now);
+    }
+
     public boolean cancel(final int appointmentId) {
         final Appointment appointment = appointmentDao.getByid(appointmentId);
         LocalDateTime now = LocalDateTime.now();

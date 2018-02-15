@@ -5,6 +5,9 @@ define(['ChoPidoTurnos', 'services/sessionService'], function(ChoPidoTurnos) {
       getLoggedUser: function() {
         return sessionService.getLoggedUser();
       },
+      getUserType: function () {
+        return sessionService.getUserType();
+      },
       logout: function() {
         sessionService.logout();
         $state.go('home');

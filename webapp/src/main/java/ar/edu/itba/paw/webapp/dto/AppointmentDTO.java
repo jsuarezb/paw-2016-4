@@ -37,7 +37,8 @@ public class AppointmentDTO {
                 .withYear(appointment.getYear())
                 .with(ChronoField.ALIGNED_WEEK_OF_YEAR, appointment.getWeekNumber())
                 .with(ChronoField.DAY_OF_WEEK, appointment.getSlot().getDayOfWeek())
-                .withHour(appointment.getSlot().getHour());
+                .withHour(appointment.getSlot().getHour())
+                .withMinute(0).withSecond(0).withNano(0);
 
         this.comments = appointment.getComments();
     }

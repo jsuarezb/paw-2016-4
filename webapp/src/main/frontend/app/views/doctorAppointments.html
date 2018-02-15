@@ -1,0 +1,27 @@
+<div class="container" ng-controller="DoctorAppointmentsCtrl as $ctrl">
+  <h1>Mis Turnos</h1>
+  <div class="row">
+    <div class="future-appointments col-xs-6">
+      <h3>Próximos Turnos</h3>
+      <ul class="list-group" ng-show="futureAppointmentsFetched && futureAppointments.length > 0">
+        <li class="list-group-item" ng-repeat="appointment in futureAppointments">
+          <doctor-appointment appointment="appointment"></doctor-appointment>
+        </li>
+      </ul>
+      <div ng-show="futureAppointmentsFetched && futureAppointments.length === 0">
+        No hay turnos.
+      </div>
+    </div>
+    <div class="past-appointments col-xs-6">
+      <h3>Turnos Anteriores</h3>
+      <ul class="list-group" ng-show="pastAppointmentsFetched && pastAppointments.length > 0">
+        <li class="list-group-item appointment-item" ng-repeat="appointment in pastAppointments">
+          <doctor-appointment appointment="appointment"></doctor-appointment>
+        </li>
+      </ul>
+      <div ng-show="pastAppointmentsFetched && pastAppointments.length === 0">
+        No hay turnos.
+      </div>
+    </div>
+  </div>
+</div>

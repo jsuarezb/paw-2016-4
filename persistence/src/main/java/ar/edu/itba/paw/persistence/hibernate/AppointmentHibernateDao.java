@@ -1,6 +1,9 @@
 package ar.edu.itba.paw.persistence.hibernate;
 
-import ar.edu.itba.paw.models.*;
+import ar.edu.itba.paw.models.Appointment;
+import ar.edu.itba.paw.models.AppointmentSlot;
+import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.persistence.AppointmentDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -10,9 +13,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.time.LocalDateTime;
-import java.util.HashMap;
+import java.time.temporal.ChronoField;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public class AppointmentHibernateDao implements AppointmentDao {
@@ -83,5 +85,42 @@ public class AppointmentHibernateDao implements AppointmentDao {
         final TypedQuery<Appointment> query = em.createQuery("FROM Appointment AS a WHERE a.id = :id", Appointment.class);
         query.setParameter("id", appointmentId);
         return query.getSingleResult();
+    }
+
+    @Override
+    public List<Appointment> getIncomingAppointments(final Doctor doctor, final LocalDateTime now) {
+        final Integer year = now.getYear();
+        final Integer weekNumber = now.get(ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR);
+
+        final String query = "SELECT ap FROM Appointment AS ap " +
+                "WHERE ap.slot.worksIn.doctor.id = :doctor_id " +
+                "AND ap.weekNumber >= :week_number AND ap.year >= :year " +
+                "ORDER BY ap.year ASC, ap.weekNumber ASC, ap.slot.dayOfWeek ASC, ap.slot.hour ASC";
+
+        final TypedQuery<Appointment> typedQuery = em.createQuery(query, Appointment.class);
+        typedQuery.setParameter("week_number", weekNumber);
+        typedQuery.setParameter("year", year);
+        typedQuery.setParameter("doctor_id", doctor.getId());
+
+        return typedQuery.getResultList();
+    }
+
+    @Override
+    public List<Appointment> getPastAppointments(Doctor doctor, LocalDateTime now) {
+        final Integer year = now.getYear();
+        final Integer weekNumber = now.get(ChronoField.ALIGNED_DAY_OF_WEEK_IN_YEAR);
+
+        final String query = "SELECT ap FROM Appointment AS ap " +
+                "WHERE ap.slot.worksIn.doctor.id = :doctor_id " +
+                "AND ap.year < :year OR (ap.year = :year AND ap.weekNumber < :week_number) " +
+                "ORDER BY ap.year DESC, ap.weekNumber DESC, ap.slot.dayOfWeek DESC, ap.slot.hour DESC";
+
+        final TypedQuery<Appointment> typedQuery = em.createQuery(query, Appointment.class);
+        typedQuery.setParameter("week_number", weekNumber);
+        typedQuery.setParameter("year", year);
+        typedQuery.setParameter("doctor_id", doctor.getId());
+
+        return typedQuery.getResultList();
+
     }
 }

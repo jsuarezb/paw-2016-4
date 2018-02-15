@@ -227,3 +227,43 @@ body {
 .week-navigation .btn {
   text-size: bold;
 }
+
+.appointment-item {
+  margin: 5px 0;
+}
+
+.appointment {
+  .appointment-date {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.5em;
+  }
+
+  .appointment-details {
+    margin-top: 10px;
+
+    .appointment-institution {
+      text-align: right;
+      font-size: 1.5em;
+    }
+  }
+
+  .appointment-actions {
+    margin-top: 10px;
+    text-align: right;
+  }
+}
+
+.appointment .appointment-patient {
+  display: flex;
+  flex-direction: column;
+
+  .appointment-patient-name {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+
+  .appointment-patient-email {
+    font-size: 1.5em;
+  }
+}

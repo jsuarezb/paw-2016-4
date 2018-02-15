@@ -51,4 +51,8 @@ public interface AppointmentService {
                                                               final String neiborhood,
                                                               final Integer weekNumber,
                                                               final Integer year);
+
+    List<Appointment> getIncomingAppointments(Doctor doctor);
+
+    List<Appointment> getPastAppointments(Doctor doctor);
 }

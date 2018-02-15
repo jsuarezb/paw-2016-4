@@ -4,6 +4,8 @@ import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Patient;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AppointmentDao {
@@ -35,4 +37,8 @@ public interface AppointmentDao {
     boolean delete(final int appointmentId);
 
     Appointment getByid(final int appointmentId);
+
+    List<Appointment> getIncomingAppointments(Doctor doctor, LocalDateTime now);
+
+    List<Appointment> getPastAppointments(Doctor doctor, LocalDateTime now);
 }

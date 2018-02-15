@@ -41,7 +41,7 @@
             {{ $ctrl.getLoggedUser().email }}&nbsp;
           </a>
           <ul class="dropdown-menu">
-            <li><a class="font-weight-light" ui-sref="#/appointments/patient">Mis turnos</a></li>
+            <li><a class="font-weight-light" ui-sref="{{ $ctrl.getUserType() }}Appointments">Mis turnos</a></li>
             <li><a class="font-weight-light" href="#" ng-click="$ctrl.logout()">Cerrar sesión</a></li>
           </ul>
         </li>
