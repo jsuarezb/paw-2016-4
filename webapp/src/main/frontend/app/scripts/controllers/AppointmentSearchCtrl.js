@@ -55,11 +55,11 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
         d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
         // Set to nearest Thursday: current date + 4 - current day number
         // Make Sunday's day number 7
-        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay() || 7));
         // Get first day of year
-        var yearStart = new Date(Date.UTC(d.getUTCFullYear(),0,1));
+        var yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
         // Calculate full weeks to nearest Thursday
-        var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7);
+        var weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
         // Return array of year and week number
         return weekNo;
       };
@@ -109,12 +109,12 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
       $scope.prevPage = function () {
         if ($scope.pageNumber === 0) {
           $scope.searchDateWeek.setDate($scope.searchDateWeek.getDate() - 7);
-          $scope.pageNumber = 0
+          $scope.pageNumber = 0;
         } else {
           $scope.pageNumber--;
         }
 
-        searchAppointments()
+        searchAppointments();
       };
 
       $scope.nextPage = function () {
@@ -122,12 +122,12 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
 
         if (endOfWeek) {
           $scope.searchDateWeek.setDate($scope.searchDateWeek.getDate() + 7);
-          $scope.pageNumber = 0
+          $scope.pageNumber = 0;
         } else {
           $scope.pageNumber++;
         }
 
-        searchAppointments()
+        searchAppointments();
       };
   }]);
 });
