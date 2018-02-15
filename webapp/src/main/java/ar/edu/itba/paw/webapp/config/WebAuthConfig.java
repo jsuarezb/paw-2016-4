@@ -33,28 +33,14 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
-                .authorizeRequests()
-                .antMatchers("/api/v1/login").permitAll()
-                .antMatchers("/api/v1/users").permitAll()
-                .antMatchers("/api/v1/specialities").permitAll()
-                .antMatchers("/api/v1/neighborhoods").permitAll()
-                .antMatchers("/api/v1/users").permitAll()
-                .antMatchers("/api/v1/appointments/patients/**").permitAll()
-                .antMatchers("/api/v1/institutions/**/specialities").permitAll()
-                .antMatchers("/api/v1/institutions/**/doctors").permitAll()
-                .antMatchers("/api/v1/**").permitAll()
-                .antMatchers("/api/v1/users/me").authenticated()
-                .antMatchers("/favicon.ico").permitAll()
-                .antMatchers("**/*.html").permitAll()
-                .antMatchers("**/*.css").permitAll()
-                .antMatchers("**/*.js").permitAll()
-                .anyRequest().authenticated().and()
-                .addFilterBefore(new StatelessAuthenticationFilter(doctorService, patientService),
-                                 UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling().and()
-                .anonymous().and()
-                .servletApi().and()
-                .headers().cacheControl();
+            .authorizeRequests()
+            .anyRequest().permitAll().and()
+            .addFilterBefore(new StatelessAuthenticationFilter(doctorService, patientService),
+                                UsernamePasswordAuthenticationFilter.class)
+            .exceptionHandling().and()
+            .anonymous().and()
+            .servletApi().and()
+            .headers().cacheControl();
     }
 
     @Bean(name = "authenticationManager")
