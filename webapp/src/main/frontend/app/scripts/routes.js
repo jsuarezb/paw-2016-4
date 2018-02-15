@@ -19,7 +19,7 @@ define(['angularAMD'], function(angularAMD) {
           controllerUrl: 'controllers/InstitutionsCtrl'
         }),
         angularAMD.route({
-          url: '/doctors',
+          url: '/doctors?firstName&lastName',
           name: 'doctors',
           templateUrl: 'views/doctors.html',
           controller: 'DoctorsCtrl',

@@ -4,8 +4,9 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
     'httpRequestBuilderService',
     function (httpRequestBuilderService) {
       return {
-        getDoctors: function() {
-         return httpRequestBuilderService.buildHttpRequest('GET', 'doctors', null);
+        getDoctors: function(firstName, lastName) {
+         return httpRequestBuilderService
+            .buildHttpRequest('GET', 'doctors?first_name=' + firstName + '&last_name=' + lastName, null);
         },
         getDoctor: function(doctorId) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'doctors/' + doctorId, null);

@@ -15,11 +15,13 @@
                 ng-model="selectedNeighborhood"
                 ng-options="neighborhood.name as neighborhood.name for neighborhood in neighborhoods">
         </select>
-        <select class="search-filters form-control form-control-filter input-lg col"
-                ng-model="selectedInstitution"
-                ng-options="institution.id as institution.name for institution in institutions">
-        </select>
         <button class="btn btn-success search-filters home-search-button col" type="submit">Buscar</button>
+    </form>
+    <div class="search-doctor-label">O buscá un profesional:</div>
+    <form class="doctor-name-search form-inline" ng-submit="searchDoctors()">
+      <input type="text" class="form-control input-lg" id="first-name" placeholder="Nombre" ng-model="firstName">
+      <input type="text" class="form-control input-lg" id="last-name" placeholder="Apellido" ng-model="lastName">
+      <button class="btn btn-info search-filters home-search-button col" type="submit">Buscar</button>
     </form>
   </div>
 </div>

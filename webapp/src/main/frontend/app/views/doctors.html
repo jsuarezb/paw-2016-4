@@ -1,5 +1,38 @@
 <div class="container" ng-controller="DoctorsCtrl as ctrl">
   <h1>Doctores</h1>
-  <p>{{ctrl.doctors}}<p/>
+  <h2>Doctores que coinciden con <span class="doctor-search-params">{{ firstName }} {{ lastName}}</span></h2>
+  <table class="table table-bordered">
+    <thead>
+    <tr>
+      <th>Doctor</th>
+      <th>Especialidad</th>
+      <th>Correo Electronico</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="d in ctrl.doctors">
+      <td>
+        <a ui-sref="doctor({doctorId:'{{d.id}}'})">
+          Dr. {{d.first_name}} {{d.last_name}}
+        </a>
+      </td>
+      <td>
+        <ul class="list-inline" ng-repeat="s in d.specialities">
+          <li>{{s.name}}</li>
+        </ul>
+      </td>
+      <td>{{d.email}}</td>
+      <td>
+        <a class="btn btn-success"
+           href="#"
+           ui-sref="appointmentSearch({institution: ctrl.institution.id, doctor: d.id})">
+          Pedir turno
+        </a>
+      </td>
+    </tr>
+    </a>
+    </tbody>
+  </table>
 </div>
 

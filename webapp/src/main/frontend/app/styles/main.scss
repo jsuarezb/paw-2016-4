@@ -112,7 +112,7 @@ body {
   padding-left: 0 !important;
 }
 .landing-section{
-  height: 600px;
+  height: 700px;
   width: 100%;
 }
 .section-uplightpadding{
@@ -266,4 +266,25 @@ body {
   .appointment-patient-email {
     font-size: 1.5em;
   }
+}
+
+.search-doctor-label {
+  color: white;
+  font-size: 1.5em;
+  margin-top: 75px;
+}
+
+.doctor-name-search {
+  display: flex;
+  width: 75%;
+  margin: auto;
+
+  input {
+    margin: 0 5px;
+    flex-grow: 1;
+  }
+}
+
+.doctor-search-params {
+  font-weight: bold;
 }

@@ -31,11 +31,17 @@ define(['ChoPidoTurnos', 'services/specialitiesService', 'services/neighborhoods
       );
 
       $scope.searchAppointments = function() {
-      console.log($scope);
         $state.go('appointmentSearch', {
           speciality: $scope.selectedSpeciality,
           neighborhood: $scope.selectedNeighborhood,
           institution: $scope.selectedInstitution
+        });
+      };
+
+      $scope.searchDoctors = function() {
+        $state.go('doctors', {
+          firstName: $scope.firstName,
+          lastName: $scope.lastName
         });
       };
     }
