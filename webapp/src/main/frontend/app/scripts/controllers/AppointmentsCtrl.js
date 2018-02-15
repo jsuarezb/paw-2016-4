@@ -1,14 +1,14 @@
 'use strict';
-define(['ChoPidoTurnos', 'services/AppointmentsService'], function(ChoPidoTurnos) {
+define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos) {
 
-  ChoPidoTurnos.controller('AppointmentsCtrl', ['AppointmentsService', function(appointmentsService) {
+  ChoPidoTurnos.controller('AppointmentsCtrl', ['appointmentsService', function(appointmentsService) {
     var _this = this;
 
-      appointmentsService.getAppointmentsPatient().then(
-        function (result) {
-          console.log(result);
-            _this.patientAppointment = result.data;
-        }
-      );
+    appointmentsService.getAppointmentsPatient().then(
+      function (result) {
+        console.log(result);
+          _this.patientAppointment = result.data;
+      }
+    );
   }]);
 });

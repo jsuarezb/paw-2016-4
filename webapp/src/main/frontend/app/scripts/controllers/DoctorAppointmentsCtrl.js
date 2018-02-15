@@ -47,7 +47,7 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
           restrict: 'E',
           replace: true,
           scope: {
-            appointment: '=',
+            appointment: '='
           },
           templateUrl: 'views/doctorAppointment.html',
           link: function (scope, elm, attrs) {
@@ -62,8 +62,8 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
                   if (response.status < 400) {
                     scope.isDeleted = true;
                   }
-                })
-            }
+                });
+            };
           }
         };
       }]

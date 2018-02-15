@@ -10,4 +10,5 @@ public interface Loggable {
     public String type();
     public String getPassword();
     public String getEmail();
+    public Integer getId();
 }
