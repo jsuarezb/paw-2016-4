@@ -1,4 +1,4 @@
-<div class="title container" ng-controller="DoctorsCtrl as ctrl">
+<div class="title container" ng-app="ChoPidoTurnos" ng-controller="DoctorDetailCtrl as ctrl">
   <h1>Perfil del Doctor</h1>
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -9,7 +9,7 @@
         <h3><li>{{s.name}}</li></h3>
       </ul>
       <ul class="list-inline" ng-repeat="i in ctrl.doctor.institutions">
-        <li>{{i.name}}</li>
+        <li><a ui-sref="institution({institutionId:'{{i.id}}'})">{{i.name}}</a></li>
       </ul>
       <p>{{ctrl.doctor.email}}</p>
     </div>

@@ -68,8 +68,8 @@ public class AppointmenSlotServiceImplTest {
 
     @Test
     public void testGetAvailableByDoctor() {
-        when(slotDao.getAvailableByDoctor(eq(doctor), any(LocalDateTime.class))).thenReturn(slots);
+        when(slotDao.getAvailableByDoctor(eq(doctor), anyInt(), anyInt())).thenReturn(slots);
 
-        assertEquals(slots, service.getAvailableByDoctor(doctor, LocalDateTime.now()));
+        assertEquals(slots, service.getAvailableByDoctor(doctor, 2, 2017));
     }
 }

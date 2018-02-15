@@ -34,6 +34,6 @@ public class AppointmentSlotBuilder implements Builder<AppointmentSlot> {
         if (dayOfWeek < 0 || dayOfWeek > 6)
             throw new InvalidDayOfWeekException();
 
-        return null;
+        return new AppointmentSlot(dayOfWeek, hour, worksIn);
     }
 }

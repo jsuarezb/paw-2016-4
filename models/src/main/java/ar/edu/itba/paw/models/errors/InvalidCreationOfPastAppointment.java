@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.models.errors;
 
 public class InvalidCreationOfPastAppointment extends IllegalStateException {
+    public static final long serialVersionUID = 1L;
     public InvalidCreationOfPastAppointment() {
         super();
     }

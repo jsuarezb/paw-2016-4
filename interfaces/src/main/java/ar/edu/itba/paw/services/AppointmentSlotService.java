@@ -4,7 +4,6 @@ import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.WorksIn;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface AppointmentSlotService {
@@ -17,6 +16,6 @@ public interface AppointmentSlotService {
 
     List<AppointmentSlot> getByDoctor(final Doctor doctor);
 
-    List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor, final LocalDateTime week);
+    List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor, final Integer weekNumber, final Integer year);
 
 }

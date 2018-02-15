@@ -7,10 +7,12 @@ import ar.edu.itba.paw.services.SpecialityService;
 import ar.edu.itba.paw.webapp.dto.AppointmentDTO;
 import ar.edu.itba.paw.webapp.dto.PagedResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,6 +33,12 @@ public class AppointmentsController extends ApiController {
 
     @Autowired
     private PatientService patientService;
+
+    @Autowired
+    AppointmentSlotService appointmentSlotService;
+
+    @Autowired
+    DoctorService doctorService;
 
     @GET
     public Response listAvailableAppointmentsSlots(@QueryParam("speciality") Integer speciality_id,
@@ -54,9 +62,9 @@ public class AppointmentsController extends ApiController {
     }
 
     @GET
-    @Path("/patient/{id}")
-    public Response patientAponitments(@PathParam("id") final int id) {
-        final Patient patient = patientService.get(id);
+    @Path("/patient")//{id}")
+    public Response patientAponitments() {//@PathParam("id") final int id) {
+        final Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (patient != null) {
             final List<Appointment> patientAppointments = appointmentService.getByPatient(patient);
             System.out.println(patientAppointments);
@@ -78,5 +86,22 @@ public class AppointmentsController extends ApiController {
             return notFound();
         else
             return ok(id);
+    }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response create(final AppointmentParams params){
+
+        final Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final Doctor doctor = doctorService.get(params.doctorId);
+        final AppointmentSlot appointmentSlot = appointmentSlotService.getById(params.slotId);
+        if(appointmentSlot == null)
+            return badRequest("AppointmentSlot does not exist");
+
+        final Appointment appointment = appointmentService.create(patient, doctor, appointmentSlot,
+                params.weekNumber, params.year, params.comment);
+        if(appointment == null)
+            return badRequest("");
+        return ok(appointment);
     }
 }

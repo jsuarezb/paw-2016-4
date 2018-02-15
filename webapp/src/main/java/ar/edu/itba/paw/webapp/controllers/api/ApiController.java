@@ -63,4 +63,5 @@ public class ApiController {
     Response forbidden(final String msg) {
         return Response.status(Response.Status.FORBIDDEN).entity(new ErrorDTO(msg)).build();
     }
+
 }

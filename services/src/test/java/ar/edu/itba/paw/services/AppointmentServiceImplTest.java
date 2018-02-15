@@ -9,8 +9,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.*;
@@ -37,7 +39,7 @@ public class AppointmentServiceImplTest {
 
     private LocalDateTime dateTime = LocalDateTime.of(2017, 10, 10, 2, 3);
 
-    private Appointment appointment = new Appointment(patient, appoinmentSlot, dateTime, "");
+    private Appointment appointment = new Appointment(patient, appoinmentSlot, 3, 2018, "");
 
     private List<Appointment> appointments = Collections.singletonList(appointment);
 
@@ -64,19 +66,19 @@ public class AppointmentServiceImplTest {
 
     @Test
     public void testCreateWithUnavailableDoctor() {
-        when(appointmentDao.isDoctorAvailable(eq(doctor), any(LocalDateTime.class))).thenReturn(false);
+        when(appointmentDao.isDoctorAvailable(eq(doctor), anyInt(), anyInt())).thenReturn(false);
 
-        final Appointment appointment = service.create(patient, doctor, appoinmentSlot, dateTime, "");
+        final Appointment appointment = service.create(patient, doctor, appoinmentSlot, 3, 2018, "");
         assertNull(appointment);
     }
 
 
     @Test
     public void testCreateWithAvailableDoctor() {
-        when(appointmentDao.isDoctorAvailable(eq(doctor), any(LocalDateTime.class))).thenReturn(true);
-        when(appointmentDao.create(any(), any(), any(), any(), any())).thenReturn(appointment);
+        when(appointmentDao.isDoctorAvailable(eq(doctor), anyInt(), anyInt())).thenReturn(true);
+        when(appointmentDao.create(any(), any(), any(), anyInt(), anyInt(), any())).thenReturn(appointment);
 
-        final Appointment appointment = service.create(patient, doctor, appoinmentSlot, dateTime, "");
+        final Appointment appointment = service.create(patient, doctor, appoinmentSlot, 4, 2017, "");
         assertNotNull(appointment);
     }
 
@@ -96,16 +98,16 @@ public class AppointmentServiceImplTest {
 
     @Test
     public void testGetAvailableByDoctor() {
-        when(slotDao.getAvailableByDoctor(any(Doctor.class), any(LocalDateTime.class))).thenReturn(slots);
+        when(slotDao.getAvailableByDoctor(any(Doctor.class), anyInt(), anyInt())).thenReturn(slots);
 
-        assertEquals(slots.size(), service.getAvailableByDoctor(doctor, dateTime).size());
+        assertEquals(slots.size(), service.getAvailableByDoctor(doctor, 24, 2018).size());
     }
 
     @Test
     public void testGetAvailableByDoctorInInstitution() {
-        when(slotDao.getAvailableByDoctorInInstitution(anyInt(), anyInt(), any(LocalDateTime.class))).thenReturn(slots);
+        when(slotDao.getAvailableByDoctorInInstitution(anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(slots);
 
-        assertEquals(slots.size(), service.getAvailableByDoctorInInstitution(doctor, institution, dateTime).size());
+        assertEquals(slots.size(), service.getAvailableByDoctorInInstitution(doctor, institution, 30, 2017).size());
     }
 
     @Test
@@ -117,34 +119,40 @@ public class AppointmentServiceImplTest {
 
     @Test
     public void testGetAvailableBySpecialityInInstitution() {
-        when(slotDao.getAvailableBySpecialityInInstitution(anyInt(), anyInt(), any(LocalDateTime.class)))
+        when(slotDao.getAvailableBySpecialityInInstitution(anyInt(), anyInt(), anyInt(), anyInt()))
                 .thenReturn(slots);
 
         assertEquals(
                 slots.size(),
-                service.getAvailableBySpecialityInInstitution(speciality, institution, dateTime).size());
+                service.getAvailableBySpecialityInInstitution(speciality, institution, 30, 2018).size());
     }
 
     @Test
     public void testGetAvailableBySpeciality() {
-        when(slotDao.getAvailableBySpeciality(any(Integer.class), any(LocalDateTime.class))).thenReturn(slots);
+        when(slotDao.getAvailableBySpeciality(any(Integer.class), anyInt(), anyInt())).thenReturn(slots);
 
-        assertEquals(slots.size(), service.getAvailableBySpeciality(speciality, dateTime).size());
+        assertEquals(slots.size(), service.getAvailableBySpeciality(speciality, 23, 2017).size());
     }
 
     @Test
     public void testGetAvailableBySpecialityAndNeighborhood() {
         when(slotDao.getAvailableBySpecialityAndNeighborhood(
-                    any(Speciality.class), anyString(), any(LocalDateTime.class)))
+                    any(Speciality.class), anyString(), anyInt(), anyInt()))
                 .thenReturn(slots);
 
         assertEquals(slots.size(),
-                service.getAvailableBySpecialityAndNeighborhood(speciality, "", dateTime).size());
+                service.getAvailableBySpecialityAndNeighborhood(speciality, "", 2, 2018).size());
     }
 
     @Test
     public void testCancelWhenAppointmentIsInTheFuture() {
-        Appointment futureAppointment = new Appointment(patient, appoinmentSlot, LocalDateTime.now().plusDays(1), "");
+        final LocalDateTime now = LocalDateTime.now();
+        final LocalDateTime futureDate = now.plusWeeks(1);
+
+        final Appointment futureAppointment = new Appointment(patient, appoinmentSlot,
+                futureDate.get(WeekFields.of(Locale.getDefault()).weekOfYear()),
+                futureDate.getYear(), "");
+
         when(appointmentDao.getByid(anyInt())).thenReturn(futureAppointment);
         when(appointmentDao.delete(anyInt())).thenReturn(true);
 
@@ -153,8 +161,14 @@ public class AppointmentServiceImplTest {
 
     @Test
     public void testCancelWhenAppointmentIsInThePast() {
-        Appointment futureAppointment = new Appointment(patient, appoinmentSlot, LocalDateTime.now().minusDays(1), "");
-        when(appointmentDao.getByid(anyInt())).thenReturn(futureAppointment);
+        final LocalDateTime now = LocalDateTime.now();
+        final LocalDateTime past = now.minusWeeks(1);
+
+        final Appointment pastAppointment = new Appointment(patient, appoinmentSlot,
+                past.get(WeekFields.of(Locale.getDefault()).weekOfYear()),
+                past.getYear(), "");
+
+        when(appointmentDao.getByid(anyInt())).thenReturn(pastAppointment);
         when(appointmentDao.delete(anyInt())).thenReturn(true);
 
         assertFalse(service.cancel(1));

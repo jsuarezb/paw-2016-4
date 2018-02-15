@@ -1,11 +1,10 @@
 'use strict';
 define(['ChoPidoTurnos', 'services/AppointmentsService'], function(ChoPidoTurnos) {
 
-  ChoPidoTurnos.controller('AppointmentsCtrl', ['AppointmentsService', '$routeParams', function(appointmentsService,$routeParams) {
+  ChoPidoTurnos.controller('AppointmentsCtrl', ['AppointmentsService', function(appointmentsService) {
     var _this = this;
-    this.patientId = $routeParams.patientId;
 
-      appointmentsService.getAppointmentsPatient(this.patientId).then(
+      appointmentsService.getAppointmentsPatient().then(
         function (result) {
           console.log(result);
             _this.patientAppointment = result.data;
