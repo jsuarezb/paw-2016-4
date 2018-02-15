@@ -27,9 +27,7 @@ require.config({
     ngload: '../../bower_components/angularAMD/ngload',
     angularAMD: '../../bower_components/angularAMD/angularAMD',
     'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-    'smalot-bootstrap-datetimepicker': '../../bower_components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
-    'angular-route': '../../bower_components/angular-route/angular-route',
-    'eonasdan-bootstrap-datetimepicker': '../../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min'
+    'smalot-bootstrap-datetimepicker': '../../bower_components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min'
   },
   shim: {
     angular: {

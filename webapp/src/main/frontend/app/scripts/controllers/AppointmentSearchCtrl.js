@@ -20,7 +20,7 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
 
       $scope.searchDateWeek = new Date();
       $scope.pageNumber = 0;
-      $scope.isLoggedIn = sessionService.getLoggedUser() != null;
+      $scope.isLoggedIn = sessionService.getLoggedUser() !== null;
       console.log(sessionService.getLoggedUser());
 
       $scope.dayOfWeek = function(date) {
