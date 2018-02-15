@@ -52,6 +52,7 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
       register: function (data, success, error) {
         var email = data.email;
         var password = data.password;
+        var _this = this;
 
         return $http
           .post('/grupo4/api/v1/patients', data)
@@ -59,7 +60,7 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
             return response.data;
           })
           .then(function(data) {
-            this.login({
+            _this.login({
               email: email,
               password: password,
               type: 'patient' // TODO: change this

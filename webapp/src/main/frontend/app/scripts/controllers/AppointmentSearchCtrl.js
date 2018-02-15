@@ -115,10 +115,12 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
           commets: appointment.comments
         }
         ).then(function(response) {
-          if (response.code !== 200) {
+          console.log(response.status);
+          if (response.status !== 200) {
             $scope.errorMessage = response.data.errors;
             return;
           }
+
           $state.go('bookedAppointment', appointment);
         });
       };
