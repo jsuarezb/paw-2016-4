@@ -96,8 +96,8 @@ module.exports = function (grunt) {
         httpFontsPath: '/styles/fonts',
         relativeAssets: false,
         assetCacheBuster: false,
-        raw: 'Sass::Script::Number.precision = 10\n',
-        //outputStyle: 'compressed'
+        raw: 'Sass::Script::Number.precision = 10\n'
+        // outputStyle: 'compressed'
       },
       dist: {
         options: {
