@@ -176,3 +176,54 @@ body {
 }
 
 .overflow-hidden { overflow: hidden; }
+
+
+/*
+ * Custom
+ */
+
+.appointment-date {
+  color: #606060;
+  border-bottom: 1px solid #F0F0F0;
+  margin-top: 25px;
+}
+
+.appointments-list {
+  list-style-type: none;
+}
+
+.appointments-list li {
+  margin: 10px auto;
+}
+
+.appointments-list .appointment-description {
+  border-right: 1px dotted rgba(0, 0, 0, 0.2);
+}
+
+.appointments-list .main-row {
+  font-size: 2em;
+}
+
+.appointments-list .detailed-row {
+  font-size: 1.5em;
+}
+
+.appointments-list .appointment-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.week-navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.week-navigation .week {
+  font-size: 1.3em;
+}
+
+.week-navigation .btn {
+  text-size: bold;
+}

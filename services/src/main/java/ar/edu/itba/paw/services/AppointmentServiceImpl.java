@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
@@ -86,10 +87,23 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentDao.getAll();
     }
 
-    public PagedResult<Appointment> search(final Integer institution_id, final String neighborhood,
-                                           final Integer speciality_id, final String firstName, final String lastName,
+    @Override
+    public PagedResult<Appointment> search(final Integer weekOfYear, final Integer year,
+                                           final Integer institutionId, final Integer specialityId,
+                                           final String neighborhood, final String firstName, final String lastName,
                                            final int page) {
-        return appointmentDao.search(institution_id, neighborhood, speciality_id, firstName, lastName, page);
+        final PagedResult<AppointmentSlot> slots =
+                slotDao.search(weekOfYear, year, institutionId, specialityId, neighborhood, firstName, lastName, page);
+
+        final List<Appointment> appointment = slots.getResults().stream()
+                .map(slot -> Appointment.builder()
+                        .setWeek(weekOfYear, year)
+                        .setPatient(null)
+                        .setSlot(slot)
+                        .build())
+                .collect(Collectors.toList());
+
+        return new PagedResult<>(appointment, page, slots.getPageSize(), slots.getTotal());
     }
 
     public List<Appointment> getAvailableBySpecialityInInstitution(final Speciality speciality,

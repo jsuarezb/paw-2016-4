@@ -26,8 +26,9 @@ public interface AppointmentService {
     //FIXME
     List<Appointment> getAll();
 
-    PagedResult<Appointment> search(final Integer institution_id, final String neighborhood,
-                                    final Integer speciality_id, final String firstName, final String lastName,
+    PagedResult<Appointment> search(final Integer weekOfYear, final Integer year,
+                                    final Integer institutionId, final Integer specialityId,
+                                    final String neighborhood, final String firstName, final String lastName,
                                     final int page);
 
     /**

@@ -36,13 +36,13 @@
           Registrarse
         </a>
         <li class="dropdown py-2 d-none d-md-inline-block" ng-if="$ctrl.getLoggedUser()">
-          <a href="#" class="dropdown-toggle font-weight-light" data-toggle="dropdown"
+          <a class="dropdown-toggle font-weight-light" data-toggle="dropdown"
              role="button" aria-haspopup="true" aria-expanded="false">
             {{ $ctrl.getLoggedUser().email }}&nbsp;
           </a>
           <ul class="dropdown-menu">
             <li><a class="font-weight-light" ui-sref="#/appointments/patient">Mis turnos</a></li>
-            <li><a class="font-weight-light" href="#">Cerrar sesión</a></li>
+            <li><a class="font-weight-light" href="#" ng-click="$ctrl.logout()">Cerrar sesión</a></li>
           </ul>
         </li>
       </div>

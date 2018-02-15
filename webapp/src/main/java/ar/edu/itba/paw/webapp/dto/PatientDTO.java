@@ -28,6 +28,9 @@ public class PatientDTO extends UserDTO {
     }
 
     public PatientDTO(final Patient patient) {
+        if (patient == null)
+            return;
+
         this.id = patient.getId();
         this.first_name = patient.getName();
         this.last_name = patient.getLastName();

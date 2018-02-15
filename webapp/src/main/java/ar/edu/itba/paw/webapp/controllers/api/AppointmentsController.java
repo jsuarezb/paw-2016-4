@@ -1,11 +1,10 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
 import ar.edu.itba.paw.models.*;
-import ar.edu.itba.paw.services.AppointmentService;
-import ar.edu.itba.paw.services.PatientService;
-import ar.edu.itba.paw.services.SpecialityService;
+import ar.edu.itba.paw.services.*;
 import ar.edu.itba.paw.webapp.dto.AppointmentDTO;
 import ar.edu.itba.paw.webapp.dto.PagedResultDTO;
+import ar.edu.itba.paw.webapp.params.AppointmentParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -41,14 +40,17 @@ public class AppointmentsController extends ApiController {
     DoctorService doctorService;
 
     @GET
-    public Response listAvailableAppointmentsSlots(@QueryParam("speciality") Integer speciality_id,
+    public Response listAvailableAppointmentsSlots(@QueryParam("speciality") Integer specialityId,
                                                    @QueryParam("neighborhood") String neighborhood,
-                                                   @QueryParam("institution") Integer institution_id,
+                                                   @QueryParam("institution") Integer institutionId,
+                                                   @QueryParam("weekOfYear") Integer weekOfYear,
+                                                   @QueryParam("year") Integer year,
                                                    @QueryParam("firstName") String firstName,
                                                    @QueryParam("lastName") String lastName,
                                                    @DefaultValue("0") @QueryParam("page") int page) {
         final PagedResult<Appointment> pageResult =
-                appointmentService.search(institution_id, neighborhood, speciality_id, firstName, lastName, page);
+                appointmentService.search(25, 2018, institutionId, specialityId, neighborhood,
+                        firstName, lastName, page);
         final List<AppointmentDTO> appointments =
                 pageResult.getResults().stream().map(AppointmentDTO::new).collect(Collectors.toList());
 

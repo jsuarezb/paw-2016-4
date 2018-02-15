@@ -20,9 +20,14 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
         this.loggedUser = {
           email: data.email
         };
+
         return $http
           .post('http://localhost:8080/grupo4/api/v1/login', data)
           .then(function (response) {
+            if (response.status !== 200) {
+              throw response;
+            }
+
             return response.data;
           })
           .then(function (data) {
@@ -35,6 +40,7 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
       logout: function() {
         this.loggedUser = null;
         localStorage.removeItem('token');
+        delete $http.defaults.headers.common.Authorization;
       },
 
       register: function (data, success, error) {

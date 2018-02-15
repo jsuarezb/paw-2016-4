@@ -17,8 +17,6 @@ import java.util.Map;
 @Repository
 public class AppointmentHibernateDao implements AppointmentDao {
 
-    private static final int PAGE_SIZE = 15;
-
     @PersistenceContext
     private EntityManager em;
 
@@ -41,43 +39,6 @@ public class AppointmentHibernateDao implements AppointmentDao {
     public List<Appointment> getAll() {
         final TypedQuery<Appointment> query = em.createQuery("FROM Appointment", Appointment.class);
         return query.getResultList();
-    }
-
-    @Transactional
-    public PagedResult<Appointment> search(final Integer institution_id, final String neighborhood,
-                                    final Integer speciality_id, final String firstName, final String lastName, final int page) {
-        StringBuilder baseQuery = new StringBuilder("FROM Appointment AS a ")
-                .append("WHERE (:institution_id IS NULL OR a.slot.worksIn.institution.id = :institution_id) ")
-                .append("AND (:neighborhood IS NULL OR :neighborhood = '' OR a.slot.worksIn.institution.address.neighborhood = :neighborhood) ")
-                .append("AND (:speciality_id = -1 OR :speciality_id = ANY (SELECT spec.id FROM a.slot.worksIn.doctor.specialities AS spec)) ")
-                .append("AND (:first_name IS NULL OR :first_name = '' OR a.slot.worksIn.doctor.name = :first_name) ")
-                .append("AND (:last_name IS NULL OR :last_name = '' OR a.slot.worksIn.doctor.lastName = :last_name) ");
-
-        final StringBuilder rows = new StringBuilder("SELECT a ").append(baseQuery).append("ORDER BY a.date");
-        final StringBuilder countRows = new StringBuilder("SELECT COUNT(a) ").append(baseQuery);
-
-        final TypedQuery<Appointment> query = em.createQuery(rows.toString(), Appointment.class);
-        query.setParameter("institution_id", institution_id);
-        query.setParameter("neighborhood", neighborhood );
-        query.setParameter("speciality_id", speciality_id == null ? -1 : speciality_id);
-        query.setParameter("first_name", firstName);
-        query.setParameter("last_name", lastName);
-
-        query.setMaxResults(PAGE_SIZE);
-        query.setFirstResult(page * PAGE_SIZE);
-
-        final List<Appointment> appointments = query.getResultList();
-
-        final TypedQuery<Long> countQuery = em.createQuery(countRows.toString(), Long.class);
-        countQuery.setParameter("institution_id", institution_id);
-        countQuery.setParameter("neighborhood", neighborhood );
-        countQuery.setParameter("speciality_id", speciality_id == null ? -1 : speciality_id);
-        countQuery.setParameter("first_name", firstName);
-        countQuery.setParameter("last_name", lastName);
-
-        final Long count = countQuery.getSingleResult();
-
-        return new PagedResult<Appointment>(appointments, page, PAGE_SIZE, count);
     }
 
     @Transactional

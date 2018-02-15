@@ -2,6 +2,7 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.PagedResult;
 import ar.edu.itba.paw.models.WorksIn;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,14 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
 
     public List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor, final Integer weekNumber, final Integer year) {
         return appointmentSlotDao.getAvailableByDoctor(doctor, weekNumber, year);
+    }
+
+    public PagedResult<AppointmentSlot> search(final Integer weekNumber, final Integer year,
+                                               final Integer institution_id, final Integer speciality_id,
+                                               final String neighborhood, final String firstName, final String lastName,
+                                               final int page) {
+        return appointmentSlotDao
+                .search(weekNumber, year, institution_id, speciality_id, neighborhood, firstName, lastName, page);
     }
 
     /* package */ void setAppointmentSlotDao(AppointmentSlotDao appointmentSlotDao) {
