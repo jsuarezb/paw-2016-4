@@ -9,8 +9,6 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
       var _speciality = $stateParams.speciality || '';
       var _neighborhood = $stateParams.neighborhood || '';
 
-      console.log($stateParams);
-
       var groupBy = function(xs, f) {
         return xs.reduce(function(rv, x) {
           (rv[f(x)] = rv[f(x)] || []).push(x);
@@ -20,6 +18,7 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
 
       $scope.searchDateWeek = new Date();
       $scope.pageNumber = 0;
+      console.log($scope);
 
       $scope.dayOfWeek = function(date) {
         switch (date.getDay()) {
@@ -76,13 +75,15 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
           .searchAppointments(_institution, _speciality, _neighborhood, weekOfYear, year, $scope.pageNumber)
           .then(function (data) {
             var page = data.data;
+            var currentWeek = $scope.weekOfYear(new Date());
+            var currentYear = new Date().getFullYear();
 
             $scope.page = page;
 
             $scope.appointmentsSearched = true;
             $scope.appointments = page.results;
             $scope.emptyAppointments = page.results.length === 0;
-            $scope.hasPreviousPage = page.page > 0;
+            $scope.hasPreviousPage = (weekOfYear > currentWeek && year >= currentYear) || page.page > 0;
 
             if (!$scope.emptyAppointments) {
               $scope.appointmentGroups = groupBy($scope.appointments, function (app) {
