@@ -26,7 +26,8 @@ require.config({
     transition: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition',
     ngload: '../../bower_components/angularAMD/ngload',
     angularAMD: '../../bower_components/angularAMD/angularAMD',
-    'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls'
+    'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
+    'angular-route': '../../bower_components/angular-route/angular-route'
   },
   shim: {
     angular: {

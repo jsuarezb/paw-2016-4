@@ -6,7 +6,7 @@ define(['ChoPidoTurnos', 'services/InstitutionsService'], function(ChoPidoTurnos
     this.params = $stateParams;
 
     institutionsService.getInstitution(this.params.institutionId).then(
-      function(result){
+      function(result) {
         console.log(result);
         _this.institution = result.data;
       }
