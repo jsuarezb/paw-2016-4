@@ -2,7 +2,7 @@
 define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos) {
   ChoPidoTurnos
     .controller('AppointmentSearchCtrl',
-    ['$scope', '$stateParams', 'AppointmentsService', function($scope, $stateParams, appointmentService) {
+    ['$scope', '$stateParams', 'appointmentsService', function($scope, $stateParams, appointmentService) {
       var _this = this;
 
       var _institution = $stateParams.institution || '';
