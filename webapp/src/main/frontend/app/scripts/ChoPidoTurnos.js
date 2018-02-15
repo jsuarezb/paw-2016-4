@@ -21,8 +21,9 @@ define(['routes',
         '$provide',
         '$translateProvider',
         '$urlServiceProvider',
+        '$httpProvider',
         function($stateProvider, $controllerProvider, $compileProvider, $filterProvider,
-                 $provide, $translateProvider, $urlServiceProvider) {
+                 $provide, $translateProvider, $urlServiceProvider, $httpProvider) {
 
           ChoPidoTurnos.controller = $controllerProvider.register;
           ChoPidoTurnos.directive = $compileProvider.directive;

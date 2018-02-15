@@ -24,17 +24,9 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
         return this.loggedUser;
       },
 
-      getUserType: function() {
-        return this.getLoggedUser().type;
-      },
-
       login: function (data, success, error) {
-        this.loggedUser = {
-          email: data.email
-        };
-
         return $http
-          .post('http://localhost:8080/grupo4/api/v1/login', data)
+          .post('/grupo4/api/v1/login', data)
           .then(function (response) {
             if (response.status !== 200) {
               throw response;
@@ -60,7 +52,7 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
         var password = data.password;
 
         return $http
-          .post('http://localhost:8080/grupo4/api/v1/patients', data)
+          .post('/grupo4/api/v1/patients', data)
           .then(function(response) {
             return response.data;
           })

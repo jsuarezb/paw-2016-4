@@ -33,10 +33,10 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <a class="font-weight-light" ui-sref="{{ $ctrl.user.type }}Appointments({patientId:$ctrl.user.id})">Mis turnos</a>
+          <a class="font-weight-light" ng-click="$ctrl.goToAppointments()">Mis turnos</a>
         </li>
         <li>
-          <a class="font-weight-light" href="#" ng-click="$ctrl.logout()">Cerrar sesión</a>
+          <a class="font-weight-light" href="#" ng-click="$ctrl.handleLogout()">Cerrar sesión</a>
         </li>
       </ul>
     </li>
