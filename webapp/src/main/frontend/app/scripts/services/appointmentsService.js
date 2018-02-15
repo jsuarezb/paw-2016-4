@@ -24,8 +24,8 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
         deleteAppointment: function(appointmentId) {
           return httpRequestBuilderService.buildHttpRequest('DELETE', 'appointments/' + appointmentId, null);
         },
-        postAppointment: function() {
-          return httpRequestBuilderService.buildHttpRequest('POST', 'appointments', null);
+        postAppointment: function(appointment) {
+          return httpRequestBuilderService.buildHttpRequest('POST', 'appointments', appointment);
         }
       };
     }]);

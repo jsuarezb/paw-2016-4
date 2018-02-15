@@ -10,7 +10,7 @@ angular.module('ChoPidoTurnos').factory('httpRequestBuilderService',
           headers: {
             'content-type': 'application/json'
           },
-          data: null
+          data: requestData
         });
       },
       buildAuthenticatedHttpRequest: function (requestMethod, requestUrl, requestData, token) {
@@ -24,6 +24,6 @@ angular.module('ChoPidoTurnos').factory('httpRequestBuilderService',
           },
           data: null
         });
-      }
+      },
     };
   }]);

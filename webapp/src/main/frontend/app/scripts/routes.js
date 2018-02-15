@@ -124,6 +124,13 @@ define(['angularAMD'], function(angularAMD) {
           controllerUrl: 'controllers/InstitutionDoctorsCtrl'
         }),
         angularAMD.route({
+          url: '/bookedAppointment',
+          name: 'bookedAppointment',
+          templateUrl: 'views/bookedAppointment.html',
+          controller: 'BookedAppointmentCtrl',
+          controllerUrl: 'controllers/BookedAppointmentCtrl'
+        }),
+        angularAMD.route({
           url: '/register',
           name: 'register',
           templateUrl: 'views/register.html',

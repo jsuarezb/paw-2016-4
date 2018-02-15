@@ -31,7 +31,7 @@
             </div>
             <div ng-show="!isLoggedIn" class="col-xs-2 appointment-actions">
               <a ui-sref="login">
-                <button type="submit" class="btn btn-success">Iniciá sesión para reservar</button>
+                <button type="submit" class="btn btn-success" ng-click="bookAppointment(appointment)">Iniciá sesión para reservar</button>
               </a>
             </div>
           </div>

@@ -2,8 +2,8 @@
 define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionService'], function(ChoPidoTurnos) {
   ChoPidoTurnos
     .controller('AppointmentSearchCtrl',
-    ['$scope', '$stateParams', 'appointmentsService', 'sessionService',
-      function($scope, $stateParams, appointmentService, sessionService) {
+    ['$scope', '$state','$stateParams', 'appointmentsService', 'sessionService',
+      function($scope, $state, $stateParams, appointmentService, sessionService) {
       var _this = this;
 
       var _institution = $stateParams.institution || '';
@@ -108,6 +108,13 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
 
       $scope.bookAppointment = function(appointment) {
         console.log(appointment);
+        appointmentService.postAppointment({ "slotId": appointment.appointmentSlot.id,
+          "week_number": $scope.weekOfYear(new Date(appointment.date)), "year": new Date(appointment.date).getFullYear(),
+          "commets": appointment.commets}).then(
+            function() {
+              $state.go('bookedAppointment', appointment)
+            }
+        )
       };
 
       $scope.prevPage = function () {
@@ -133,5 +140,6 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
 
         searchAppointments();
       };
+
   }]);
 });
