@@ -1,5 +1,5 @@
 'use strict';
-var BASE_URL = 'http://localhost:8080';
+var BASE_URL = 'http://pawserver.it.itba.edu.ar';
 
 define(['ChoPidoTurnos'], function (ChoPidoTurnos) {
   ChoPidoTurnos.factory('baseURLInterceptor', function () {
