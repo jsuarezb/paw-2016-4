@@ -90,6 +90,7 @@ require([
   'ChoPidoTurnos',
   'angular',
   'controllers/IndexCtrl',
+  'interceptors/baseURLInterceptor',
   'interceptors/sessionInterceptor'
   ],
   function(angularAMD, ChoPidoTurnos) {

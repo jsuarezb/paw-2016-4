@@ -11,7 +11,7 @@
     <link href="https://getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
   </head>
   <body ng-controller="IndexCtrl as $ctrl">
-    <header user="$ctrl.getLoggedUser()" user-type="$ctrl.getUserType()" logout="$ctrl.logout"></header>
+    <header user="$ctrl.getLoggedUser()" on-logout="$ctrl.logout()"></header>
     <div class="container-main">
       <div ui-view=""></div>
     </div>

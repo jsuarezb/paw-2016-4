@@ -1,20 +1,20 @@
 'use strict';
 define(['ChoPidoTurnos', 'services/sessionService', 'components/header'], function(ChoPidoTurnos) {
-  ChoPidoTurnos.controller('IndexCtrl', ['$state', 'sessionService', function ($state, sessionService) {
-    return {
-      getLoggedUser: function() {
-        return sessionService.getLoggedUser();
-      },
-
-      getUserType: function () {
-        var loggedUser = sessionService.getLoggedUser();
-        return loggedUser && loggedUser.type;
-      },
-
-      logout: function() {
-        sessionService.logout();
-        $state.go('home');
-      }
+  ChoPidoTurnos.controller('IndexCtrl', ['$state', '$scope', 'sessionService', function ($state, $scope, sessionService) {
+    this.getLoggedUser = function() {
+      return sessionService.getLoggedUser();
     };
+
+    this.getUserType = function () {
+      var loggedUser = this.getLoggedUser();
+      return loggedUser && loggedUser.type;
+    };
+
+    this.logout = function() {
+      sessionService.logout();
+      $state.go('home');
+    };
+
+    this.getLoggedUser();
   }]);
 });

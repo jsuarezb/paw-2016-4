@@ -6,7 +6,7 @@ angular.module('ChoPidoTurnos').factory('httpRequestBuilderService',
         return $http({
           method: requestMethod,
           // change this to general
-          url: 'http://localhost:8080/grupo4/api/v1/' + requestUrl,
+          url: '/grupo4/api/v1/' + requestUrl,
           headers: {
             'content-type': 'application/json'
           },
@@ -17,7 +17,7 @@ angular.module('ChoPidoTurnos').factory('httpRequestBuilderService',
         return $http({
           method: requestMethod,
           // change this to general
-          url: 'http://localhost:8080/grupo4/api/v1/' + requestUrl,
+          url: '/grupo4/api/v1/' + requestUrl,
           headers: {
             'content-type': 'application/json',
             'authentication': token
