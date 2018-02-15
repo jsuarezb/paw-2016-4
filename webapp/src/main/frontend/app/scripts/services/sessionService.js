@@ -37,10 +37,6 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
             return response.data;
           })
           .then(function (responseData) {
-            _this.loggedUser = {
-              email: data.email
-            };
-
             localStorage.setItem('token', responseData.token);
             $http.defaults.headers.common.Authorization = responseData.token;
             success(responseData);
