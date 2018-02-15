@@ -1,6 +1,13 @@
 'use strict';
-define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
-  ChoPidoTurnos.controller('IndexCtrl', function($scope) {
-    $scope.welcomeText = 'Welcome to your ChoPidoTurnos page';
-  });
+define(['ChoPidoTurnos', 'services/sessionService'], function(ChoPidoTurnos) {
+  ChoPidoTurnos.controller('IndexCtrl', ['sessionService', function(sessionService) {
+    return {
+      getLoggedUser: function() {
+        return sessionService.getLoggedUser();
+      },
+      logout: function() {
+        sessionService.logout();
+      }
+    };
+  }]);
 });
