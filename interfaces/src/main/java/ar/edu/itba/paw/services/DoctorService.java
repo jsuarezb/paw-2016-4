@@ -10,7 +10,7 @@ public interface DoctorService {
 
     Doctor get(final Integer id);
 
-    List<Doctor> searchByName(final String name, final String lastName, Integer page);
+    List<Doctor> searchByName(final String name, final String lastName);
 
     List<Doctor> searchBySpeciality(final Integer speciality_id);
 

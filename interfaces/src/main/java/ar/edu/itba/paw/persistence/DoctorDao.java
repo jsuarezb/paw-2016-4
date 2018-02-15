@@ -26,8 +26,7 @@ public interface DoctorDao {
     Doctor getByName(final String name, final String last_name);
 
     List<Doctor> searchByName(final String name,
-                              final String lastName,
-                              final Integer page);
+                              final String lastName);
 
     boolean hasNextPageForSearchByName(final String name,
                                        final String lastName,

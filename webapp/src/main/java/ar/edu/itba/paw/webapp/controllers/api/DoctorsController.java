@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -24,19 +25,18 @@ public class DoctorsController extends ApiController {
     private DoctorService doctorService;
 
     @GET
-    public Response index(@PathParam("first_name") String first_name,
-                          @PathParam("last_name") String last_name,
-                          @PathParam("speciality_id") Integer speciality_id,
-                          @PathParam("page") Integer page) {
-
+    public Response index(@QueryParam("first_name") String firstName,
+                          @QueryParam("last_name") String lastName,
+                          @QueryParam("speciality_id") Integer speciality_id,
+                          @QueryParam("page") Integer page) {
         List<Doctor> doctors;
         if (speciality_id != null) {
             doctors = doctorService.searchBySpeciality(speciality_id);
         } else {
-            if (first_name == null && last_name == null) {
+            if (firstName == null && lastName == null) {
                 doctors = doctorService.getAll();
             } else {
-                doctors = doctorService.searchByName(first_name, last_name, PaginationHelper.INSTANCE.page(page));
+                doctors = doctorService.searchByName(firstName, lastName);
             }
         }
 

@@ -21,12 +21,8 @@ public class DoctorServiceImpl implements DoctorService {
     public Doctor get(final Integer id) { return doctorDao.getById(id); }
 
     public List<Doctor> searchByName(final String name,
-                                     final String lastName,
-                                     final Integer page) {
-        if (page < 0)
-            return Collections.emptyList();
-
-        return doctorDao.searchByName(name, lastName, page);
+                                     final String lastName) {
+        return doctorDao.searchByName(name, lastName);
     }
 
     public List<Doctor> searchBySpeciality(final Integer speciality_id) {

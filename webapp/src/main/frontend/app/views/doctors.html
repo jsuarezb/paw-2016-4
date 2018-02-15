@@ -1,7 +1,7 @@
 <div class="container" ng-controller="DoctorsCtrl as ctrl">
   <h1>Doctores</h1>
   <h2>Doctores que coinciden con <span class="doctor-search-params">{{ firstName }} {{ lastName}}</span></h2>
-  <table class="table table-bordered">
+  <table class="table table-bordered" ng-show="ctrl.doctorsFetched && ctrl.doctors.length > 0">
     <thead>
     <tr>
       <th>Doctor</th>
@@ -26,7 +26,7 @@
       <td>
         <a class="btn btn-success"
            href="#"
-           ui-sref="appointmentSearch({institution: ctrl.institution.id, doctor: d.id})">
+           ui-sref="appointmentSearch({doctor: d.id})">
           Pedir turno
         </a>
       </td>
@@ -34,5 +34,8 @@
     </a>
     </tbody>
   </table>
+  <div ng-show="ctrl.doctorsFetched && ctrl.doctors.length == 0">
+    No hay doctores que coincidan con la búsqueda.
+  </div>
 </div>
 

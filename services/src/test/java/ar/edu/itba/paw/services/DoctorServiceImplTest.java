@@ -53,14 +53,14 @@ public class DoctorServiceImplTest {
 
     @Test
     public void testSearchByNameWhenPageIsNegative() {
-        assertEquals(0, service.searchByName("", "", -1).size());
+        assertEquals(0, service.searchByName("", "").size());
     }
 
     @Test
     public void testSearchByName() {
-        when(doctorDao.searchByName(anyString(), anyString(), anyInt())).thenReturn(doctors);
+        when(doctorDao.searchByName(anyString(), anyString())).thenReturn(doctors);
 
-        assertEquals(doctors, service.searchByName("", "", 2));
+        assertEquals(doctors, service.searchByName("", ""));
     }
 
     @Test

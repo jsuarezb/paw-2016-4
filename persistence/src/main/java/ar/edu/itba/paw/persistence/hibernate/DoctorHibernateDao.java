@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.persistence.hibernate;
 
+import antlr.StringUtils;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.persistence.DoctorDao;
 import org.springframework.stereotype.Repository;
@@ -8,6 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import java.text.Normalizer;
 import java.util.List;
 
 @Repository
@@ -69,19 +71,17 @@ public class DoctorHibernateDao implements DoctorDao {
     }
 
     @Override
-    public List<Doctor> searchByName(final String name, final String lastName, final Integer page) {
+    public List<Doctor> searchByName(final String name, final String lastName) {
         final TypedQuery<Doctor> query = em.createQuery(
                 "FROM Doctor AS d " +
-                        "WHERE lower(d.name) LIKE lower(:name) AND lower(d.lastName) LIKE lower(:lastName) " +
+                        "WHERE translate(lower(d.name), 'áéíóú', 'aeiou') LIKE lower(:name) " +
+                        "AND translate(lower(d.lastName), 'áéíóú', 'aeiou') LIKE lower(:lastName) " +
                         "ORDER BY d.lastName, d.name ",
                 Doctor.class
         );
 
-        query.setFirstResult(page * DEFAULT_SIZE_OF_PAGE);
-        query.setMaxResults(DEFAULT_SIZE_OF_PAGE);
-
-        query.setParameter("name", "%" + name + "%");
-        query.setParameter("lastName", "%" + lastName + "%");
+        query.setParameter("name", "%" + Normalizer.normalize(name, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "") + "%");
+        query.setParameter("lastName", "%" + Normalizer.normalize(lastName, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "") + "%");
 
         return query.getResultList();
     }
