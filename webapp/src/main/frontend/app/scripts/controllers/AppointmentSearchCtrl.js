@@ -85,11 +85,11 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
 
             $scope.appointmentsSearched = true;
             $scope.appointments = page.results;
-            $scope.emptyAppointments = page.results.length === 0;
+            $scope.emptyAppointments = !!page.results;
             $scope.hasPreviousPage = (weekOfYear > currentWeek && year >= currentYear) || page.page > 0;
 
             if (!$scope.emptyAppointments) {
-              $scope.appointmentGroups = groupBy($scope.appointments, function (app) {
+              $scope.appointmentGroups = groupBy($scope.appointments || [], function (app) {
                 var date = new Date(app.date);
                 return new Date(date.getFullYear(), date.getMonth(), date.getDate());
               });

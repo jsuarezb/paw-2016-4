@@ -1,13 +1,16 @@
 package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.*;
+import ar.edu.itba.paw.models.errors.InvalidCreationOfPastAppointment;
 import ar.edu.itba.paw.persistence.AppointmentDao;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +34,14 @@ public class AppointmentServiceImpl implements AppointmentService {
                               final String comment) {
         if (!appointmentDao.isDoctorAvailable(appointmentSlot, weekNumber, year))
             return null;
-
+        LocalDate today = LocalDate.now();
+        int currentWeekOfYear = today.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
+        if (weekNumber < currentWeekOfYear) {
+            throw new InvalidCreationOfPastAppointment();
+        }
+        if (weekNumber == currentWeekOfYear && appointmentSlot.getDayOfWeek() <= today.getDayOfWeek().getValue()) {
+            throw new InvalidCreationOfPastAppointment();
+        }
         final Appointment appointment = appointmentDao.create(patient, doctor, appointmentSlot, weekNumber, year, comment);
 
         if (appointment != null) {

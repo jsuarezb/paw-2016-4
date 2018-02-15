@@ -7,6 +7,7 @@ import ar.edu.itba.paw.models.errors.InvalidCreationOfPastAppointment;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.time.temporal.WeekFields;
 
 public class AppointmentBuilder implements Builder<Appointment> {
@@ -40,16 +41,6 @@ public class AppointmentBuilder implements Builder<Appointment> {
 
     @Override
     public Appointment build() {
-        LocalDate today = LocalDate.now();
-        WeekFields weekFields = WeekFields.of(DayOfWeek.SUNDAY, 7);
-        int currentWeekOfYear = today.get(weekFields.weekOfYear());
-        if (this.weekNumber < currentWeekOfYear) {
-            throw new InvalidCreationOfPastAppointment();
-        }
-        if (this.weekNumber == currentWeekOfYear && this.slot.getDayOfWeek() <= today.getDayOfWeek().getValue()) {
-            throw new InvalidCreationOfPastAppointment();
-        }
-
         return new Appointment(patient, slot, weekNumber, year, comments);
     }
 }
