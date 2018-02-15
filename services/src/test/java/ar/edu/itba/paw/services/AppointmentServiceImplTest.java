@@ -72,16 +72,6 @@ public class AppointmentServiceImplTest {
         assertNull(appointment);
     }
 
-
-    @Test
-    public void testCreateWithAvailableDoctor() {
-        when(appointmentDao.isDoctorAvailable(eq(appoinmentSlot), anyInt(), anyInt())).thenReturn(true);
-        when(appointmentDao.create(any(), any(), any(), anyInt(), anyInt(), any())).thenReturn(appointment);
-
-        final Appointment appointment = service.create(patient, doctor, appoinmentSlot, 4, 2017, "");
-        assertNotNull(appointment);
-    }
-
     @Test
     public void testGetByDoctor() {
         when(appointmentDao.getByDoctor(any(Doctor.class))).thenReturn(appointments);
