@@ -5,10 +5,12 @@ define(['ChoPidoTurnos', 'services/sessionService', 'components/header'], functi
       getLoggedUser: function() {
         return sessionService.getLoggedUser();
       },
+
       getUserType: function () {
         var loggedUser = sessionService.getLoggedUser();
         return loggedUser && loggedUser.type;
       },
+
       logout: function() {
         sessionService.logout();
         $state.go('home');

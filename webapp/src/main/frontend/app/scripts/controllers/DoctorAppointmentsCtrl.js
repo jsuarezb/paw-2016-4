@@ -4,7 +4,7 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
   ChoPidoTurnos
     .controller(
       'DoctorAppointmentsCtrl',
-      ['$scope', 'AppointmentsService',
+      ['$scope', 'appointmentsService',
       function($scope, appointmentsService) {
         var _this = this;
 
@@ -41,7 +41,7 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
     );
 
   ChoPidoTurnos
-    .directive('doctorAppointment', ['AppointmentsService',
+    .directive('doctorAppointment', ['appointmentsService',
       function (appointmentsService) {
         return {
           restrict: 'E',

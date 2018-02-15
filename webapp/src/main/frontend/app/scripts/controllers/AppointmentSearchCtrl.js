@@ -1,8 +1,9 @@
 'use strict';
-define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos) {
+define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionService'], function(ChoPidoTurnos) {
   ChoPidoTurnos
     .controller('AppointmentSearchCtrl',
-    ['$scope', '$stateParams', 'appointmentsService', function($scope, $stateParams, appointmentService) {
+    ['$scope', '$stateParams', 'appointmentsService', 'sessionService',
+      function($scope, $stateParams, appointmentService, sessionService) {
       var _this = this;
 
       var _institution = $stateParams.institution || '';
@@ -18,7 +19,8 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
 
       $scope.searchDateWeek = new Date();
       $scope.pageNumber = 0;
-      console.log($scope);
+      $scope.isLoggedIn = sessionService.getLoggedUser() != null;
+      console.log(sessionService.getLoggedUser());
 
       $scope.dayOfWeek = function(date) {
         switch (date.getDay()) {

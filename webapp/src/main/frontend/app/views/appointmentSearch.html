@@ -24,10 +24,15 @@
                 </div>
               </div>
             </div>
-            <div class="col-xs-2 appointment-actions">
+            <div ng-show="isLoggedIn" class="col-xs-2 appointment-actions">
               <form ng-submit="bookAppointment(appointment)">
                 <button type="submit" class="btn btn-success">Reservar</button>
               </form>
+            </div>
+            <div ng-show="!isLoggedIn" class="col-xs-2 appointment-actions">
+              <a ui-sref="login">
+                <button type="submit" class="btn btn-success">Iniciá sesión para reservar</button>
+              </a>
             </div>
           </div>
         </li>
