@@ -3,6 +3,7 @@
 define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
     .controller('LoginCtrl', ['$scope', 'sessionService', function ($scope, sessionService) {
+      $scope.type = 'patient';
       var successLogin = function(response) {
         $scope.$broadcast('onLogInEnd');
         document.location.href = '/#';
@@ -17,7 +18,7 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
           var data = {
             email: $scope.email,
             password: $scope.password,
-            type: 'patient' // TODO: update this
+            type: $scope.type
           };
 
           $scope.$broadcast('onLogInStart');

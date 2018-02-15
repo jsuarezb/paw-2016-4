@@ -2,8 +2,24 @@
 
 define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
   ChoPidoTurnos.service('sessionService', ['$http', function ($http) {
+    function userFromToken() {
+      var token = localStorage.getItem('token');
+      if (token === null) {
+        return null;
+      }
+      var parsedToken = JSON.parse(atob(token.split('.')[1]));
+      return {email: parsedToken.iss};
+    }
     return {
+      getLoggedUser: function() {
+        this.loggedUser = this.loggedUser || userFromToken();
+        return this.loggedUser;
+      },
+
       login: function (data, success, error) {
+        this.loggedUser = {
+          email: data.email
+        };
         return $http
           .post('http://localhost:8080/grupo4/api/v1/login', data)
           .then(function (response) {
@@ -14,6 +30,11 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
             $http.defaults.headers.common.Authorization = data.token;
             success(data);
           }, error);
+      },
+
+      logout: function() {
+        this.loggedUser = null;
+        localStorage.removeItem('token');
       },
 
       register: function (data, success, error) {
