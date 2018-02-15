@@ -54,4 +54,6 @@ public interface AppointmentSlotDao {
                                                                   final String neiborhood,
                                                                   final Integer weekNumber,
                                                                   final Integer year);
+
+    Doctor getDoctorInSlot(int slotId);
 }

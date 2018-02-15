@@ -66,7 +66,7 @@ public class AppointmentServiceImplTest {
 
     @Test
     public void testCreateWithUnavailableDoctor() {
-        when(appointmentDao.isDoctorAvailable(eq(doctor), anyInt(), anyInt())).thenReturn(false);
+        when(appointmentDao.isDoctorAvailable(eq(appoinmentSlot), anyInt(), anyInt())).thenReturn(false);
 
         final Appointment appointment = service.create(patient, doctor, appoinmentSlot, 3, 2018, "");
         assertNull(appointment);
@@ -75,7 +75,7 @@ public class AppointmentServiceImplTest {
 
     @Test
     public void testCreateWithAvailableDoctor() {
-        when(appointmentDao.isDoctorAvailable(eq(doctor), anyInt(), anyInt())).thenReturn(true);
+        when(appointmentDao.isDoctorAvailable(eq(appoinmentSlot), anyInt(), anyInt())).thenReturn(true);
         when(appointmentDao.create(any(), any(), any(), anyInt(), anyInt(), any())).thenReturn(appointment);
 
         final Appointment appointment = service.create(patient, doctor, appoinmentSlot, 4, 2017, "");

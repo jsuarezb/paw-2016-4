@@ -200,4 +200,13 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
         query.setParameter("year", year);
         return query.getResultList();
     }
+
+    @Override
+    public Doctor getDoctorInSlot(int slotId) {
+        final TypedQuery<Doctor> query = em.createQuery(
+                "SELECT doctor FROM AppointmentSlot AS slot JOIN slot.worksIn.doctor AS doctor " +
+                        "WHERE slot.id = :slotId", Doctor.class);
+        query.setParameter("slotId", slotId);
+    return query.getSingleResult();
+    }
 }

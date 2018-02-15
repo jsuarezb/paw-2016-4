@@ -45,4 +45,8 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
     /* package */ void setAppointmentSlotDao(AppointmentSlotDao appointmentSlotDao) {
         this.appointmentSlotDao = appointmentSlotDao;
     }
+
+    public Doctor getDoctorInSlot(final int slotId){
+        return appointmentSlotDao.getDoctorInSlot(slotId);
+    }
 }

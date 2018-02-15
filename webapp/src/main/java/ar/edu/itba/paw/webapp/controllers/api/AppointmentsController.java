@@ -3,6 +3,7 @@ package ar.edu.itba.paw.webapp.controllers.api;
 import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.services.*;
 import ar.edu.itba.paw.webapp.dto.AppointmentDTO;
+import ar.edu.itba.paw.webapp.dto.IdDTO;
 import ar.edu.itba.paw.webapp.dto.PagedResultDTO;
 import ar.edu.itba.paw.webapp.params.AppointmentParams;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,7 +109,7 @@ public class AppointmentsController extends ApiController {
         if(!n)
             return notFound();
         else
-            return ok(id);
+            return ok(new IdDTO(id));
     }
 
     @POST
@@ -116,16 +117,15 @@ public class AppointmentsController extends ApiController {
     public Response create(final AppointmentParams params){
 
         final Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        final Doctor doctor = doctorService.get(params.doctorId);
         final AppointmentSlot appointmentSlot = appointmentSlotService.getById(params.slotId);
         if(appointmentSlot == null)
             return badRequest("AppointmentSlot does not exist");
-
+        final Doctor doctor = appointmentSlotService.getDoctorInSlot(appointmentSlot.getId());
         final Appointment appointment = appointmentService.create(patient, doctor, appointmentSlot,
                 params.weekNumber, params.year, params.comment);
         if(appointment == null)
-            return badRequest("");
-        return ok(appointment);
+            return badRequest("Appointment already exists");
+        return ok(new AppointmentDTO(appointment));
     }
 }
 

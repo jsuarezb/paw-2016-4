@@ -29,7 +29,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                               final AppointmentSlot appointmentSlot,
                               final Integer weekNumber, final Integer year,
                               final String comment) {
-        if (!appointmentDao.isDoctorAvailable(doctor, weekNumber, year))
+        if (!appointmentDao.isDoctorAvailable(appointmentSlot, weekNumber, year))
             return null;
 
         final Appointment appointment = appointmentDao.create(patient, doctor, appointmentSlot, weekNumber, year, comment);

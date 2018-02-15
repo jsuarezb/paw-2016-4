@@ -10,9 +10,6 @@ import java.time.LocalDateTime;
 public class AppointmentParams {
 
     @XmlElement
-    public int doctorId;
-
-    @XmlElement
     public int slotId;
 
     @XmlElement

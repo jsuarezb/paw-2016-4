@@ -28,7 +28,7 @@ public interface AppointmentDao {
      * @param year Year of the appointment.
      * @return True if the doctor is free, else false.
      */
-    boolean isDoctorAvailable(final Doctor doctor, final Integer weekNumber, final Integer year);
+    boolean isDoctorAvailable(final AppointmentSlot appointmentSlot, final Integer weekNumber, final Integer year);
 
     /**
      * Delete the appointment.
