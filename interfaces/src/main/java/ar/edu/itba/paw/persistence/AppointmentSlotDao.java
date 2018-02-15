@@ -14,7 +14,7 @@ public interface AppointmentSlotDao {
 
     PagedResult<AppointmentSlot> search(final Integer weekNumber, final Integer year,
                                         final Integer institutionId, final Integer specialityId,
-                                        final String neighborhood, final String firstName, final String lastName,
+                                        final String neighborhood, final Integer doctorId,
                                         final int page);
 
     List<AppointmentSlot> getByDoctor(final Doctor doctor);

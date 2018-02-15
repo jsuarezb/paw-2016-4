@@ -9,6 +9,7 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
       var _institution = $stateParams.institution || '';
       var _speciality = $stateParams.speciality || '';
       var _neighborhood = $stateParams.neighborhood || '';
+      var _doctor = $stateParams.doctor || '';
 
       var groupBy = function(xs, f) {
         return xs.reduce(function(rv, x) {
@@ -74,7 +75,7 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
         var year = $scope.searchDateWeek.getFullYear();
 
         appointmentService
-          .searchAppointments(_institution, _speciality, _neighborhood, weekOfYear, year, $scope.pageNumber)
+          .searchAppointments(_institution, _speciality, _neighborhood, weekOfYear, year, _doctor, $scope.pageNumber)
           .then(function (data) {
             var page = data.data;
             var currentWeek = $scope.weekOfYear(new Date());

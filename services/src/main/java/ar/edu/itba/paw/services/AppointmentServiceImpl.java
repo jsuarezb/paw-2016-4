@@ -90,10 +90,10 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Override
     public PagedResult<Appointment> search(final Integer weekOfYear, final Integer year,
                                            final Integer institutionId, final Integer specialityId,
-                                           final String neighborhood, final String firstName, final String lastName,
+                                           final String neighborhood, final Integer doctorId,
                                            final int page) {
         final PagedResult<AppointmentSlot> slots =
-                slotDao.search(weekOfYear, year, institutionId, specialityId, neighborhood, firstName, lastName, page);
+                slotDao.search(weekOfYear, year, institutionId, specialityId, neighborhood, doctorId, page);
 
         final List<Appointment> appointment = slots.getResults().stream()
                 .map(slot -> Appointment.builder()

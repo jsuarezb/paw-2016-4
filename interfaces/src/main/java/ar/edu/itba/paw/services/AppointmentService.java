@@ -28,7 +28,7 @@ public interface AppointmentService {
 
     PagedResult<Appointment> search(final Integer weekOfYear, final Integer year,
                                     final Integer institutionId, final Integer specialityId,
-                                    final String neighborhood, final String firstName, final String lastName,
+                                    final String neighborhood, final Integer doctorId,
                                     final int page);
 
     /**
