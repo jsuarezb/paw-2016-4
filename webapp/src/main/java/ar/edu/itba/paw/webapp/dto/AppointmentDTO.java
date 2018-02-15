@@ -42,6 +42,6 @@ public class AppointmentDTO {
         if (appointments == null) {
             return Collections.emptyList();
         }
-        return appointments.stream().map(i -> new AppointmentDTO(i)).collect(Collectors.toList());
+        return appointments.stream().map(AppointmentDTO::new).collect(Collectors.toList());
     }
 }

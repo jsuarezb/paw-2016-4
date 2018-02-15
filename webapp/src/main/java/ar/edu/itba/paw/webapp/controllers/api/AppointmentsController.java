@@ -1,13 +1,11 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
 import ar.edu.itba.paw.models.*;
-import ar.edu.itba.paw.services.*;
-import ar.edu.itba.paw.webapp.auth.LoggedUserFinder;
-import ar.edu.itba.paw.webapp.auth.Token;
+import ar.edu.itba.paw.services.AppointmentService;
+import ar.edu.itba.paw.services.PatientService;
+import ar.edu.itba.paw.services.SpecialityService;
 import ar.edu.itba.paw.webapp.dto.AppointmentDTO;
-import ar.edu.itba.paw.webapp.filters.StatelessAuthenticationFilter;
-import ar.edu.itba.paw.webapp.forms.AppointmentForm;
-import ar.edu.itba.paw.webapp.params.AppointmentParams;
+import ar.edu.itba.paw.webapp.dto.PagedResultDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -16,8 +14,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by agophurmuz on 7/17/16.
@@ -43,13 +41,24 @@ public class AppointmentsController extends ApiController {
     DoctorService doctorService;
 
     @GET
-    public Response listAvailableAppointmentsSlots(@QueryParam("speciality") int id,
+    public Response listAvailableAppointmentsSlots(@QueryParam("speciality") Integer speciality_id,
                                                    @QueryParam("neighborhood") String neighborhood,
-                                                   @QueryParam("week-number") Integer weekNumber,
-                                                   @QueryParam("year") Integer year){
-        final List<Appointment> availableAppointmentsSlotsList = appointmentService
-                .getAvailableBySpecialityAndNeighborhood(specialityService.getById(id), neighborhood, weekNumber, year);
-        return Response.ok(new AppointmentsSlotsList(availableAppointmentsSlotsList)).build();
+                                                   @QueryParam("institution") Integer institution_id,
+                                                   @QueryParam("firstName") String firstName,
+                                                   @QueryParam("lastName") String lastName,
+                                                   @DefaultValue("0") @QueryParam("page") int page) {
+        final PagedResult<Appointment> pageResult =
+                appointmentService.search(institution_id, neighborhood, speciality_id, firstName, lastName, page);
+        final List<AppointmentDTO> appointments =
+                pageResult.getResults().stream().map(AppointmentDTO::new).collect(Collectors.toList());
+
+        final PagedResultDTO<AppointmentDTO> pagedResultDTO = new PagedResultDTO<>(appointments, pageResult.getPage(),
+                pageResult.getPageSize(), pageResult.getTotal());
+
+        final GenericEntity<PagedResultDTO<AppointmentDTO>> entity =
+                new GenericEntity<PagedResultDTO<AppointmentDTO>>(pagedResultDTO){};
+
+        return Response.ok(entity).build();
     }
 
     @GET

@@ -2,7 +2,6 @@
 'use strict';
 require.config({
   baseUrl: '/scripts',
-  urlArgs: 'bust=' + (new Date()).getTime(),
   paths: {
     affix: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/affix',
     alert: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/alert',
@@ -25,9 +24,9 @@ require.config({
     tab: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tab',
     tooltip: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip',
     transition: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition',
-    'angular-route': '../../bower_components/angular-route/angular-route',
     ngload: '../../bower_components/angularAMD/ngload',
-    angularAMD: '../../bower_components/angularAMD/angularAMD'
+    angularAMD: '../../bower_components/angularAMD/angularAMD',
+    'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls'
   },
   shim: {
     angular: {
@@ -87,7 +86,8 @@ require([
   'angularAMD',
   'ChoPidoTurnos',
   'angular',
-  'controllers/IndexCtrl'
+  'controllers/IndexCtrl',
+  'interceptors/sessionInterceptor'
   ],
   function(angularAMD, ChoPidoTurnos) {
     angularAMD.bootstrap(ChoPidoTurnos);

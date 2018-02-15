@@ -86,6 +86,12 @@ public class AppointmentServiceImpl implements AppointmentService {
         return appointmentDao.getAll();
     }
 
+    public PagedResult<Appointment> search(final Integer institution_id, final String neighborhood,
+                                           final Integer speciality_id, final String firstName, final String lastName,
+                                           final int page) {
+        return appointmentDao.search(institution_id, neighborhood, speciality_id, firstName, lastName, page);
+    }
+
     public List<Appointment> getAvailableBySpecialityInInstitution(final Speciality speciality,
                                                                    final Institution institution,
                                                                    final Integer weekNumber,
