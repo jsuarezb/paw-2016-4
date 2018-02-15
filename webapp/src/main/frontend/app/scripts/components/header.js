@@ -1,6 +1,7 @@
 'use strict';
 define(['ChoPidoTurnos'], function (ChoPidoTurnos) {
   function HeaderController($state) {
+    console.log(this.user);
     return {
       goToAppointments: function() {
         $state.go(this.user.type + 'Appointments', {patientId: this.user.id});

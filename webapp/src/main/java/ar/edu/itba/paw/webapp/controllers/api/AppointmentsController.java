@@ -46,12 +46,10 @@ public class AppointmentsController extends ApiController {
                                                    @QueryParam("institution") Integer institutionId,
                                                    @QueryParam("weekOfYear") Integer weekOfYear,
                                                    @QueryParam("year") Integer year,
-                                                   @QueryParam("firstName") String firstName,
-                                                   @QueryParam("lastName") String lastName,
+                                                   @QueryParam("doctorId") Integer doctorId,
                                                    @DefaultValue("0") @QueryParam("page") int page) {
         final PagedResult<Appointment> pageResult =
-                appointmentService.search(weekOfYear, year, institutionId, specialityId, neighborhood,
-                        firstName, lastName, page);
+                appointmentService.search(weekOfYear, year, institutionId, specialityId, neighborhood, doctorId, page);
         final List<AppointmentDTO> appointments =
                 pageResult.getResults().stream().map(AppointmentDTO::new).collect(Collectors.toList());
 

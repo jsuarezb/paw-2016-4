@@ -36,10 +36,10 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
 
     public PagedResult<AppointmentSlot> search(final Integer weekNumber, final Integer year,
                                                final Integer institution_id, final Integer speciality_id,
-                                               final String neighborhood, final String firstName, final String lastName,
+                                               final String neighborhood, final Integer doctor_id,
                                                final int page) {
         return appointmentSlotDao
-                .search(weekNumber, year, institution_id, speciality_id, neighborhood, firstName, lastName, page);
+                .search(weekNumber, year, institution_id, speciality_id, neighborhood, doctor_id, page);
     }
 
     /* package */ void setAppointmentSlotDao(AppointmentSlotDao appointmentSlotDao) {
