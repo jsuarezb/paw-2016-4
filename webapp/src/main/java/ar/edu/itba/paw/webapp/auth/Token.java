@@ -12,12 +12,11 @@ import java.util.Date;
  */
 public class Token {
     private final static Long TOKEN_DURATION = 86400000L; // 1 Day
-    private final static String SUBJECT = "USER_SESSION";
 
     public static String create(final Loggable user) {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, WebAuthConfig.APP_KEY)
-                .setSubject(SUBJECT)
+                .setSubject(user.getId().toString())
                 .setIssuedAt(currentDate())
                 .setExpiration(expirationDate())
                 .setId(user.type())
@@ -28,7 +27,6 @@ public class Token {
     public static String decode(String token) {
         try {
             Jws<Claims> claims = Jwts.parser()
-                    .requireSubject(SUBJECT)
                     .setSigningKey(WebAuthConfig.APP_KEY)
                     .parseClaimsJws(token);
 

@@ -2,22 +2,20 @@
 
 define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
   ChoPidoTurnos.service('sessionService', ['$http', function ($http) {
+    function mapTokenToUser(token) {
+      return {
+        email: token.iss,
+        type: token.jti,
+        id: token.sub
+      };
+    }
     function userFromToken() {
       var token = localStorage.getItem('token');
       if (token === null) {
         return null;
       }
       var parsedToken = JSON.parse(atob(token.split('.')[1]));
-      return {email: parsedToken.iss};
-    }
-
-    function typeFromToken() {
-      var token = localStorage.getItem('token');
-      if (token === null) {
-        return null;
-      }
-      var parsedToken = JSON.parse(atob(token.split('.')[1]));
-      return parsedToken.jti;
+      return mapTokenToUser(parsedToken);
     }
 
     return {
@@ -27,7 +25,7 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
       },
 
       getUserType: function() {
-        return typeFromToken();
+        return this.getLoggedUser().type;
       },
 
       login: function (data, success, error) {

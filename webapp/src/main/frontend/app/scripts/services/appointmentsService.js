@@ -1,6 +1,6 @@
 'use strict';
 define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoTurnos) {
-  ChoPidoTurnos.service('AppointmentsService', [
+  ChoPidoTurnos.service('appointmentsService', [
     'httpRequestBuilderService',
     function (httpRequestBuilderService) {
       return {
@@ -13,7 +13,7 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
             '&year=' + year + '&page=' + page);
         },
         getAppointmentsPatient: function(patientId) {
-          return httpRequestBuilderService.buildHttpRequest('GET', 'appointments/patient/' + patientId, null);
+          return httpRequestBuilderService.buildHttpRequest('GET', 'appointments/patient/', null);
         },
         getDoctorFutureAppointments: function () {
           return httpRequestBuilderService.buildHttpRequest('GET', 'appointments/doctor?future=true', null);

@@ -65,11 +65,10 @@ public class AppointmentsController extends ApiController {
 
     @GET
     @Path("/patient")
-    public Response patientAponitments() {
+    public Response patientAppointments() {
         final Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (patient != null) {
             final List<Appointment> patientAppointments = appointmentService.getByPatient(patient);
-            System.out.println(patientAppointments);
             GenericEntity<List<AppointmentDTO>> list = new GenericEntity<List<AppointmentDTO>>(AppointmentDTO.fromList(patientAppointments)){
 
             };
