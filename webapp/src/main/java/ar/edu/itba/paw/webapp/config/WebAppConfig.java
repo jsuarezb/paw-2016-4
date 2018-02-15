@@ -34,9 +34,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebAppConfig.class);
 
-    private static final String RESOURCES_LOCATION = "/resources/";
-    private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
-
     @Autowired
     private DataSource dataSource;
 

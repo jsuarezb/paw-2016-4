@@ -70,6 +70,18 @@ module.exports = function (grunt) {
       }
     },
 
+    cssmin: {
+      target: {
+        files: [{
+          expand: true,
+          cwd: '.tmp/styles',
+          src: ['*.css', '!*.min.css'],
+          dest: '<%= yeoman.dist %>/styles',
+          ext: '.css'
+        }]
+      }
+    },
+
     compass: {
       options: {
         sassDir: '<%= yeoman.app %>/styles',
@@ -84,7 +96,8 @@ module.exports = function (grunt) {
         httpFontsPath: '/styles/fonts',
         relativeAssets: false,
         assetCacheBuster: false,
-        raw: 'Sass::Script::Number.precision = 10\n'
+        raw: 'Sass::Script::Number.precision = 10\n',
+        //outputStyle: 'compressed'
       },
       dist: {
         options: {
@@ -204,7 +217,7 @@ module.exports = function (grunt) {
 
     usemin: {
       html: ['<%= yeoman.dist %>/**/*.html'],
-      css: ['<%= yeoman.dist %>/styles/**/*.css'],
+      css: ['<%= yeoman.dist %>/**/*.css'],
       imagesAndViews: ['<%= yeoman.dist %>/scripts/**/*.js', '<%= yeoman.dist %>/views/**/*.html'],
       options: {
         assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images'],
@@ -362,7 +375,7 @@ module.exports = function (grunt) {
           removeCombined: true,
           preserveLicenseComments: false,
           findNestedDependencies: true,
-          dir: 'dist/scripts',
+          dir: '<%= yeoman.dist %>/scripts',
           modules: [
             {
               name: 'build'

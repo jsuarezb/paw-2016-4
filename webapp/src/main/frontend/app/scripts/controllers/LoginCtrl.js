@@ -2,11 +2,11 @@
 
 define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
-    .controller('LoginCtrl', ['$scope', 'sessionService', function ($scope, sessionService) {
+    .controller('LoginCtrl', ['$scope', '$state', 'sessionService', function ($scope, $state, sessionService) {
       $scope.type = 'patient';
       var successLogin = function(response) {
         $scope.$broadcast('onLogInEnd');
-        document.location.href = '/#';
+        $state.go('home');
       };
 
       var errorLogin = function(response) {
