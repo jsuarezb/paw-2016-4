@@ -44,7 +44,7 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                                                final String neighborhood, final String firstName, final String lastName,
                                                int page) {
         final StringBuilder baseQuery = new StringBuilder("FROM AppointmentSlot AS asl ")
-                .append("WHERE NOT EXISTS (SELECT ap.id FROM asl.appointments ap WHERE ap.id = 2) ") // TODO
+                .append("WHERE NOT EXISTS (SELECT ap.id FROM asl.appointments ap WHERE ap.weekNumber = :week_number AND ap.year = :year) ") // TODO
                 .append("AND (:institution_id IS NULL OR asl.worksIn.institution.id = :institution_id) ")
                 .append("AND (:neighborhood IS NULL OR :neighborhood = '' OR asl.worksIn.institution.address.neighborhood = :neighborhood) ")
                 .append("AND (:speciality_id = -1 OR :speciality_id = ANY (SELECT spec.id FROM asl.worksIn.doctor.specialities AS spec)) ")
@@ -60,6 +60,8 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
         query.setParameter("speciality_id", speciality_id == null ? -1 : speciality_id);
         query.setParameter("first_name", firstName);
         query.setParameter("last_name", lastName);
+        query.setParameter("week_number", weekNumber);
+        query.setParameter("year", year);
 
         query.setMaxResults(PAGE_SIZE);
         query.setFirstResult(page * PAGE_SIZE);
@@ -72,6 +74,8 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
         countQuery.setParameter("speciality_id", speciality_id == null ? -1 : speciality_id);
         countQuery.setParameter("first_name", firstName);
         countQuery.setParameter("last_name", lastName);
+        countQuery.setParameter("week_number", weekNumber);
+        countQuery.setParameter("year", year);
 
         final Long count = countQuery.getSingleResult();
 

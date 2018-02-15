@@ -49,7 +49,7 @@ public class AppointmentsController extends ApiController {
                                                    @QueryParam("lastName") String lastName,
                                                    @DefaultValue("0") @QueryParam("page") int page) {
         final PagedResult<Appointment> pageResult =
-                appointmentService.search(25, 2018, institutionId, specialityId, neighborhood,
+                appointmentService.search(weekOfYear, year, institutionId, specialityId, neighborhood,
                         firstName, lastName, page);
         final List<AppointmentDTO> appointments =
                 pageResult.getResults().stream().map(AppointmentDTO::new).collect(Collectors.toList());
