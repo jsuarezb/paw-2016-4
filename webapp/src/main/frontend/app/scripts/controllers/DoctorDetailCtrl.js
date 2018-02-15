@@ -1,7 +1,7 @@
 'use strict';
-define(['ChoPidoTurnos', 'services/DoctorsService'], function(ChoPidoTurnos) {
+define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos) {
 
-  ChoPidoTurnos.controller('DoctorDetailCtrl', ['DoctorsService', '$stateParams', function(doctorsService, $stateParams) {
+  ChoPidoTurnos.controller('DoctorDetailCtrl', ['doctorsService', '$stateParams', function(doctorsService, $stateParams) {
     var _this = this;
     this.params = $stateParams;
 

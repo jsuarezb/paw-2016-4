@@ -97,7 +97,6 @@ module.exports = function (grunt) {
         relativeAssets: false,
         assetCacheBuster: false,
         raw: 'Sass::Script::Number.precision = 10\n'
-        // outputStyle: 'compressed'
       },
       dist: {
         options: {

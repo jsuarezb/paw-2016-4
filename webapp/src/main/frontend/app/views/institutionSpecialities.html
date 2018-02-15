@@ -1,6 +1,6 @@
 <div class="title container" ng-controller="InstitutionSpecialitiesCtrl as ctrl">
 <h1>Especialidades -
-  <a href="#/institutions/{{ctrl.institution.id}}">
+  <a ui-sref="institution({institutionId:ctrl.institution.id})">
     {{ctrl.institution.name}}
   </a>
 </h1>
@@ -21,7 +21,8 @@
       <td>{{s.name}}</td>
       <td>
         <a class="btn btn-success"
-           href="<c:url value='/institutions/${institution.id}/specialities/${speciality.id}/appointment_slots'/>">
+           href="#"
+           ui-sref="appointmentSearch({institution: ctrl.institution.id, speciality: s.id})">
           Pedir turno
         </a>
       </td>
