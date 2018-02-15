@@ -1,5 +1,8 @@
 <div class="container">
   <h2>Turnos disponibles</h2>
+  <div class="alert alert-danger" ng-show="errorMessage">
+    {{errorMessage}}
+  </div>
   <div ng-show="appointmentsSearched && !emptyAppointments">
     <div ng-repeat="day in appointmentDays">
       <h4 class="appointment-date">{{ dayOfWeek(day) }} - {{ day | date: 'dd/MM/yyyy' }}</h4>

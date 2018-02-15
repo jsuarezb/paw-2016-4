@@ -109,9 +109,13 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
       $scope.bookAppointment = function(appointment) {
         console.log(appointment);
         appointmentService.postAppointment({ "slotId": appointment.appointmentSlot.id,
-          "week_number": $scope.weekOfYear(new Date(appointment.date)), "year": new Date(appointment.date).getFullYear(),
+          "weekNumber": $scope.weekOfYear(new Date(appointment.date)), "year": new Date(appointment.date).getFullYear(),
           "commets": appointment.commets}).then(
-            function() {
+            function(response) {
+              if(response.code < 300){
+                $scope.errorMessage = response.data.errors;
+                return;
+              }
               $state.go('bookedAppointment', appointment)
             }
         )
