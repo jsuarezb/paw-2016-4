@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
 import ar.edu.itba.paw.models.*;
+import ar.edu.itba.paw.models.errors.InvalidCreationOfPastAppointment;
 import ar.edu.itba.paw.services.*;
 import ar.edu.itba.paw.webapp.dto.AppointmentDTO;
 import ar.edu.itba.paw.webapp.dto.IdDTO;
@@ -113,16 +114,29 @@ public class AppointmentsController extends ApiController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(final AppointmentParams params){
+        final Patient patient;
 
-        final Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        try {
+            patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        } catch (ClassCastException ex) {
+            return badRequest("El turno no puede ser reservado por un doctor");
+        }
+
         final AppointmentSlot appointmentSlot = appointmentSlotService.getById(params.slotId);
         if(appointmentSlot == null)
             return badRequest("AppointmentSlot does not exist");
         final Doctor doctor = appointmentSlotService.getDoctorInSlot(appointmentSlot.getId());
-        final Appointment appointment = appointmentService.create(patient, doctor, appointmentSlot,
-                params.weekNumber, params.year, params.comment);
+        final Appointment appointment;
+        try {
+          appointment = appointmentService.create(patient, doctor, appointmentSlot,
+                  params.weekNumber, params.year, params.comment);
+        } catch (InvalidCreationOfPastAppointment ex) {
+            return badRequest("No se puede reservar un turno en el pasado");
+        }
+
         if(appointment == null)
-            return badRequest("Appointment already exists");
+            return badRequest("El turno ya fue reservado.");
+
         return ok(new AppointmentDTO(appointment));
     }
 }

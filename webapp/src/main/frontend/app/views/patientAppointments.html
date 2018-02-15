@@ -22,10 +22,10 @@
               </a>
             </dd>
             <dt>Fecha</dt>
-            <dd>{{pa.date}}</dd>
+            <dd>{{pa.date | date: 'dd/MM/yyyy' }}</dd>
           </dl>
           <button class="appointment-delete btn btn-danger btn-danger"
-                  data-url="<c:url value='/appointments/${appointment.id}'/>">
+                  ng-click="cancelAppointment(pa)">
             Cancelar turno
           </button>
         </div>
