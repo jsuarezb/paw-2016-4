@@ -10,10 +10,24 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
       var parsedToken = JSON.parse(atob(token.split('.')[1]));
       return {email: parsedToken.iss};
     }
+
+    function typeFromToken() {
+      var token = localStorage.getItem('token');
+      if (token === null) {
+        return null;
+      }
+      var parsedToken = JSON.parse(atob(token.split('.')[1]));
+      return parsedToken.jti;
+    }
+
     return {
       getLoggedUser: function() {
         this.loggedUser = this.loggedUser || userFromToken();
         return this.loggedUser;
+      },
+
+      getUserType: function() {
+        return typeFromToken();
       },
 
       login: function (data, success, error) {

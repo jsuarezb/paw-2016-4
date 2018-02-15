@@ -64,8 +64,8 @@ public class AppointmentsController extends ApiController {
     }
 
     @GET
-    @Path("/patient")//{id}")
-    public Response patientAponitments() {//@PathParam("id") final int id) {
+    @Path("/patient")
+    public Response patientAponitments() {
         final Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (patient != null) {
             final List<Appointment> patientAppointments = appointmentService.getByPatient(patient);
@@ -78,6 +78,28 @@ public class AppointmentsController extends ApiController {
         else{
             return notFound();
         }
+    }
+
+    @GET
+    @Path("/doctor")
+    public Response doctorAppointments(@QueryParam("future") final Boolean future) {
+        final Doctor doctor = (Doctor) SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal();
+
+        if (doctor == null)
+            return forbidden();
+
+        final List<Appointment> appointments = future
+                ? appointmentService.getIncomingAppointments(doctor)
+                : appointmentService.getPastAppointments(doctor);
+
+        final List<AppointmentDTO> appointmentDTOList = AppointmentDTO.fromList(appointments);
+        final GenericEntity<List<AppointmentDTO>> entity =
+                new GenericEntity<List<AppointmentDTO>>(appointmentDTOList){};
+
+        return ok(entity);
     }
 
     @DELETE
@@ -107,3 +129,6 @@ public class AppointmentsController extends ApiController {
         return ok(appointment);
     }
 }
+
+
+
