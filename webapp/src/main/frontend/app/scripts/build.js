@@ -26,8 +26,7 @@ require.config({
     transition: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition',
     ngload: '../../bower_components/angularAMD/ngload',
     angularAMD: '../../bower_components/angularAMD/angularAMD',
-    'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-    'smalot-bootstrap-datetimepicker': '../../bower_components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min'
+    'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls'
   },
   shim: {
     angular: {

@@ -3,6 +3,6 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
   ChoPidoTurnos
     .controller('BookedAppointmentCtrl',
       ['$stateParams', function($stateParams) {
-      console.log($stateParams)
+        console.log($stateParams);
       }]);
 });

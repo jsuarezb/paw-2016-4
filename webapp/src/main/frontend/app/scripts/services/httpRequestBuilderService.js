@@ -24,6 +24,6 @@ angular.module('ChoPidoTurnos').factory('httpRequestBuilderService',
           },
           data: null
         });
-      },
+      }
     };
   }]);

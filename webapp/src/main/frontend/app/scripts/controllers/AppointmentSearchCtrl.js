@@ -85,7 +85,7 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
 
             $scope.appointmentsSearched = true;
             $scope.appointments = page.results;
-            $scope.emptyAppointments = !!page.results;
+            $scope.emptyAppointments = !page.results;
             $scope.hasPreviousPage = (weekOfYear > currentWeek && year >= currentYear) || page.page > 0;
 
             if (!$scope.emptyAppointments) {
@@ -108,17 +108,19 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
 
       $scope.bookAppointment = function(appointment) {
         console.log(appointment);
-        appointmentService.postAppointment({ "slotId": appointment.appointmentSlot.id,
-          "weekNumber": $scope.weekOfYear(new Date(appointment.date)), "year": new Date(appointment.date).getFullYear(),
-          "commets": appointment.commets}).then(
-            function(response) {
-              if(response.code < 300){
-                $scope.errorMessage = response.data.errors;
-                return;
-              }
-              $state.go('bookedAppointment', appointment)
-            }
-        )
+        appointmentService.postAppointment({
+          slotId: appointment.appointmentSlot.id,
+          weekNumber: $scope.weekOfYear(new Date(appointment.date)),
+          year: new Date(appointment.date).getFullYear(),
+          commets: appointment.comments
+        }
+        ).then(function(response) {
+          if (response.code !== 200) {
+            $scope.errorMessage = response.data.errors;
+            return;
+          }
+          $state.go('bookedAppointment', appointment);
+        });
       };
 
       $scope.prevPage = function () {
