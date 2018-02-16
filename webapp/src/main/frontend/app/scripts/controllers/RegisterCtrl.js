@@ -2,7 +2,9 @@
 
 define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
-    .controller('RegisterCtrl', ['$scope', 'sessionService', function ($scope, sessionService) {
+    .controller('RegisterCtrl',
+    ['$state', '$scope', 'sessionService',
+    function ($state, $scope, sessionService) {
       $scope.$on('onRegisterStart', function (event, args) {
         $scope.isRegistering = true;
       });
@@ -12,7 +14,7 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
       });
       var successRegister = function(response) {
         $scope.$broadcast('onRegisterEnd');
-        document.location.href = '/#';
+        $state.go('home');
       };
 
       var errorRegister = function(response) {
