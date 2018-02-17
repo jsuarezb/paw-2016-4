@@ -1,0 +1,33 @@
+<div class="appointment">
+  <div class="appointment-date">
+    <p>{{ $ctrl.appointment.date | date: 'HH:mm' }}</p>
+    <p>{{ $ctrl.appointment.date | date: 'dd/MM/yyyy' }}</p>
+  </div>
+  <div class="appointment-details row">
+    <div class="appointment-patient col-xs-6" ng-if="$ctrl.subject === 'patient'">
+      <h3>Paciente</h4>
+      <span class="appointment-patient-name">
+        {{ $ctrl.appointment.patient.first_name }} {{ $ctrl.appointment.patient.last_name }}
+      </span>
+      <a href="mailto:{{ $ctrl.appointment.patient.email }}">{{ $ctrl.appointment.patient.email }}</a>
+    </div>
+    <div class="appointment-patient col-xs-6" ng-if="$ctrl.subject === 'doctor'">
+      <h3>Doctor</h4>
+      <span class="appointment-patient-name">
+        {{ $ctrl.appointment.appointmentSlot.worksIn.doctor.first_name }} {{ $ctrl.appointment.appointmentSlot.worksIn.doctor.last_name }}
+      </span>
+      <a href="mailto:{{ $ctrl.appointment.appointmentSlot.worksIn.doctor.email }}">{{ $ctrl.appointment.appointmentSlot.worksIn.doctor.email }}</a>
+    </div>
+    <div class="appointment-institution col-xs-6">
+      <h3>Institución</h4>
+      {{ $ctrl.appointment.appointmentSlot.worksIn.institution.name }}
+    </div>
+  </div>
+  <div class="appointment-actions">
+    <button class="btn btn-danger"
+            ng-click="$ctrl.onCancel({appointment: $ctrl.appointment})"
+            ng-if="!$ctrl.appointment.isPast">
+      Cancelar
+    </button>
+  </div>
+</div>
