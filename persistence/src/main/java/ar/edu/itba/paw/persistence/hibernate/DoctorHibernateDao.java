@@ -101,7 +101,7 @@ public class DoctorHibernateDao implements DoctorDao {
         query.setParameter("name", "%" + name + "%");
         query.setParameter("lastName", "%" + lastName + "%");
 
-        int count = query.getResultList().size(); // Exception thrown when COUNT(*)ing
+        final int count = query.getResultList().size(); // Exception thrown when COUNT(*)ing
 
         return count > 0;
     }

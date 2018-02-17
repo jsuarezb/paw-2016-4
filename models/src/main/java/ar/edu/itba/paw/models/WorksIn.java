@@ -21,7 +21,7 @@ public class WorksIn {
 
     /* package */ WorksIn() {}
 
-    public WorksIn(Integer id, Doctor doctor, Institution institution) {
+    public WorksIn(final Integer id, final Doctor doctor, final Institution institution) {
         this.id = id;
         this.doctor = doctor;
         this.institution = institution;
@@ -40,7 +40,7 @@ public class WorksIn {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

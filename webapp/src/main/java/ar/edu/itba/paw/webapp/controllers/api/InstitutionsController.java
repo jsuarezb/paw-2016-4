@@ -34,9 +34,9 @@ public class InstitutionsController extends ApiController {
     private SpecialityService specialityService;
 
     @GET
-    public Response index(@PathParam("page") Integer pageParam) {
+    public Response index(@PathParam("page") final Integer pageParam) {
         final List<Institution> allInstitutions = institutionService.getAll();
-        GenericEntity<List<InstitutionDTO>> list = new GenericEntity<List<InstitutionDTO>>(InstitutionDTO.fromList(allInstitutions)) {
+        final GenericEntity<List<InstitutionDTO>> list = new GenericEntity<List<InstitutionDTO>>(InstitutionDTO.fromList(allInstitutions)) {
         };
         return ok(list);
     }
@@ -46,9 +46,7 @@ public class InstitutionsController extends ApiController {
     public Response show(@PathParam("id") final int id) {
         final Institution institution = institutionService.get(id);
         final List<Doctor> doctors = doctorService.getDoctorsByInstitution(id);
-        System.out.println(doctors);
         final Set<Speciality> specialities = specialityService.getByInstitutionId(id);
-        System.out.println(specialities);
 
         if (institution != null) {
             return ok(new InstitutionDTO(institution, doctors, specialities));
@@ -61,10 +59,11 @@ public class InstitutionsController extends ApiController {
     @Path("/{institution_id}/specialities")
     public Response specialitiesForInstitution(@PathParam("institution_id") final int institution_id){
         final Institution institution = institutionService.get(institution_id);
-        if(institution == null)
+        if (institution == null) {
             return notFound();
+        }
         final Set<Speciality> specialities = specialityService.getByInstitutionId(institution_id);
-        GenericEntity<Set<SpecialityDTO>> list = new GenericEntity<Set<SpecialityDTO>>(SpecialityDTO.fromSet(specialities)){
+        final GenericEntity<Set<SpecialityDTO>> list = new GenericEntity<Set<SpecialityDTO>>(SpecialityDTO.fromSet(specialities)){
         };
         return ok(list);
     }
@@ -72,11 +71,12 @@ public class InstitutionsController extends ApiController {
     @GET
     @Path("/{institution_id}/doctors")
     public Response doctorsInInstitution(@PathParam("institution_id") final int institution_id){
-        Institution institution = institutionService.get(institution_id);
-        if(institution == null)
+        final Institution institution = institutionService.get(institution_id);
+        if (institution == null) {
             return notFound();
+        }
         final List<Doctor> doctors = doctorService.getDoctorsByInstitution(institution_id);
-        GenericEntity<List<DoctorDTO>> list = new GenericEntity<List<DoctorDTO>>(DoctorDTO.fromList(doctors)){
+        final GenericEntity<List<DoctorDTO>> list = new GenericEntity<List<DoctorDTO>>(DoctorDTO.fromList(doctors)){
         };
         return ok(list);
     }

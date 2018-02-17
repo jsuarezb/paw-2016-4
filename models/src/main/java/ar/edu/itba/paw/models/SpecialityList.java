@@ -11,7 +11,7 @@ public class SpecialityList {
 
     public List<Speciality> list;
 
-    public SpecialityList(List<Speciality> specialityList) {
+    public SpecialityList(final List<Speciality> specialityList) {
         this.list = specialityList;
     }
 
@@ -21,7 +21,7 @@ public class SpecialityList {
         return list;
     }
 
-    public void setList(List<Speciality> specialityList) {
+    public void setList(final List<Speciality> specialityList) {
         this.list = specialityList;
     }
 }

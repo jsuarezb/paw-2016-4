@@ -42,13 +42,13 @@ public class AppointmentsController extends ApiController {
     DoctorService doctorService;
 
     @GET
-    public Response listAvailableAppointmentsSlots(@QueryParam("speciality") Integer specialityId,
-                                                   @QueryParam("neighborhood") String neighborhood,
-                                                   @QueryParam("institution") Integer institutionId,
-                                                   @QueryParam("weekOfYear") Integer weekOfYear,
-                                                   @QueryParam("year") Integer year,
-                                                   @QueryParam("doctorId") Integer doctorId,
-                                                   @DefaultValue("0") @QueryParam("page") int page) {
+    public Response listAvailableAppointmentsSlots(@QueryParam("speciality") final Integer specialityId,
+                                                   @QueryParam("neighborhood") final String neighborhood,
+                                                   @QueryParam("institution") final Integer institutionId,
+                                                   @QueryParam("weekOfYear") final Integer weekOfYear,
+                                                   @QueryParam("year") final Integer year,
+                                                   @QueryParam("doctorId") final Integer doctorId,
+                                                   @DefaultValue("0") @QueryParam("page") final int page) {
         final PagedResult<Appointment> pageResult =
                 appointmentService.search(weekOfYear, year, institutionId, specialityId, neighborhood, doctorId, page);
         final List<AppointmentDTO> appointments =
@@ -69,9 +69,7 @@ public class AppointmentsController extends ApiController {
         final Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (patient != null) {
             final List<Appointment> patientAppointments = appointmentService.getByPatient(patient);
-            GenericEntity<List<AppointmentDTO>> list = new GenericEntity<List<AppointmentDTO>>(AppointmentDTO.fromList(patientAppointments)){
-
-            };
+            final GenericEntity<List<AppointmentDTO>> list = new GenericEntity<List<AppointmentDTO>>(AppointmentDTO.fromList(patientAppointments)) {};
             return ok(list);
         }
         else{

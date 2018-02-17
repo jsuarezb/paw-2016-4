@@ -18,7 +18,7 @@ public interface AppointmentDao {
 
     List<Appointment> getByPatient(final Patient patient, final int page);
 
-    //FIXME
+    // FIXME
     List<Appointment> getAll();
 
     /**

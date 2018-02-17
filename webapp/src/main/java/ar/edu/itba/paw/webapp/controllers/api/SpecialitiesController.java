@@ -27,7 +27,7 @@ public class SpecialitiesController extends ApiController {
     @GET
     public Response index() {
         final List<Speciality> allSpecialities = specialityService.getAll();
-        GenericEntity<List<SpecialityDTO>> list = new GenericEntity<List<SpecialityDTO>>(SpecialityDTO.fromList(allSpecialities)) {
+        final GenericEntity<List<SpecialityDTO>> list = new GenericEntity<List<SpecialityDTO>>(SpecialityDTO.fromList(allSpecialities)) {
         };
         return ok(list);
     }

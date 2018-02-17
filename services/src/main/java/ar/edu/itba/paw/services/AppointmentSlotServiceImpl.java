@@ -42,7 +42,7 @@ public class AppointmentSlotServiceImpl implements AppointmentSlotService {
                 .search(weekNumber, year, institution_id, speciality_id, neighborhood, doctor_id, page);
     }
 
-    /* package */ void setAppointmentSlotDao(AppointmentSlotDao appointmentSlotDao) {
+    /* package */ void setAppointmentSlotDao(final AppointmentSlotDao appointmentSlotDao) {
         this.appointmentSlotDao = appointmentSlotDao;
     }
 

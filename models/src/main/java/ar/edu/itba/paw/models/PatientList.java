@@ -11,7 +11,7 @@ public class PatientList {
 
     public List<Patient> list;
 
-    public PatientList(List<Patient> patientList) {
+    public PatientList(final List<Patient> patientList) {
         this.list = patientList;
     }
 
@@ -21,7 +21,7 @@ public class PatientList {
         return list;
     }
 
-    public void setList(List<Patient> patientList) {
+    public void setList(final List<Patient> patientList) {
         this.list = patientList;
     }
 }

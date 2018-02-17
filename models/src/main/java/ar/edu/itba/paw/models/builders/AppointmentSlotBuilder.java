@@ -11,17 +11,17 @@ public class AppointmentSlotBuilder implements Builder<AppointmentSlot> {
     private Integer dayOfWeek;
     private Integer hour;
 
-    public AppointmentSlotBuilder setWorksIn(WorksIn worksIn) {
+    public AppointmentSlotBuilder setWorksIn(final WorksIn worksIn) {
         this.worksIn = worksIn;
         return this;
     }
 
-    public AppointmentSlotBuilder setDayOfWeek(Integer dayOfWeek) {
+    public AppointmentSlotBuilder setDayOfWeek(final Integer dayOfWeek) {
         this.dayOfWeek = dayOfWeek;
         return this;
     }
 
-    public AppointmentSlotBuilder setHour(Integer hour) {
+    public AppointmentSlotBuilder setHour(final Integer hour) {
         this.hour = hour;
         return this;
     }

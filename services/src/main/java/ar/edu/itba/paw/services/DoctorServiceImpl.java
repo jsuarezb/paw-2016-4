@@ -5,7 +5,6 @@ import ar.edu.itba.paw.persistence.DoctorDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -30,7 +29,7 @@ public class DoctorServiceImpl implements DoctorService {
     }
 
     @Override
-    public Doctor findByEmail(String email) {
+    public Doctor findByEmail(final String email) {
         return doctorDao.getByEmail(email);
     }
 
@@ -45,7 +44,7 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorDao.hasNextPageForSearchByName(name, lastName, page);
     }
 
-    /* package */ void setDoctorDao(DoctorDao doctorDao) {
+    /* package */ void setDoctorDao(final DoctorDao doctorDao) {
         this.doctorDao = doctorDao;
     }
 }

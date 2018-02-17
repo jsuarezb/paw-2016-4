@@ -5,7 +5,6 @@ import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.models.Rating;
 import ar.edu.itba.paw.models.RatingSummary;
 import ar.edu.itba.paw.persistence.RatingDao;
-import ar.edu.itba.paw.services.exceptions.RatingAlreadyExistsException;
 import ar.edu.itba.paw.persistence.exceptions.UpdateNoRatingException;
 import ar.edu.itba.paw.services.exceptions.UpdateNonExistantRatingException;
 import org.springframework.stereotype.Repository;
@@ -36,7 +35,7 @@ public class RatingHibernateDao implements RatingDao {
 
     @Override
     @Transactional
-    public Rating update(Doctor doctor, Patient patient, Integer value)
+    public Rating update(final Doctor doctor, final Patient patient, final Integer value)
             throws UpdateNonExistantRatingException, UpdateNoRatingException {
         final Query query = em.createQuery("UPDATE Rating r SET value = :value " +
                 "WHERE r.patient.id = :patient_id " +
@@ -46,7 +45,7 @@ public class RatingHibernateDao implements RatingDao {
         query.setParameter("patient_id", patient.getId());
         query.setParameter("doctor_id", doctor.getId());
 
-        int result = query.executeUpdate();
+        final int result = query.executeUpdate();
         if (result == 0)
             throw new UpdateNoRatingException();
 
@@ -68,7 +67,7 @@ public class RatingHibernateDao implements RatingDao {
     }
 
     @Override
-    public RatingSummary getDoctorSummary(Doctor doctor) {
+    public RatingSummary getDoctorSummary(final Doctor doctor) {
         final TypedQuery<Double> averageQuery = em.createQuery("SELECT AVG(r.value) " +
                 "FROM Rating r " +
                 "WHERE r.doctor.id = :doctor_id", Double.class);

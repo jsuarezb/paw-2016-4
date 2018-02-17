@@ -38,24 +38,21 @@ public class UsersController extends ApiController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(final UserParams input) {
-        User existUser = userService.getByUsername(input.username);
+        final User existUser = userService.getByUsername(input.username);
         if (existUser != null) {
             return badRequest(USER_DOES_NOT_EXIST);
         } else {
-            Pair<Boolean, String> validation = PasswordValidator.validate(input.password, input.passwordConfirmation);
+            final Pair<Boolean, String> validation = PasswordValidator.validate(input.password, input.passwordConfirmation);
 
             if (!validation.getLeft()) {
                 return badRequest(validation.getRight());
             }
 
-            User user = userService.register(input.username, input.password);
-
+            final User user = userService.register(input.username, input.password);
             if (user.getId() == null) {
                 return badRequest("User already exists.");
             }
-
             return created(user);
         }
     }
-
 }

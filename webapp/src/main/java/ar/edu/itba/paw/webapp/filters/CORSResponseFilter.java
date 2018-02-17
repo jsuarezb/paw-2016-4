@@ -10,10 +10,10 @@ import javax.ws.rs.core.MultivaluedMap;
 public class CORSResponseFilter
         implements ContainerResponseFilter {
 
-    public void filter(ContainerRequestContext requestContext, ContainerResponseContext responseContext)
+    public void filter(final ContainerRequestContext requestContext, final ContainerResponseContext responseContext)
             throws IOException {
 
-        MultivaluedMap<String, Object> headers = responseContext.getHeaders();
+        final MultivaluedMap<String, Object> headers = responseContext.getHeaders();
 
         headers.add("Access-Control-Allow-Origin", "http://localhost:9000");
         headers.add("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT");

@@ -37,7 +37,7 @@ public class AppointmentHibernateDao implements AppointmentDao {
         em.persist(appointment);
         return appointment;
     }
-    //FIXME
+    // FIXME
     public List<Appointment> getAll() {
         final TypedQuery<Appointment> query = em.createQuery("FROM Appointment", Appointment.class);
         return query.getResultList();

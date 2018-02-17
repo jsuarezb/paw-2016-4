@@ -10,7 +10,7 @@ import java.util.List;
 public class ResponseList {
     private List<String> list;
 
-    public ResponseList(List<String> list) {
+    public ResponseList(final List<String> list) {
         this.list = list;
     }
 
@@ -20,7 +20,7 @@ public class ResponseList {
         return list;
     }
 
-    public void setList(List<String> neighborhoodList) {
+    public void setList(final List<String> neighborhoodList) {
         this.list = neighborhoodList;
     }
 }
