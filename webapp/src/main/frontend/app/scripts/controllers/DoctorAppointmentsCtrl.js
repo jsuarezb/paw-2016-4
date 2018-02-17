@@ -34,7 +34,6 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
       appointmentsService
         .getDoctorPastAppointments()
         .then(function (response) {
-          console.log(response.data);
           _this.pastAppointmentsFetched = true;
           _this.pastAppointments = response.data.map(function (app) {
             app.isPast = true;

@@ -6,7 +6,6 @@ define(['ChoPidoTurnos', 'services/neighborhoodsService'], function(ChoPidoTurno
 
     neighborhoodsService.getNeighborhoods().then(
       function(result) {
-        console.log(result);
         _this.neighborhoods = result.data;
       }
     );

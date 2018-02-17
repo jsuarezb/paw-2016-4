@@ -7,7 +7,6 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
 
     appointmentsService.getAppointmentsPatient().then(
       function (result) {
-        console.log(result);
           _this.appointments = result.data;
       }
     );

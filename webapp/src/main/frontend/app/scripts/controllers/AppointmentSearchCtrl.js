@@ -27,7 +27,6 @@ define(
       this.searchDateWeek = new Date();
       this.pageNumber = 0;
       this.isLoggedIn = sessionService.getLoggedUser() !== null;
-      console.log(sessionService.getLoggedUser());
 
       this.dayOfWeek = function(date) {
         switch (date.getDay()) {
@@ -117,7 +116,6 @@ define(
       this.searchAppointments();
 
       this.bookAppointment = function(appointment) {
-        console.log(appointment);
         appointmentService.postAppointment({
           slotId: appointment.appointmentSlot.id,
           weekNumber: this.weekOfYear(new Date(appointment.date)),
@@ -125,7 +123,6 @@ define(
           commets: appointment.comments
         }
         ).then(function(response) {
-          console.log(response.status);
           if (response.status !== 200) {
             _this.alerts.push({message: response.data.errors, type: 'danger'});
             return;
