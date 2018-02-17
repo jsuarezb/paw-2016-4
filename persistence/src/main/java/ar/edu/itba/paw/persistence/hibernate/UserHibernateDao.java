@@ -1,5 +1,6 @@
 package ar.edu.itba.paw.persistence.hibernate;
 
+import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.persistence.UserDao;
 import org.springframework.stereotype.Repository;
@@ -20,15 +21,17 @@ public class UserHibernateDao implements UserDao {
     private EntityManager em;
 
     @Transactional
-    public User create(final String username, final String password) {
-        final User user = new User(username, password);
+    public User create(String email, String password, String firstName, String lastName, String phone) {
+        final Patient patient = new Patient();
+        em.persist(patient);
+        final User user = new User(email, password, firstName, lastName, phone, patient, null);
         em.persist(user);
         return user;
     }
 
-    public User getByUsername(final String username) {
-        final TypedQuery<User> query = em.createQuery("from User as u where u.username = :username", User.class);
-        query.setParameter("username", username);
+    public User findByEmail(String email) {
+        final TypedQuery<User> query = em.createQuery("from User as u where u.email = :email", User.class);
+        query.setParameter("email", email);
         try {
             return query.getSingleResult();
         } catch (NoResultException e) {

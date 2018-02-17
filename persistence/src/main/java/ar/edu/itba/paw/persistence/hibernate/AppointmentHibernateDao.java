@@ -1,9 +1,6 @@
 package ar.edu.itba.paw.persistence.hibernate;
 
-import ar.edu.itba.paw.models.Appointment;
-import ar.edu.itba.paw.models.AppointmentSlot;
-import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.persistence.AppointmentDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

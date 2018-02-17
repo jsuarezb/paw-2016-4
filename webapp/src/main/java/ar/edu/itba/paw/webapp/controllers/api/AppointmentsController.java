@@ -66,7 +66,7 @@ public class AppointmentsController extends ApiController {
     @GET
     @Path("/patient")
     public Response patientAppointments() {
-        final Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        final Patient patient = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getPatient();
         if (patient != null) {
             final List<Appointment> patientAppointments = appointmentService.getByPatient(patient);
             final GenericEntity<List<AppointmentDTO>> list = new GenericEntity<List<AppointmentDTO>>(AppointmentDTO.fromList(patientAppointments)) {};
@@ -115,9 +115,7 @@ public class AppointmentsController extends ApiController {
         final Patient patient;
 
         try {
-            patient = (Patient) SecurityContextHolder.getContext()
-                    .getAuthentication()
-                    .getPrincipal();
+            patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         } catch (ClassCastException ex) {
             return badRequest("El turno no puede ser reservado por un doctor");
         }

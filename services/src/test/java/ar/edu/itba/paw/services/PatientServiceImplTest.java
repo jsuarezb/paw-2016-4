@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 public class PatientServiceImplTest {
 
-    private PatientServiceImpl service;
+    /*private PatientServiceImpl service;
 
     private Patient patient = new Patient("", "", "", "");
 
@@ -60,5 +60,5 @@ public class PatientServiceImplTest {
         when(patientDao.getByEmail(eq("e@mail.com"))).thenReturn(patient);
 
         assertEquals(patient, service.findByEmail("e@mail.com"));
-    }
+    }*/
 }

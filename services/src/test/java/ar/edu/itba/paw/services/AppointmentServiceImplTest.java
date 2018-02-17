@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 public class AppointmentServiceImplTest {
 
-    private AppointmentServiceImpl service;
+   /* private AppointmentServiceImpl service;
 
     private Institution institution =
             new Institution("Inst name", new Address("", 0, "", "","","",""), 2);
@@ -163,5 +163,5 @@ public class AppointmentServiceImplTest {
         when(appointmentDao.delete(anyInt())).thenReturn(true);
 
         assertFalse(service.cancel(1));
-    }
+    }*/
 }

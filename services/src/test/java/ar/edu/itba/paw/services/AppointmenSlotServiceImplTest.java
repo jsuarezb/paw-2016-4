@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 public class AppointmenSlotServiceImplTest {
 
-    private AppointmentSlotServiceImpl service;
+    /*private AppointmentSlotServiceImpl service;
 
     private Doctor doctor = new Doctor(1, "", "", Collections.emptySet(),
             Collections.emptySet(), "", "");
@@ -71,5 +71,5 @@ public class AppointmenSlotServiceImplTest {
         when(slotDao.getAvailableByDoctor(eq(doctor), anyInt(), anyInt())).thenReturn(slots);
 
         assertEquals(slots, service.getAvailableByDoctor(doctor, 2, 2017));
-    }
+    }*/
 }

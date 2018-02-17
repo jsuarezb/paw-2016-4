@@ -3,6 +3,7 @@ package ar.edu.itba.paw.services;
 import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class MailServiceImpl implements MailService {
         final LocalDateTime date = appointment.getDate();
         msg.setFrom("no-reply@chopidoturnos.com");
         msg.setSubject("Turno reservado.");
-        msg.setTo(doctor.getEmail());
-        msg.setText("El paciente " + String.format("%s, %s", patient.getLastName(), patient.getName())
+        msg.setTo(doctor.getUser().getEmail());
+        msg.setText("El paciente " + String.format("%s, %s", patient.getUser().getLastName(), patient.getUser().getFirstName())
                 + " reservó un turno para el día " + date.format(dateFmt)
                 + " a las " + date.format(timeFmt) + " hs"
         );
@@ -57,10 +58,10 @@ public class MailServiceImpl implements MailService {
         final LocalDateTime date = appointment.getDate();
         msg.setFrom("chopidoturnos@gamil.com");
         msg.setSubject("Turno reservado.");
-        msg.setTo(patient.getEmail());
+        msg.setTo(patient.getUser().getEmail());
         msg.setText("Usted reservó un turno para el día " + date.format(dateFmt)
                 + " a las " + date.format(timeFmt) + " hs"
-                + String.format("%s, %s", doctor.getLastName(), doctor.getName())
+                + String.format("%s, %s", doctor.getUser().getLastName(), doctor.getUser().getFirstName())
         );
 
         try {
@@ -78,8 +79,8 @@ public class MailServiceImpl implements MailService {
         final LocalDateTime date = appointment.getDate();
         msg.setFrom("no-reply@chopidoturnos.com");
         msg.setSubject("Turno cancelado.");
-        msg.setTo(doctor.getEmail());
-        msg.setText("El paciente " + String.format("%s, %s", patient.getLastName(), patient.getName())
+        msg.setTo(doctor.getUser().getEmail());
+        msg.setText("El paciente " + String.format("%s, %s", patient.getUser().getLastName(), patient.getUser().getFirstName())
                 + " ha cancelado el turno para el día " + date.format(dateFmt)
                 + " a las " + date.format(timeFmt) + " hs"
         );
@@ -99,10 +100,10 @@ public class MailServiceImpl implements MailService {
         final LocalDateTime date = appointment.getDate();
         msg.setFrom("chopidoturnos@gamil.com");
         msg.setSubject("Turno cancelado.");
-        msg.setTo(patient.getEmail());
+        msg.setTo(patient.getUser().getEmail());
         msg.setText("Usted canceló el turno del día " + date.format(dateFmt)
                 + " a las " + date.format(timeFmt) + " hs"
-                + String.format("%s, %s", doctor.getLastName(), doctor.getName())
+                + String.format("%s, %s", doctor.getUser().getLastName(), doctor.getUser().getFirstName())
         );
 
         try {

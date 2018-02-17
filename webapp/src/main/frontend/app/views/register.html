@@ -1,4 +1,4 @@
-<div ng-controller="RegisterCtrl as ctrl" class='container'>
+<div ng-controller="RegisterCtrl as ctrl" class="container">
   <h2>Ingrese sus datos</h2>
   <form role="form" ng-submit="ctrl.register()">
     <div class="form-group">
@@ -14,6 +14,10 @@
     <div class="form-group">
       <label for="lastName" class="control-label">Apellido</label>
       <input id="lastName" path="lastName" class="form-control" placeholder="Apellido" ng-model="ctrl.lastName"/>
+    </div>
+    <div class="form-group">
+      <label for="lastName" class="control-label">Telefono</label>
+      <input id="phone" path="phone" class="form-control" placeholder="Telefono" ng-model="ctrl.phone"/>
     </div>
     <div class="form-group">
       <label for="password" class="control-label">Contraseña</label>

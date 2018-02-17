@@ -8,62 +8,29 @@ import java.util.List;
 @Entity
 @Table(name = "patients")
 @XmlRootElement
-public class Patient implements Loggable {
+public class Patient {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "patients_id_seq")
     @SequenceGenerator(sequenceName = "patients_id_seq", name = "patients_id_seq", allocationSize = 1)
     private Integer id;
 
-    @Column(length = 100, nullable = false)
-    private String name;
-
-    @Column(length = 100, nullable = false, name = "last_name")
-    private String lastName;
-
-    @Column(length = 100, nullable = false, unique = true)
-    private String email;
-
-    @Column(length = 100, nullable = false)
-    private String password;
-
     @OneToMany
     private List<Appointment> appointments;
 
-    /* package */ Patient(){ }
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "patient")
+    private User user;
 
-    public Patient(final String name,
-                   final String lastName,
-                   final String email,
-                   final String password) {
-        this.name = name;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
+    public User getUser() {
+        return user;
     }
+
+    public Patient(){ }
+
 
     @XmlAttribute
     public Integer getId() {
         return id;
-    }
-
-    @XmlAttribute
-    public String getName() {
-        return name;
-    }
-
-    @XmlAttribute
-    public String getLastName() {
-        return lastName;
-    }
-
-    @XmlAttribute
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public List<Appointment> getAppointments() {
@@ -90,14 +57,6 @@ public class Patient implements Loggable {
     public String toString() {
         return "Patient{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", last_name='" + lastName + '\'' +
-                ", email='" + email + '\'' +
                 '}';
-    }
-
-    @Override
-    public String type() {
-        return Loggable.PATIENT;
     }
 }

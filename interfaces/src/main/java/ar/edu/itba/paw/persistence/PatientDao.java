@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.models.User;
 
 import java.util.List;
 
@@ -31,8 +32,4 @@ public interface PatientDao {
      */
     Patient getByEmail(final String email);
 
-    Patient create(final String name,
-                   final String last_name,
-                   final String email,
-                   final String password);
 }
