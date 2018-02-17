@@ -78,7 +78,11 @@ require.config({
     }
   },
   packages: [
-
+    {
+      name: 'moment',
+      location: '.',
+      main: 'moment'
+    }
   ]
 });
 

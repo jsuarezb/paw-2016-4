@@ -335,3 +335,34 @@ body {
   }
 }
 
+.day-columns {
+  display: flex;
+  flex-flow: row;
+  margin: 25px;
+
+  .day-column {
+    flex-grow: 1;
+    text-align: center
+  }
+
+  .day-column:nth-child(even) {
+    background-color: #DFDFDF;
+  }
+
+  .day-column:nth-child(odd) {
+    background-color: #CECECE;
+  }
+
+  .appointment-slot-day {
+    font-size: 2em;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .day-appointment {
+    font-size: 2em;
+    width: 70%;
+    margin: 10px auto;
+    background-color: #FAFAFA;
+  }
+}

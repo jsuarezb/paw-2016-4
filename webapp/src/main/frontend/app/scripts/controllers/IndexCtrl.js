@@ -1,8 +1,10 @@
 'use strict';
+
 define(['ChoPidoTurnos', 'services/sessionService',
         'components/header',
         'components/alerts',
-        'components/appointment'], function(ChoPidoTurnos) {
+        'components/appointment',
+        'components/doctorAppointmentWeek'], function(ChoPidoTurnos) {
   ChoPidoTurnos.controller('IndexCtrl', ['$state', '$scope', 'sessionService', function ($state, $scope, sessionService) {
     this.getLoggedUser = function() {
       return sessionService.getLoggedUser();
