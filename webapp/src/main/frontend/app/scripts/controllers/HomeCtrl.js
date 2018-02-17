@@ -44,6 +44,8 @@ define(['ChoPidoTurnos', 'services/specialitiesService', 'services/neighborhoods
           lastName: $scope.lastName
         });
       };
+
+      var institutions = $scope.institutions;
     }
   ]);
 });

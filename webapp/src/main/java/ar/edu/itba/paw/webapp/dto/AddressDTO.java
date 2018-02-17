@@ -29,6 +29,10 @@ public class AddressDTO {
     private String state;
     @XmlElement
     private String neighborhood;
+    @XmlElement
+    private String lat;
+    @XmlElement
+    private String lon;
 
     public AddressDTO() {
     }
@@ -42,6 +46,8 @@ public class AddressDTO {
         this.country = address.getCountry();
         this.state = address.getState();
         this.neighborhood = address.getNeighborhood();
+        this.lat = address.getLat();
+        this.lon = address.getLon();
     }
 
     public static List<AddressDTO> fromList(List<Address> addresses) {

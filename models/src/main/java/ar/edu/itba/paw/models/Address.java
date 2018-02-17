@@ -122,6 +122,6 @@ public class Address {
 
     @Override
     public String toString() {
-        return String.format(PRINT_FORMAT, streetName, streetNumber, apartment, city, state, country);
+        return String.format(PRINT_FORMAT, streetName, streetNumber, apartment, city, state, country,lat,lon);
     }
 }
