@@ -37,3 +37,4 @@ node
 .sass-cache
 .tmp
 dist
+logs

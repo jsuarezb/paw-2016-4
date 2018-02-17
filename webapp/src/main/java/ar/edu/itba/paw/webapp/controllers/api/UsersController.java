@@ -33,7 +33,6 @@ public class UsersController extends ApiController {
     @GET
     @Path("/me")
     public Response me() {
-        System.out.println(getLoggedUser().type());
         return ok(new UserDTO(getLoggedUser()));
     }
 
