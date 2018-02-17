@@ -117,7 +117,9 @@ public class AppointmentsController extends ApiController {
         final Patient patient;
 
         try {
-            patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            patient = (Patient) SecurityContextHolder.getContext()
+                    .getAuthentication()
+                    .getPrincipal();
         } catch (ClassCastException ex) {
             return badRequest("El turno no puede ser reservado por un doctor");
         }
