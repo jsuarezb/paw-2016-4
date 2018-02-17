@@ -183,7 +183,10 @@ public class AppointmentServiceImpl implements AppointmentService {
         final Appointment appointment = appointmentDao.getByid(appointmentId);
         LocalDateTime now = LocalDateTime.now();
         int week = now.get(WeekFields.of(DayOfWeek.SUNDAY, 7).weekOfYear());
-        if (appointment.getWeekNumber() < week) {
+        if (appointment.getYear() < now.getYear()) {
+            return false;
+        }
+        if (appointment.getWeekNumber() < week && appointment.getYear() == now.getYear()) {
             return false;
         }
 

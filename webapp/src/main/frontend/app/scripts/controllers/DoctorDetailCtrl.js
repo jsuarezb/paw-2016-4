@@ -35,6 +35,6 @@ define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos) {
         .then(function (result) {
           // TODO
         });
-    }
+    };
   }]);
 });
