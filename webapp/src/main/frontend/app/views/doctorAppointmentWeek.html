@@ -1,0 +1,12 @@
+<div>
+  <div class="day-columns">
+    <div class="day-column" ng-repeat="day in $ctrl.days">
+        <div class="appointment-slot-day">
+          {{ $ctrl.daysString[day - 1] }}
+        </div>
+        <div class="day-appointment" ng-repeat="appointment in $ctrl.daySlots[day]">
+          {{ appointment.appointmentSlot.hour }}:00
+        </div>
+      </div>
+  </div>
+</div>
