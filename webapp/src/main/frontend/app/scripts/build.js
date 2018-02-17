@@ -26,7 +26,8 @@ require.config({
     transition: '../../bower_components/bootstrap-sass-official/assets/javascripts/bootstrap/transition',
     ngload: '../../bower_components/angularAMD/ngload',
     angularAMD: '../../bower_components/angularAMD/angularAMD',
-    'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls'
+    'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
+    'angular1-star-rating': '../../bower_components/angular1-star-rating/dist/index'
   },
   shim: {
     angular: {
@@ -56,6 +57,11 @@ require.config({
       ]
     },
     'angular-translate': {
+      deps: [
+        'angular'
+      ]
+    },
+    'angular1-star-rating': {
       deps: [
         'angular'
       ]

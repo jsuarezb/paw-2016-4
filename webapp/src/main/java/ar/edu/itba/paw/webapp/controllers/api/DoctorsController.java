@@ -1,16 +1,21 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.models.Rating;
+import ar.edu.itba.paw.models.RatingSummary;
 import ar.edu.itba.paw.services.DoctorService;
+import ar.edu.itba.paw.services.RatingService;
 import ar.edu.itba.paw.webapp.dto.DoctorDTO;
+import ar.edu.itba.paw.webapp.dto.RatingDTO;
+import ar.edu.itba.paw.webapp.dto.RatingSummaryDTO;
 import ar.edu.itba.paw.webapp.params.PaginationHelper;
+import ar.edu.itba.paw.webapp.params.RatingParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
+import javax.print.Doc;
+import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 import java.util.List;
@@ -21,8 +26,12 @@ import java.util.List;
 @Path("api/v1/doctors")
 @Component
 public class DoctorsController extends ApiController {
+
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private RatingService ratingService;
 
     @GET
     public Response index(@QueryParam("first_name") String firstName,
@@ -55,5 +64,37 @@ public class DoctorsController extends ApiController {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    @GET
+    @Path("/{id}/rating_summary")
+    public Response ratingSummary(@PathParam("id") final Integer id) {
+        final Doctor doctor = doctorService.get(id);
+        final RatingSummary summary = ratingService.getDoctorSummary(doctor);
+
+        return ok(new RatingSummaryDTO(summary));
+    }
+
+    @GET
+    @Path("/{id}/ratings")
+    public Response patientRating(@PathParam("id") final Integer id) {
+        final Doctor doctor = doctorService.get(id);
+        final Patient patient = (Patient) getLoggedUser();
+        final Rating rating = ratingService.get(doctor, patient);
+
+        if (rating == null)
+            return notFound();
+
+        return ok(new RatingDTO(rating));
+    }
+
+    @PUT
+    @Path("/{id}/ratings")
+    public Response createPatientRating(@PathParam("id") final Integer id, final RatingParams params) {
+        final Doctor doctor = doctorService.get(id);
+        final Patient patient = (Patient) getLoggedUser();
+        final Rating rating = ratingService.update(doctor, patient, params.value);
+
+        return ok(new RatingDTO(rating));
     }
 }
