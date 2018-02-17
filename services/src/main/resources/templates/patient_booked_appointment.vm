@@ -1,0 +1,22 @@
+<style>
+    .appointment-details {
+        width: 40%;
+    }
+
+    .appointment-map {
+        width: 40%;
+    }
+</style>
+<div>
+    <div class="appointment-details">
+        <p>Usted reservó un turno con el doctor $doctorName para el $appointmentDate a las $appointmentTime.</p>
+        <p>Si desea cancelar la reserva, ingrese a <a href="$cancelAppointmentUrl">este link</a>.
+        <p><a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Turno+médico+con+$doctorName&dates=$appointmentStartDatetime/$appointmentEndDatetime&location=$institutionStreetName,+$institutionStreetNumber,+$institutionNeighborhood,+$institutionCity,+$institutionState,+$institutionCountry&sf=true&output=xml">Agregar a Google Calendar</a>
+    </div>
+    <div class="appointment-map">
+        <h4>¿Cómo llego?<h4>
+        <a href="https://www.google.com/maps/place/$institutionStreetName,+$institutionStreetNumber,+$institutionNeighborhood,+$institutionCity,+$institutionState,+$institutionCountry/">
+            <img src="https://maps.googleapis.com/maps/api/staticmap?center=$institutionStreetName,+$institutionStreetNumber,+$institutionNeighborhood,+$institutionCity,+$institutionState,+$institutionCountry&zoom=14&scale=1&size=300x150&maptype=roadmap&format=png&visual_refresh=true" alt="Google Map de $institutionName">
+        </a>
+    </div>
+</div>
