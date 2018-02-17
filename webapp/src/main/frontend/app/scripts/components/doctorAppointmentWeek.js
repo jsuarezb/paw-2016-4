@@ -1,7 +1,7 @@
 'use strict';
 
-define(['ChoPidoTurnos'], function (ChoPidoTurnos) {
-  function DoctorAppointmentWeekController($scope, appointmentsService, dateService, moment) {
+define(['ChoPidoTurnos', 'moment'], function (ChoPidoTurnos, moment) {
+  function DoctorAppointmentWeekController($scope, appointmentsService, dateService) {
     return {
       '$onInit': function() {
         var now = new Date();
@@ -37,7 +37,7 @@ define(['ChoPidoTurnos'], function (ChoPidoTurnos) {
     };
   }
 
-  DoctorAppointmentWeekController.$inject = ['$scope', 'appointmentsService', 'dateService', 'moment'];
+  DoctorAppointmentWeekController.$inject = ['$scope', 'appointmentsService', 'dateService'];
 
   ChoPidoTurnos
     .component('doctorAppointmentWeek', {

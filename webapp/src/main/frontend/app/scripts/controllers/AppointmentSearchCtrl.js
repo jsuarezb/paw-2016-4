@@ -34,9 +34,9 @@ define(
         return dateService.dayOfWeek(date);
       };
 
-      var searchAppointments = function () {
-        var weekOfYear = dateService.weekOfYear($scope.searchDateWeek);
-        var year = $scope.searchDateWeek.getFullYear();
+      this.searchAppointments = function () {
+        var weekOfYear = dateService.weekOfYear(_this.searchDateWeek);
+        var year = _this.searchDateWeek.getFullYear();
 
         appointmentService
           .searchAppointments(_institution, _speciality, _neighborhood, weekOfYear, year, _doctor, this.pageNumber)

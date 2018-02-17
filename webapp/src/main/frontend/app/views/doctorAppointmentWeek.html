@@ -5,7 +5,7 @@
           {{ $ctrl.daysString[day - 1] }}
         </div>
         <div class="day-appointment" ng-repeat="appointment in $ctrl.daySlots[day]">
-          {{ appointment.appointmentSlot.hour }}:00
+          <calendar-appointment appointment="appointment"></calendar-appointment>
         </div>
       </div>
   </div>

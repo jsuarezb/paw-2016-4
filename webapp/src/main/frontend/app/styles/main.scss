@@ -364,5 +364,24 @@ body {
     width: 70%;
     margin: 10px auto;
     background-color: #FAFAFA;
+    border-radius: 2px;
+
+    transition: color 0.15s, background-color .15s;
+    transition-timing-function: ease-in-out;
+
+    :hover {
+      background-color: #0069D9;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .day-appointment.btn-primary {
+    color: black;
+    border: none;
+
+    :hover {
+      color: white;
+    }
   }
 }
