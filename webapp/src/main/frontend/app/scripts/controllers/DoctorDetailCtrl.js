@@ -10,7 +10,6 @@ define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos) {
     doctorsService
       .getDoctor(doctorId)
       .then(function (result) {
-        console.log(result);
         _this.doctor = result.data;
       }
     );
@@ -25,7 +24,7 @@ define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos) {
       .getRatingSummary(doctorId)
       .then(function (result) {
         var data = result.data;
-        console.log(data);
+
         _this.ratingAverage = Math.round(data.average);
         _this.ratingSummary = data.valuesCount;
       });
@@ -34,8 +33,8 @@ define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos) {
       doctorsService
         .rate(doctorId, ev.rating)
         .then(function (result) {
-
-        })
+          // TODO
+        });
     }
   }]);
 });

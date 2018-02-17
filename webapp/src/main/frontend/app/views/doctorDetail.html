@@ -1,20 +1,27 @@
 <div class="title container" ng-app="ChoPidoTurnos" ng-controller="DoctorDetailCtrl as ctrl">
-  <h1>Perfil del Doctor</h1>
-  <div class="panel panel-default">
-    <div class="panel-heading">
-      <h2>Dr. {{ctrl.doctor.first_name}}, {{ctrl.doctor.last_name}}</h2>
+  <div class="doctor-profile">
+    <img class="doctor-avatar" src="images/profile.png" height="200"/>
+    <div class="doctor-details">
+      <div class="doctor-name">
+        <h1>Dr. {{ctrl.doctor.first_name}} {{ctrl.doctor.last_name}}</h1>
+        <h2>{{ ctrl.doctor.email }}</h2>
+      </div>
+      <div class="doctor-specialities">
+        <span ng-repeat="s in ctrl.doctor.specialities">{{s.name}} </span>
+      </div>
+      <div class="doctor-institutions">
+        <p ng-repeat="i in ctrl.doctor.institutions">
+          {{ i.address.street_name }} {{ i.address.street_number }}, {{ i.address.city }}, {{ i.address.state }}
+          <a target="_blank" href="http://maps.google.com/maps?f=d&daddr={{ i.address.street_name }} {{ i.address.street_number }}, {{ i.address.city }}, {{ i.address.state }}&nav=1">
+            (Ver mapa)
+          </a>
+        </p>
+      </div>
     </div>
-    <div class="panel-body">
-      <ul class="list-inline" ng-repeat="s in ctrl.doctor.specialities">
-        <h3><li>{{s.name}}</li></h3>
-      </ul>
-      <ul class="list-inline" ng-repeat="i in ctrl.doctor.institutions">
-        <li><a ui-sref="institution({institutionId:'{{i.id}}'})">{{i.name}}</a></li>
-      </ul>
-      <p>{{ctrl.doctor.email}}</p>
+    <div class="doctor-rating">
+      <star-rating-comp on-click="ctrl.onDoctorRated($event)" rating="ctrl.ratingAverage"
+                        labelText="Calificación" show-hover-stars="true">
+      </star-rating-comp>
     </div>
-    <star-rating-comp on-click="ctrl.onDoctorRated($event)" rating="ctrl.ratingAverage"
-                      labelText="Puntaje:" show-hover-stars="true">
-    </star-rating-comp>
   </div>
 </div>

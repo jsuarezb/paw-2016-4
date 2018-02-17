@@ -182,6 +182,10 @@ body {
  * Custom
  */
 
+.underline {
+  border-bottom: 1px solid #000000;
+}
+
 .appointment-date {
   color: #606060;
   border-bottom: 1px solid #F0F0F0;
@@ -288,3 +292,45 @@ body {
 .doctor-search-params {
   font-weight: bold;
 }
+
+.doctor-profile {
+  display: flex;
+  padding: 10px;
+
+  .doctor-avatar {
+    margin: 0 10px;
+  }
+
+  .doctor-name h2 {
+    color: #999999;
+  }
+
+  .doctor-details {
+    display: flex;
+    flex-flow: column;
+    flex-grow: 1;
+  }
+
+  .doctor-rating {
+    .rating {
+      justify-content: start;
+      align-items: left;
+      display: inline-block;
+    }
+  }
+
+  .doctor-specialities {
+    margin: 0;
+    font-size: 1.7em;
+  }
+
+  .doctor-institutions p {
+    font-size: 1.3em;
+    padding: 10px 0;
+  }
+
+  .send-email .btn {
+    font-size: 1.3em;
+  }
+}
+
