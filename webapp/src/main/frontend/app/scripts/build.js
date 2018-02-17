@@ -27,7 +27,9 @@ require.config({
     ngload: '../../bower_components/angularAMD/ngload',
     angularAMD: '../../bower_components/angularAMD/angularAMD',
     'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-    'angular1-star-rating': '../../bower_components/angular1-star-rating/dist/index'
+    'angular1-star-rating': '../../bower_components/angular1-star-rating/dist/index',
+    'angular-google-maps': '../../bower_components/angular-google-maps/dist/angular-google-maps',
+    'smalot-bootstrap-datetimepicker': '../../bower_components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min'
   },
   shim: {
     angular: {
@@ -36,6 +38,11 @@ require.config({
       ]
     },
     'angular-ui-router': {
+      deps: [
+        'angular'
+      ]
+    },
+    'angular-bootstrap': {
       deps: [
         'angular'
       ]
@@ -93,6 +100,9 @@ require([
   'ChoPidoTurnos',
   'angular',
   'controllers/IndexCtrl',
+  'components/appointmentModalPresenter',
+  'components/doctorComponent',
+  'components/specialityComponent',
   'interceptors/baseURLInterceptor',
   'interceptors/sessionInterceptor'
   ],

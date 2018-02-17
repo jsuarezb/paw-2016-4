@@ -1,0 +1,10 @@
+<uib-tabset active="active">
+  <uib-tab index="day" heading="Static title"ng-repeat="day in appointmentDays">
+    <uib-tab-heading>{{day}}</uib-tab-heading>
+    <table class="table table-hover " ng-controller="AvailableSlotsCtrl">
+      <tr class="modal-table-row" ng-repeat="appointment in appointmentGroups[day]">
+        <td ng-click="appointmentSelected(appointment)">{{ appointment.date | date: 'HH:mm' }}</td>
+      </tr>
+    </table>
+  </uib-tab>
+</uib-tabset>

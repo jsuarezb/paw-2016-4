@@ -6,12 +6,14 @@ define(['routes',
   'angular',
   'angular-ui-router',
   'bootstrap',
+  'angular-bootstrap',
   'angular-translate',
   'angular1-star-rating'],
   function(config, dependencyResolverFor, i18n, angularAMD) {
     var ChoPidoTurnos = angular.module('ChoPidoTurnos', [
       'pascalprecht.translate',
       'ui.router',
+      'ui.bootstrap',
       'star-rating'
     ]);
     ChoPidoTurnos

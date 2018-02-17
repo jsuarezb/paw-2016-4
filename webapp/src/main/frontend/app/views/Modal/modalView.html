@@ -1,0 +1,42 @@
+<div class="modal-header"  >
+
+  <uib-tabset active="active">
+    <uib-tab index="0" active="selected == index">
+      <uib-tab-heading>Especialidades</uib-tab-heading>
+      <div class="modal-inner-view">
+        <speciality-component on-speciality-selected="$ctrl.handleSpecialitySelected(specialityId)"
+                              institution-id="$ctrl.institutionId">
+        </speciality-component>
+      </div>
+
+    </uib-tab>
+
+
+    <uib-tab index="1" active="selected == index">
+      <uib-tab-heading>Doctores</uib-tab-heading>
+      <!--//DoctorListInnerView-->
+      <div class="modal-inner-view">
+        <doctor-component on-doctor-selected="$ctrl.handleDoctorSelected(doctorId)"
+                          institution-id="$ctrl.institutionId">
+        </doctor-component>
+      </div>
+
+    </uib-tab>
+
+    <uib-tab index="2" active="selected == index">
+      <uib-tab-heading>Día y fecha</uib-tab-heading>
+      <div class="modal-inner-view">
+        <available-slots-component></available-slots-component>
+      </div>
+    </uib-tab>
+
+    <uib-tab index="3" active="selected == index">
+      <uib-tab-heading>Revisa y confirma</uib-tab-heading>
+      <!--//Review and confirm view-->
+      <div class="modal-inner-view">
+
+      </div>
+
+    </uib-tab>
+  </uib-tabset>
+</div>

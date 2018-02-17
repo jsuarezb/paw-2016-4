@@ -4,7 +4,6 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 // endbower
 
 @import 'partials/home';
-@import 'modules/alerts';
 
 .browsehappy {
   margin: 0.2em 0;
@@ -16,7 +15,7 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 
 body {
   padding-right: 0 !important;
-   padding-left: 0 !important;
+  padding-left: 0 !important;
 }
 
 
@@ -183,8 +182,47 @@ body {
  * Custom
  */
 
-.underline {
-  border-bottom: 1px solid #000000;
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+@media (min-width: 1000px)/* The minimum width of the display area, such as a browser window*/
+{
+  .modal-dialog {
+    width: 1000px;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.table-hover > tbody > tr:hover {
+  background-color: #f5f5f5;
+}
+tr[ng-click] {
+  cursor: pointer;
+}
+
+.modal-table-row{
+  text-align: center;
+}
+
+.review-and-confirm-text {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+
 }
 
 .appointment-date {
@@ -294,44 +332,38 @@ body {
   font-weight: bold;
 }
 
-.doctor-profile {
-  display: flex;
-  padding: 10px;
+.modal-header {
+  text-align: center;
+  vertical-align: center;
+}
 
-  .doctor-avatar {
-    margin: 0 10px;
-  }
-
-  .doctor-name h2 {
-    color: #999999;
-  }
-
-  .doctor-details {
-    display: flex;
-    flex-flow: column;
-    flex-grow: 1;
-  }
-
-  .doctor-rating {
-    .rating {
-      justify-content: start;
-      align-items: left;
-      display: inline-block;
-    }
-  }
-
-  .doctor-specialities {
-    margin: 0;
-    font-size: 1.7em;
-  }
-
-  .doctor-institutions p {
-    font-size: 1.3em;
-    padding: 10px 0;
-  }
-
-  .send-email .btn {
-    font-size: 1.3em;
+@media screen and (min-width: 768px) {
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
   }
 }
 
+.table-hover > tbody > tr:hover {
+  background-color: #f5f5f5;
+}
+tr[ng-click] {
+  cursor: pointer;
+}
+
+.modal-table-row{
+  text-align: center;
+}
+
+.review-and-confirm-text{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  text-align: center;
+}
+
+.modal-inner-view{
+  width: 480px;
+  height: 400px;
+}
