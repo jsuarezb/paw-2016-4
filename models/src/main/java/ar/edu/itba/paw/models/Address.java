@@ -35,9 +35,16 @@ public class Address {
     @Column(length = 100, nullable = false)
     private String neighborhood;
 
+    @Column(length = 40, nullable = true)
+    private String lat;
+
+    @Column(length = 40, nullable = true)
+    private String lon;
+
+
     /* package */ Address() { }
 
-    public Address(String streetName, Integer streetNumber, String apartment, String city, String state, String neighborhood, String country) {
+    public Address(String streetName, Integer streetNumber, String apartment, String city, String state, String neighborhood, String country,String lat, String lon) {
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.apartment = apartment;
@@ -45,8 +52,10 @@ public class Address {
         this.state = state;
         this.neighborhood = neighborhood;
         this.country = country;
+        this.lat = lat;
+        this.lon = lon;
     }
-
+    
     public String getStreetName() {
         return streetName;
     }
@@ -74,6 +83,10 @@ public class Address {
     public Integer getId() {
         return id;
     }
+
+    public String getLat(){return lat;}
+
+    public String getLon(){return lon;}
 
     @XmlAttribute
     public String getNeighborhood() {
