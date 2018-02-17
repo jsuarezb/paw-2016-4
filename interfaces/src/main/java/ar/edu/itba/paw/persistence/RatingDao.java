@@ -7,12 +7,12 @@ import ar.edu.itba.paw.models.RatingSummary;
 
 public interface RatingDao {
 
-    Rating create(Doctor doctor, Patient patient, Integer value);
+    Rating create(final Doctor doctor, final Patient patient, final Integer value);
 
-    Rating update(Doctor doctor, Patient patient, Integer value);
+    Rating update(final Doctor doctor, final Patient patient, final Integer value);
 
-    Rating find(Doctor doctor, Patient patient);
+    Rating find(final Doctor doctor, final Patient patient);
 
-    RatingSummary getDoctorSummary(Doctor doctor);
+    RatingSummary getDoctorSummary(final Doctor doctor);
 
 }

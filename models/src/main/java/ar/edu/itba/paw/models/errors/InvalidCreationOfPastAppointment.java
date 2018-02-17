@@ -6,7 +6,7 @@ public class InvalidCreationOfPastAppointment extends IllegalStateException {
         super();
     }
 
-    public InvalidCreationOfPastAppointment(String message) {
+    public InvalidCreationOfPastAppointment(final String message) {
         super("Creacion no válida de un turno en el pasado");
     }
 }

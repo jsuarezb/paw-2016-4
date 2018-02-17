@@ -20,11 +20,11 @@ public class Speciality {
 
     public Speciality(){ }
 
-    public Speciality(String name){
+    public Speciality(final String name){
         this.name = name;
     }
 
-    public Speciality(Integer id, String name) {
+    public Speciality(final Integer id, final String name) {
         this.id = id;
         this.name = name;
     }
@@ -40,13 +40,13 @@ public class Speciality {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
 
-        Speciality speciality = (Speciality) o;
+        final Speciality speciality = (Speciality) o;
 
         return id == speciality.id;
     }

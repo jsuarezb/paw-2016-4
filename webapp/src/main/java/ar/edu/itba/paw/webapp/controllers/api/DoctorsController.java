@@ -34,10 +34,10 @@ public class DoctorsController extends ApiController {
     private RatingService ratingService;
 
     @GET
-    public Response index(@QueryParam("first_name") String firstName,
-                          @QueryParam("last_name") String lastName,
-                          @QueryParam("speciality_id") Integer speciality_id,
-                          @QueryParam("page") Integer page) {
+    public Response index(@QueryParam("first_name") final String firstName,
+                          @QueryParam("last_name") final String lastName,
+                          @QueryParam("speciality_id") final Integer speciality_id,
+                          @QueryParam("page") final Integer page) {
         List<Doctor> doctors;
         if (speciality_id != null) {
             doctors = doctorService.searchBySpeciality(speciality_id);
@@ -49,7 +49,7 @@ public class DoctorsController extends ApiController {
             }
         }
 
-        GenericEntity<List<DoctorDTO>> list = new GenericEntity<List<DoctorDTO>>(DoctorDTO.fromList(doctors)) {
+        final GenericEntity<List<DoctorDTO>> list = new GenericEntity<List<DoctorDTO>>(DoctorDTO.fromList(doctors)) {
         };
         return ok(list);
     }

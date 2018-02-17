@@ -37,7 +37,8 @@ public class Address {
 
     /* package */ Address() { }
 
-    public Address(String streetName, Integer streetNumber, String apartment, String city, String state, String neighborhood, String country) {
+    public Address(final String streetName, final Integer streetNumber, final String apartment,
+                   final String city,  final String state, final String neighborhood, final String country) {
         this.streetName = streetName;
         this.streetNumber = streetNumber;
         this.apartment = apartment;
@@ -81,7 +82,7 @@ public class Address {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

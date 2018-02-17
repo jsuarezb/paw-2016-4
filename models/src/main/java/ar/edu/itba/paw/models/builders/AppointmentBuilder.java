@@ -3,12 +3,6 @@ package ar.edu.itba.paw.models.builders;
 import ar.edu.itba.paw.models.Appointment;
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Patient;
-import ar.edu.itba.paw.models.errors.InvalidCreationOfPastAppointment;
-
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.time.temporal.ChronoField;
-import java.time.temporal.WeekFields;
 
 public class AppointmentBuilder implements Builder<Appointment> {
 

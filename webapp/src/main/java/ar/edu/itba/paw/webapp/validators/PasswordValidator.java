@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  * Created by alebian on 12/8/16.
  */
 public class PasswordValidator {
-    public static ar.edu.itba.paw.webapp.utils.Pair<Boolean, String> validate(String password, String confirmation) {
+    public static ar.edu.itba.paw.webapp.utils.Pair<Boolean, String> validate(final String password, final String confirmation) {
         if (password == null)
             return new Pair<>(false, "Password missing");
 

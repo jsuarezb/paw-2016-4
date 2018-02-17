@@ -24,7 +24,7 @@ public class NeighborhoodController extends ApiController {
     @GET
     public Response listSpecialities() {
         final List<String> allNeighborhoods = addressService.getAllNeighborhoods();
-        GenericEntity<List<NeighborhoodDTO>> list = new GenericEntity<List<NeighborhoodDTO>>(NeighborhoodDTO.fromList(allNeighborhoods)) {
+        final GenericEntity<List<NeighborhoodDTO>> list = new GenericEntity<List<NeighborhoodDTO>>(NeighborhoodDTO.fromList(allNeighborhoods)) {
         };
         return ok(list);
     }

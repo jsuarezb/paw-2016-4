@@ -23,7 +23,7 @@ public class AppointmentSlotDTO {
     @XmlElement
     private Integer hour;
 
-    public AppointmentSlotDTO(AppointmentSlot appointmentSlot) {
+    public AppointmentSlotDTO(final AppointmentSlot appointmentSlot) {
         this.id = appointmentSlot.getId();
         this.worksIn = new WorksInDTO(appointmentSlot.getWorksIn());
         this.dayOfWeek = appointmentSlot.getDayOfWeek();

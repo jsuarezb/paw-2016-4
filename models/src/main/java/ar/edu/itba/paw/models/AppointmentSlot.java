@@ -29,7 +29,7 @@ public class AppointmentSlot {
 
     /* package */ AppointmentSlot(){ }
 
-    public AppointmentSlot(Integer dayOfWeek, Integer hour, WorksIn worksIn) {
+    public AppointmentSlot(final Integer dayOfWeek, final Integer hour, final WorksIn worksIn) {
         this.worksIn = worksIn;
         this.dayOfWeek = dayOfWeek;
         this.hour = hour;
@@ -56,7 +56,7 @@ public class AppointmentSlot {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

@@ -55,5 +55,5 @@ public interface AppointmentSlotDao {
                                                                   final Integer weekNumber,
                                                                   final Integer year);
 
-    Doctor getDoctorInSlot(int slotId);
+    Doctor getDoctorInSlot(final int slotId);
 }

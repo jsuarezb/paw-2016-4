@@ -20,13 +20,13 @@ public class UserHibernateDao implements UserDao {
     private EntityManager em;
 
     @Transactional
-    public User create(String username, String password) {
+    public User create(final String username, final String password) {
         final User user = new User(username, password);
         em.persist(user);
         return user;
     }
 
-    public User getByUsername(String username) {
+    public User getByUsername(final String username) {
         final TypedQuery<User> query = em.createQuery("from User as u where u.username = :username", User.class);
         query.setParameter("username", username);
         try {
@@ -36,7 +36,7 @@ public class UserHibernateDao implements UserDao {
         }
     }
 
-    public User getById(Integer id) {
+    public User getById(final Integer id) {
         final TypedQuery<User> query = em.createQuery("from User as u where u.id = :id", User.class);
         query.setParameter("id", id);
         try {
