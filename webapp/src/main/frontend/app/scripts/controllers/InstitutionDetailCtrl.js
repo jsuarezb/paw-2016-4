@@ -1,7 +1,7 @@
 'use strict';
-define(['ChoPidoTurnos', 'services/InstitutionsService'], function(ChoPidoTurnos) {
+define(['ChoPidoTurnos', 'services/institutionsService'], function(ChoPidoTurnos) {
 
-  ChoPidoTurnos.controller('InstitutionDetailCtrl', ['InstitutionsService', '$stateParams', function (institutionsService, $stateParams) {
+  ChoPidoTurnos.controller('InstitutionDetailCtrl', ['institutionsService', '$stateParams', function (institutionsService, $stateParams) {
     var _this = this;
     this.params = $stateParams;
 
