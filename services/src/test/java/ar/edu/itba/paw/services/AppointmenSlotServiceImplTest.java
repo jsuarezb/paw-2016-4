@@ -24,7 +24,7 @@ public class AppointmenSlotServiceImplTest {
 
     private Institution institution = new Institution(
             "",
-            new Address("", 3, "", "", "", "", ""),
+            new Address("", 3, "", "", "", "", "","",""),
             2
     );
 

@@ -28,9 +28,9 @@ public class InstitutionServiceImplTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        Address address1 = new Address("Av. Coronel Diaz", 2211, null, "CABA", "Bs As", "Palermo", "Argentina");
+        Address address1 = new Address("Av. Coronel Diaz", 2211, null, "CABA", "Bs As", "Palermo", "Argentina","-34.5865058","-58.410228");
         Institution institution1 = new Institution("Clinica del Sol", address1);
-        Address address2 = new Address("Cerviño", 3356, null, "CABA", "Bs As", "Recoleta", "Argentina");
+        Address address2 = new Address("Cerviño", 3356, null, "CABA", "Bs As", "Recoleta", "Argentina","-34.6297656","-58.5607248");
         Institution institution2 = new Institution("Hospital Fernandez", address2);
 
         List<Institution> allInstitutions = new ArrayList<Institution>();

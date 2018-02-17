@@ -55,7 +55,7 @@ public class Address {
         this.lat = lat;
         this.lon = lon;
     }
-    
+
     public String getStreetName() {
         return streetName;
     }

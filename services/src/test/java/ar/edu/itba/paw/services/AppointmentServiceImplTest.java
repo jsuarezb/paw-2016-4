@@ -23,7 +23,7 @@ public class AppointmentServiceImplTest {
     private AppointmentServiceImpl service;
 
     private Institution institution =
-            new Institution("Inst name", new Address("", 0, "", "","","",""), 2);
+            new Institution("Inst name", new Address("", 0, "", "","","","","",""), 2);
 
     private Doctor doctor =
             new Doctor(1, "Name", "Last name", Collections.emptySet(),
