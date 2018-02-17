@@ -39,8 +39,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
                                 UsernamePasswordAuthenticationFilter.class)
             .exceptionHandling().and()
             .anonymous().and()
-            .servletApi().and()
-            .headers().cacheControl();
+            .servletApi();
     }
 
     @Bean(name = "authenticationManager")
