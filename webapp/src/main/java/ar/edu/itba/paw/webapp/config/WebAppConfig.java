@@ -16,8 +16,8 @@ import org.springframework.web.servlet.config.annotation.DefaultServletHandlerCo
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-import org.springframework.web.servlet.resource.GzipResourceResolver;
-import org.springframework.web.servlet.resource.PathResourceResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
@@ -39,17 +39,6 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Autowired
     private LocalContainerEntityManagerFactoryBean localContainerEntityManagerFactoryBean;
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-          .addResourceHandler("**/*.html", "**/*.js", "**/*.css", "**/*.png")
-          .addResourceLocations("/**")
-          .setCachePeriod(3600)
-          .resourceChain(true)
-          .addResolver(new GzipResourceResolver())
-          .addResolver(new PathResourceResolver());
-    }
 
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {

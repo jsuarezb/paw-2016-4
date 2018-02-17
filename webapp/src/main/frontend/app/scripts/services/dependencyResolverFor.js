@@ -6,7 +6,6 @@
  */
 define([], function() {
   return function(dependencies) {
-    console.log(dependencies);
     var definition = {
         resolver: ['$q', '$rootScope', function($q, $rootScope) {
           var deferred = $q.defer();

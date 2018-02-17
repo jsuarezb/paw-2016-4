@@ -7,7 +7,6 @@ define(['ChoPidoTurnos', 'services/InstitutionsService'], function(ChoPidoTurnos
 
     institutionsService.getInstitution(this.params.institutionId).then(
       function(result) {
-        console.log(result);
         _this.institution = result.data;
       }
     );

@@ -8,7 +8,6 @@ define(['ChoPidoTurnos', 'services/specialitiesService', 'services/neighborhoods
 
       institutionsService.getInstitutions().then(
         function(result) {
-          console.log(result);
           $scope.institutions = result.data;
           $scope.selectedInstitution = $scope.institutions[0].id;
         }
@@ -16,7 +15,6 @@ define(['ChoPidoTurnos', 'services/specialitiesService', 'services/neighborhoods
 
       specialitiesService.getSpecialities().then(
         function(result) {
-          console.log(result);
           $scope.specialities = result.data;
           $scope.selectedSpeciality = $scope.specialities[0].id;
         }
@@ -24,7 +22,6 @@ define(['ChoPidoTurnos', 'services/specialitiesService', 'services/neighborhoods
 
       neighborhoodsService.getNeighborhoods().then(
         function(result) {
-          console.log(result);
           $scope.neighborhoods = result.data;
           $scope.selectedNeighborhood = $scope.neighborhoods[0].name;
         }

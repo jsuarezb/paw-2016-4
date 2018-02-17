@@ -27,7 +27,7 @@ require.config({
     ngload: '../../bower_components/angularAMD/ngload',
     angularAMD: '../../bower_components/angularAMD/angularAMD',
     'angular-bootstrap': '../../bower_components/angular-bootstrap/ui-bootstrap-tpls',
-    'smalot-bootstrap-datetimepicker': '../../bower_components/smalot-bootstrap-datetimepicker/js/bootstrap-datetimepicker.min'
+    'angular1-star-rating': '../../bower_components/angular1-star-rating/dist/index'
   },
   shim: {
     angular: {
@@ -61,6 +61,11 @@ require.config({
         'angular'
       ]
     },
+    'angular1-star-rating': {
+      deps: [
+        'angular'
+      ]
+    },
     AngularAMD: {
       deps: [
         'angular'
@@ -89,8 +94,7 @@ require([
   'angular',
   'controllers/IndexCtrl',
   'interceptors/baseURLInterceptor',
-  'interceptors/sessionInterceptor',
-  'directives/homeMapDirective'
+  'interceptors/sessionInterceptor'
   ],
   function(angularAMD, ChoPidoTurnos) {
     angularAMD.bootstrap(ChoPidoTurnos);

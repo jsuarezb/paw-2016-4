@@ -13,8 +13,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.servlet.view.JstlView;
-import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 @Configuration
 @EnableWebSecurity
@@ -36,15 +34,12 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-                .anyRequest().permitAll()
-            .and()
-                .addFilterBefore(new StatelessAuthenticationFilter(doctorService, patientService),
-                                 UsernamePasswordAuthenticationFilter.class)
-                .exceptionHandling()
-            .and()
-                .anonymous()
-            .and()
-                .servletApi();
+            .anyRequest().permitAll().and()
+            .addFilterBefore(new StatelessAuthenticationFilter(doctorService, patientService),
+                                UsernamePasswordAuthenticationFilter.class)
+            .exceptionHandling().and()
+            .anonymous().and()
+            .servletApi();
     }
 
     @Bean(name = "authenticationManager")

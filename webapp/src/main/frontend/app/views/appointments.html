@@ -1,4 +1,5 @@
-<div class="container" ng-controller="AppointmentsCtrl as ctrl">
+<div class="container" ng-controller="AppointmentsCtrl as $ctrl">
+  <alerts alerts="$ctrl.alerts" on-alert-closed="$ctrl.alerts.splice(index, 1)"></alerts>
   <h1>Turnos</h1>
   <p>{{ctrl.appointments}}<p/>
 </div>
