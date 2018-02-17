@@ -7,7 +7,9 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
 
     appointmentsService.getAppointmentsPatient().then(
       function (result) {
-          _this.appointments = result.data;
+          _this.appointments = result.data.filter(function(appointment) {
+            return new Date(appointment.date) > new Date();
+          });
       }
     );
 
