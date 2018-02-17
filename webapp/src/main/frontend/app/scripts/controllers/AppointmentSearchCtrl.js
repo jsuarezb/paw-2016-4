@@ -1,10 +1,16 @@
 'use strict';
-define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionService'], function(ChoPidoTurnos) {
+define(
+  ['ChoPidoTurnos',
+   'services/appointmentsService',
+   'services/sessionService'],
+   function(ChoPidoTurnos) {
   ChoPidoTurnos
     .controller('AppointmentSearchCtrl',
     ['$scope', '$state','$stateParams', 'appointmentsService', 'sessionService',
       function($scope, $state, $stateParams, appointmentService, sessionService) {
       var _this = this;
+
+      this.alerts = [];
 
       var _institution = $stateParams.institution || '';
       var _speciality = $stateParams.speciality || '';
@@ -18,12 +24,12 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
         }, {});
       };
 
-      $scope.searchDateWeek = new Date();
-      $scope.pageNumber = 0;
-      $scope.isLoggedIn = sessionService.getLoggedUser() !== null;
+      this.searchDateWeek = new Date();
+      this.pageNumber = 0;
+      this.isLoggedIn = sessionService.getLoggedUser() !== null;
       console.log(sessionService.getLoggedUser());
 
-      $scope.dayOfWeek = function(date) {
+      this.dayOfWeek = function(date) {
         switch (date.getDay()) {
           case 1: return 'Lunes';
           case 2: return 'Martes';
@@ -36,7 +42,7 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
         }
       };
 
-      $scope.weekOfYear = function (d) {
+      this.weekOfYear = function (d) {
        /* For a given date, get the ISO week number
         *
         * Based on information at:
@@ -66,87 +72,93 @@ define(['ChoPidoTurnos', 'services/appointmentsService', 'services/sessionServic
         return weekNo;
       };
 
-      $scope.month = function (date) {
+      this.month = function (date) {
         return date.getMonth();
       };
 
-      var searchAppointments = function () {
-        var weekOfYear = $scope.weekOfYear($scope.searchDateWeek);
-        var year = $scope.searchDateWeek.getFullYear();
+      this.searchAppointments = function () {
+        var weekOfYear = this.weekOfYear(this.searchDateWeek);
+        var year = this.searchDateWeek.getFullYear();
 
         appointmentService
-          .searchAppointments(_institution, _speciality, _neighborhood, weekOfYear, year, _doctor, $scope.pageNumber)
+          .searchAppointments(_institution, _speciality, _neighborhood, weekOfYear, year, _doctor, this.pageNumber)
           .then(function (data) {
             var page = data.data;
-            var currentWeek = $scope.weekOfYear(new Date());
+            var currentWeek = _this.weekOfYear(new Date());
             var currentYear = new Date().getFullYear();
 
-            $scope.page = page;
+            _this.page = page;
 
-            $scope.appointmentsSearched = true;
-            $scope.appointments = page.results;
-            $scope.emptyAppointments = !page.results;
-            $scope.hasPreviousPage = (weekOfYear > currentWeek && year >= currentYear) || page.page > 0;
+            _this.appointmentsSearched = true;
+            _this.appointments = page.results;
+            _this.emptyAppointments = !page.results;
+            _this.hasPreviousPage = (weekOfYear > currentWeek && year >= currentYear) || page.page > 0;
 
-            if (!$scope.emptyAppointments) {
-              $scope.appointmentGroups = groupBy($scope.appointments || [], function (app) {
-                var date = new Date(app.date);
-                return new Date(date.getFullYear(), date.getMonth(), date.getDate());
-              });
-
-              $scope.appointmentDays = Object
-                .keys($scope.appointmentGroups)
-                .map(function (d) {
-                  return new Date(d);
-                })
-                .sort();
-            }
+            _this.groupAppointmentsByDate();
           });
       };
 
-      searchAppointments();
+      this.groupAppointmentsByDate = function() {
+        if (!_this.emptyAppointments) {
+          _this.appointmentGroups = groupBy(_this.appointments || [], function (app) {
+            var date = new Date(app.date);
+            return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+          });
 
-      $scope.bookAppointment = function(appointment) {
+          _this.appointmentDays = Object
+            .keys(_this.appointmentGroups)
+            .map(function (d) {
+              return new Date(d);
+            })
+            .sort();
+        }
+      };
+
+      this.searchAppointments();
+
+      this.bookAppointment = function(appointment) {
         console.log(appointment);
         appointmentService.postAppointment({
           slotId: appointment.appointmentSlot.id,
-          weekNumber: $scope.weekOfYear(new Date(appointment.date)),
+          weekNumber: this.weekOfYear(new Date(appointment.date)),
           year: new Date(appointment.date).getFullYear(),
           commets: appointment.comments
         }
         ).then(function(response) {
           console.log(response.status);
           if (response.status !== 200) {
-            $scope.errorMessage = response.data.errors;
+            _this.alerts.push({message: response.data.errors, type: 'danger'});
             return;
           }
+          _this.alerts.push({message: 'Su turno fue reservado con éxito', type: 'success'});
 
-          $state.go('bookedAppointment', appointment);
+          _this.appointments.splice(_this.appointments.indexOf(appointment), 1);
+          _this.groupAppointmentsByDate();
         });
       };
 
-      $scope.prevPage = function () {
-        if ($scope.pageNumber === 0) {
-          $scope.searchDateWeek.setDate($scope.searchDateWeek.getDate() - 7);
-          $scope.pageNumber = 0;
+      this.prevPage = function () {
+        if (this.pageNumber === 0) {
+          this.searchDateWeek.setDate(this.searchDateWeek.getDate() - 7);
+          this.pageNumber = 0;
         } else {
-          $scope.pageNumber--;
+          this.pageNumber--;
         }
 
-        searchAppointments();
+        this.searchAppointments();
       };
 
-      $scope.nextPage = function () {
-        var endOfWeek = Math.floor($scope.page.total / $scope.page.pageSize) <= $scope.page.page;
+      this.nextPage = function () {
+        var endOfWeek = Math.floor(this.page.total / this.page.pageSize) <= this.page.page;
 
         if (endOfWeek) {
-          $scope.searchDateWeek.setDate($scope.searchDateWeek.getDate() + 7);
-          $scope.pageNumber = 0;
+          this.searchDateWeek.setDate(this.searchDateWeek.getDate() + 7);
+          this.pageNumber = 0;
         } else {
-          $scope.pageNumber++;
+          this.pageNumber++;
         }
 
-        searchAppointments();
+        this.searchAppointments();
       };
 
   }]);

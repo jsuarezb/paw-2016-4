@@ -1,13 +1,11 @@
-<div class="container">
+<div class="container" ng-controller="AppointmentSearchCtrl as $ctrl">
+  <alerts alerts="$ctrl.alerts" on-alert-closed="$ctrl.alerts.splice(index, 1)"></alerts>
   <h2>Turnos disponibles</h2>
-  <div class="alert alert-danger" ng-show="errorMessage">
-    {{errorMessage}}
-  </div>
-  <div ng-show="appointmentsSearched && !emptyAppointments">
-    <div ng-repeat="day in appointmentDays">
-      <h4 class="appointment-date">{{ dayOfWeek(day) }} - {{ day | date: 'dd/MM/yyyy' }}</h4>
+  <div ng-show="$ctrl.appointmentsSearched && !$ctrl.emptyAppointments">
+    <div ng-repeat="day in $ctrl.appointmentDays">
+      <h4 class="appointment-date">{{ $ctrl.dayOfWeek(day) }} - {{ day | date: 'dd/MM/yyyy' }}</h4>
       <ul class="appointments-list">
-        <li ng-repeat="appointment in appointmentGroups[day]">
+        <li ng-repeat="appointment in $ctrl.appointmentGroups[day]">
           <div class="row">
             <div class="col-xs-10 appointment-description">
               <div class="row main-row">
@@ -27,14 +25,16 @@
                 </div>
               </div>
             </div>
-            <div ng-show="isLoggedIn" class="col-xs-2 appointment-actions">
-              <form ng-submit="bookAppointment(appointment)">
-                <button type="submit" class="btn btn-success">Reservar</button>
-              </form>
+            <div ng-show="$ctrl.isLoggedIn" class="col-xs-2 appointment-actions">
+              <button type="submit" class="btn btn-success" ng-click="$ctrl.bookAppointment(appointment)">
+                Reservar
+              </button>
             </div>
-            <div ng-show="!isLoggedIn" class="col-xs-2 appointment-actions">
+            <div ng-show="!$ctrl.isLoggedIn" class="col-xs-2 appointment-actions">
               <a ui-sref="login">
-                <button type="submit" class="btn btn-success" ng-click="bookAppointment(appointment)">Iniciá sesión para reservar</button>
+                <button type="submit" class="btn btn-success" ng-click="$ctrl.bookAppointment(appointment)">
+                  Iniciá sesión para reservar
+                </button>
               </a>
             </div>
           </div>
@@ -42,16 +42,16 @@
       </ul>
     </div>
   </div>
-  <p ng-show="appointmentsSearched && emptyAppointments">No hay turnos disponibles</p>
+  <p ng-show="$ctrl.appointmentsSearched && $ctrl.emptyAppointments">No hay turnos disponibles</p>
   <nav>
     <ul class="pager">
       <li class="previous">
-        <button class="btn btn-default" ng-disabled="!hasPreviousPage" ng-click="prevPage()">
+        <button class="btn btn-default" ng-disabled="!$ctrl.hasPreviousPage" ng-click="$ctrl.prevPage()">
           &lt; Anterior
         </button>
       </li>
       <li class="next">
-        <button class="btn btn-default" ng-click="nextPage()">
+        <button class="btn btn-default" ng-click="$ctrl.nextPage()">
           Siguiente &gt;
         </button>
       </li>

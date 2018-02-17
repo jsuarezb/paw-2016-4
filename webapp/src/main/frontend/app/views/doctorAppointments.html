@@ -1,25 +1,26 @@
 <div class="container" ng-controller="DoctorAppointmentsCtrl as $ctrl">
+  <alerts alerts="$ctrl.alerts" on-alert-closed="$ctrl.alerts.splice(index, 1)"></alerts>
   <h1>Mis Turnos</h1>
   <div class="row">
     <div class="future-appointments col-xs-6">
       <h3>Próximos Turnos</h3>
-      <ul class="list-group" ng-show="futureAppointmentsFetched && futureAppointments.length > 0">
-        <li class="list-group-item" ng-repeat="appointment in futureAppointments">
-          <doctor-appointment appointment="appointment"></doctor-appointment>
+      <ul class="list-group" ng-if="$ctrl.futureAppointmentsFetched && $ctrl.futureAppointments.length > 0">
+        <li class="list-group-item" ng-repeat="appointment in $ctrl.futureAppointments">
+          <appointment appointment="appointment" on-cancel="$ctrl.cancelAppointment(appointment)"></appointment>
         </li>
       </ul>
-      <div ng-show="futureAppointmentsFetched && futureAppointments.length === 0">
+      <div ng-if="$ctrl.futureAppointmentsFetched && $ctrl.futureAppointments.length === 0">
         No hay turnos.
       </div>
     </div>
     <div class="past-appointments col-xs-6">
       <h3>Turnos Anteriores</h3>
-      <ul class="list-group" ng-show="pastAppointmentsFetched && pastAppointments.length > 0">
-        <li class="list-group-item appointment-item" ng-repeat="appointment in pastAppointments">
-          <doctor-appointment appointment="appointment"></doctor-appointment>
+      <ul class="list-group" ng-if="$ctrl.pastAppointmentsFetched && $ctrl.pastAppointments.length > 0">
+        <li class="list-group-item appointment-item" ng-repeat="appointment in $ctrl.pastAppointments">
+          <appointment appointment="appointment"></appointment>
         </li>
       </ul>
-      <div ng-show="pastAppointmentsFetched && pastAppointments.length === 0">
+      <div ng-if="$ctrl.pastAppointmentsFetched && $ctrl.pastAppointments.length === 0">
         No hay turnos.
       </div>
     </div>
