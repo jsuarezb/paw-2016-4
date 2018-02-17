@@ -88,19 +88,9 @@ public class DoctorsController extends ApiController {
         return ok(new RatingDTO(rating));
     }
 
-    @POST
-    @Path("/{id}/ratings")
-    public Response createPatientRating(@PathParam("id") final Integer id, final RatingParams params) {
-        final Doctor doctor = doctorService.get(id);
-        final Patient patient = (Patient) getLoggedUser();
-        final Rating rating = ratingService.create(doctor, patient, params.value);
-
-        return ok(new RatingDTO(rating));
-    }
-
     @PUT
     @Path("/{id}/ratings")
-    public Response updatePatientRating(@PathParam("id") final Integer id, final RatingParams params) {
+    public Response createPatientRating(@PathParam("id") final Integer id, final RatingParams params) {
         final Doctor doctor = doctorService.get(id);
         final Patient patient = (Patient) getLoggedUser();
         final Rating rating = ratingService.update(doctor, patient, params.value);

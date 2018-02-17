@@ -31,10 +31,6 @@ public class RatingServiceImpl implements RatingService {
         Objects.requireNonNull(patient);
         Objects.requireNonNull(value);
 
-        final Rating rating = ratingDao.find(doctor, patient);
-        if (rating == null)
-            throw new UpdateNonExistantRatingException();
-
         return ratingDao.create(doctor, patient, value);
     }
 
@@ -44,7 +40,11 @@ public class RatingServiceImpl implements RatingService {
         Objects.requireNonNull(patient);
         Objects.requireNonNull(value);
 
-        return ratingDao.update(doctor, patient, value);
+        final Boolean ratingExists = ratingDao.find(doctor, patient) != null;
+
+        return ratingExists
+                ? ratingDao.update(doctor, patient, value)
+                : ratingDao.create(doctor, patient, value);
     }
 
     @Override

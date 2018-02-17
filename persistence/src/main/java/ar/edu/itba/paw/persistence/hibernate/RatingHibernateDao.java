@@ -9,12 +9,14 @@ import ar.edu.itba.paw.services.exceptions.RatingAlreadyExistsException;
 import ar.edu.itba.paw.persistence.exceptions.UpdateNoRatingException;
 import ar.edu.itba.paw.services.exceptions.UpdateNonExistantRatingException;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Repository
@@ -24,6 +26,7 @@ public class RatingHibernateDao implements RatingDao {
     private EntityManager em;
 
     @Override
+    @Transactional
     public Rating create(final Doctor doctor, final Patient patient, final Integer value) {
         final Rating rating = new Rating(doctor, patient, value);
         em.persist(rating);
@@ -32,10 +35,16 @@ public class RatingHibernateDao implements RatingDao {
     }
 
     @Override
+    @Transactional
     public Rating update(Doctor doctor, Patient patient, Integer value)
             throws UpdateNonExistantRatingException, UpdateNoRatingException {
-        final Query query = em.createQuery("UPDATE Rating r SET value = :value");
+        final Query query = em.createQuery("UPDATE Rating r SET value = :value " +
+                "WHERE r.patient.id = :patient_id " +
+                "AND r.doctor.id = :doctor_id");
+
         query.setParameter("value", value);
+        query.setParameter("patient_id", patient.getId());
+        query.setParameter("doctor_id", doctor.getId());
 
         int result = query.executeUpdate();
         if (result == 0)
@@ -53,7 +62,9 @@ public class RatingHibernateDao implements RatingDao {
         query.setParameter("doctor_id", doctor.getId());
         query.setParameter("patient_id", patient.getId());
 
-        return query.getSingleResult();
+        final List<Rating> ratings = query.getResultList();
+
+        return ratings.isEmpty() ? null : ratings.get(0);
     }
 
     @Override

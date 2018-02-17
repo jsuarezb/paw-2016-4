@@ -13,5 +13,8 @@
       </ul>
       <p>{{ctrl.doctor.email}}</p>
     </div>
+    <star-rating-comp on-click="ctrl.onDoctorRated($event)" rating="ctrl.ratingAverage"
+                      labelText="Puntaje:" show-hover-stars="true">
+    </star-rating-comp>
   </div>
 </div>
