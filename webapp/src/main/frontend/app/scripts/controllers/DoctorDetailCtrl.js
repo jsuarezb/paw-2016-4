@@ -1,14 +1,16 @@
 'use strict';
 
 define(['ChoPidoTurnos',
+  'moment',
   'services/doctorsService',
   'services/appointmentsService',
-  'services/dateService'], function(ChoPidoTurnos) {
+  'services/dateService'], function(ChoPidoTurnos, moment) {
 
   ChoPidoTurnos
     .controller('DoctorDetailCtrl', ['$stateParams', 'doctorsService', 'appointmentsService', 'dateService',
     function($stateParams, doctorsService, appointmentsService, dateService) {
       var _this = this;
+
       this.userRating = 0;
       this.doctorId = $stateParams.doctorId;
 

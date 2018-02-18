@@ -1,9 +1,11 @@
 package ar.edu.itba.paw.models;
 
 import ar.edu.itba.paw.models.builders.AppointmentBuilder;
+import ar.edu.itba.paw.models.errors.InvalidCreationOfPastAppointment;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoField;
 import java.time.temporal.WeekFields;
 
 import javax.persistence.*;
@@ -70,11 +72,37 @@ public class Appointment {
     }
 
     public LocalDateTime getDate() {
-        WeekFields weekFields = WeekFields.of(DayOfWeek.SUNDAY, 7);
+        WeekFields weekFields = WeekFields.of(DayOfWeek.SUNDAY, 4);
+
         return LocalDateTime.now()
-                            .withYear(year)
-                            .with(weekFields.weekOfYear(), weekNumber)
-                            .withHour(slot.getHour());
+                .withYear(year)
+                .with(weekFields.weekOfYear(), weekNumber)
+                .with(weekFields.dayOfWeek(), slot.getDayOfWeek())
+                .withHour(slot.getHour())
+                .withMinute(0).withSecond(0).withNano(0);
+    }
+
+    public static boolean isPast(final AppointmentSlot slot, final Integer weekNumber, final Integer year) {
+        final LocalDateTime now = LocalDateTime.now();
+        final WeekFields weekFields = WeekFields.of(DayOfWeek.SUNDAY, 4);
+
+        int currentWeekOfYear = now.get(weekFields.weekOfYear());
+        int currentWeekDay = now.get(weekFields.dayOfWeek());
+
+        if (year < now.getYear())
+            return true;
+
+        if (year == now.getYear() && weekNumber < currentWeekOfYear)
+            return true;
+
+        if (year == now.getYear() && weekNumber == currentWeekOfYear && slot.getDayOfWeek() < currentWeekDay)
+            return true;
+
+        if (year == now.getYear() && weekNumber == currentWeekOfYear && slot.getDayOfWeek() == currentWeekDay
+                && slot.getHour() <= now.getHour())
+            return true;
+
+        return false;
     }
 
     @XmlAttribute

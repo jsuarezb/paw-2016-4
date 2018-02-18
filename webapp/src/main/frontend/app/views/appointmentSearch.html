@@ -1,57 +1,23 @@
 <div class="container" ng-controller="AppointmentSearchCtrl as $ctrl">
   <alerts alerts="$ctrl.alerts" on-alert-closed="$ctrl.alerts.splice(index, 1)"></alerts>
   <h2>Turnos disponibles</h2>
-  <div ng-show="$ctrl.appointmentsSearched && !$ctrl.emptyAppointments">
-    <div ng-repeat="day in $ctrl.appointmentDays">
-      <h4 class="appointment-date">{{ $ctrl.dayOfWeek(day) }} - {{ day | date: 'dd/MM/yyyy' }}</h4>
-      <ul class="appointments-list">
-        <li ng-repeat="appointment in $ctrl.appointmentGroups[day]">
-          <div class="row">
-            <div class="col-xs-10 appointment-description">
-              <div class="row main-row">
-                <div class="appointment-doctor col-xs-10">
-                  Dr. {{ appointment.appointmentSlot.worksIn.doctor.first_name }} {{ appointment.appointmentSlot.worksIn.doctor.last_name }}
-                </div>
-                <div class="appointment-time col-xs-2">
-                  {{ appointment.date | date: 'HH:mm' }}
-                </div>
-              </div>
-              <div class="row detailed-row">
-                <div class="appointment-specialities col-xs-8">
-                  {{ appointment.appointmentSlot.worksIn.institution.name }}
-                </div>
-                <div class="appointment-institution col-xs-4">
-                  <!--{{ appointment.appointmentSlot.doctor.specialities. }}-->
-                </div>
-              </div>
-            </div>
-            <div ng-show="$ctrl.isLoggedIn" class="col-xs-2 appointment-actions">
-              <button type="submit" class="btn btn-success" ng-click="$ctrl.bookAppointment(appointment)">
-                Reservar
-              </button>
-            </div>
-            <div ng-show="!$ctrl.isLoggedIn" class="col-xs-2 appointment-actions">
-              <a ui-sref="login">
-                <button type="submit" class="btn btn-success" ng-click="$ctrl.bookAppointment(appointment)">
-                  Iniciá sesión para reservar
-                </button>
-              </a>
-            </div>
-          </div>
-        </li>
-      </ul>
+  <div ng-show="$ctrl.doctorsFetched && $ctrl.doctors.length > 0">
+    <div class="search-doctor-profile-container" ng-repeat="d in $ctrl.doctors">
+      <doctor-search-item doctor="d" week-number="ctrl.weekNumber" year="ctrl.year"></doctor-search-item>
     </div>
   </div>
-  <p ng-show="$ctrl.appointmentsSearched && $ctrl.emptyAppointments">No hay turnos disponibles</p>
+  <div ng-show="$ctrl.doctorsFetched && $ctrl.doctors.length == 0">
+    No hay doctores que coincidan con la búsqueda.
+  </div>
   <nav>
     <ul class="pager">
       <li class="previous">
-        <button class="btn btn-default" ng-disabled="!$ctrl.hasPreviousPage" ng-click="$ctrl.prevPage()">
+        <button class="btn btn-default" ng-disabled="!$ctrl.hasPreviousPage()" ng-click="$ctrl.prevPage()">
           &lt; Anterior
         </button>
       </li>
       <li class="next">
-        <button class="btn btn-default" ng-click="$ctrl.nextPage()">
+        <button ng-disabled="!$ctrl.hasNextPage()" class="btn btn-default" ng-click="$ctrl.nextPage()">
           Siguiente &gt;
         </button>
       </li>

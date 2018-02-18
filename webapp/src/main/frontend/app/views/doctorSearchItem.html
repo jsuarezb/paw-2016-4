@@ -1,0 +1,18 @@
+<div class="search-doctor-profile">
+  <a ui-sref="doctor({doctorId: '{{ $ctrl.doctor.id }}'})">
+    <img class="doctor-avatar" src="images/profile.png" height="100"/>
+  </a>
+  <div class="doctor-details">
+    <div class="doctor-name">
+      <a ui-sref="doctor({doctorId: '{{ $ctrl.doctor.id }}'})"><h2>Dr. {{ $ctrl.doctor.first_name }} {{ $ctrl.doctor.last_name }}</h2></a>
+    </div>
+    <div class="doctor-rating">
+      <star-rating-comp rating="$ctrl.doctorAverageRating" disabled="true" labelText="Calificación">
+      </star-rating-comp>
+    </div>
+    <div class="doctor-specialities">
+      <span ng-repeat="s in $ctrl.doctor.specialities">{{ s.name }} </span>
+    </div>
+  </div>
+  <doctor-appointment-week doctor-id="$ctrl.doctor.id"></doctor-appointment-week>
+</div>

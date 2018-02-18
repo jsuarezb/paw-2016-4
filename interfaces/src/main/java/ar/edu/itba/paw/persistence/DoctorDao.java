@@ -1,7 +1,9 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.PagedResult;
 
+import javax.print.Doc;
 import java.util.List;
 
 public interface DoctorDao {
@@ -27,6 +29,9 @@ public interface DoctorDao {
 
     List<Doctor> searchByName(final String name,
                               final String lastName);
+
+    PagedResult<Doctor> listAvailable(Integer specialityId, String neighborhood, Integer institutionId, Integer weekOfYear,
+                                      Integer year, int page);
 
     boolean hasNextPageForSearchByName(final String name,
                                        final String lastName,

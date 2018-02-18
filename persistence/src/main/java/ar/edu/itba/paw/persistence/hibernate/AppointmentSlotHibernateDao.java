@@ -43,9 +43,8 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
                                                final Integer institution_id, final Integer speciality_id,
                                                final String neighborhood, final Integer doctor_id,
                                                int page) {
-        System.out.println(doctor_id);
         final StringBuilder baseQuery = new StringBuilder("FROM AppointmentSlot AS asl ")
-                .append("WHERE NOT EXISTS (SELECT ap.id FROM asl.appointments ap WHERE ap.weekNumber = :week_number AND ap.year = :year) ") // TODO
+                .append("WHERE NOT EXISTS (SELECT ap.id FROM asl.appointments ap WHERE ap.weekNumber = :week_number AND ap.year = :year) ")
                 .append("AND (:institution_id IS NULL OR asl.worksIn.institution.id = :institution_id) ")
                 .append("AND (:neighborhood IS NULL OR :neighborhood = '' OR asl.worksIn.institution.address.neighborhood = :neighborhood) ")
                 .append("AND (:speciality_id = -1 OR :speciality_id = ANY (SELECT spec.id FROM asl.worksIn.doctor.specialities AS spec)) ")
@@ -91,19 +90,16 @@ public class AppointmentSlotHibernateDao implements AppointmentSlotDao {
     public List<AppointmentSlot> getAvailableByDoctor(final Doctor doctor,
                                                       final Integer weekNumber,
                                                       final Integer year) {
-        final TypedQuery<AppointmentSlot> query = em.createQuery(
-                "SELECT slot FROM AppointmentSlot AS slot " +
-                "WHERE slot NOT IN " +
-                    "(SELECT app.slot FROM Appointment AS app " +
-                    "WHERE app.weekNumber = :week AND app.year = :year " +
-                    "AND app.slot.worksIn.doctor.id = :doctor_id) " +
-                "ORDER BY slot.dayOfWeek, slot.hour"
-                ,
-                AppointmentSlot.class
-        );
-        query.setParameter("week", weekNumber);
+        final StringBuilder baseQuery = new StringBuilder("FROM AppointmentSlot AS asl ")
+                .append("WHERE NOT EXISTS (SELECT ap.id FROM asl.appointments ap WHERE ap.weekNumber = :week_number AND ap.year = :year) ")
+                .append("AND (:doctor_id IS NULL OR asl.worksIn.doctor.id = :doctor_id) ");
+
+        final TypedQuery<AppointmentSlot> query = em.createQuery(baseQuery.toString(), AppointmentSlot.class);
+
+        query.setParameter("week_number", weekNumber);
         query.setParameter("year", year);
         query.setParameter("doctor_id", doctor.getId());
+
         return query.getResultList();
     }
 

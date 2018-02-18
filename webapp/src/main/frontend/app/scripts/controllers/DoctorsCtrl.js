@@ -1,11 +1,14 @@
 'use strict';
-define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos) {
+define(['ChoPidoTurnos', 'moment', 'services/doctorsService', 'services/appointmentsService'],
+    function(ChoPidoTurnos, moment) {
 
   ChoPidoTurnos.controller('DoctorsCtrl',
     ['doctorsService', '$stateParams', '$scope', function(doctorsService, $stateParams, $scope) {
     var _this = this;
 
     this.doctorsFetched = false;
+    this.weekNumber = moment().weeks();
+    this.year = moment().year();
 
     $scope.firstName = $stateParams.firstName;
     $scope.lastName = $stateParams.lastName;
