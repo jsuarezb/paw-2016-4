@@ -5,5 +5,5 @@
     <appointment appointment="pa" subject="doctor" on-cancel="$ctrl.cancelAppointment(appointment)">
     </appointment>
   </div>
-  <p ng-if="$ctrl.appointments.length === 0">No tenés turnos reservados</p>
+  <p class="no-results" ng-if="$ctrl.appointments.length === 0">No hay turnos reservados.</p>
 </div>

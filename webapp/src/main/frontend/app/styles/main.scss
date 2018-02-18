@@ -136,6 +136,19 @@ body {
  * Custom translucent site header
  */
 
+.container>h1 {
+  font-size: 3.5em;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 2em;
+}
+
+.no-results-action {
+  font-size: 1em;
+}
+
 .site-header {
   background-color: rgba(248,248,248,0.98);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
