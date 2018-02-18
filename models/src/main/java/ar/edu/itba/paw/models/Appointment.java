@@ -13,7 +13,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "appointments")
+@Table(name = "appointments", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"slot_id", "week_number", "year"})
+})
 @XmlRootElement
 public class Appointment {
     @Id
@@ -82,12 +84,16 @@ public class Appointment {
                 .withMinute(0).withSecond(0).withNano(0);
     }
 
-    public static boolean isPast(final AppointmentSlot slot, final Integer weekNumber, final Integer year) {
+    public static boolean isPast(final Appointment appointment) {
+        return isPast(appointment.getSlot(), appointment.getWeekNumber(), appointment.getYear());
+    }
+
+    public static boolean isPast(final AppointmentSlot slot, final int weekNumber, final int year) {
         final LocalDateTime now = LocalDateTime.now();
         final WeekFields weekFields = WeekFields.of(DayOfWeek.SUNDAY, 4);
 
-        int currentWeekOfYear = now.get(weekFields.weekOfYear());
-        int currentWeekDay = now.get(weekFields.dayOfWeek());
+        final int currentWeekOfYear = now.get(weekFields.weekOfYear());
+        final int currentWeekDay = now.get(weekFields.dayOfWeek());
 
         if (year < now.getYear())
             return true;

@@ -7,7 +7,7 @@
         <h2>{{ ctrl.doctor.email }}</h2>
       </div>
       <div class="doctor-specialities">
-        <span ng-repeat="s in ctrl.doctor.specialities">{{s.name}} </span>
+        <span ng-repeat="s in ctrl.doctor.specialities" class="label label-primary">{{s.name}} </span>
       </div>
       <div class="doctor-institutions">
         <p ng-repeat="i in ctrl.doctor.institutions">

@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -176,10 +174,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     public boolean cancel(final int appointmentId) {
         final Appointment appointment = appointmentDao.getByid(appointmentId);
-        final LocalDateTime now = LocalDateTime.now();
-        final int week = now.get(WeekFields.of(DayOfWeek.SUNDAY, 4).weekOfYear());
 
-        if (Appointment.isPast(appointment.getSlot(), week, now.getYear()))
+        if (Appointment.isPast(appointment))
             return false;
 
         final Doctor doctor = appointment.getSlot().getWorksIn().getDoctor();

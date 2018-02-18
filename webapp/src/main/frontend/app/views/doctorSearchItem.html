@@ -11,7 +11,7 @@
       </star-rating-comp>
     </div>
     <div class="doctor-specialities">
-      <span ng-repeat="s in $ctrl.doctor.specialities">{{ s.name }} </span>
+      <span ng-repeat="s in $ctrl.doctor.specialities" class="label label-primary">{{ s.name }} </span>
     </div>
   </div>
   <doctor-appointment-week doctor-id="$ctrl.doctor.id"></doctor-appointment-week>
