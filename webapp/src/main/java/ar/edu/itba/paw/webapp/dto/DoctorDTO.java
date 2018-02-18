@@ -18,13 +18,7 @@ public class DoctorDTO extends UserDTO {
     @XmlElement
     private Integer id;
     @XmlElement
-    private String first_name;
-    @XmlElement
-    private String last_name;
-    @XmlElement
-    private String email;
-    @XmlElement
-    private String type;
+    private UserDTO user;
     @XmlElement
     private Set<SpecialityDTO> specialities;
     @XmlElement
@@ -35,12 +29,11 @@ public class DoctorDTO extends UserDTO {
 
     public DoctorDTO(final Doctor doctor) {
         this.id = doctor.getId();
-        this.first_name = doctor.getName();
-        this.last_name = doctor.getLastName();
-        this.email = doctor.getEmail();
+        if (doctor.getUser() != null) {
+            this.user = new UserDTO(doctor.getUser());
+        }
         this.specialities = SpecialityDTO.fromSet(doctor.getSpecialities());
         this.institutions = InstitutionDTO.fromWorksIn(doctor.getWorksIn());
-        this.type = doctor.type();
     }
 
     public static List<DoctorDTO> fromList(final List<Doctor> doctors) {

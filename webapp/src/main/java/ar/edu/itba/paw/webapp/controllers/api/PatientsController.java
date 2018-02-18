@@ -25,7 +25,7 @@ import java.util.List;
 @Component
 public class PatientsController extends ApiController {
 
-    private static final String USER_ALREADY_EXISTS = "El usuario ya existe";
+  /*  private static final String USER_ALREADY_EXISTS = "El usuario ya existe";
 
     @Autowired
     private PatientService patientService;
@@ -71,5 +71,5 @@ public class PatientsController extends ApiController {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-    }
+    }*/
 }

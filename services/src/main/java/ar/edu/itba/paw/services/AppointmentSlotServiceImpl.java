@@ -1,9 +1,6 @@
 package ar.edu.itba.paw.services;
 
-import ar.edu.itba.paw.models.AppointmentSlot;
-import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.PagedResult;
-import ar.edu.itba.paw.models.WorksIn;
+import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

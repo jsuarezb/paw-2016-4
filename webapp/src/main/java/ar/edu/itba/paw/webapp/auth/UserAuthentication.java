@@ -1,6 +1,5 @@
 package ar.edu.itba.paw.webapp.auth;
 
-import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.User;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -11,10 +10,10 @@ import java.util.Collection;
  * Created by alebian on 12/8/16.
  */
 public class UserAuthentication implements Authentication {
-    private Loggable user;
+    private User user;
     private boolean authenticated;
 
-    public UserAuthentication(final Loggable user) {
+    public UserAuthentication(final User user) {
         this.user = user;
         this.authenticated = true;
     }
@@ -30,7 +29,7 @@ public class UserAuthentication implements Authentication {
     }
 
     @Override
-    public Loggable getDetails() {
+    public User getDetails() {
         return user;
     }
 

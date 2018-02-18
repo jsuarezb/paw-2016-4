@@ -21,10 +21,7 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     public static final String APP_KEY = "5167nPYHKm5KTvFrSIkseTNJaLLAZOfB2K05/bmlbUI=";  // Created using openssl
 
     @Autowired
-    private DoctorService doctorService;
-
-    @Autowired
-    private PatientService patientService;
+    private UserService userService;
 
     public WebAuthConfig() {
         super(true);
@@ -34,12 +31,15 @@ public class WebAuthConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .anyRequest().permitAll().and()
-            .addFilterBefore(new StatelessAuthenticationFilter(doctorService, patientService),
-                                UsernamePasswordAuthenticationFilter.class)
-            .exceptionHandling().and()
-            .anonymous().and()
-            .servletApi();
+                .anyRequest().permitAll()
+            .and()
+                .addFilterBefore(new StatelessAuthenticationFilter(userService),
+                                 UsernamePasswordAuthenticationFilter.class)
+                .exceptionHandling()
+            .and()
+                .anonymous()
+            .and()
+                .servletApi();
     }
 
     @Bean(name = "authenticationManager")

@@ -1,6 +1,5 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
-import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.UserService;
@@ -32,13 +31,13 @@ public class UsersController extends ApiController {
     @Path("/me")
     public Response me() {
         System.out.println(getLoggedUser().type());
-        return ok(UserDTO.fromLoggable(getLoggedUser()));
+        return ok(new UserDTO(getLoggedUser()));
     }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(final UserParams input) {
-        final User existUser = userService.getByUsername(input.username);
+        final User existUser = userService.findByEmail(input.email);
         if (existUser != null) {
             return badRequest(USER_DOES_NOT_EXIST);
         } else {
@@ -48,7 +47,8 @@ public class UsersController extends ApiController {
                 return badRequest(validation.getRight());
             }
 
-            final User user = userService.register(input.username, input.password);
+            final User user = userService.register(input.email, input.password, input.firstName, input.lastName, input.phone);
+
             if (user.getId() == null) {
                 return badRequest("User already exists.");
             }

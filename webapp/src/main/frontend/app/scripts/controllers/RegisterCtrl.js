@@ -28,7 +28,8 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
             firstName: this.firstName,
             lastName: this.lastName,
             password: this.password,
-            passwordConfirmation: this.passwordConfirmation
+            passwordConfirmation: this.passwordConfirmation,
+            phone: this.phone
           };
 
           $scope.$broadcast('onRegisterStart');

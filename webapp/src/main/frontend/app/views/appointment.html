@@ -7,16 +7,16 @@
     <div class="appointment-patient col-xs-6" ng-if="$ctrl.subject === 'patient'">
       <h3>Paciente</h3>
       <span class="appointment-patient-name">
-        {{ $ctrl.appointment.patient.first_name }} {{ $ctrl.appointment.patient.last_name }}
+        {{ $ctrl.appointment.patient.user.firstName }} {{ $ctrl.appointment.patient.user.lastName }}
       </span>
-      <a href="mailto:{{ $ctrl.appointment.patient.email }}">{{ $ctrl.appointment.patient.email }}</a>
+      <a href="mailto:{{ $ctrl.appointment.patient.user.email }}">{{ $ctrl.appointment.patient.user.email }}</a>
     </div>
     <div class="appointment-patient col-xs-6" ng-if="$ctrl.subject === 'doctor'">
       <h3>Doctor</h3>
       <span class="appointment-patient-name">
-        {{ $ctrl.appointment.appointmentSlot.worksIn.doctor.first_name }} {{ $ctrl.appointment.appointmentSlot.worksIn.doctor.last_name }}
+        {{ $ctrl.appointment.appointmentSlot.worksIn.doctor.user.firstName }} {{ $ctrl.appointment.appointmentSlot.worksIn.doctor.user.lastName }}
       </span>
-      <a href="mailto:{{ $ctrl.appointment.appointmentSlot.worksIn.doctor.email }}">{{ $ctrl.appointment.appointmentSlot.worksIn.doctor.email }}</a>
+      <a href="mailto:{{ $ctrl.appointment.appointmentSlot.worksIn.doctor.user.email }}">{{ $ctrl.appointment.appointmentSlot.worksIn.doctor.user.email }}</a>
     </div>
     <div class="appointment-institution col-xs-6">
       <h3>Institución</h3>

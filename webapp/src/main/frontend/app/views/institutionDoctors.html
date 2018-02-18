@@ -15,7 +15,7 @@
       <tr ng-repeat="d in $ctrl.doctors">
         <td>
           <a ui-sref="doctor({doctorId:'{{d.id}}'})">
-            Dr. {{d.first_name}} {{d.last_name}}
+            Dr. {{d.user.firstName}} {{d.user.lastName}}
           </a>
         </td>
         <td>
@@ -23,7 +23,7 @@
               <li>{{s.name}}</li>
           </ul>
         </td>
-        <td>{{d.email}}</td>
+        <td>{{d.user.email}}</td>
         <td>
           <a class="btn btn-success"
              href="#"

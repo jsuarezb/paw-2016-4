@@ -31,8 +31,4 @@ public interface PatientDao {
      */
     Patient getByEmail(final String email);
 
-    Patient create(final String name,
-                   final String last_name,
-                   final String email,
-                   final String password);
 }

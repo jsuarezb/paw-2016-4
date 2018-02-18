@@ -23,7 +23,6 @@ public interface AppointmentService {
                                                         final Integer weekNumber,
                                                         final Integer year);
 
-    // FIXME
     List<Appointment> getAll();
 
     PagedResult<Appointment> search(final Integer weekOfYear, final Integer year,
