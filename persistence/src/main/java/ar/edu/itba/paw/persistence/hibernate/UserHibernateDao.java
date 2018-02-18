@@ -26,7 +26,7 @@ public class UserHibernateDao implements UserDao {
     public User create(String email, String password, String firstName, String lastName, String phone) {
         final Patient patient = new Patient();
         em.persist(patient);
-        final User user = new User(email, password, firstName, lastName, phone, patient, null);
+        final User user = new User(firstName, lastName, email, password, phone, patient, null);
         em.persist(user);
         return user;
     }
