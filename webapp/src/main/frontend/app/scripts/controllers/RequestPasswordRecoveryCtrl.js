@@ -10,7 +10,7 @@ define(['ChoPidoTurnos', 'services/usersService'], function(ChoPidoTurnos) {
 
     this.requestRecovery = function() {
       usersService.requestPasswordReset({email: this.email}).then(function (response) {
-        if (response.code >= 400 || response.code < 0) {
+        if (response.status >= 400 || response.status < 0) {
           _this.alerts.push({message: 'Ha ocurrido un error', type: 'danger'});
           return;
         }
