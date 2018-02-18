@@ -1,10 +1,19 @@
-<uib-tabset active="active">
-  <uib-tab index="day" heading="Static title"ng-repeat="day in appointmentDays">
-    <uib-tab-heading>{{day}}</uib-tab-heading>
-    <table class="table table-hover " ng-controller="AvailableSlotsCtrl">
-      <tr class="modal-table-row" ng-repeat="appointment in appointmentGroups[day]">
-        <td ng-click="appointmentSelected(appointment)">{{ appointment.date | date: 'HH:mm' }}</td>
-      </tr>
+<div>
+ <div style="display:inline-block;">
+    <div uib-datepicker ng-model="dt" ng-change="reloadDates()"class="well well-sm" style="min-height:200px" datepicker-options="options"></div>
+  </div>
+  <div class="modal-appointments-list">
+    <table class="table table-hover" >
+        <tr ng-repeat="day in $ctrl.appointmentDays">
+          <th>
+            {{ $ctrl.dayOfWeek(day) }} - {{ day | date: 'dd/MM/yyyy' }}
+          </th>
+          <td class="modal-table-row" ng-repeat="appointment in $ctrl.appointmentGroups[day]" ng-click="$ctrl.handleAppointmentSelected(appointment)">
+            {{ appointment.date | date: 'HH:mm' }}
+          </td>
+        </tr>
+        <pre>Selected date is: <em>{{dt | date:'fullDate' }}</em></pre>
+
     </table>
-  </uib-tab>
-</uib-tabset>
+  </div>
+</div>

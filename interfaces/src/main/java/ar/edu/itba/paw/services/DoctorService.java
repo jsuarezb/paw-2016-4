@@ -25,6 +25,8 @@ public interface DoctorService {
      */
     List<Doctor> getDoctorsByInstitution(final Integer institution_id);
 
+    List<Doctor> getDoctorsByInstitutionAndSpeciality(final Integer institution_id,final Integer speciality_id);
+
     boolean hasNextPageForSearchByName(final String name,
                                        final String lastName,
                                        final Integer page);

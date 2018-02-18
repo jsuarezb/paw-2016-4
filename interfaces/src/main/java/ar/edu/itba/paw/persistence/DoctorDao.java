@@ -21,6 +21,8 @@ public interface DoctorDao {
      */
     List<Doctor> getDoctorsByInstitution(final Integer id);
 
+    List<Doctor> getDoctorsByInstitutionAndSpeciality(final Integer institutionId,final Integer specialityId);
+
     Doctor getByEmail(final String email);
 
     Doctor getByName(final String name, final String last_name);

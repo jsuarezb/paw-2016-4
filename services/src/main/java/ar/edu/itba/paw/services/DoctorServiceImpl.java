@@ -37,6 +37,10 @@ public class DoctorServiceImpl implements DoctorService {
         return doctorDao.getDoctorsByInstitution(id);
     }
 
+    public List<Doctor> getDoctorsByInstitutionAndSpeciality (final Integer institutionId,final Integer specialityId) {
+        return doctorDao.getDoctorsByInstitutionAndSpeciality(institutionId,specialityId);
+    }
+
     @Override
     public boolean hasNextPageForSearchByName(final String name,
                                               final String lastName,

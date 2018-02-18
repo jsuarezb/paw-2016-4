@@ -47,6 +47,17 @@ public class DoctorHibernateDao implements DoctorDao {
         return query.getResultList();
     }
 
+    public List<Doctor> getDoctorsByInstitutionAndSpeciality(final Integer institutionId,final Integer specialityId) {
+        final TypedQuery<Doctor> query = em.createQuery(
+                "SELECT d FROM Doctor as d" +
+                        " JOIN Doctor.worksIn as w" +
+                        " WHERE w.institution.id = :institution_id "+
+                        "AND d.speciality_id = :speciality_id", Doctor.class);
+        query.setParameter("institution_id", institutionId);
+        query.setParameter("speciality_id", specialityId);
+        return query.getResultList();
+    }
+
     public Doctor getByName(final String name, final String lastName) {
         final TypedQuery<Doctor> query = em.createQuery(
                 "FROM Doctor AS d " +

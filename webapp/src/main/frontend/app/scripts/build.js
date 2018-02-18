@@ -100,9 +100,12 @@ require([
   'ChoPidoTurnos',
   'angular',
   'controllers/IndexCtrl',
+  'controllers/AppointmentSearchCtrl',
   'components/appointmentModalPresenter',
   'components/doctorComponent',
   'components/specialityComponent',
+  'components/availableSlotsComponent',
+  'services/appointmentsService',
   'interceptors/baseURLInterceptor',
   'interceptors/sessionInterceptor'
   ],

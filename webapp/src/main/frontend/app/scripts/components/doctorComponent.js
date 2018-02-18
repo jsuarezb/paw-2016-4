@@ -2,10 +2,10 @@
 define(['ChoPidoTurnos', 'services/institutionsService'], function(ChoPidoTurnos,institutionsService) {
   function DoctorListCtrl ($scope,institutionsService) {
     var _this = this;
-    $scope.doctors = ['SNI','SNU','SNA','Sne'];
+
     this.getDoctors = function() {
       institutionsService
-        .getInstitutionDoctors(this.institutionId)
+        .getSpecialityDoctors(this.institutionId)
         .then(function(result) {
           _this.doctors = result.data;
           console.log(result.data);

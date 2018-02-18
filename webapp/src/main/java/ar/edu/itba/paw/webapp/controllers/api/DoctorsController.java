@@ -37,15 +37,20 @@ public class DoctorsController extends ApiController {
     public Response index(@QueryParam("first_name") final String firstName,
                           @QueryParam("last_name") final String lastName,
                           @QueryParam("speciality_id") final Integer speciality_id,
-                          @QueryParam("page") final Integer page) {
+                          @QueryParam("page") final Integer page,
+                          @QueryParam("institution_id") final Integer institution_id) {
         List<Doctor> doctors;
-        if (speciality_id != null) {
-            doctors = doctorService.searchBySpeciality(speciality_id);
+        if ((speciality_id != null) && (institution_id != null)) {
+            doctors = doctorService.getDoctorsByInstitutionAndSpeciality(institution_id,speciality_id);
         } else {
-            if (firstName == null && lastName == null) {
-                doctors = doctorService.getAll();
+            if (speciality_id != null && institution_id == null) {
+                doctors = doctorService.searchBySpeciality(speciality_id);
             } else {
-                doctors = doctorService.searchByName(firstName, lastName);
+                if (firstName == null && lastName == null) {
+                    doctors = doctorService.getAll();
+                } else {
+                    doctors = doctorService.searchByName(firstName, lastName);
+                }
             }
         }
 
@@ -53,6 +58,7 @@ public class DoctorsController extends ApiController {
         };
         return ok(list);
     }
+
 
     @GET
     @Path("/{id}")
