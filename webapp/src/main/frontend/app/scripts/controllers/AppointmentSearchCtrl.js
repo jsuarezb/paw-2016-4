@@ -56,8 +56,10 @@ define(
 
       $scope.$watch('$ctrl.searchDate', function (newValue, oldValue) {
         var d = moment(newValue);
+        _this.startOfWeek = d.startOf('week').format('DD/MM/YYYY');
+        _this.endOfWeek = d.endOf('week').format('DD/MM/YYYY');
 
-        _this.loadWeek(d.week(), d.year())
+        _this.loadWeek(d.week(), d.year());
       });
 
       this.dayOfWeek = function(date) {

@@ -18,7 +18,7 @@ define(['ChoPidoTurnos',
         });
 
         appointmentsService
-          .getDoctorAvailableAppointments(this.doctorId, this.weekNumber, this.weekNumber)
+          .getDoctorAvailableAppointments(this.doctorId, this.weekNumber, this.year)
           .then(function (result) {
             var data = result.data;
             _this.onAppointmentsLoaded(data);
