@@ -50,7 +50,7 @@ public class DoctorHibernateDao implements DoctorDao {
     public Doctor getByName(final String name, final String lastName) {
         final TypedQuery<Doctor> query = em.createQuery(
                 "FROM Doctor AS d " +
-                        "WHERE d.name = :name AND d.lastName = :last_name", Doctor.class);
+                        "WHERE d.user.firstName = :name AND d.user.lastName = :last_name", Doctor.class);
         query.setParameter("name", name);
         query.setParameter("last_name", lastName);
         try {
@@ -73,10 +73,10 @@ public class DoctorHibernateDao implements DoctorDao {
     @Override
     public List<Doctor> searchByName(final String name, final String lastName) {
         final TypedQuery<Doctor> query = em.createQuery(
-                "FROM Doctor AS d " +
-                        "WHERE translate(lower(d.name), 'áéíóú', 'aeiou') LIKE lower(:name) " +
-                        "AND translate(lower(d.lastName), 'áéíóú', 'aeiou') LIKE lower(:lastName) " +
-                        "ORDER BY d.lastName, d.name ",
+                "SELECT d FROM Doctor AS d " +
+                        "WHERE translate(lower(d.user.firstName), 'áéíóú', 'aeiou') LIKE lower(:name) " +
+                        "AND translate(lower(d.user.lastName), 'áéíóú', 'aeiou') LIKE lower(:lastName) " +
+                        "ORDER BY d.user.lastName, d.user.firstName ",
                 Doctor.class
         );
 
@@ -130,9 +130,9 @@ public class DoctorHibernateDao implements DoctorDao {
     @Override
     public boolean hasNextPageForSearchByName(final String name, final String lastName, final Integer page) {
         final TypedQuery<Doctor> query = em.createQuery(
-                "FROM Doctor AS d " +
-                        "WHERE lower(d.name) LIKE lower(:name) AND lower(d.lastName) LIKE lower(:lastName) " +
-                        "ORDER BY d.lastName, d.name ",
+                "SELECT d FROM Doctor AS d " +
+                        "WHERE lower(d.user.firstName) LIKE lower(:name) AND lower(d.user.lastName) LIKE lower(:lastName) " +
+                        "ORDER BY d.user.lastName, d.user.firstName ",
                 Doctor.class
         );
 

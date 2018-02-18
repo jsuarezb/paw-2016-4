@@ -5,17 +5,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "doctors")
-public class Doctor implements Loggable {
+public class Doctor {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "doctors_id_seq")
     @SequenceGenerator(sequenceName = "doctors_id_seq", name = "doctors_id_seq", allocationSize = 1)
     private Integer id;
-
-    @Column(length = 100, nullable = false)
-    private String name;
-
-    @Column(name = "last_name", length = 100, nullable = false)
-    private String lastName;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "doctors_specialities", joinColumns = {
@@ -25,32 +20,19 @@ public class Doctor implements Loggable {
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "doctor")
     private Set<WorksIn> worksIn;
 
-    @Column(length = 100, nullable = false, unique = true)
-    private String email;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, mappedBy = "doctor")
+    private User user;
 
-    @Column(length = 100, nullable = false)
-    private String password;
+    public User getUser() {
+        return user;
+    }
 
     /* package */ Doctor() {
     }
 
-    public Doctor(final Integer id, final String name, final String lastName, final Set<Speciality> specialities,
-                  final Set<WorksIn> worksIn, final String email, final String password) {
-        this.id = id;
-        this.name = name;
-        this.lastName = lastName;
+    public Doctor(Set<Speciality> specialities, Set<WorksIn> worksIn) {
         this.specialities = specialities;
-        this.email = email;
-        this.password = password;
         this.worksIn = worksIn;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     public Set<WorksIn> getWorksIn() {
@@ -63,14 +45,6 @@ public class Doctor implements Loggable {
 
     public Set<Speciality> getSpecialities() {
         return specialities;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     @Override
@@ -94,15 +68,7 @@ public class Doctor implements Loggable {
     public String toString() {
         return "Doctor{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", lastName='" + lastName + '\'' +
                 ", specialities='" + specialities + '\'' +
-                ", email='" + email + '\'' +
                 '}';
-    }
-
-    @Override
-    public String type() {
-        return Loggable.DOCTOR;
     }
 }

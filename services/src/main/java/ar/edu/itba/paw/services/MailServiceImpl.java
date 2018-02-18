@@ -3,6 +3,10 @@ package ar.edu.itba.paw.services;
 import ar.edu.itba.paw.models.*;
 import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
+import ar.edu.itba.paw.models.Appointment;
+import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.models.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +49,8 @@ public class MailServiceImpl implements MailService {
         final LocalDateTime date = appointment.getDate();
         msg.setFrom("no-reply@chopidoturnos.com");
         msg.setSubject("Turno reservado.");
-        msg.setTo(doctor.getEmail());
-        msg.setText("El paciente " + String.format("%s, %s", patient.getLastName(), patient.getName())
+        msg.setTo(doctor.getUser().getEmail());
+        msg.setText("El paciente " + String.format("%s, %s", patient.getUser().getLastName(), patient.getUser().getFirstName())
                 + " reservó un turno para el día " + date.format(dateFmt)
                 + " a las " + date.format(timeFmt) + " hs"
         );
@@ -71,7 +75,7 @@ public class MailServiceImpl implements MailService {
 
         final Map<String, Object> context = new HashMap<>();
 
-        context.put("doctorName", String.format("%s %s", doctor.getName(), doctor.getLastName()));
+        context.put("doctorName", String.format("%s %s", doctor.getUser().getFirstName(), doctor.getUser().getLastName()));
         context.put("appointmentDate", date.format(dateFmt));
         context.put("appointmentTime", date.format(timeFmt));
         context.put("institutionName", institution.getName());
@@ -94,7 +98,7 @@ public class MailServiceImpl implements MailService {
             final SimpleMailMessage msg = new SimpleMailMessage();
             msg.setFrom("chopidoturnos@gamil.com");
             msg.setSubject("Turno reservado.");
-            msg.setTo(patient.getEmail());
+            msg.setTo(patient.getUser().getEmail());
             msg.setText(emailText);
 
             mailSender.send(msg);
@@ -111,8 +115,8 @@ public class MailServiceImpl implements MailService {
         final LocalDateTime date = appointment.getDate();
         msg.setFrom("no-reply@chopidoturnos.com");
         msg.setSubject("Turno cancelado.");
-        msg.setTo(doctor.getEmail());
-        msg.setText("El paciente " + String.format("%s, %s", patient.getLastName(), patient.getName())
+        msg.setTo(doctor.getUser().getEmail());
+        msg.setText("El paciente " + String.format("%s, %s", patient.getUser().getLastName(), patient.getUser().getFirstName())
                 + " ha cancelado el turno para el día " + date.format(dateFmt)
                 + " a las " + date.format(timeFmt) + " hs"
         );
@@ -130,7 +134,7 @@ public class MailServiceImpl implements MailService {
                                                      final Patient patient) {
         final Map<String, Object> context = new HashMap<>();
         final LocalDateTime date = appointment.getDate();
-        context.put("doctorName", String.format("%s %s", doctor.getName(), doctor.getLastName()));
+        context.put("doctorName", String.format("%s %s", doctor.getUser().getFirstName(), doctor.getUser().getLastName()));
         context.put("appointmentDate", date.format(dateFmt));
         context.put("appointmentTime", date.format(timeFmt));
 
@@ -142,13 +146,28 @@ public class MailServiceImpl implements MailService {
         final SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom("chopidoturnos@gamil.com");
         msg.setSubject("Turno cancelado.");
-        msg.setTo(patient.getEmail());
+        msg.setTo(patient.getUser().getEmail());
         msg.setText(emailText);
 
         try {
             mailSender.send(msg);
         } catch (MailException ex) {
             LOG.error("Mail not sent.", ex);
+        }
+    }
+
+    @Override
+    public void sendPasswordRecoveryEmail(final String email, final String token) {
+        final SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setFrom("chopidoturnos@gamil.com");
+        msg.setSubject("Restablecer contraseña");
+        msg.setTo(email);
+        msg.setText("Haga click en el siguiente link para restablecer su contraseña.\n" +
+                    "http://localhost:8080/grupo4/resources/index.html#!/recover?token=" + token);
+        try {
+            mailSender.send(msg);
+        } catch (MailException ex) {
+            // TODO log error
         }
     }
 

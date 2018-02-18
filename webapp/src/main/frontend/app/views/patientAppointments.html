@@ -1,4 +1,4 @@
-<div class="title container" ng-controller="AppointmentsCtrl as $ctrl">
+<div class="title container">
   <alerts alerts="$ctrl.alerts" on-alert-closed="$ctrl.alerts.splice(index, 1)"></alerts>
   <h1>Mis turnos</h1>
   <div ng-repeat="pa in $ctrl.appointments | orderBy: '+date'">

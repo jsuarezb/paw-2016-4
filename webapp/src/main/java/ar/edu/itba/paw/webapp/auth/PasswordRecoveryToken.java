@@ -9,49 +9,34 @@ import java.util.Date;
 /**
  * Created by alebian on 12/8/16.
  */
-public class Token {
+public class PasswordRecoveryToken {
     private final static Long TOKEN_DURATION = 86400000L; // 1 Day
+    private final static String KEY = "62a29605651a4fa756b267688dc98ae61ec020a1946d270695e50d4cec93b76700b55069bc6bd969e6d8787559dacfc708eb69c9f152cb73a54c143586c3212c";
 
-    public static String create(final User user) {
+    public static String create(final String email) {
         return Jwts.builder()
-                .signWith(SignatureAlgorithm.HS512, WebAuthConfig.APP_KEY)
-                .setSubject(user.getId().toString())
+                .signWith(SignatureAlgorithm.HS512, KEY)
                 .setIssuedAt(currentDate())
                 .setExpiration(expirationDate())
-                .setId(user.type())
-                .setIssuer(user.getEmail())
+                .setSubject(email)
                 .compact();
     }
 
     public static String decode(final String token) {
         try {
             final Jws<Claims> claims = Jwts.parser()
-                    .setSigningKey(WebAuthConfig.APP_KEY)
+                    .setSigningKey(KEY)
                     .parseClaimsJws(token);
 
             final Claims body = claims.getBody();
             if (body.getExpiration().before(currentDate())) {
                 throw new SignatureException("");
             }
-            return tokenIssuer(body.getId(), body.getIssuer());
+            return body.getSubject();
 
         } catch (Exception e) {
             return null;
         }
-    }
-
-    private static final String DELIMITER = ";";
-
-    public static String tokenIssuer(final String type, final String email) {
-        return String.format("%s%s%s", type, DELIMITER, email);
-    }
-
-    public static String emailFromToken(final String decodedToken) {
-        return decodedToken.split(DELIMITER)[1];
-    }
-
-    public static String typeFromToken(final String decodedToken) {
-        return decodedToken.split(DELIMITER)[0];
     }
 
     private static Date currentDate() {

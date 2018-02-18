@@ -126,7 +126,10 @@ public class DoctorsController extends ApiController {
     @Path("/{id}/ratings")
     public Response patientRating(@PathParam("id") final Integer id) {
         final Doctor doctor = doctorService.get(id);
-        final Patient patient = (Patient) getLoggedUser();
+        final Patient patient = getLoggedUser().getPatient();
+        if (patient == null) {
+            return badRequest("Debe ser un paciente para puntuar a un doctor");
+        }
         final Rating rating = ratingService.get(doctor, patient);
 
         if (rating == null)
@@ -139,7 +142,10 @@ public class DoctorsController extends ApiController {
     @Path("/{id}/ratings")
     public Response createPatientRating(@PathParam("id") final Integer id, final RatingParams params) {
         final Doctor doctor = doctorService.get(id);
-        final Patient patient = (Patient) getLoggedUser();
+        final Patient patient = getLoggedUser().getPatient();
+        if (patient == null) {
+            return badRequest("Debe ser un paciente para puntuar a un doctor");
+        }
         final Rating rating = ratingService.update(doctor, patient, params.value);
 
         return ok(new RatingDTO(rating));

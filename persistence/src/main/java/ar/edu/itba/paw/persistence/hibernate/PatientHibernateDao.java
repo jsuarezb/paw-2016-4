@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.persistence.hibernate;
 
 import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.persistence.PatientDao;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,16 +38,5 @@ public class PatientHibernateDao implements PatientDao {
         } catch (NoResultException e) {
             return null;
         }
-    }
-
-    @Transactional
-    public Patient create(final String name, final String lastName,
-                          final String email, final String password) {
-        final Patient patient = new Patient(name, lastName, email, password);
-        if (getByEmail(email) != null) {
-            return null;
-        }
-        em.persist(patient);
-        return patient;
     }
 }

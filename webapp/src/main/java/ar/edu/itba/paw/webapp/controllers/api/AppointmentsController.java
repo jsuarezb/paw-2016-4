@@ -66,27 +66,31 @@ public class AppointmentsController extends ApiController {
     @GET
     @Path("/patient")
     public Response patientAppointments() {
-        final Patient patient = (Patient) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (patient != null) {
-            final List<Appointment> patientAppointments = appointmentService.getByPatient(patient);
-            final GenericEntity<List<AppointmentDTO>> list = new GenericEntity<List<AppointmentDTO>>(AppointmentDTO.fromList(patientAppointments)) {};
-            return ok(list);
+        final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user == null) {
+            return unauthorized();
         }
-        else{
-            return notFound();
+        final Patient patient = user.getPatient();
+
+        if (patient == null) {
+            return badRequest("Debe ser paciente");
         }
+        final List<Appointment> patientAppointments = appointmentService.getByPatient(patient);
+        final GenericEntity<List<AppointmentDTO>> list = new GenericEntity<List<AppointmentDTO>>(AppointmentDTO.fromList(patientAppointments)) {};
+        return ok(list);
     }
 
     @GET
     @Path("/doctor")
     public Response doctorAppointments(@QueryParam("future") final Boolean future) {
-        final Doctor doctor = (Doctor) SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal();
-
-        if (doctor == null)
+        final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user == null) {
+            return unauthorized();
+        }
+        final Doctor doctor = user.getDoctor();
+        if (doctor == null) {
             return forbidden();
+        }
 
         final List<Appointment> appointments = future
                 ? appointmentService.getIncomingAppointments(doctor)
@@ -112,13 +116,12 @@ public class AppointmentsController extends ApiController {
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     public Response create(final AppointmentParams params){
-        final Patient patient;
-
-        try {
-            patient = (Patient) SecurityContextHolder.getContext()
-                    .getAuthentication()
-                    .getPrincipal();
-        } catch (ClassCastException ex) {
+        final User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (user == null) {
+            return unauthorized();
+        }
+        final Patient patient = user.getPatient();
+        if (patient == null) {
             return badRequest("El turno no puede ser reservado por un doctor");
         }
 

@@ -1,7 +1,9 @@
 package ar.edu.itba.paw.webapp.auth;
 
 import ar.edu.itba.paw.models.Patient;
+import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.services.PatientService;
+import ar.edu.itba.paw.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,16 +19,16 @@ import java.util.HashSet;
 public class CPTUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private PatientService ps;
+    private UserService us;
 
     @Override
     public UserDetails loadUserByUsername(final String email)
             throws UsernameNotFoundException {
-        final Patient patient = ps.findByEmail(email);
-        if (patient != null) {
+        final User user = us.findByEmail(email);
+        if (user != null) {
             final Collection<GrantedAuthority> authorities = new HashSet<>();
             return new org.springframework.security.core.userdetails.User(
-                    patient.getEmail(), patient.getPassword(), authorities);
+                    user.getEmail(), user.getPassword(), authorities);
         }
 
         throw new UsernameNotFoundException("No user found by the email " + email);

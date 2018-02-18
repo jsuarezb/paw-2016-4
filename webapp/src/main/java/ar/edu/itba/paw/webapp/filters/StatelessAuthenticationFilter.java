@@ -1,9 +1,9 @@
 package ar.edu.itba.paw.webapp.filters;
 
-import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.PatientService;
-import ar.edu.itba.paw.webapp.auth.LoggedUserFinder;
+import ar.edu.itba.paw.services.UserService;
+import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.webapp.auth.Token;
 import ar.edu.itba.paw.webapp.auth.UserAuthentication;
 import ar.edu.itba.paw.webapp.params.LoginParams;
@@ -23,13 +23,11 @@ import java.io.IOException;
  */
 public class StatelessAuthenticationFilter extends GenericFilterBean {
     private static final String AUTH_HEADER_NAME = "Authorization";
-    private DoctorService doctorService;
-    private PatientService patientService;
+    private UserService userService;
 
-    public StatelessAuthenticationFilter(final DoctorService doctorService, final PatientService patientService) {
+    public StatelessAuthenticationFilter(final UserService userService) {
         super();
-        this.doctorService = doctorService;
-        this.patientService = patientService;
+        this.userService = userService;
     }
 
     @Override
@@ -45,10 +43,7 @@ public class StatelessAuthenticationFilter extends GenericFilterBean {
         final String token = request.getHeader(AUTH_HEADER_NAME);
         if (token != null) {
             final String decoded = Token.decode(token);
-            final Loggable user = LoggedUserFinder.getLoggedUser(
-                    new LoginParams(Token.emailFromToken(decoded), Token.typeFromToken(decoded)),
-                    doctorService,
-                    patientService);
+            final User user = userService.findByEmail(Token.emailFromToken(decoded));
 
             if (user != null) {
                 return new UserAuthentication(user);

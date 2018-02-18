@@ -6,9 +6,9 @@
   <div class="appointment-details row">
     <div class="appointment-patient col-xs-6">
       <span class="appointment-patient-name">
-        {{ appointment.patient.first_name }} {{ appointment.patient.last_name }}
+        {{ appointment.patient.user.firstName }} {{ appointment.patient.user.lastName }}
       </span>
-      <a href="mailto:{{ appointment.patient.email }}">{{ appointment.patient.email }}</a>
+      <a href="mailto:{{ appointment.patient.user.email }}">{{ appointment.patient.user.email }}</a>
     </div>
     <div class="appointment-institution col-xs-6">{{ appointment.appointmentSlot.worksIn.institution.name }}</div>
   </div>

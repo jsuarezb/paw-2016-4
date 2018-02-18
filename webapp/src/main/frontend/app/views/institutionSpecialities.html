@@ -1,15 +1,15 @@
-<div class="title container" ng-controller="InstitutionSpecialitiesCtrl as ctrl">
+<div class="title container">
   <h1>Especialidades -
-    <a ui-sref="institution({institutionId:ctrl.institution.id})">
-      {{ctrl.institution.name}}
+    <a ui-sref="institution({institutionId:$ctrl.institution.id})">
+      {{$ctrl.institution.name}}
     </a>
   </h1>
   <h3>
-    {{ctrl.institution.address.street_name}} {{ctrl.institution.address.street_number}}
-    {{ctrl.institution.address.neighborhood}}, {{ctrl.institution.address.city}},
-    {{ctrl.institution.address.state}}, {{ctrl.institution.address.country}}
+    {{$ctrl.institution.address.street_name}} {{$ctrl.institution.address.street_number}}
+    {{$ctrl.institution.address.neighborhood}}, {{$ctrl.institution.address.city}},
+    {{$ctrl.institution.address.state}}, {{$ctrl.institution.address.country}}
   </h3>
-  <table class="table table-bordered" ng-if="ctrl.specialities.length > 0">
+  <table class="table table-bordered" ng-if="$ctrl.specialities.length > 0">
     <thead>
     <tr>
       <th>Especialidad</th>
@@ -17,19 +17,19 @@
     </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="s in ctrl.specialities">
+      <tr ng-repeat="s in $ctrl.specialities">
         <td>{{s.name}}</td>
         <td>
           <a class="btn btn-success"
             href="#"
-            ui-sref="appointmentSearch({institution: ctrl.institution.id, speciality: s.id})">
+            ui-sref="appointmentSearch({institution: $ctrl.institution.id, speciality: s.id})">
             Pedir turno
           </a>
         </td>
       </tr>
     </tbody>
   </table>
-  <p ng-if="ctrl.specialities.length === 0">
+  <p ng-if="$ctrl.specialities.length === 0">
     Aún no hay especialidades registradas para esta institución.
   </p>
 </div>

@@ -13,6 +13,9 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientDao patientDao;
 
+    @Autowired
+    private MailService mailService;
+
     public List<Patient> getAll() {
         return patientDao.getAll();
     }
@@ -21,17 +24,10 @@ public class PatientServiceImpl implements PatientService {
         return patientDao.getById(id);
     }
 
-    public Patient create(final String name,
-                          final String last_name,
-                          final String email,
-                          final String password) {
-        return patientDao.create(name, last_name, email, password);
-    }
-
     public boolean login(final String email, final String password) {
         final Patient patient = findByEmail(email);
         if (patient != null) {
-            return password.equals(patient.getPassword());
+            return password.equals(patient.getUser().getPassword());
         }
         return false;
     }

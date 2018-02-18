@@ -10,10 +10,6 @@ import java.util.List;
 public interface PatientService {
     List<Patient> getAll();
     Patient get(int id);
-    Patient create(final String name,
-                   final String last_name,
-                   final String email,
-                   final String password);
     Patient findByEmail(final String email);
 
     boolean login(final String email, final String password);

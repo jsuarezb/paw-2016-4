@@ -1,7 +1,7 @@
-<div class="title container" ng-controller="InstitutionDoctorsCtrl as ctrl">
-  <h1>Doctores - <a ui-sref="institution({institutionId:ctrl.institution.id})">{{ctrl.institution.name}}</a></h1>
-  <h3>{{ctrl.institution.address.street_name}} {{ctrl.institution.address.street_number}} {{institution.address.neighborhood}},
-    {{ctrl.institution.address.city}}, {{ctrl.institution.address.state}}, {{ctrl.institution.address.country}}</h3>
+<div class="title container">
+  <h1>Doctores - <a ui-sref="institution({institutionId:$ctrl.institution.id})">{{$ctrl.institution.name}}</a></h1>
+  <h3>{{$ctrl.institution.address.street_name}} {{$ctrl.institution.address.street_number}} {{institution.address.neighborhood}},
+    {{$ctrl.institution.address.city}}, {{$ctrl.institution.address.state}}, {{$ctrl.institution.address.country}}</h3>
   <table class="table table-bordered">
     <thead>
     <tr>
@@ -12,10 +12,10 @@
     </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="d in ctrl.doctors">
+      <tr ng-repeat="d in $ctrl.doctors">
         <td>
           <a ui-sref="doctor({doctorId:'{{d.id}}'})">
-            Dr. {{d.first_name}} {{d.last_name}}
+            Dr. {{d.user.firstName}} {{d.user.lastName}}
           </a>
         </td>
         <td>
@@ -23,16 +23,16 @@
               <li>{{s.name}}</li>
           </ul>
         </td>
-        <td>{{d.email}}</td>
+        <td>{{d.user.email}}</td>
         <td>
           <a class="btn btn-success"
              href="#"
-             ui-sref="appointmentSearch({institution: ctrl.institution.id, doctor: d.id})">
+             ui-sref="appointmentSearch({institution: $ctrl.institution.id, doctor: d.id})">
             Pedir turno
           </a>
         </td>
       </tr>
-      <p ng-if="ctrl.doctors.length === 0">
+      <p ng-if="$ctrl.doctors.length === 0">
         No hay doctores registrados para esta institución
       </p>
       </a>

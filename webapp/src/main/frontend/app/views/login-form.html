@@ -1,4 +1,4 @@
-<form class="container" role="form" ng-submit="ctrl.login()">
+<form class="container" role="form" ng-submit="$ctrl.login()">
   <div class="form-group">
     <label for="email" class="control-label">Email</label>
     <input type="email" id="email" class="form-control" placeholder="Email" ng-model="email" />
@@ -6,13 +6,6 @@
   <div class="form-group">
     <label for="password" class="control-label">Contraseña</label>
     <input type="password" id="password" class="form-control" placeholder="Contraseña" ng-model="password" />
-  </div>
-  <div class="form-group">
-    <label for="type" class="control-label">Tipo de usuario</label>
-    <select ng-model="type" id="type" class="form-control">
-      <option selected value="patient">Paciente</option>
-      <option value="doctor">Doctor</option>
-    </select>
   </div>
   <div ng-show="loginError" class="alert alert-danger" role="alert">
     {{ loginError }}

@@ -8,21 +8,12 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by alebian on 12/8/16.
- */
 @XmlRootElement
 public class PatientDTO extends UserDTO {
     @XmlElement
     private Integer id;
     @XmlElement
-    private String first_name;
-    @XmlElement
-    private String last_name;
-    @XmlElement
-    private String email;
-    @XmlElement
-    private String type;
+    private UserDTO user;
 
     public PatientDTO() {
     }
@@ -32,10 +23,7 @@ public class PatientDTO extends UserDTO {
             return;
 
         this.id = patient.getId();
-        this.first_name = patient.getName();
-        this.last_name = patient.getLastName();
-        this.email = patient.getEmail();
-        this.type = patient.type();
+        this.user = new UserDTO(patient.getUser());
     }
 
     public static List<PatientDTO> fromList(final List<Patient> patients) {
