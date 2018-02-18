@@ -21,6 +21,10 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
         getDoctorPastAppointments: function (doctorId) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'appointments/doctor?future=false', null);
         },
+        getDoctorAvailableAppointments: function (doctorId, weekNumber, year) {
+          return httpRequestBuilderService
+            .buildHttpRequest('GET', 'doctors/' + doctorId + '/appointments?weekNumber=' + weekNumber + '&year=' + year, null);
+        },
         deleteAppointment: function(appointmentId) {
           return httpRequestBuilderService.buildHttpRequest('DELETE', 'appointments/' + appointmentId, null);
         },
