@@ -19,7 +19,7 @@ define(
       var _speciality = $stateParams.speciality || '';
       var _neighborhood = $stateParams.neighborhood || '';
       var now = moment();
-      this.weekNumber = now.week();
+      this.currentWeek = now.week();
       this.year = now.year();
 
       var groupBy = function(xs, f) {
@@ -69,8 +69,8 @@ define(
       this.bookAppointment = function(appointment) {
         appointmentService.postAppointment({
           slotId: appointment.appointmentSlot.id,
-          weekNumber: dateService.weekOfYear(new Date(appointment.date)),
-          year: new Date(appointment.date).getFullYear(),
+          weekNumber: moment(appointment.date).week(),
+          year: moment(appointment.date).year(),
           comments: appointment.comments
         }
         ).then(function(response) {
