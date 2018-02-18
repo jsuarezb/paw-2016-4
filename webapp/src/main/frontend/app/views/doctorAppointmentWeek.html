@@ -16,8 +16,11 @@
       ¿Desea realizar la reserva del turno para el <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.date | date: 'dd/MM/yyyy' }}</span> a las <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.hour }}:00 hs</span>, en <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.worksIn.institution.name }}?</span>
     </p>
     <div>
-      <button class="btn btn-success" ng-disabled="$ctrl.isBooking" ng-click="$ctrl.bookSelectedAppointment()">
+      <button class="btn btn-success" ng-click="$ctrl.bookSelectedAppointment()" ng-show="$ctrl.isUserLogged()" ng-disabled="$ctrl.isBooking">
         {{ !$ctrl.isBooking ? 'Reservar' : 'Reservando...' }}
+      </button>
+      <button class="btn btn-success" ng-click="$ctrl.login()" ng-show="!$ctrl.isUserLogged()">
+        Iniciar sesión para reservar
       </button>
     </div>
   </div>

@@ -3,7 +3,7 @@
 define(['ChoPidoTurnos',
         'moment'],
         function (ChoPidoTurnos, moment) {
-  function DoctorAppointmentWeekController($scope, $state, appointmentsService, dateService) {
+  function DoctorAppointmentWeekController($scope, $state, appointmentsService, sessionService) {
     return {
       '$onInit': function() {
         var now = new Date();
@@ -67,15 +67,21 @@ define(['ChoPidoTurnos',
               return;
             }
 
-            $state.go('patientAppointments', {patientId: 0});
+            $state.go('patientAppointments');
           });
+      },
+      isUserLogged: function() {
+        return !!sessionService.getLoggedUser();
+      },
+      login: function() {
+        $state.go('login');
       },
       days: [1, 2, 3, 4, 5, 6, 7],
       daysString: ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB']
     };
   }
 
-  DoctorAppointmentWeekController.$inject = ['$scope', '$state', 'appointmentsService'];
+  DoctorAppointmentWeekController.$inject = ['$scope', '$state', 'appointmentsService', 'sessionService'];
 
   ChoPidoTurnos
     .component('doctorAppointmentWeek', {
