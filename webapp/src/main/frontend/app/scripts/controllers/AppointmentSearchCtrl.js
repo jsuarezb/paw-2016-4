@@ -43,12 +43,6 @@ define(
           _this.doctorsFetched = true;
         });
 
-        $scope.$watch("dt", function(newValue, oldValue) {
-
-          this.searchDateWeek = new Date(newValue);
-          searchAppointments();
-        });
-
       this.bookAppointment = function(appointment) {
         appointmentService.postAppointment({
           slotId: appointment.appointmentSlot.id,
