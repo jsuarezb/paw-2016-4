@@ -6,7 +6,9 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "appointment_slots")
+@Table(name = "appointment_slots", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"works_in_id", "dayOfWeek", "hour"})
+})
 public class AppointmentSlot {
 
     @Id

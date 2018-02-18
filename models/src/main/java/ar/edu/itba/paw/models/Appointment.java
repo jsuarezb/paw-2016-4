@@ -13,7 +13,9 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
-@Table(name = "appointments")
+@Table(name = "appointments", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"slot", "weekNumber", "year"})
+})
 @XmlRootElement
 public class Appointment {
     @Id
