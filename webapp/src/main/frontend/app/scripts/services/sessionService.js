@@ -55,15 +55,14 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
         var _this = this;
 
         return $http
-          .post('/grupo4/api/v1/patients', data)
+          .post('/grupo4/api/v1/users', data)
           .then(function(response) {
             return response.data;
           })
           .then(function(data) {
             _this.login({
               email: email,
-              password: password,
-              type: 'patient' // TODO: change this
+              password: password
             }, success, error);
           }, error);
       }
