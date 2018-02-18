@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ZURBemails</title>
 
     <link rel="stylesheet" type="text/css" href="stylesheets/email.css" />
     <style media="screen">
@@ -272,27 +273,22 @@
                     <tr>
                         <td>
 
-                            <h3>¡Reservaste un turno!</h3>
+                            <h3>¡Cancelaste tu turno!</h3>
                             <br/>
                             <br/>
-                            <p class="lead">Usted reservó un turno con el doctor $doctorName para el $appointmentDate a las $appointmentTime.</p>
-                            <br/>
-                            <!-- Callout Panel -->
-                            <p class="callout">
-                                No te olvides de <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Turno+médico+con+$doctorName&dates=$appointmentStartDatetime/$appointmentEndDatetime&location=$institutionStreetName,+$institutionStreetNumber,+$institutionNeighborhood,+$institutionCity,+$institutionState,+$institutionCountry&sf=true&output=xml">agregar este evento a tu calendario</a>
-                            </p><!-- /Callout Panel -->
+                            <p class="lead">Usted canceló su turno con el doctor $doctorName para el $appointmentDate a las $appointmentTime.</p>
                             <br/>
                             <br/>
                             <div class="appointment-map">
-                                <h4>¿Cómo llego?<h4>
-                                    <a href="https://www.google.com/maps/place/$institutionStreetName,+$institutionStreetNumber,+$institutionNeighborhood,+$institutionCity,+$institutionState,+$institutionCountry/">
-                                        <img src="https://maps.googleapis.com/maps/api/staticmap?center=$institutionStreetName,+$institutionStreetNumber,+$institutionNeighborhood,+$institutionCity,+$institutionState,+$institutionCountry&zoom=14&scale=1&size=300x150&maptype=roadmap&format=png&visual_refresh=true" alt="Google Map de $institutionName">
-                                    </a>
+                                <h4>¿Buscas otra fecha?<h4>
+                                    <h5>Te invitamos a buscar otro turno en nuestro sitio, ¿seguro tenemos una alternativa para vos!</h5>
+                                    <br/>
+                                    <button type="button" class="btn" align="center" name="button" href="http://pawserver.it.itba.edu.ar/grupo4/resources/index.html#!/" style="align:center;">¡Buscar turnos!</button>
                             </div>
 
                             <br/>
                             <br/>
-                            <p>Si desea cancelar la reserva, ingrese a <a href="$cancelAppointmentUrl">este link</a>.
+
 
 
                         </td>

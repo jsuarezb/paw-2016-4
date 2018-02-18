@@ -128,15 +128,22 @@ public class MailServiceImpl implements MailService {
     public void sendAppointmentCancellationToPatient(final Appointment appointment,
                                                      final Doctor doctor,
                                                      final Patient patient) {
-        final SimpleMailMessage msg = new SimpleMailMessage();
+        final Map<String, Object> context = new HashMap<>();
         final LocalDateTime date = appointment.getDate();
+        context.put("doctorName", String.format("%s %s", doctor.getName(), doctor.getLastName()));
+        context.put("appointmentDate", date.format(dateFmt));
+        context.put("appointmentTime", date.format(timeFmt));
+
+
+        final String emailText = VelocityEngineUtils.mergeTemplateIntoString(
+                velocityEngine,
+                "templates/patient_cancelled_appointment.vm",
+                "UTF-8",context);
+        final SimpleMailMessage msg = new SimpleMailMessage();
         msg.setFrom("chopidoturnos@gamil.com");
         msg.setSubject("Turno cancelado.");
         msg.setTo(patient.getEmail());
-        msg.setText("Usted canceló el turno del día " + date.format(dateFmt)
-                + " a las " + date.format(timeFmt) + " hs"
-                + String.format("%s, %s", doctor.getLastName(), doctor.getName())
-        );
+        msg.setText(emailText);
 
         try {
             mailSender.send(msg);
