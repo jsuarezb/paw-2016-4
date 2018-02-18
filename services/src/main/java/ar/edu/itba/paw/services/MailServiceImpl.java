@@ -120,7 +120,7 @@ public class MailServiceImpl implements MailService {
         msg.setSubject("Restablecer contraseña");
         msg.setTo(email);
         msg.setText("Haga click en el siguiente link para restablecer su contraseña.\n" +
-                    "http://localhost:8080/grupo4/resources/index.html#!/recover?token=" + token);
+                    "http://pawserver.it.itba.edu.ar/grupo4/resources/index.html#!/recover?token=" + token);
         try {
             mailSender.send(msg);
         } catch (MailException ex) {
