@@ -103,7 +103,7 @@ define(['angularAMD'], function(angularAMD) {
           controllerUrl: 'controllers/DoctorDetailCtrl'
         }),
         angularAMD.route({
-          url: '/login',
+          url: '/login?redirectTo&redirectParams',
           name: 'login',
           templateUrl: 'views/login.html',
           controller: 'LoginCtrl as $ctrl',

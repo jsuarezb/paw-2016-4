@@ -74,7 +74,7 @@ define(['ChoPidoTurnos',
         return !!sessionService.getLoggedUser();
       },
       login: function() {
-        $state.go('login');
+        $state.go('login', {redirectTo: $state.current.name, redirectParams: JSON.stringify($state.params)});
       },
       days: [1, 2, 3, 4, 5, 6, 7],
       daysString: ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB']

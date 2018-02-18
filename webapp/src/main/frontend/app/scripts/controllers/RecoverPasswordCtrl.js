@@ -9,7 +9,7 @@ define(['ChoPidoTurnos', 'services/usersService'], function(ChoPidoTurnos) {
     };
 
     this.sendPasswordReset = function() {
-      if (_this.password != _this.passwordConfirmation) {
+      if (_this.password !== _this.passwordConfirmation) {
         _this.alerts.push({message: 'Las contraseñas no coinciden', type: 'danger'});
         return;
       }

@@ -6,13 +6,15 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
       [
         '$scope',
         '$state',
+        '$stateParams',
         'sessionService',
-        function ($scope, $state, sessionService) {
+        function ($scope, $state, $stateParams, sessionService) {
       $scope.type = 'patient';
 
       var successLogin = function(response) {
         $scope.$broadcast('onLogInEnd');
-        $state.go('home');
+        var params = $stateParams.redirectParams && JSON.parse($stateParams.redirectParams);
+        $state.go($stateParams.redirectTo || 'home', params || {});
       };
 
       var errorLogin = function(response) {
