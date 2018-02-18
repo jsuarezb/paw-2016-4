@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.persistence;
 
 import ar.edu.itba.paw.models.Patient;
-import ar.edu.itba.paw.models.User;
 
 import java.util.List;
 

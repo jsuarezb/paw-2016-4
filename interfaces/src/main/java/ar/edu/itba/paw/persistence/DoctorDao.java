@@ -3,7 +3,6 @@ package ar.edu.itba.paw.persistence;
 import ar.edu.itba.paw.models.Doctor;
 import ar.edu.itba.paw.models.PagedResult;
 
-import javax.print.Doc;
 import java.util.List;
 
 public interface DoctorDao {

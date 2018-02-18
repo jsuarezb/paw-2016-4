@@ -3,7 +3,6 @@ package ar.edu.itba.paw.persistence.hibernate;
 import ar.edu.itba.paw.models.*;
 import ar.edu.itba.paw.persistence.AppointmentSlotDao;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

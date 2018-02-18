@@ -2,7 +2,6 @@ package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.AppointmentSlot;
 import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.models.WorksIn;
 
 import java.util.List;
