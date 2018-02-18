@@ -1,7 +1,6 @@
 package ar.edu.itba.paw.webapp.dto;
 
 import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.models.User;
 
@@ -47,17 +46,5 @@ public class UserDTO {
         final Doctor doctor = user.getDoctor();
         this.patientId = patient != null ? patient.getId() : null;
         this.doctorId = doctor != null ? doctor.getId() : null;
-    }
-
-    public static UserDTO fromLoggable(final Loggable user) {
-        UserDTO userDTO;
-        switch (user.type()) {
-            case Loggable.PATIENT:
-                return new PatientDTO((Patient) user);
-            case Loggable.DOCTOR:
-                return new DoctorDTO((Doctor) user);
-            default:
-                return null;
-        }
     }
 }

@@ -1,6 +1,5 @@
 package ar.edu.itba.paw.webapp.auth;
 
-import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.webapp.config.WebAuthConfig;
 import io.jsonwebtoken.*;
@@ -13,7 +12,7 @@ import java.util.Date;
 public class Token {
     private final static Long TOKEN_DURATION = 86400000L; // 1 Day
 
-    public static String create(final Loggable user) {
+    public static String create(final User user) {
         return Jwts.builder()
                 .signWith(SignatureAlgorithm.HS512, WebAuthConfig.APP_KEY)
                 .setSubject(user.getId().toString())

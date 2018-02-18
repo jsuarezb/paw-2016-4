@@ -1,6 +1,5 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
-import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.UserService;
@@ -32,7 +31,7 @@ public class UsersController extends ApiController {
     @Path("/me")
     public Response me() {
         System.out.println(getLoggedUser().type());
-        return ok(UserDTO.fromLoggable(getLoggedUser()));
+        return ok(new UserDTO(getLoggedUser()));
     }
 
     @POST

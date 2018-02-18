@@ -1,6 +1,5 @@
 package ar.edu.itba.paw.webapp.params;
 
-import ar.edu.itba.paw.models.Loggable;
 import sun.rmi.runtime.Log;
 
 import javax.xml.bind.annotation.XmlElement;

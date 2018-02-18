@@ -1,10 +1,9 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
-import ar.edu.itba.paw.models.Loggable;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.PatientService;
 import ar.edu.itba.paw.services.UserService;
-import ar.edu.itba.paw.webapp.auth.LoggedUserFinder;
+import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.webapp.auth.Token;
 import ar.edu.itba.paw.webapp.dto.TokenDTO;
 import ar.edu.itba.paw.webapp.params.LoginParams;
@@ -30,7 +29,7 @@ public class SessionsController extends ApiController {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(final LoginParams input) {
-        final Loggable user = LoggedUserFinder.getLoggedUser(input, userService);
+        final User user = userService.findByEmail(Token.emailFromToken(input.email));
         if (user != null && user.getPassword().equals(input.password)) {
             return ok(new TokenDTO(Token.create(user)));
         }

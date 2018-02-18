@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "users")
-public class User implements  Loggable{
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_seq")
@@ -73,16 +73,15 @@ public class User implements  Loggable{
         return "User [email=" + this.email + " phone=" + this.phone + "]";
     }
 
-    @Override
     public String type() {
-        return (this.patient != null)? Loggable.PATIENT : Loggable.DOCTOR;
+        // FIXME
+        return (this.patient != null) ? "patient" : "doctor";
     }
 
     public String getPassword() {
         return password;
     }
 
-    @Override
     public String getEmail() {
         return email;
     }
