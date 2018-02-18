@@ -17,12 +17,16 @@
         </select>
         <button class="btn btn-success search-filters home-search-button col" type="submit">Buscar</button>
     </form>
-    <div class="search-doctor-label">O buscá un profesional:</div>
-    <form class="doctor-name-search form-inline" ng-submit="searchDoctors()">
-      <input type="text" class="form-control input-lg" id="first-name" placeholder="Nombre" ng-model="firstName">
-      <input type="text" class="form-control input-lg" id="last-name" placeholder="Apellido" ng-model="lastName">
-      <button class="btn btn-info search-filters home-search-button col" type="submit">Buscar</button>
-    </form>
+    <div class="search-doctor-label">
+      <h2 class="font-weight-light" style="color:white">También podes buscar a tu profesional de confianza:</h2>
+    </div>
+    <div class="filter-container">
+      <form class="doctor-name-search form-inline" ng-submit="searchDoctors()">
+        <input type="text" class="form-control input-lg search-filters" id="first-name" placeholder="Nombre" ng-model="firstName">
+        <input type="text" class="form-control input-lg search-filters " id="last-name" placeholder="Apellido" ng-model="lastName">
+        <button class="btn btn-success search-filters home-search-button col-lg-4 " type="submit">Buscar</button>
+      </form>
+    </div>
   </div>
 </div>
 

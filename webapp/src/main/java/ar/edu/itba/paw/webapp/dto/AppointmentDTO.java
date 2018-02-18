@@ -3,10 +3,10 @@ package ar.edu.itba.paw.webapp.dto;
 import ar.edu.itba.paw.models.Appointment;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
+import java.time.temporal.WeekFields;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,13 +33,7 @@ public class AppointmentDTO {
         this.id = appointment.getId();
         this.patient = new PatientDTO(appointment.getPatient());
         this.appointmentSlot = new AppointmentSlotDTO(appointment.getSlot());
-        this.date = LocalDateTime.now()
-                .withYear(appointment.getYear())
-                .with(ChronoField.ALIGNED_WEEK_OF_YEAR, appointment.getWeekNumber())
-                .with(ChronoField.DAY_OF_WEEK, appointment.getSlot().getDayOfWeek())
-                .withHour(appointment.getSlot().getHour())
-                .withMinute(0).withSecond(0).withNano(0);
-
+        this.date = appointment.getDate();
         this.comments = appointment.getComments();
     }
 

@@ -15,10 +15,10 @@ public class Rating {
     @SequenceGenerator(sequenceName = "ratings_id_seq", name = "ratings_id_seq", allocationSize = 1)
     private Integer id;
 
-    @OneToOne
+    @ManyToOne
     private Doctor doctor;
 
-    @OneToOne
+    @ManyToOne
     private Patient patient;
 
     @Column(nullable = false)

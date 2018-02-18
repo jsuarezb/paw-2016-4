@@ -1,7 +1,7 @@
 package ar.edu.itba.paw.persistence.hibernate;
 
-import antlr.StringUtils;
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.PagedResult;
 import ar.edu.itba.paw.persistence.DoctorDao;
 import org.springframework.stereotype.Repository;
 
@@ -84,6 +84,47 @@ public class DoctorHibernateDao implements DoctorDao {
         query.setParameter("lastName", "%" + Normalizer.normalize(lastName, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "") + "%");
 
         return query.getResultList();
+    }
+
+    @Override
+    public PagedResult<Doctor> listAvailable(Integer specialityId, String neighborhood, Integer institutionId, Integer weekOfYear, Integer year, int page) {
+        final StringBuilder baseQuery = new StringBuilder("FROM Doctor d WHERE d.id IN ")
+                .append("(SELECT DISTINCT(asl.worksIn.doctor.id) FROM AppointmentSlot AS asl ")
+                .append("   WHERE NOT EXISTS (SELECT ap.id FROM asl.appointments ap WHERE ap.weekNumber = :week_number AND ap.year = :year) ")
+                .append("   AND (:institution_id IS NULL OR asl.worksIn.institution.id = :institution_id) ")
+                .append("   AND (:neighborhood IS NULL OR :neighborhood = '' OR asl.worksIn.institution.address.neighborhood = :neighborhood) ")
+                .append("   AND (:speciality_id = -1 OR :speciality_id = ANY (SELECT spec.id FROM asl.worksIn.doctor.specialities AS spec))) ");
+
+        final StringBuilder rows = new StringBuilder("SELECT d ")
+                .append(baseQuery)
+                .append("ORDER BY d.id");
+
+        final StringBuilder countRows = new StringBuilder("SELECT COUNT(d) ").append(baseQuery);
+
+        final TypedQuery<Doctor> query = em.createQuery(rows.toString(), Doctor.class);
+
+        query.setParameter("institution_id", institutionId);
+        query.setParameter("neighborhood", neighborhood );
+        query.setParameter("speciality_id", specialityId == null ? -1 : specialityId);
+        query.setParameter("week_number", weekOfYear);
+        query.setParameter("year", year);
+
+        query.setMaxResults(DEFAULT_SIZE_OF_PAGE);
+        query.setFirstResult(page * DEFAULT_SIZE_OF_PAGE);
+
+        final List<Doctor> appointments = query.getResultList();
+
+        final TypedQuery<Long> countQuery = em.createQuery(countRows.toString(), Long.class);
+        countQuery.setParameter("institution_id", institutionId);
+        countQuery.setParameter("neighborhood", neighborhood );
+        countQuery.setParameter("speciality_id", specialityId == null ? -1 : specialityId);
+        countQuery.setParameter("week_number", weekOfYear);
+        countQuery.setParameter("year", year);
+
+        final Long count = countQuery.getSingleResult();
+
+        return new PagedResult<>(appointments, page, DEFAULT_SIZE_OF_PAGE, count);
+
     }
 
     @Override

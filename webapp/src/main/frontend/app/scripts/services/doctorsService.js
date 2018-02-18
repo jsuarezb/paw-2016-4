@@ -11,6 +11,15 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
         getDoctor: function(doctorId) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'doctors/' + doctorId, null);
         },
+        findAvailable: function(speciality, neighborhood, institution, weekOfYear, year, page) {
+          return httpRequestBuilderService
+            .buildHttpRequest('GET', 'doctors/available?speciality=' + (speciality || '') +
+              '&neighborhood=' + (neighborhood || '') +
+              '&institution=' + (institution || '') +
+              '&weekOfYear=' + (weekOfYear || '') +
+              '&year=' + (year || '') +
+              '&page=' + (page || ''), null);
+        },
         getUserRating: function (doctorId) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'doctors/' + doctorId + '/ratings', null);
         },
