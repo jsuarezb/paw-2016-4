@@ -1,6 +1,17 @@
 <div class="title container">
   <alerts alerts="$ctrl.alerts" on-alert-closed="$ctrl.alerts.splice(index, 1)"></alerts>
   <h1>Turnos disponibles</h1>
+
+  <div class="appointment-datepicker">
+    <p class="input-group">
+      <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="$ctrl.searchDate"
+             is-open="$ctrl.isDatepickerOpen" datepicker-options="dateOptions" show-button-bar="false" />
+      <span class="input-group-btn">
+        <button type="button" class="btn btn-default" ng-click="$ctrl.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+      </span>
+    </p>
+  </div>
+
   <div ng-show="$ctrl.doctorsFetched && $ctrl.doctors.length > 0">
     <div class="search-doctor-profile-container" ng-repeat="d in $ctrl.doctors">
       <doctor-search-item doctor="d" week-number="$ctrl.weekNumber" year="$ctrl.year"></doctor-search-item>

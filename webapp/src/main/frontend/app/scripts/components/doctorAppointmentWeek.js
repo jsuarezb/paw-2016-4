@@ -9,16 +9,16 @@ define(['ChoPidoTurnos',
         var now = new Date();
         var _this = this;
 
+        console.log(this);
+
         this.isBooking = false;
-        this.weekNumber = moment().week();
-        this.year = moment().year();
 
         $scope.$on('appointments.loaded', function (event, appointments) {
           _this.onAppointmentsLoaded(appointments);
         });
 
         appointmentsService
-          .getDoctorAvailableAppointments(this.doctorId, moment().week(), moment().year())
+          .getDoctorAvailableAppointments(this.doctorId, this.weekNumber, this.weekNumber)
           .then(function (result) {
             var data = result.data;
             _this.onAppointmentsLoaded(data);
@@ -87,7 +87,9 @@ define(['ChoPidoTurnos',
     .component('doctorAppointmentWeek', {
       controller: DoctorAppointmentWeekController,
       bindings: {
-        doctorId: '<'
+        doctorId: '<',
+        weekNumber: '<',
+        year: '<'
       },
       templateUrl: 'views/doctorAppointmentWeek.html'
     });
