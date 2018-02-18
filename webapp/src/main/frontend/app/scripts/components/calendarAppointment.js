@@ -6,6 +6,9 @@ define(['ChoPidoTurnos'], function (ChoPidoTurnos) {
     return {
       book: function() {
         console.log(this.appointment);
+      },
+      appointmentSelected: function(appointment) {
+        this.onAppointmentSelected(appointment);
       }
     };
   }
@@ -13,7 +16,8 @@ define(['ChoPidoTurnos'], function (ChoPidoTurnos) {
   ChoPidoTurnos
     .component('calendarAppointment', {
       bindings: {
-        appointment: '<'
+        appointment: '<',
+        onAppointmentSelected: '&'
       },
       controller: CalendarAppointmentController,
       templateUrl: 'views/calendarAppointment.html'

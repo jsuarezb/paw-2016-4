@@ -79,7 +79,7 @@ define(
           slotId: appointment.appointmentSlot.id,
           weekNumber: dateService.weekOfYear(new Date(appointment.date)),
           year: new Date(appointment.date).getFullYear(),
-          commets: appointment.comments
+          comments: appointment.comments
         }
         ).then(function(response) {
           if (response.status !== 200) {

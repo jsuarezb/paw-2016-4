@@ -340,6 +340,10 @@ body {
   flex-flow: row;
   margin: 25px;
 
+  .calendar-placeholder {
+    min-height: 50px;
+  }
+
   .day-column {
     flex-grow: 1;
     text-align: center
@@ -383,5 +387,21 @@ body {
     :hover {
       color: white;
     }
+  }
+}
+
+.selected-appointment {
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+
+  .selected-appointment-data {
+    font-weight: bold;
+  }
+
+  .btn {
+    font-size: 1em;
   }
 }
