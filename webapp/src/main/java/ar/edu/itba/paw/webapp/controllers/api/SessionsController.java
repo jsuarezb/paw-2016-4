@@ -29,7 +29,7 @@ public class SessionsController extends ApiController {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(final LoginParams input) {
-        final User user = userService.findByEmail(Token.emailFromToken(input.email));
+        final User user = userService.findByEmail(input.email);
         if (user != null && user.getPassword().equals(input.password)) {
             return ok(new TokenDTO(Token.create(user)));
         }
