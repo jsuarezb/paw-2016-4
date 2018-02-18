@@ -1,7 +1,7 @@
 <div class="modal-header"  >
 
-  <uib-tabset active="active">
-    <uib-tab index="0" active="selected == index">
+  <uib-tabset >
+    <uib-tab id="tab1" index="0" >
       <uib-tab-heading>Especialidades</uib-tab-heading>
       <div class="modal-inner-view">
         <speciality-component on-speciality-selected="$ctrl.handleSpecialitySelected(specialityId)"
@@ -12,29 +12,35 @@
     </uib-tab>
 
 
-    <uib-tab index="1" active="selected == index">
+    <uib-tab id="tab2" index="1">
       <uib-tab-heading>Doctores</uib-tab-heading>
       <!--//DoctorListInnerView-->
       <div class="modal-inner-view">
         <doctor-component on-doctor-selected="$ctrl.handleDoctorSelected(doctorId)"
-                          institution-id="$ctrl.institutionId">
+                          institution-id="$ctrl.institutionId"
+                          speciality-id="$ctrl.specialityId">
         </doctor-component>
       </div>
 
     </uib-tab>
 
-    <uib-tab index="2" active="selected == index">
+    <uib-tab id="tab3" index="2" >
       <uib-tab-heading>Día y fecha</uib-tab-heading>
       <div class="modal-inner-view">
-        <available-slots-component></available-slots-component>
+        <available-slots-component on-appointment-selected="$ctrl.handleAppointmentSelected(appointment)"
+                                   institution-id="$ctrl.institutionId"
+                                   speciality-id="$ctrl.specialityId"
+                                   doctor-id="$ctrl.doctorId"></available-slots-component>
       </div>
     </uib-tab>
 
-    <uib-tab index="3" active="selected == index">
+    <uib-tab id="tab4" index="3">
       <uib-tab-heading>Revisa y confirma</uib-tab-heading>
       <!--//Review and confirm view-->
       <div class="modal-inner-view">
-
+        <review-and-confirm-component institution-id="$ctrl.institutionId"
+                                   speciality-id="$ctrl.specialityId"
+                                   doctor-id="$ctrl.doctorId"></review-and-confirm-component>
       </div>
 
     </uib-tab>

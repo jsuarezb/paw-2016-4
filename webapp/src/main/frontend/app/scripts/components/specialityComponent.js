@@ -27,7 +27,8 @@ define(['ChoPidoTurnos', 'services/institutionsService'], function (ChoPidoTurno
     controller: SpecialitiesListCtrl,
     bindings: {
       onSpecialitySelected: '&',
-      institutionId: '<'
+      institutionId: '<',
+      doctorId: '<',
     }
   });
 

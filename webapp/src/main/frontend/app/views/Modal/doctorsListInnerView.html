@@ -1,5 +1,5 @@
 <table class="table table-hover modal-table ">
-  <tr class="modal-table-row" ng-repeat="d in $ctrl.doctors" ng-click="$ctrl.handleDoctorSelected(doctor.id)">
-    <td>{{d.first_name}} {{d.last_name}}</td>
+  <tr class="modal-table-row" ng-repeat="d in $ctrl.doctors">
+    <td ng-click="$ctrl.handleDoctorSelected(d.id)">{{d.first_name}} {{d.last_name}}</td>
   </tr>
 </table>

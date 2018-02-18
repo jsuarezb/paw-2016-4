@@ -368,10 +368,17 @@ tr[ng-click] {
   overflow: auto;
 }
 
+.review-and-confirm-title{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center;
+}
+
 .review-and-confirm-text{
   padding-top: 10px;
-  padding-bottom: 10px;
-  text-align: center;
+  padding-bottom: 15px;
+  padding-left: 20px;
+  text-align: left;
 }
 
 .modal-inner-view{

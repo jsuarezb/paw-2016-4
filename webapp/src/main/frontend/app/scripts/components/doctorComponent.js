@@ -5,7 +5,7 @@ define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos,inst
 
     this.getDoctors = function() {
       doctorsService
-        .getInstitutionSpecialityDoctors(this.institutionId,this.specialityId)
+        .getInstitutionSpecialityDoctors(this.institutionId,1)
         .then(function(result) {
           _this.doctors = result.data;
           console.log(result.data);
@@ -17,7 +17,6 @@ define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos,inst
     };
 
     this.$onInit = function() {
-      this.specialityId = 1;
       this.getDoctors();
     };
 
@@ -29,7 +28,8 @@ define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos,inst
     controller: DoctorListCtrl,
     bindings: {
       onDoctorSelected: '&',
-      institutionId: '<'
+      institutionId: '<',
+      specialityId: '<'
     }
   });
 

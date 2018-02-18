@@ -2,11 +2,18 @@
 define(['ChoPidoTurnos', 'components/appointmentModal'], function (ChoPidoTurnos) {
   ChoPidoTurnos.component('appointmentsModalPresenter', {
     template: '<button type="button" class="btn btn-default" ng-click="$ctrl.open()">Reservar turno</button>',
+    bindings:{
+      institutionId :"<",
+    },
     controller: function ($uibModal) {
       var $ctrl = this;
-      $ctrl.dataForModal = {
-        institutionId: 1
-      };
+
+      $ctrl.$onInit = function () {
+        $ctrl.dataForModal= {
+          institutionId: this.institutionId
+        };
+        console.log(this);
+      }
       $ctrl.open = function () {
         $uibModal.open({
           component: 'appointmentModal',
@@ -22,6 +29,7 @@ define(['ChoPidoTurnos', 'components/appointmentModal'], function (ChoPidoTurnos
           console.info("I was dimissed, so do what I need to do myContent's controller now. Reason was->" + reason);
         });
       };
+
     }
   });
 });

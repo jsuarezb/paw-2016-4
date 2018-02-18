@@ -5,18 +5,25 @@ define(['ChoPidoTurnos'], function (ChoPidoTurnos) {
 
     this.$onInit = function() {
       this.institutionId = this.resolve.modalData.institutionId;
+      console.log(this.institutionId);
     };
-
-
-    $scope.dayOfTheMonth = ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','31'];
-
+    $ctrl.setActiveTab = function(index) {
+      $ctrl.activeTab = index;
+    };
     $ctrl.handleSpecialitySelected = function(specialityId) {
       $ctrl.specialityId = specialityId;
+      $ctrl.setActiveTab(1);
       console.log('speciality' + specialityId);
     };
     $ctrl.handleDoctorSelected = function(doctorId) {
       $ctrl.doctorId = doctorId;
+      $ctrl.setActiveTab(2);
       console.log('doctor ' + doctorId);
+    };
+    $ctrl.handleAppointmentSelected = function(appointment) {
+      $ctrl.appointment = appointment;
+      $ctrl.setActiveTab(3);
+      console.log('appointment ' + appointment);
     };
   }
   appointmentModalCtrl.$inject = ['$stateParams', 'sessionService', '$scope', '$uibModal', '$log'];

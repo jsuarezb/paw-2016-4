@@ -105,6 +105,7 @@ require([
   'components/doctorComponent',
   'components/specialityComponent',
   'components/availableSlotsComponent',
+  'components/reviewAndConfirmComponent',
   'services/appointmentsService',
   'interceptors/baseURLInterceptor',
   'interceptors/sessionInterceptor'

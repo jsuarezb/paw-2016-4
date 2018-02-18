@@ -8,7 +8,7 @@
           <th>
             {{ $ctrl.dayOfWeek(day) }} - {{ day | date: 'dd/MM/yyyy' }}
           </th>
-          <td class="modal-table-row" ng-repeat="appointment in $ctrl.appointmentGroups[day]" ng-click="$ctrl.handleAppointmentSelected(appointment)">
+          <td class="modal-table-row" ng-repeat="appointment in $ctrl.appointmentGroups[day]" ng-click="$ctrl.handleAppointmentSelected(appointment.id)">
             {{ appointment.date | date: 'HH:mm' }}
           </td>
         </tr>

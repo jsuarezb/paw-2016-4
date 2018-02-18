@@ -1,4 +1,8 @@
-<div ng-controller="ReviewAndConfirmCtrl">
-  <h2 class="review-and-confirm-text" ng-repeat="attribute in attributes">{{attribute}}</h2>
+<div>
+  <h3 class="review-and-confirm-title">Información sobre tu turno</h3>
+  <h4 class="review-and-confirm-text">Institución:{{this.institutionId}}</h4>
+  <h4 class="review-and-confirm-text">Especialidad:{{this.specialityId}}</h4>
+  <h4 class="review-and-confirm-text">Doctor:{{this.doctorId}}</h4>
+  <h4 class="review-and-confirm-text">Fecha:{{this.appointmentId}}</h4>
   <div><button class="btn btn-success center-block">Confirmar turno</button></div>
 </div>

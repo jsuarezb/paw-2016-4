@@ -176,8 +176,7 @@ define(['ChoPidoTurnos',
     controller: AvailableSlotsCtrl,
     bindings: {
       onAppointmentSelected: '&',
-      modalInstance: '<',
-      resolve: '<'
+
     }
   });
 
