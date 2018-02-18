@@ -14,12 +14,12 @@ define(['ChoPidoTurnos', 'services/appointmentsService'], function(ChoPidoTurnos
     );
 
     this.cancelAppointment = function (appointment) {
-      appointmentsService
+      return appointmentsService
         .deleteAppointment(appointment.id)
         .then(function (response) {
           if (response.status >= 400) {
             _this.alerts.push({message: 'No se ha podido cancelar el turno', type: 'danger'});
-            return;
+            throw response;
           }
           _this.alerts.push({message: 'Turno cancelado con éxito', type: 'success'});
           _this.appointments.splice(_this.appointments.indexOf(appointment), 1);

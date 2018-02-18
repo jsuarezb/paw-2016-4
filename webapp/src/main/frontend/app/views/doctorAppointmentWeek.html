@@ -13,10 +13,15 @@
   </div>
   <div class="selected-appointment" ng-show="$ctrl.selectedAppointment">
     <p>
-      ¿Desea realizar la reserva del turno para el <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.date | date: 'dd/MM/yyyy' }}</span> a las <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.hour }}:00 hs</span>, en <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.worksIn.institution.name }}?</span>
+      ¿Desea realizar la reserva del turno para el <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.date | date: 'dd/MM/yyyy' }}</span> a las <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.hour }}:00 hs</span> en <a ui-sref="institution({institutionId: $ctrl.selectedAppointment.appointmentSlot.worksIn.institution.id})"><span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.worksIn.institution.name }}?</span></a>
     </p>
-    <button class="btn btn-success" ng-click="$ctrl.bookSelectedAppointment()">
-      Reservar
-    </button>
+    <div>
+      <button class="btn btn-success" ng-click="$ctrl.bookSelectedAppointment()" ng-show="$ctrl.isUserLogged()" ng-disabled="$ctrl.isBooking">
+        {{ !$ctrl.isBooking ? 'Reservar' : 'Reservando...' }}
+      </button>
+      <button class="btn btn-success" ng-click="$ctrl.login()" ng-show="!$ctrl.isUserLogged()">
+        Iniciar sesión para reservar
+      </button>
+    </div>
   </div>
 </div>

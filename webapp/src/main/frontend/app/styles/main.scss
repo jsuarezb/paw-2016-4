@@ -136,6 +136,19 @@ body {
  * Custom translucent site header
  */
 
+.container>h1 {
+  font-size: 3.5em;
+}
+
+.no-results {
+  text-align: center;
+  font-size: 2em;
+}
+
+.no-results-action {
+  font-size: 1em;
+}
+
 .site-header {
   background-color: rgba(248,248,248,0.98);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -294,35 +307,62 @@ body {
   font-weight: bold;
 }
 
+.doctor-details {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+}
+
+.doctor-rating {
+  .rating {
+    justify-content: start;
+    align-items: left;
+    display: inline-block;
+  }
+}
+
+.doctor-avatar {
+  margin: 0 10px;
+}
+
+.search-doctor-profile-container {
+  margin: 15px 0;
+  background-color: rgba(0, 0, 0, 0.01);
+  border-radius: 5px;
+}
+
+.search-doctor-profile {
+  display: flex;
+  padding: 10px;
+
+  doctor-appointment-week {
+    width: 650px;
+  }
+
+  .day-columns {
+    margin: 0px;
+  }
+
+  .selected-appointment {
+    font-size: 1em;
+  }
+}
+
+.doctor-specialities {
+  margin: 0;
+  font-size: 1.7em;
+
+  .label {
+    margin-right: 5px;
+  }
+}
+
 .doctor-profile {
   display: flex;
   padding: 10px;
 
-  .doctor-avatar {
-    margin: 0 10px;
-  }
-
   .doctor-name h2 {
     color: #999999;
-  }
-
-  .doctor-details {
-    display: flex;
-    flex-flow: column;
-    flex-grow: 1;
-  }
-
-  .doctor-rating {
-    .rating {
-      justify-content: start;
-      align-items: left;
-      display: inline-block;
-    }
-  }
-
-  .doctor-specialities {
-    margin: 0;
-    font-size: 1.7em;
   }
 
   .doctor-institutions p {
