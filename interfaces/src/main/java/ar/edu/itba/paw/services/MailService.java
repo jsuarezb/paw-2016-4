@@ -22,4 +22,5 @@ public interface MailService {
                                               final Doctor doctor,
                                               final Patient patient);
 
+    void sendPasswordRecoveryEmail(final String email, final String token);
 }

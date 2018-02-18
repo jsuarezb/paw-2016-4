@@ -13,6 +13,9 @@ public class PatientServiceImpl implements PatientService {
     @Autowired
     private PatientDao patientDao;
 
+    @Autowired
+    private MailService mailService;
+
     public List<Patient> getAll() {
         return patientDao.getAll();
     }

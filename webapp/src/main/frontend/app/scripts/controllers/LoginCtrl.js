@@ -2,7 +2,12 @@
 
 define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
   ChoPidoTurnos
-    .controller('LoginCtrl', ['$scope', '$state', 'sessionService', function ($scope, $state, sessionService) {
+    .controller('LoginCtrl',
+      [
+        '$scope',
+        '$state',
+        'sessionService',
+        function ($scope, $state, sessionService) {
       $scope.type = 'patient';
 
       var successLogin = function(response) {
@@ -38,8 +43,8 @@ define(['ChoPidoTurnos', 'services/sessionService'], function (ChoPidoTurnos) {
           $scope.$broadcast('onLogInStart');
           sessionService.login(data, successLogin, errorLogin);
         }
-      };
-    }]);
+      };}]
+    );
 
   ChoPidoTurnos
     .directive('loginForm', function() {

@@ -136,6 +136,20 @@ define(['angularAMD'], function(angularAMD) {
           templateUrl: 'views/register.html',
           controller: 'RegisterCtrl as $ctrl',
           controllerUrl: 'controllers/RegisterCtrl'
+        }),
+        angularAMD.route({
+          url: '/recover?token',
+          name: 'recover',
+          templateUrl: 'views/recover.html',
+          controller: 'RecoverPasswordCtrl',
+          controllerUrl: 'controllers/RecoverPasswordCtrl'
+        }),
+        angularAMD.route({
+          url: '/requestPasswordRecovery',
+          name: 'requestPasswordRecovery',
+          templateUrl: 'views/requestPasswordRecovery.html',
+          controller: 'RequestPasswordRecoveryCtrl',
+          controllerUrl: 'controllers/RequestPasswordRecoveryCtrl'
         })
           /* ===== yeoman hook ===== */
           /* Do not remove these commented lines! Needed for auto-generation */

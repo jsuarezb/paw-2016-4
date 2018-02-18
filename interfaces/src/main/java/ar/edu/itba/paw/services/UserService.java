@@ -15,4 +15,7 @@ public interface UserService {
 
     boolean login(final String email, final String password);
 
+    User setPassword(final User user, final String password);
+
+    boolean sendPasswordRecoveryEmail(final String email, final String token);
 }

@@ -3,6 +3,7 @@ package ar.edu.itba.paw.persistence.hibernate;
 import ar.edu.itba.paw.models.Patient;
 import ar.edu.itba.paw.models.User;
 import ar.edu.itba.paw.persistence.UserDao;
+
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+import javax.persistence.Query;
 
 /**
  * Created by agophurmuz on 5/18/16.
@@ -47,5 +49,15 @@ public class UserHibernateDao implements UserDao {
         } catch (NoResultException e) {
             return null;
         }
+    }
+
+    @Transactional
+    public User setPassword(final User user, final String password) {
+        final Query query = em.createQuery("UPDATE User u SET u.password = :password WHERE u.id = :id");
+        query.setParameter("password", password);
+        query.setParameter("id", user.getId());
+        query.executeUpdate();
+        user.setPassword(password);
+        return user;
     }
 }

@@ -9,4 +9,5 @@ public interface UserDao {
     User create(final String email, final String password, final String firstName, final String lastName, final String phone);
     User findByEmail(final String email);
     User getById(final Integer id);
+    User setPassword(final User user, final String password);
 }
