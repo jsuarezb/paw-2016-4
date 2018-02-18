@@ -56,7 +56,7 @@ public class MailServiceImpl implements MailService {
                                                      final Patient patient) {
         final SimpleMailMessage msg = new SimpleMailMessage();
         final LocalDateTime date = appointment.getDate();
-        msg.setFrom("chopidoturnos@gamil.com");
+        msg.setFrom("chopidoturnos@gmail.com");
         msg.setSubject("Turno reservado.");
         msg.setTo(patient.getUser().getEmail());
         msg.setText("Usted reservó un turno para el día " + date.format(dateFmt)
@@ -106,6 +106,21 @@ public class MailServiceImpl implements MailService {
                 + String.format("%s, %s", doctor.getUser().getLastName(), doctor.getUser().getFirstName())
         );
 
+        try {
+            mailSender.send(msg);
+        } catch (MailException ex) {
+            // TODO log error
+        }
+    }
+
+    @Override
+    public void sendPasswordRecoveryEmail(final String email, final String token) {
+        final SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setFrom("chopidoturnos@gamil.com");
+        msg.setSubject("Restablecer contraseña");
+        msg.setTo(email);
+        msg.setText("Haga click en el siguiente link para restablecer su contraseña.\n" +
+                    "http://localhost:8080/grupo4/resources/index.html#!/recover?token=" + token);
         try {
             mailSender.send(msg);
         } catch (MailException ex) {

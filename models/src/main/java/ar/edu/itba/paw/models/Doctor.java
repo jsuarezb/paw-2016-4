@@ -71,5 +71,4 @@ public class Doctor {
                 ", specialities='" + specialities + '\'' +
                 '}';
     }
-
 }

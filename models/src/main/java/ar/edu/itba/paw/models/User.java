@@ -57,6 +57,10 @@ public class User {
         return phone;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public User(final String firstName, final String lastName, final String email, final String password,
                 final String phone, final Patient patient, final Doctor doctor) {
         this.patient = patient;
@@ -82,11 +86,11 @@ public class User {
         return password;
     }
 
-    public String getEmail() {
-        return email;
+    public Integer getId() {
+        return id;
     }
 
-    public Integer getId() {
-		return id;
-	}
+    public void setPassword(final String password) {
+        this.password = password;
+    }
 }
