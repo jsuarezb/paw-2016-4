@@ -33,7 +33,7 @@ public class DoctorHibernateDao implements DoctorDao {
         final TypedQuery<Doctor> query = em.createQuery(
                 "SELECT d FROM Doctor AS d" +
                         " JOIN d.specialities AS ds" +
-                        " WHERE ds.speciality_id = :speciality_id", Doctor.class);
+                        " WHERE ds.id = :speciality_id", Doctor.class);
         query.setParameter("speciality_id", specialityId);
         return query.getResultList();
     }
@@ -47,12 +47,12 @@ public class DoctorHibernateDao implements DoctorDao {
         return query.getResultList();
     }
 
-    public List<Doctor> getDoctorsByInstitutionAndSpeciality(final Integer institutionId,final Integer specialityId) {
+    public List<Doctor> getDoctorsByInstitutionAndSpeciality(final Integer institutionId, final Integer specialityId) {
         final TypedQuery<Doctor> query = em.createQuery(
                 "SELECT d FROM Doctor as d" +
-                        " JOIN Doctor.worksIn as w" +
+                        " JOIN d.worksIn as w JOIN d.specialities as ds" +
                         " WHERE w.institution.id = :institution_id "+
-                        "AND d.speciality_id = :speciality_id", Doctor.class);
+                        "AND ds.id = :speciality_id", Doctor.class);
         query.setParameter("institution_id", institutionId);
         query.setParameter("speciality_id", specialityId);
         return query.getResultList();

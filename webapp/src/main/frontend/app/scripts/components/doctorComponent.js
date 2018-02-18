@@ -1,11 +1,11 @@
 'use strict';
-define(['ChoPidoTurnos', 'services/institutionsService'], function(ChoPidoTurnos,institutionsService) {
-  function DoctorListCtrl ($scope,institutionsService) {
+define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos,institutionsService) {
+  function DoctorListCtrl ($scope,doctorsService) {
     var _this = this;
 
     this.getDoctors = function() {
-      institutionsService
-        .getSpecialityDoctors(this.institutionId)
+      doctorsService
+        .getInstitutionSpecialityDoctors(this.institutionId,this.specialityId)
         .then(function(result) {
           _this.doctors = result.data;
           console.log(result.data);
@@ -17,11 +17,12 @@ define(['ChoPidoTurnos', 'services/institutionsService'], function(ChoPidoTurnos
     };
 
     this.$onInit = function() {
+      this.specialityId = 1;
       this.getDoctors();
     };
 
   }
-  DoctorListCtrl.$inject = ['$scope', 'institutionsService'];
+  DoctorListCtrl.$inject = ['$scope', 'doctorsService'];
 
   ChoPidoTurnos.component('doctorComponent', {
     templateUrl: 'views/Modal/doctorsListInnerView.html',
