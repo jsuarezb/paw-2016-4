@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.time.DayOfWeek;
 import java.time.LocalDateTime;
 import java.time.temporal.WeekFields;
 import java.util.Collections;
@@ -152,10 +153,10 @@ public class AppointmentServiceImplTest {
     @Test
     public void testCancelWhenAppointmentIsInThePast() {
         final LocalDateTime now = LocalDateTime.now();
-        final LocalDateTime past = now.minusWeeks(1);
+        final LocalDateTime past = now.minusMonths(1);
 
         final Appointment pastAppointment = new Appointment(patient, appoinmentSlot,
-                past.get(WeekFields.of(Locale.getDefault()).weekOfYear()),
+                past.get(WeekFields.of(DayOfWeek.SUNDAY, 4).weekOfYear()),
                 past.getYear(), "");
 
         when(appointmentDao.getByid(anyInt())).thenReturn(pastAppointment);
