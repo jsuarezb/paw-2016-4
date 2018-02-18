@@ -6,16 +6,9 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
       '$onInit': function() {
         var _this = this;
 
-        appointmentsService
-          .getDoctorAvailableAppointments(this.doctor.id, this.weekNumber || '', this.year || '')
-          .then(function (result) {
-            console.log(result);
-          });
-
         doctorService
           .getRatingSummary(this.doctor.id)
           .then(function (result) {
-            console.log(result);
             _this.doctorAverageRating = result.data.average;
           });
       }

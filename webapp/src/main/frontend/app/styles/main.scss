@@ -149,6 +149,25 @@ body {
   font-size: 1em;
 }
 
+.appointment-search-dates {
+  display: flex;
+  justify-content: space-between;
+}
+
+.appointment-datepicker {
+  input {
+    font-size: 1.3em;
+  }
+
+  p {
+    width: 100px;
+  }
+
+  .glyphicon {
+    font-size: 2em;
+  }
+}
+
 .site-header {
   background-color: rgba(248,248,248,0.98);
   -webkit-backdrop-filter: saturate(180%) blur(20px);

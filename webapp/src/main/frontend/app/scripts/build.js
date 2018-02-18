@@ -66,6 +66,11 @@ require.config({
         'angular'
       ]
     },
+    'angular-bootstrap': {
+      deps: [
+        'angular'
+      ]
+    },
     AngularAMD: {
       deps: [
         'angular'
