@@ -34,8 +34,8 @@ public class Doctor implements Loggable {
     /* package */ Doctor() {
     }
 
-    public Doctor(Integer id, String name, String lastName, Set<Speciality> specialities,
-                  Set<WorksIn> worksIn, String email, String password) {
+    public Doctor(final Integer id, final String name, final String lastName, final Set<Speciality> specialities,
+                  final Set<WorksIn> worksIn, final String email, final String password) {
         this.id = id;
         this.name = name;
         this.lastName = lastName;
@@ -74,7 +74,7 @@ public class Doctor implements Loggable {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())

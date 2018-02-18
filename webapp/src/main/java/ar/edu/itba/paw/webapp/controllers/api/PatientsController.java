@@ -37,15 +37,17 @@ public class PatientsController extends ApiController {
         if (existingPatient != null) {
             return badRequest(USER_ALREADY_EXISTS);
         } else {
-            Pair<Boolean, String> validation = PasswordValidator.validate(params.password, params.passwordConfirmation);
+            final Pair<Boolean, String> validation = PasswordValidator.validate(params.password, params.passwordConfirmation);
 
-            if (!validation.getLeft())
+            if (!validation.getLeft()) {
                 return badRequest(validation.getRight());
+            }
 
-            Patient patient = patientService.create(params.firstName, params.lastName, params.email, params.password);
+            final Patient patient = patientService.create(params.firstName, params.lastName, params.email, params.password);
 
-            if (patient.getId() == null)
+            if (patient.getId() == null) {
                 return badRequest("Patient was not created");
+            }
 
             return created(patient);
         }
@@ -54,7 +56,7 @@ public class PatientsController extends ApiController {
     @GET
     public Response index() {
         final List<Patient> allPatients = patientService.getAll();
-        GenericEntity<List<PatientDTO>> list = new GenericEntity<List<PatientDTO>>(PatientDTO.fromList(allPatients)) {
+        final GenericEntity<List<PatientDTO>> list = new GenericEntity<List<PatientDTO>>(PatientDTO.fromList(allPatients)) {
         };
         return ok(list);
     }

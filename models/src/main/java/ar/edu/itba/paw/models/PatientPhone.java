@@ -5,7 +5,7 @@ public class PatientPhone {
     private final int patientId;
     private final String phone;
 
-    public PatientPhone(int patientId, String phone) {
+    public PatientPhone(final int patientId, final String phone) {
         this.patientId = patientId;
         this.phone = phone;
     }
@@ -19,7 +19,7 @@ public class PatientPhone {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

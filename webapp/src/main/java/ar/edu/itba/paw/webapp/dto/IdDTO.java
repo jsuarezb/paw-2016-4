@@ -11,7 +11,7 @@ public class IdDTO {
     public IdDTO() {
     }
 
-    public IdDTO(Integer id) {
+    public IdDTO(final Integer id) {
         this.id = id;
     }
 }

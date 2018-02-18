@@ -9,7 +9,7 @@ public class PagedResult<T> {
     private final int pageSize;
     private final long total;
 
-    public PagedResult(List<T> results, int page, int pageSize, long total) {
+    public PagedResult(final List<T> results, final int page, final int pageSize, final long total) {
         this.results = results;
         this.page = page;
         this.pageSize = pageSize;

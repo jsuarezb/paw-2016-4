@@ -36,7 +36,8 @@ public class Appointment {
 
     /* package */ Appointment(){ }
 
-    public Appointment(Patient patient, AppointmentSlot slot, Integer weekNumber, Integer year, String comments) {
+    public Appointment(final Patient patient, final AppointmentSlot slot, final Integer weekNumber,
+                       final Integer year, final String comments) {
         this.patient = patient;
         this.slot = slot;
         this.weekNumber = weekNumber;
@@ -86,7 +87,7 @@ public class Appointment {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

@@ -29,7 +29,7 @@ public class AppointmentDTO {
     @XmlElement
     private String comments;
 
-    public AppointmentDTO(Appointment appointment) {
+    public AppointmentDTO(final Appointment appointment) {
         this.id = appointment.getId();
         this.patient = new PatientDTO(appointment.getPatient());
         this.appointmentSlot = new AppointmentSlotDTO(appointment.getSlot());

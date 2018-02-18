@@ -20,7 +20,7 @@ public class PagedResultDTO<T> {
 
     public PagedResultDTO() {}
 
-    public PagedResultDTO(List<T> results, Integer page, Integer pageSize, Long total) {
+    public PagedResultDTO(final List<T> results, final Integer page, final Integer pageSize, final Long total) {
         this.results = results;
         this.page = page;
         this.pageSize = pageSize;

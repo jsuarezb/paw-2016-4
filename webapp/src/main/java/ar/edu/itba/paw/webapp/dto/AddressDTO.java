@@ -37,7 +37,7 @@ public class AddressDTO {
     public AddressDTO() {
     }
 
-    public AddressDTO(Address address) {
+    public AddressDTO(final Address address) {
         this.id = address.getId();
         this.street_name = address.getStreetName();
         this.street_number = address.getStreetNumber();
@@ -50,7 +50,7 @@ public class AddressDTO {
         this.lon = address.getLon();
     }
 
-    public static List<AddressDTO> fromList(List<Address> addresses) {
+    public static List<AddressDTO> fromList(final List<Address> addresses) {
         if (addresses == null) {
             return Collections.emptyList();
         }

@@ -19,7 +19,7 @@ public class WorksInDTO {
     @XmlElement
     private InstitutionDTO institution;
 
-    public WorksInDTO(WorksIn worksIn) {
+    public WorksInDTO(final WorksIn worksIn) {
         this.id = worksIn.getId();
         this.doctor = new DoctorDTO(worksIn.getDoctor());
         this.institution = new InstitutionDTO(worksIn.getInstitution());

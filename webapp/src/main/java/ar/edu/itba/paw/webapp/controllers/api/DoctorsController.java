@@ -1,11 +1,10 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
-import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Patient;
-import ar.edu.itba.paw.models.Rating;
-import ar.edu.itba.paw.models.RatingSummary;
+import ar.edu.itba.paw.models.*;
+import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.RatingService;
+import ar.edu.itba.paw.webapp.dto.AppointmentDTO;
 import ar.edu.itba.paw.webapp.dto.DoctorDTO;
 import ar.edu.itba.paw.webapp.dto.RatingDTO;
 import ar.edu.itba.paw.webapp.dto.RatingSummaryDTO;
@@ -31,13 +30,16 @@ public class DoctorsController extends ApiController {
     private DoctorService doctorService;
 
     @Autowired
+    private AppointmentService appointmentService;
+
+    @Autowired
     private RatingService ratingService;
 
     @GET
-    public Response index(@QueryParam("first_name") String firstName,
-                          @QueryParam("last_name") String lastName,
-                          @QueryParam("speciality_id") Integer speciality_id,
-                          @QueryParam("page") Integer page) {
+    public Response index(@QueryParam("first_name") final String firstName,
+                          @QueryParam("last_name") final String lastName,
+                          @QueryParam("speciality_id") final Integer speciality_id,
+                          @QueryParam("page") final Integer page) {
         List<Doctor> doctors;
         if (speciality_id != null) {
             doctors = doctorService.searchBySpeciality(speciality_id);
@@ -49,7 +51,7 @@ public class DoctorsController extends ApiController {
             }
         }
 
-        GenericEntity<List<DoctorDTO>> list = new GenericEntity<List<DoctorDTO>>(DoctorDTO.fromList(doctors)) {
+        final GenericEntity<List<DoctorDTO>> list = new GenericEntity<List<DoctorDTO>>(DoctorDTO.fromList(doctors)) {
         };
         return ok(list);
     }
@@ -64,6 +66,22 @@ public class DoctorsController extends ApiController {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    @GET
+    @Path("/{id}/appointments")
+    public Response doctorAppointments(@PathParam("id") final Integer id,
+                                       @QueryParam("weekNumber") final Integer weekNumber,
+                                       @QueryParam("year") final Integer year) {
+        final Doctor doctor = doctorService.get(id);
+        if (doctor == null)
+            return notFound();
+
+        final List<Appointment> appointments = appointmentService.getAvailableByDoctor(doctor, weekNumber, year);
+        final GenericEntity<List<AppointmentDTO>> entity =
+                new GenericEntity<List<AppointmentDTO>>(AppointmentDTO.fromList(appointments)){};
+
+        return ok(entity);
     }
 
     @GET

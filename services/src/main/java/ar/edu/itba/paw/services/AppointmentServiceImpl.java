@@ -34,7 +34,7 @@ public class AppointmentServiceImpl implements AppointmentService {
                               final String comment) {
         if (!appointmentDao.isDoctorAvailable(appointmentSlot, weekNumber, year))
             return null;
-        LocalDate today = LocalDate.now();
+        final LocalDate today = LocalDate.now();
         int currentWeekOfYear = today.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
         if (weekNumber < currentWeekOfYear) {
             throw new InvalidCreationOfPastAppointment();
@@ -173,7 +173,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public List<Appointment> getPastAppointments(Doctor doctor) {
+    public List<Appointment> getPastAppointments(final Doctor doctor) {
         final LocalDateTime now = LocalDateTime.now();
 
         return appointmentDao.getPastAppointments(doctor, now);
@@ -181,9 +181,12 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     public boolean cancel(final int appointmentId) {
         final Appointment appointment = appointmentDao.getByid(appointmentId);
-        LocalDateTime now = LocalDateTime.now();
-        int week = now.get(WeekFields.of(DayOfWeek.SUNDAY, 7).weekOfYear());
-        if (appointment.getWeekNumber() < week) {
+        final LocalDateTime now = LocalDateTime.now();
+        final int week = now.get(WeekFields.of(DayOfWeek.SUNDAY, 7).weekOfYear());
+        if (appointment.getYear() < now.getYear()) {
+            return false;
+        }
+        if (appointment.getWeekNumber() < week && appointment.getYear() == now.getYear()) {
             return false;
         }
 
@@ -204,15 +207,15 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     }
 
-    /* package */ void setAppointmentDao(AppointmentDao appointmentDao) {
+    /* package */ void setAppointmentDao(final AppointmentDao appointmentDao) {
         this.appointmentDao = appointmentDao;
     }
 
-    /* package */ void setSlotDao(AppointmentSlotDao slotDao) {
+    /* package */ void setSlotDao(final AppointmentSlotDao slotDao) {
         this.slotDao = slotDao;
     }
 
-    /* package */ void setMailService(MailService mailService) {
+    /* package */ void setMailService(final MailService mailService) {
         this.mailService = mailService;
     }
 }

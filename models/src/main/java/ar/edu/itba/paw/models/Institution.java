@@ -19,12 +19,12 @@ public class Institution {
 
     /* package */ Institution(){ }
 
-    public Institution(String name, Address address) {
+    public Institution(final String name, final Address address) {
         this.name = name;
         this.address = address;
     }
 
-    public Institution(String name, Address address, Integer id) {
+    public Institution(final String name, final Address address, final Integer id) {
         this.name = name;
         this.address = address;
         this.id = id;
@@ -43,7 +43,7 @@ public class Institution {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 

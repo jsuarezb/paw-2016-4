@@ -32,7 +32,7 @@ public class SessionsController extends ApiController {
     @Path("/login")
     @Consumes(MediaType.APPLICATION_JSON)
     public Response login(final LoginParams input) {
-        Loggable user = LoggedUserFinder.getLoggedUser(input, doctorService, patientService);
+        final Loggable user = LoggedUserFinder.getLoggedUser(input, doctorService, patientService);
         if (user != null && user.getPassword().equals(input.password)) {
             return ok(new TokenDTO(Token.create(user)));
         }

@@ -23,7 +23,7 @@ public interface AppointmentService {
                                                         final Integer weekNumber,
                                                         final Integer year);
 
-    //FIXME
+    // FIXME
     List<Appointment> getAll();
 
     PagedResult<Appointment> search(final Integer weekOfYear, final Integer year,
@@ -52,7 +52,7 @@ public interface AppointmentService {
                                                               final Integer weekNumber,
                                                               final Integer year);
 
-    List<Appointment> getIncomingAppointments(Doctor doctor);
+    List<Appointment> getIncomingAppointments(final Doctor doctor);
 
-    List<Appointment> getPastAppointments(Doctor doctor);
+    List<Appointment> getPastAppointments(final Doctor doctor);
 }

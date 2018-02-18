@@ -24,9 +24,9 @@ public class Token {
                 .compact();
     }
 
-    public static String decode(String token) {
+    public static String decode(final String token) {
         try {
-            Jws<Claims> claims = Jwts.parser()
+            final Jws<Claims> claims = Jwts.parser()
                     .setSigningKey(WebAuthConfig.APP_KEY)
                     .parseClaimsJws(token);
 

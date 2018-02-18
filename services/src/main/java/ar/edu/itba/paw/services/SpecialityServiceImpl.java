@@ -34,7 +34,7 @@ public class SpecialityServiceImpl implements SpecialityService {
         return specialityDao.getByInstitutionId(institution_id);
     }
 
-    /* package */ void setSpecialityDao(SpecialityDao specialityDao) {
+    /* package */ void setSpecialityDao(final SpecialityDao specialityDao) {
         this.specialityDao = specialityDao;
     }
 }

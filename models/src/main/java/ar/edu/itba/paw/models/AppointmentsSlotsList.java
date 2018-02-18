@@ -13,7 +13,7 @@ public class AppointmentsSlotsList {
 
     public List<Appointment> list;
 
-    public AppointmentsSlotsList(List<Appointment> list){
+    public AppointmentsSlotsList(final List<Appointment> list){
         this.list = list;
     }
 
@@ -24,7 +24,7 @@ public class AppointmentsSlotsList {
         return list;
     }
 
-    public void setList(List<Appointment> list) {
+    public void setList(final List<Appointment> list) {
         this.list = list;
     }
 }

@@ -343,3 +343,74 @@ body {
     font-size: 1.3em;
   }
 }
+
+.day-columns {
+  display: flex;
+  flex-flow: row;
+  margin: 25px;
+
+  .calendar-placeholder {
+    min-height: 50px;
+  }
+
+  .day-column {
+    flex-grow: 1;
+    text-align: center
+  }
+
+  .day-column:nth-child(even) {
+    background-color: #DFDFDF;
+  }
+
+  .day-column:nth-child(odd) {
+    background-color: #CECECE;
+  }
+
+  .appointment-slot-day {
+    font-size: 2em;
+    background-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .day-appointment {
+    font-size: 2em;
+    width: 70%;
+    margin: 10px auto;
+    background-color: #FAFAFA;
+    border-radius: 2px;
+
+    transition: color 0.15s, background-color .15s;
+    transition-timing-function: ease-in-out;
+
+    :hover {
+      background-color: #0069D9;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  .day-appointment.btn-primary {
+    color: black;
+    border: none;
+
+    :hover {
+      color: white;
+    }
+  }
+}
+
+.selected-appointment {
+  font-size: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-flow: column;
+
+  .selected-appointment-data {
+    font-weight: bold;
+  }
+
+  .btn {
+    font-size: 1em;
+  }
+}
