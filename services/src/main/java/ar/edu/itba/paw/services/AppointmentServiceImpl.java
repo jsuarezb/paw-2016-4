@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoField;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -34,14 +33,10 @@ public class AppointmentServiceImpl implements AppointmentService {
                               final String comment) {
         if (!appointmentDao.isDoctorAvailable(appointmentSlot, weekNumber, year))
             return null;
-        final LocalDate today = LocalDate.now();
-        int currentWeekOfYear = today.get(ChronoField.ALIGNED_WEEK_OF_YEAR);
-        if (weekNumber < currentWeekOfYear) {
+
+        if (Appointment.isPast(appointmentSlot, weekNumber, year))
             throw new InvalidCreationOfPastAppointment();
-        }
-        if (weekNumber == currentWeekOfYear && appointmentSlot.getDayOfWeek() <= today.getDayOfWeek().getValue()) {
-            throw new InvalidCreationOfPastAppointment();
-        }
+
         final Appointment appointment = appointmentDao.create(patient, doctor, appointmentSlot, weekNumber, year, comment);
 
         if (appointment != null) {
@@ -64,16 +59,14 @@ public class AppointmentServiceImpl implements AppointmentService {
     public List<Appointment> getAvailableByDoctor(final Doctor doctor,
                                                   final Integer weekNumber,
                                                   final Integer year) {
-        final List<Appointment> appointments = new ArrayList<Appointment>();
-        final List<AppointmentSlot> availableSlots = slotDao
-                .getAvailableByDoctor(doctor, weekNumber, year);
+        final List<AppointmentSlot> availableSlots = slotDao.getAvailableByDoctor(doctor, weekNumber, year);
 
-        for (AppointmentSlot slot : availableSlots) {
-            final Appointment appointment = new Appointment(null, slot, weekNumber, year, null);
-            appointments.add(appointment);
-        }
+        if (availableSlots == null)
+            return Collections.emptyList();
 
-        return appointments;
+        return availableSlots.stream()
+                .map(slot -> new Appointment(null, slot, weekNumber, year, null))
+                .collect(Collectors.toList());
     }
 
     public List<Appointment> getAvailableByDoctorInInstitution(final Doctor doctor,
@@ -181,28 +174,20 @@ public class AppointmentServiceImpl implements AppointmentService {
 
     public boolean cancel(final int appointmentId) {
         final Appointment appointment = appointmentDao.getByid(appointmentId);
-        final LocalDateTime now = LocalDateTime.now();
-        final int week = now.get(WeekFields.of(DayOfWeek.SUNDAY, 7).weekOfYear());
-        if (appointment.getYear() < now.getYear()) {
-            return false;
-        }
-        if (appointment.getWeekNumber() < week && appointment.getYear() == now.getYear()) {
-            return false;
-        }
 
-        if (appointment.getWeekNumber() == week &&
-                appointment.getSlot().getDayOfWeek() <= now.getDayOfWeek().getValue()) {
+        if (Appointment.isPast(appointment))
             return false;
-        }
+
         final Doctor doctor = appointment.getSlot().getWorksIn().getDoctor();
         final Patient patient = appointment.getPatient();
 
         final boolean success = appointmentDao.delete(appointmentId);
 
-        if(success){
+        if (success) {
             mailService.sendAppointmentCancellationToDoctor(appointment, doctor, patient);
             mailService.sendAppointmentCancellationToPatient(appointment, doctor, patient);
         }
+
         return success;
 
     }

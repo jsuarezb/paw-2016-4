@@ -1,40 +1,47 @@
 'use strict';
-define(['ChoPidoTurnos', 'services/doctorsService'], function(ChoPidoTurnos) {
 
-  ChoPidoTurnos.controller('DoctorDetailCtrl', ['doctorsService', '$stateParams', function(doctorsService, $stateParams) {
-    var doctorId = $stateParams.doctorId;
+define(['ChoPidoTurnos',
+  'moment',
+  'services/doctorsService',
+  'services/appointmentsService',
+  'services/dateService'], function(ChoPidoTurnos, moment) {
 
-    var _this = this;
-    this.userRating = 0;
+  ChoPidoTurnos
+    .controller('DoctorDetailCtrl', ['$stateParams', 'doctorsService', 'appointmentsService', 'dateService',
+    function($stateParams, doctorsService, appointmentsService, dateService) {
+      var _this = this;
 
-    doctorsService
-      .getDoctor(doctorId)
-      .then(function (result) {
-        _this.doctor = result.data;
-      }
-    );
+      this.userRating = 0;
+      this.doctorId = $stateParams.doctorId;
 
-    doctorsService
-      .getUserRating(doctorId)
-      .then(function (result) {
-        _this.userRating = result.data.value;
-      });
-
-    doctorsService
-      .getRatingSummary(doctorId)
-      .then(function (result) {
-        var data = result.data;
-
-        _this.ratingAverage = Math.round(data.average);
-        _this.ratingSummary = data.valuesCount;
-      });
-
-    this.onDoctorRated = function (ev) {
       doctorsService
-        .rate(doctorId, ev.rating)
+        .getDoctor(this.doctorId)
         .then(function (result) {
-          // TODO
+          _this.doctor = result.data;
         });
-    };
-  }]);
+
+      doctorsService
+        .getUserRating(this.doctorId)
+        .then(function (result) {
+          _this.userRating = result.data.value;
+        });
+
+      doctorsService
+        .getRatingSummary(this.doctorId)
+        .then(function (result) {
+          var data = result.data;
+
+          _this.ratingAverage = Math.round(data.average);
+          _this.ratingSummary = data.valuesCount;
+        });
+
+      this.onDoctorRated = function (ev) {
+        doctorsService
+          .rate(this.doctorId, ev.rating)
+          .then(function (result) {
+            // TODO
+          });
+      };
+    }
+  ]);
 });

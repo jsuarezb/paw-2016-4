@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.PagedResult;
 import ar.edu.itba.paw.persistence.DoctorDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,11 @@ public class DoctorServiceImpl implements DoctorService {
 
     public List<Doctor> searchBySpeciality(final Integer speciality_id) {
         return doctorDao.getBySpeciality(speciality_id);
+    }
+
+    @Override
+    public PagedResult<Doctor> getAvailable(Integer specialityId, String neighborhood, Integer institutionId, Integer weekOfYear, Integer year, int page) {
+        return doctorDao.listAvailable(specialityId, neighborhood, institutionId, weekOfYear, year, page);
     }
 
     @Override

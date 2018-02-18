@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.PagedResult;
 
 import java.util.List;
 
@@ -13,6 +14,9 @@ public interface DoctorService {
     List<Doctor> searchByName(final String name, final String lastName);
 
     List<Doctor> searchBySpeciality(final Integer speciality_id);
+
+    PagedResult<Doctor> getAvailable(Integer specialityId, String neighborhood, Integer institutionId, Integer weekOfYear,
+                                     Integer year, int page);
 
     Doctor findByEmail(final String email);
 

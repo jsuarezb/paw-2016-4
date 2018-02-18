@@ -1,24 +1,22 @@
 package ar.edu.itba.paw.webapp.controllers.api;
 
-import ar.edu.itba.paw.models.Doctor;
-import ar.edu.itba.paw.models.Patient;
-import ar.edu.itba.paw.models.Rating;
-import ar.edu.itba.paw.models.RatingSummary;
+import ar.edu.itba.paw.models.*;
+import ar.edu.itba.paw.services.AppointmentService;
 import ar.edu.itba.paw.services.DoctorService;
 import ar.edu.itba.paw.services.RatingService;
-import ar.edu.itba.paw.webapp.dto.DoctorDTO;
-import ar.edu.itba.paw.webapp.dto.RatingDTO;
-import ar.edu.itba.paw.webapp.dto.RatingSummaryDTO;
-import ar.edu.itba.paw.webapp.params.PaginationHelper;
+import ar.edu.itba.paw.webapp.dto.*;
 import ar.edu.itba.paw.webapp.params.RatingParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import javax.print.Doc;
 import javax.ws.rs.*;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
+import java.time.DayOfWeek;
+import java.time.LocalDateTime;
+import java.time.temporal.WeekFields;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by alebian on 12/8/16.
@@ -29,6 +27,9 @@ public class DoctorsController extends ApiController {
 
     @Autowired
     private DoctorService doctorService;
+
+    @Autowired
+    private AppointmentService appointmentService;
 
     @Autowired
     private RatingService ratingService;
@@ -61,6 +62,30 @@ public class DoctorsController extends ApiController {
 
 
     @GET
+    @Path("/available")
+    public Response availableDoctors(@QueryParam("speciality") final Integer specialityId,
+                                     @QueryParam("neighborhood") final String neighborhood,
+                                     @QueryParam("institution") final Integer institutionId,
+                                     @QueryParam("weekOfYear") final Integer weekOfYear,
+                                     @QueryParam("year") final Integer year,
+                                     @DefaultValue("0") @QueryParam("page") final int page) {
+        final PagedResult<Doctor> doctorsPage = doctorService
+                .getAvailable(specialityId, neighborhood, institutionId, weekOfYear, year, page);
+
+        final List<DoctorDTO> doctorsDTOs = doctorsPage.getResults().stream()
+                .map(DoctorDTO::new)
+                .collect(Collectors.toList());
+
+        final PagedResultDTO<DoctorDTO> doctorsDTOPage =
+                new PagedResultDTO<>(doctorsDTOs, doctorsPage.getPage(), doctorsPage.getPageSize(), doctorsPage.getTotal());
+
+        final GenericEntity<PagedResultDTO<DoctorDTO>> entity =
+                new GenericEntity<PagedResultDTO<DoctorDTO>>(doctorsDTOPage){};
+
+        return ok(entity);
+    }
+
+    @GET
     @Path("/{id}")
     public Response show(@PathParam("id") final Integer id) {
         final Doctor doctor = doctorService.get(id);
@@ -70,6 +95,28 @@ public class DoctorsController extends ApiController {
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
+    }
+
+    @GET
+    @Path("/{id}/appointments")
+    public Response doctorAppointments(@PathParam("id") final Integer id,
+                                       @QueryParam("weekNumber") Integer weekNumber,
+                                       @QueryParam("year") Integer year) {
+        final Doctor doctor = doctorService.get(id);
+        if (doctor == null)
+            return notFound();
+
+        if (year == null)
+            year = LocalDateTime.now().getYear();
+
+        if (weekNumber == null)
+            weekNumber = LocalDateTime.now().get(WeekFields.of(DayOfWeek.SUNDAY, 4).weekOfYear());
+
+        final List<Appointment> appointments = appointmentService.getAvailableByDoctor(doctor, weekNumber, year);
+        final GenericEntity<List<AppointmentDTO>> entity =
+                new GenericEntity<List<AppointmentDTO>>(AppointmentDTO.fromList(appointments)){};
+
+        return ok(entity);
     }
 
     @GET
