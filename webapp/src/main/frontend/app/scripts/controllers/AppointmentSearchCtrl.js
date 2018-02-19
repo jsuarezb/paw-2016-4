@@ -39,12 +39,12 @@ define(
         this.isDatepickerOpen = true;
       };
 
-      this.loadWeek = function(week, year) {
+      this.loadWeek = function(week, year, page) {
         _this.currentWeek = week;
         _this.year = year;
 
         doctorService
-          .findAvailable(_speciality, _neighborhood, _institution, week, year, 0)
+          .findAvailable(_speciality, _neighborhood, _institution, week, year, page)
           .then(function (response) {
             _this.doctorsPage = response.data;
             _this.doctors = _this.doctorsPage.results;
@@ -85,12 +85,21 @@ define(
         });
       };
 
+      this.prevPage = function () {
+        _this.loadWeek(_this.currentWeek, _this.currentYear, _this.currentPage.page - 1);
+      };
+
+      this.nextPage = function () {
+        _this.loadWeek(_this.currentWeek, _this.currentYear, _this.currentPage.page + 1);
+      };
+
       this.hasPrevPage = function () {
-        return this.currentPage && this.currentPage.pageNumber === 0;
+        return _this.currentPage && _this.currentPage.pageNumber === 0;
       };
 
       this.hasNextPage = function () {
-        return this.currentPage && this.currentPage.pageNumber < Math.floor(this.currentPage.total / this.currentPage.pageSize);
+        return _this.currentPage &&
+          _this.currentPage.pageNumber < Math.floor(_this.currentPage.total / _this.currentPage.pageSize);
       };
   }]);
 });
