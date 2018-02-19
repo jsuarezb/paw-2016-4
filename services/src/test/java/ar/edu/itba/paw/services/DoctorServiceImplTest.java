@@ -1,6 +1,7 @@
 package ar.edu.itba.paw.services;
 
 import ar.edu.itba.paw.models.Doctor;
+import ar.edu.itba.paw.models.PagedResult;
 import ar.edu.itba.paw.persistence.DoctorDao;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,12 +20,13 @@ import static org.mockito.Mockito.when;
 
 public class DoctorServiceImplTest {
 
-    /*private DoctorServiceImpl service;
+    private DoctorServiceImpl service;
 
-    private Doctor doctor = new Doctor(1, "", "",
-            Collections.emptySet(), Collections.emptySet(), "", "");
+    private Doctor doctor = new Doctor(Collections.emptySet(), Collections.emptySet());
 
     private List<Doctor> doctors = Collections.singletonList(doctor);
+
+    private PagedResult<Doctor> page = new PagedResult<>(doctors, 0, 2, 200);
 
     @Mock
     private DoctorDao doctorDao;
@@ -39,9 +41,9 @@ public class DoctorServiceImplTest {
 
     @Test
     public void testGetAll() {
-        when(doctorDao.getAll()).thenReturn(doctors);
+        when(doctorDao.getAll(anyInt())).thenReturn(page);
 
-        assertEquals(doctors, service.getAll());
+        assertEquals(page, service.getAll(0));
     }
 
     @Test
@@ -52,22 +54,17 @@ public class DoctorServiceImplTest {
     }
 
     @Test
-    public void testSearchByNameWhenPageIsNegative() {
-        assertEquals(0, service.searchByName("", "").size());
-    }
-
-    @Test
     public void testSearchByName() {
-        when(doctorDao.searchByName(anyString(), anyString())).thenReturn(doctors);
+        when(doctorDao.searchByName(anyString(), anyString(), anyInt())).thenReturn(page);
 
-        assertEquals(doctors, service.searchByName("", ""));
+        assertEquals(page, service.searchByName("", "", 0));
     }
 
     @Test
     public void testSearchBySpeciality() {
-        when(doctorDao.getBySpeciality(eq(2))).thenReturn(doctors);
+        when(doctorDao.getBySpeciality(eq(2), anyInt())).thenReturn(page);
 
-        assertEquals(doctors, service.searchBySpeciality(2));
+        assertEquals(page, service.searchBySpeciality(2, 0));
     }
 
     @Test
@@ -90,5 +87,5 @@ public class DoctorServiceImplTest {
                 .thenReturn(true);
 
         assertTrue(service.hasNextPageForSearchByName("", "", 2));
-    }*/
+    }
 }
