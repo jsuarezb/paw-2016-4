@@ -20,12 +20,12 @@
   <div ng-if="$ctrl.doctors.length > 0">
     <ul class="pager">
       <li class="previous">
-        <button class="btn btn-default" ng-disabled="!$ctrl.hasPreviousPage()" ng-click="$ctrl.prevPage()">
+        <button class="btn btn-default" ng-click="$ctrl.prevPage()" ng-disabled="!$ctrl.hasPreviousPage()" ng-click="$ctrl.prevPage()">
           &lt; Anterior
         </button>
       </li>
       <li class="next">
-        <button ng-disabled="!$ctrl.hasNextPage()" class="btn btn-default" ng-click="$ctrl.nextPage()">
+        <button ng-disabled="!$ctrl.hasNextPage()" ng-click="$ctrl.nextPage()" class="btn btn-default" ng-click="$ctrl.nextPage()">
           Siguiente &gt;
         </button>
       </li>
