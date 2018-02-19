@@ -9,6 +9,8 @@ define(['ChoPidoTurnos',
         var _this = this;
 
         this.isBooking = false;
+        this.appointments = [];
+        this.loadingAppointments = false;
 
         this.currentStartOfWeek = moment().day('Sunday')
           .week(this.weekNumber)
@@ -23,13 +25,18 @@ define(['ChoPidoTurnos',
           _this.year = date.year;
           _this.loadAppointments();
         });
+
+        this.loadAppointments();
       },
       loadAppointments: function() {
         var _this = this;
 
+        this.loadingAppointments = true;
+
         appointmentsService
           .getDoctorAvailableAppointments(this.doctorId, this.weekNumber, this.year)
           .then(function (result) {
+            _this.loadingAppointments = false;
             var data = result.data;
             _this.onAppointmentsLoaded(data);
           });
@@ -39,19 +46,21 @@ define(['ChoPidoTurnos',
 
         _this.daySlots = {};
 
-        appointments
+        this.appointments = appointments
           .filter(function (appointment) {
             var now = new Date();
 
             return now < new Date(appointment.date);
           })
-          .forEach(function(freeAppointment) {
+          .map(function(freeAppointment) {
             if (!_this.daySlots[freeAppointment.appointmentSlot.dayOfWeek]) {
               _this.daySlots[freeAppointment.appointmentSlot.dayOfWeek] = [];
             }
 
             _this.daySlots[freeAppointment.appointmentSlot.dayOfWeek].push(freeAppointment);
-        });
+
+            return freeAppointment;
+          });
       },
       onAppointmentSelected: function(appointment) {
         this.selectedAppointment = appointment;

@@ -398,14 +398,19 @@ body {
   }
 }
 
+.calendar-placeholder {
+  color: #666666;
+  font-size: 2em;
+  text-align: center;
+  vertical-align: center;
+  background-color: #DFDFDF;
+  min-height: 50px;
+}
+
 .day-columns {
   display: flex;
   flex-flow: row;
   margin: 25px;
-
-  .calendar-placeholder {
-    min-height: 50px;
-  }
 
   .day-column {
     flex-grow: 1;

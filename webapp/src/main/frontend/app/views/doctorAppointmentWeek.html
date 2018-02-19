@@ -9,8 +9,10 @@
           <calendar-appointment on-appointment-selected="$ctrl.onAppointmentSelected(appointment)"
                                 appointment="appointment"></calendar-appointment>
         </div>
-        <div class="calendar-placeholder" ng-show="!$ctrl.daySlots[day]"></div>
       </div>
+  </div>
+  <div class="calendar-placeholder" ng-show="!$ctrl.loadingAppointments && $ctrl.appointments.length == 0">
+    No hay turnos disponible esta semana.
   </div>
   <div class="selected-appointment" ng-show="$ctrl.selectedAppointment">
     <p>
