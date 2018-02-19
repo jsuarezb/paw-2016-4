@@ -14,10 +14,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.mail.MailException;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.velocity.VelocityEngineFactoryBean;
 import org.springframework.ui.velocity.VelocityEngineUtils;
+import javax.mail.internet.MimeMessage;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -45,18 +49,31 @@ public class MailServiceImpl implements MailService {
     @Override
     public void sendAppointmentConfirmationToDoctor(final Appointment appointment, final Doctor doctor,
                                                     final Patient patient) {
-        final SimpleMailMessage msg = new SimpleMailMessage();
+        final Map<String, Object> context = new HashMap<>();
         final LocalDateTime date = appointment.getDate();
-        msg.setFrom("no-reply@chopidoturnos.com");
-        msg.setSubject("Turno reservado.");
-        msg.setTo(doctor.getUser().getEmail());
-        msg.setText("El paciente " + String.format("%s, %s", patient.getUser().getLastName(), patient.getUser().getFirstName())
-                + " reservó un turno para el día " + date.format(dateFmt)
-                + " a las " + date.format(timeFmt) + " hs"
-        );
+        context.put("name", String.format("%s %s", patient.getUser().getFirstName(), patient.getUser().getLastName()));
+        context.put("appointmentDate", date.format(dateFmt));
+        context.put("appointmentTime", date.format(timeFmt));
 
+
+        final String emailText = VelocityEngineUtils.mergeTemplateIntoString(
+                velocityEngine,
+                "templates/doctor_booking.vm",
+                "UTF-8",context);
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                message.setTo(patient.getUser().getEmail());
+                message.setSubject("Cancelaste tu turno");
+                message.setFrom("chopidoturnos@gmail.com"); // could be parameterized...
+
+
+                message.setText(emailText, true);
+            }
+
+        };
         try {
-            mailSender.send(msg);
+            ((JavaMailSender)mailSender).send(preparator);
         } catch (MailException ex) {
             LOG.error("Mail not sent.", ex);
         }
@@ -95,13 +112,21 @@ public class MailServiceImpl implements MailService {
                     "UTF-8",
                     context);
 
-            final SimpleMailMessage msg = new SimpleMailMessage();
-            msg.setFrom("chopidoturnos@gamil.com");
-            msg.setSubject("Turno reservado.");
-            msg.setTo(patient.getUser().getEmail());
-            msg.setText(emailText);
+            MimeMessagePreparator preparator = new MimeMessagePreparator() {
+                public void prepare(MimeMessage mimeMessage) throws Exception {
+                    MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                    message.setTo(patient.getUser().getEmail());
+                    message.setSubject("¡Reservaste un turno!");
+                    message.setFrom("chopidoturnos@gmail.com"); // could be parameterized...
 
-            mailSender.send(msg);
+
+                    message.setText(emailText, true);
+                }
+
+            };
+            ((JavaMailSender)mailSender).send(preparator);
+
+
         } catch (final MailException ex) {
             ex.printStackTrace();
         }
@@ -111,21 +136,36 @@ public class MailServiceImpl implements MailService {
     public void sendAppointmentCancellationToDoctor(final Appointment appointment,
                                                     final Doctor doctor,
                                                     final Patient patient) {
-        final SimpleMailMessage msg = new SimpleMailMessage();
-        final LocalDateTime date = appointment.getDate();
-        msg.setFrom("no-reply@chopidoturnos.com");
-        msg.setSubject("Turno cancelado.");
-        msg.setTo(doctor.getUser().getEmail());
-        msg.setText("El paciente " + String.format("%s, %s", patient.getUser().getLastName(), patient.getUser().getFirstName())
-                + " ha cancelado el turno para el día " + date.format(dateFmt)
-                + " a las " + date.format(timeFmt) + " hs"
-        );
 
+        final Map<String, Object> context = new HashMap<>();
+        final LocalDateTime date = appointment.getDate();
+        context.put("name", String.format("%s %s", patient.getUser().getFirstName(), patient.getUser().getLastName()));
+        context.put("appointmentDate", date.format(dateFmt));
+        context.put("appointmentTime", date.format(timeFmt));
+
+
+        final String emailText = VelocityEngineUtils.mergeTemplateIntoString(
+                velocityEngine,
+                "templates/doctor_cancellation.vm",
+                "UTF-8",context);
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                message.setTo(patient.getUser().getEmail());
+                message.setSubject("Cancelaste tu turno");
+                message.setFrom("chopidoturnos@gmail.com"); // could be parameterized...
+
+
+                message.setText(emailText, true);
+            }
+
+        };
         try {
-            mailSender.send(msg);
+            ((JavaMailSender)mailSender).send(preparator);
         } catch (MailException ex) {
             LOG.error("Mail not sent.", ex);
         }
+
     }
 
     @Override
@@ -143,14 +183,20 @@ public class MailServiceImpl implements MailService {
                 velocityEngine,
                 "templates/patient_cancelled_appointment.vm",
                 "UTF-8",context);
-        final SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom("chopidoturnos@gamil.com");
-        msg.setSubject("Turno cancelado.");
-        msg.setTo(patient.getUser().getEmail());
-        msg.setText(emailText);
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                message.setTo(patient.getUser().getEmail());
+                message.setSubject("Cancelaste tu turno");
+                message.setFrom("chopidoturnos@gmail.com"); // could be parameterized...
 
+
+                message.setText(emailText, true);
+            }
+
+        };
         try {
-            mailSender.send(msg);
+            ((JavaMailSender)mailSender).send(preparator);
         } catch (MailException ex) {
             LOG.error("Mail not sent.", ex);
         }
@@ -158,16 +204,30 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendPasswordRecoveryEmail(final String email, final String token) {
-        final SimpleMailMessage msg = new SimpleMailMessage();
-        msg.setFrom("chopidoturnos@gamil.com");
-        msg.setSubject("Restablecer contraseña");
-        msg.setTo(email);
-        msg.setText("Haga click en el siguiente link para restablecer su contraseña.\n" +
-                    "http://localhost:8080/grupo4/resources/index.html#!/recover?token=" + token);
+
+        final Map<String, Object> context = new HashMap<>();
+        context.put("token", token);
+
+        final String emailText = VelocityEngineUtils.mergeTemplateIntoString(
+                velocityEngine,
+                "templates/reset_pass.vm",
+                "UTF-8",context);
+        MimeMessagePreparator preparator = new MimeMessagePreparator() {
+            public void prepare(MimeMessage mimeMessage) throws Exception {
+                MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
+                message.setTo(email);
+                message.setSubject("Restablecer contraseña");
+                message.setFrom("chopidoturnos@gmail.com"); // could be parameterized...
+
+
+                message.setText(emailText, true);
+            }
+
+        };
         try {
-            mailSender.send(msg);
+            ((JavaMailSender)mailSender).send(preparator);
         } catch (MailException ex) {
-            // TODO log error
+            LOG.error("Mail not sent.", ex);
         }
     }
 

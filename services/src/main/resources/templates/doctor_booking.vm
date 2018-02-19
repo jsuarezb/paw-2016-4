@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
 
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>ZURBemails</title>
 
     <link rel="stylesheet" type="text/css" href="stylesheets/email.css" />
     <style media="screen">
@@ -272,27 +273,12 @@
                     <tr>
                         <td>
 
-                            <h3>¡Reservaste un turno!</h3>
+                            <h3>Te reservado un turno</h3>
                             <br/>
                             <br/>
-                            <p class="lead">Usted reservó un turno con el doctor $doctorName para el $appointmentDate a las $appointmentTime.</p>
-                            <br/>
-                            <!-- Callout Panel -->
-                            <p class="callout">
-                                No te olvides de <a href="https://www.google.com/calendar/render?action=TEMPLATE&text=Turno+médico+con+$doctorName&dates=$appointmentStartDatetime/$appointmentEndDatetime&location=$institutionStreetName,+$institutionStreetNumber,+$institutionNeighborhood,+$institutionCity,+$institutionState,+$institutionCountry&sf=true&output=xml">agregar este evento a tu calendario</a>
-                            </p><!-- /Callout Panel -->
+                            <p class="lead">El paciente $name ha reservado el turno para el día $appointmentDate a las $appointmentTime</p>
                             <br/>
                             <br/>
-                            <div class="appointment-map">
-                                <h4>¿Cómo llego?<h4>
-                                    <br/>
-                                    <h5>Nosotros te ayudamos,<a href="https://www.google.com/maps/place/$institutionStreetName,+$institutionStreetNumber,+$institutionNeighborhood,+$institutionCity,+$institutionState,+$institutionCountry/">fijate en este enlace</a> para enterarte cómo llegar.</h5>
-                            </div>
-
-                            <br/>
-                            <br/>
-                            <p>Si desea cancelar la reserva, ingrese a <a href="http://pawserver.it.itba.edu.ar/grupo4/resources/index.html#!/">este link</a>.
-
 
                         </td>
                     </tr>
