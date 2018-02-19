@@ -1,16 +1,18 @@
 'use strict';
 
 define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
-  function DoctorProfileCtrl(doctorsService) {
+  function DoctorProfileCtrl(doctorsService, sessionService) {
     return {
       '$onInit': function () {
         var _this = this;
 
-        doctorsService
-          .getUserRating(this.doctor.id)
-          .then(function (result) {
-            _this.userRating = result.data.value;
-          });
+        if (sessionService.getLoggedUser()) {
+          doctorsService
+            .getUserRating(this.doctor.id)
+            .then(function (result) {
+              _this.userRating = result.data.value;
+            });
+        }
 
         doctorsService
           .getRatingSummary(this.doctor.id)
@@ -31,7 +33,7 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
     };
   }
 
-  DoctorProfileCtrl.$inject = ['doctorsService'];
+  DoctorProfileCtrl.$inject = ['doctorsService', 'sessionService'];
 
   ChoPidoTurnos
     .component('doctorProfile', {
