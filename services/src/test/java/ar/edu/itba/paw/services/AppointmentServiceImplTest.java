@@ -21,17 +21,14 @@ import static org.mockito.Mockito.when;
 
 public class AppointmentServiceImplTest {
 
-   /* private AppointmentServiceImpl service;
+   private AppointmentServiceImpl service;
 
     private Institution institution =
             new Institution("Inst name", new Address("", 0, "", "","","",""), 2);
 
-    private Doctor doctor =
-            new Doctor(1, "Name", "Last name", Collections.emptySet(),
-                    Collections.emptySet(), "email", "password");
+    private Doctor doctor = new Doctor(Collections.emptySet(), Collections.emptySet());
 
-    private Patient patient =
-            new Patient("A name", "A last name", "An email", "A password");
+    private Patient patient = new Patient();
 
     private AppointmentSlot appoinmentSlot =
             new AppointmentSlot(2, 4, new WorksIn(1, doctor, institution));
@@ -92,13 +89,6 @@ public class AppointmentServiceImplTest {
         when(slotDao.getAvailableByDoctor(any(Doctor.class), anyInt(), anyInt())).thenReturn(slots);
 
         assertEquals(slots.size(), service.getAvailableByDoctor(doctor, 24, 2018).size());
-    }
-
-    @Test
-    public void testGetAvailableByDoctorInInstitution() {
-        when(slotDao.getAvailableByDoctorInInstitution(anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(slots);
-
-        assertEquals(slots.size(), service.getAvailableByDoctorInInstitution(doctor, institution, 30, 2017).size());
     }
 
     @Test
@@ -163,5 +153,5 @@ public class AppointmentServiceImplTest {
         when(appointmentDao.delete(anyInt())).thenReturn(true);
 
         assertFalse(service.cancel(1));
-    }*/
+    }
 }

@@ -17,9 +17,9 @@ import static org.mockito.Mockito.when;
 
 public class PatientServiceImplTest {
 
-    /*private PatientServiceImpl service;
+    private PatientServiceImpl service;
 
-    private Patient patient = new Patient("", "", "", "");
+    private Patient patient = new Patient();
 
     private List<Patient> patients = Collections.singletonList(patient);
 
@@ -49,16 +49,9 @@ public class PatientServiceImplTest {
     }
 
     @Test
-    public void testCreate() {
-        when(patientDao.create(anyString(), anyString(), anyString(), anyString())).thenReturn(patient);
-
-        assertEquals(patient, service.create("", "", "", ""));
-    }
-
-    @Test
     public void testFindByEmail() {
         when(patientDao.getByEmail(eq("e@mail.com"))).thenReturn(patient);
 
         assertEquals(patient, service.findByEmail("e@mail.com"));
-    }*/
+    }
 }

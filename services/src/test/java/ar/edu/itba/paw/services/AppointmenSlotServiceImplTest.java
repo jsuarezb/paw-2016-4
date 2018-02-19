@@ -9,7 +9,9 @@ import org.mockito.MockitoAnnotations;
 
 import java.time.LocalDateTime;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.*;
@@ -17,16 +19,17 @@ import static org.mockito.Mockito.when;
 
 public class AppointmenSlotServiceImplTest {
 
-    /*private AppointmentSlotServiceImpl service;
-
-    private Doctor doctor = new Doctor(1, "", "", Collections.emptySet(),
-            Collections.emptySet(), "", "");
+    private AppointmentSlotServiceImpl service;
 
     private Institution institution = new Institution(
             "",
             new Address("", 3, "", "", "", "", ""),
             2
     );
+
+    private Set<Speciality> specialities = new HashSet<>();
+
+    private Doctor doctor = new Doctor(specialities, Collections.emptySet());
 
     private WorksIn worksIn = new WorksIn(1, doctor, institution);
 
@@ -71,5 +74,5 @@ public class AppointmenSlotServiceImplTest {
         when(slotDao.getAvailableByDoctor(eq(doctor), anyInt(), anyInt())).thenReturn(slots);
 
         assertEquals(slots, service.getAvailableByDoctor(doctor, 2, 2017));
-    }*/
+    }
 }
