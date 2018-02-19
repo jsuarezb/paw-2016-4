@@ -40,29 +40,6 @@ define(['ChoPidoTurnos',
         .then(function (result) {
           _this.doctor = result.data;
         });
-
-      doctorsService
-        .getUserRating(this.doctorId)
-        .then(function (result) {
-          _this.userRating = result.data.value;
-        });
-
-      doctorsService
-        .getRatingSummary(this.doctorId)
-        .then(function (result) {
-          var data = result.data;
-
-          _this.ratingAverage = Math.round(data.average);
-          _this.ratingSummary = data.valuesCount;
-        });
-
-      this.onDoctorRated = function (ev) {
-        doctorsService
-          .rate(this.doctorId, ev.rating)
-          .then(function (result) {
-            // TODO
-          });
-      };
     }
   ]);
 });

@@ -6,7 +6,8 @@ define(['ChoPidoTurnos', 'services/sessionService',
         'components/appointment',
         'components/doctorAppointmentWeek',
         'components/calendarAppointment',
-        'components/doctorSearchItem'], function(ChoPidoTurnos) {
+        'components/doctorSearchItem',
+        'components/doctorProfile'], function(ChoPidoTurnos) {
   ChoPidoTurnos.controller('IndexCtrl', ['$state', '$scope', 'sessionService', function ($state, $scope, sessionService) {
     this.getLoggedUser = function() {
       return sessionService.getLoggedUser();

@@ -172,6 +172,29 @@ body {
   font-size: 0.5em;
 }
 
+.two-column-wrap {
+  display: flex;
+  flex-wrap: wrap;
+
+  > * {
+    width: 50%;
+  }
+}
+
+.institution-doctors {
+  doctor-profile .doctor-avatar {
+    height: 100px;
+  }
+
+  .doctor-institutions {
+    display: none;
+  }
+}
+
+.institution-name {
+  font-size: 2em;
+}
+
 .site-header {
   background-color: rgba(248,248,248,0.98);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -410,7 +433,6 @@ body {
 .day-columns {
   display: flex;
   flex-flow: row;
-  margin: 25px;
 
   .day-column {
     flex-grow: 1;
