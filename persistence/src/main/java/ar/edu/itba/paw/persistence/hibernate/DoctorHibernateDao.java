@@ -15,27 +15,50 @@ import java.util.List;
 @Repository
 public class DoctorHibernateDao implements DoctorDao {
 
-    private static final int DEFAULT_SIZE_OF_PAGE = 15;
+    private static final int DEFAULT_SIZE_OF_PAGE = 7;
 
     @PersistenceContext
     private EntityManager em;
 
-    public List<Doctor> getAll() {
-        final TypedQuery<Doctor> query = em.createQuery("from Doctor", Doctor.class);
-        return query.getResultList();
+    public PagedResult<Doctor> getAll(final Integer page) {
+        final TypedQuery<Doctor> query = em.createQuery("from Doctor d ORDER BY d.id", Doctor.class);
+
+        query.setMaxResults(DEFAULT_SIZE_OF_PAGE);
+        query.setFirstResult(page * DEFAULT_SIZE_OF_PAGE);
+
+        final List<Doctor> doctors = query.getResultList();
+
+        final TypedQuery<Long> countQuery = em.createQuery("SELECT COUNT(d) FROM Doctor d", Long.class);
+        final Long count = countQuery.getSingleResult();
+
+        return new PagedResult<>(doctors, page, DEFAULT_SIZE_OF_PAGE, count);
     }
 
     public Doctor getById(final Integer id) {
         return em.find(Doctor.class, id);
     }
 
-    public List<Doctor> getBySpeciality(final Integer specialityId) {
-        final TypedQuery<Doctor> query = em.createQuery(
-                "SELECT d FROM Doctor AS d" +
+    public PagedResult<Doctor> getBySpeciality(final Integer specialityId, final Integer page) {
+        final String baseQuery = " FROM Doctor AS d" +
                         " JOIN d.specialities AS ds" +
-                        " WHERE ds.speciality_id = :speciality_id", Doctor.class);
+                        " WHERE ds.speciality_id = :speciality_id";
+
+        final TypedQuery<Doctor> query = em.createQuery("SELECT d " + baseQuery, Doctor.class);
+
         query.setParameter("speciality_id", specialityId);
-        return query.getResultList();
+        query.setMaxResults(DEFAULT_SIZE_OF_PAGE);
+        query.setFirstResult(page * DEFAULT_SIZE_OF_PAGE);
+
+        final List<Doctor> doctors = query.getResultList();
+
+        final TypedQuery<Long> countQuery = em.createQuery("SELECT COUNT(d1) FROM Doctor d1 " +
+                "WHERE d1.id IN (SELECT d.id" + baseQuery + ")", Long.class);
+
+        countQuery.setParameter("speciality_id", specialityId);
+
+        final Long count = countQuery.getSingleResult();
+
+        return new PagedResult<>(doctors, page, DEFAULT_SIZE_OF_PAGE, count);
     }
 
     public List<Doctor> getDoctorsByInstitution(final Integer institutionId) {
@@ -71,7 +94,7 @@ public class DoctorHibernateDao implements DoctorDao {
     }
 
     @Override
-    public List<Doctor> searchByName(final String name, final String lastName) {
+    public PagedResult<Doctor> searchByName(final String name, final String lastName, final Integer page) {
         final TypedQuery<Doctor> query = em.createQuery(
                 "SELECT d FROM Doctor AS d " +
                         "WHERE translate(lower(d.user.firstName), 'áéíóú', 'aeiou') LIKE lower(:name) " +
@@ -83,7 +106,26 @@ public class DoctorHibernateDao implements DoctorDao {
         query.setParameter("name", "%" + Normalizer.normalize(name, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "") + "%");
         query.setParameter("lastName", "%" + Normalizer.normalize(lastName, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "") + "%");
 
-        return query.getResultList();
+        query.setMaxResults(DEFAULT_SIZE_OF_PAGE);
+        query.setFirstResult(page * DEFAULT_SIZE_OF_PAGE);
+
+        final List<Doctor> doctors = query.getResultList();
+
+        final TypedQuery<Long> countQuery = em.createQuery(
+                "SELECT COUNT(d1) FROM Doctor d1 " +
+                        "WHERE d1.id IN (SELECT d.id FROM Doctor AS d " +
+                        "WHERE translate(lower(d.user.firstName), 'áéíóú', 'aeiou') LIKE lower(:name) " +
+                        "AND translate(lower(d.user.lastName), 'áéíóú', 'aeiou') LIKE lower(:lastName) " +
+                        "ORDER BY d.user.lastName, d.user.firstName) ",
+                Long.class);
+
+
+        countQuery.setParameter("name", "%" + Normalizer.normalize(name, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "") + "%");
+        countQuery.setParameter("lastName", "%" + Normalizer.normalize(lastName, Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "") + "%");
+
+        final Long count = countQuery.getSingleResult();
+
+        return new PagedResult<>(doctors, page, DEFAULT_SIZE_OF_PAGE, count);
     }
 
     @Override

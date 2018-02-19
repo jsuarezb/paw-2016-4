@@ -7,11 +7,11 @@ import java.util.List;
 
 public interface DoctorDao {
 
-    List<Doctor> getAll();
+    PagedResult<Doctor> getAll(Integer page);
 
-    Doctor getById(final Integer id);
+    Doctor getById(Integer id);
 
-    List<Doctor> getBySpeciality(final Integer speciality_id);
+    PagedResult<Doctor> getBySpeciality(Integer speciality_id, Integer pageSize);
 
     /**
      * Get all doctors of an institution.
@@ -20,19 +20,16 @@ public interface DoctorDao {
      *
      * @return A list with the doctors of an institution.
      */
-    List<Doctor> getDoctorsByInstitution(final Integer id);
+    List<Doctor> getDoctorsByInstitution(Integer id);
 
-    Doctor getByEmail(final String email);
+    Doctor getByEmail(String email);
 
-    Doctor getByName(final String name, final String last_name);
+    Doctor getByName(String name, String last_name);
 
-    List<Doctor> searchByName(final String name,
-                              final String lastName);
+    PagedResult<Doctor> searchByName(String name, String lastName, Integer page);
 
     PagedResult<Doctor> listAvailable(Integer specialityId, String neighborhood, Integer institutionId, Integer weekOfYear,
                                       Integer year, int page);
 
-    boolean hasNextPageForSearchByName(final String name,
-                                       final String lastName,
-                                       final Integer page);
+    boolean hasNextPageForSearchByName(String name, String lastName, Integer page);
 }

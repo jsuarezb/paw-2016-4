@@ -14,19 +14,18 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private DoctorDao doctorDao;
 
-    public List<Doctor> getAll() {
-        return doctorDao.getAll();
+    public PagedResult<Doctor> getAll(final Integer page) {
+        return doctorDao.getAll(page);
     }
 
     public Doctor get(final Integer id) { return doctorDao.getById(id); }
 
-    public List<Doctor> searchByName(final String name,
-                                     final String lastName) {
-        return doctorDao.searchByName(name, lastName);
+    public PagedResult<Doctor> searchByName(final String name, final String lastName, final Integer page) {
+        return doctorDao.searchByName(name, lastName, page);
     }
 
-    public List<Doctor> searchBySpeciality(final Integer speciality_id) {
-        return doctorDao.getBySpeciality(speciality_id);
+    public PagedResult<Doctor> searchBySpeciality(final Integer speciality_id, final Integer page) {
+        return doctorDao.getBySpeciality(speciality_id, page);
     }
 
     @Override

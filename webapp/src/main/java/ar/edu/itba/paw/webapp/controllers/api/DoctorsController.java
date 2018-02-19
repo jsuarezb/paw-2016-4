@@ -38,20 +38,27 @@ public class DoctorsController extends ApiController {
     public Response index(@QueryParam("first_name") final String firstName,
                           @QueryParam("last_name") final String lastName,
                           @QueryParam("speciality_id") final Integer speciality_id,
-                          @QueryParam("page") final Integer page) {
-        List<Doctor> doctors;
+                          @DefaultValue("0") @QueryParam("page") final Integer page) {
+        PagedResult<Doctor> doctorsPage;
+
         if (speciality_id != null) {
-            doctors = doctorService.searchBySpeciality(speciality_id);
+            doctorsPage = doctorService.searchBySpeciality(speciality_id, page);
         } else {
             if (firstName == null && lastName == null) {
-                doctors = doctorService.getAll();
+                doctorsPage = doctorService.getAll(page);
             } else {
-                doctors = doctorService.searchByName(firstName, lastName);
+                doctorsPage = doctorService.searchByName(firstName, lastName, page);
             }
         }
 
-        final GenericEntity<List<DoctorDTO>> list = new GenericEntity<List<DoctorDTO>>(DoctorDTO.fromList(doctors)) {
-        };
+        final List<DoctorDTO> doctorDTOs = DoctorDTO.fromList(doctorsPage.getResults());
+        final PagedResultDTO<DoctorDTO> pagedResult =
+                new PagedResultDTO<>(doctorDTOs, doctorsPage.getPage(), doctorsPage.getPageSize(),
+                        doctorsPage.getTotal());
+
+        final GenericEntity<PagedResultDTO<DoctorDTO>> list =
+                new GenericEntity<PagedResultDTO<DoctorDTO>>(pagedResult){};
+
         return ok(list);
     }
 

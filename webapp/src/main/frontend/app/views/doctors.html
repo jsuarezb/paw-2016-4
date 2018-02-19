@@ -5,6 +5,18 @@
     <div class="search-doctor-profile-container" ng-repeat="d in $ctrl.doctors">
       <doctor-search-item doctor="d" week-number="$ctrl.weekNumber" year="$ctrl.year"></doctor-search-item>
     </div>
+    <ul class="pager">
+      <li class="previous">
+        <button class="btn btn-default" ng-disabled="!$ctrl.hasPrevPage()" ng-click="$ctrl.prevPage()">
+          &lt; Anterior
+        </button>
+      </li>
+      <li class="next">
+        <button ng-disabled="!$ctrl.hasNextPage() || isLoading" class="btn btn-default" ng-click="$ctrl.nextPage()">
+          Siguiente &gt;
+        </button>
+      </li>
+    </ul>
   </div>
   <div ng-show="$ctrl.doctorsFetched && $ctrl.doctors.length == 0">
     No hay doctores que coincidan con la búsqueda.
