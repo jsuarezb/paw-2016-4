@@ -149,6 +149,52 @@ body {
   font-size: 1em;
 }
 
+.appointment-search-dates {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.appointment-datepicker {
+  input {
+    font-size: 1.3em;
+  }
+
+  p {
+    width: 150px;
+  }
+
+  .glyphicon {
+    font-size: 2em;
+  }
+}
+
+.day-name {
+  font-size: 0.5em;
+}
+
+.two-column-wrap {
+  display: flex;
+  flex-wrap: wrap;
+
+  > * {
+    width: 50%;
+  }
+}
+
+.institution-doctors {
+  doctor-profile .doctor-avatar {
+    height: 100px;
+  }
+
+  .doctor-institutions {
+    display: none;
+  }
+}
+
+.institution-name {
+  font-size: 2em;
+}
+
 .site-header {
   background-color: rgba(248,248,248,0.98);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
@@ -375,14 +421,18 @@ body {
   }
 }
 
+.calendar-placeholder {
+  color: #666666;
+  font-size: 2em;
+  text-align: center;
+  vertical-align: center;
+  background-color: #DFDFDF;
+  min-height: 50px;
+}
+
 .day-columns {
   display: flex;
   flex-flow: row;
-  margin: 25px;
-
-  .calendar-placeholder {
-    min-height: 50px;
-  }
 
   .day-column {
     flex-grow: 1;

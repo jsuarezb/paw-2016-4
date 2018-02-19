@@ -2,18 +2,21 @@
   <div class="day-columns">
     <div class="day-column" ng-repeat="day in $ctrl.days">
         <div class="appointment-slot-day">
-          {{ $ctrl.daysString[day - 1] }}
+          <div class="day-name">{{ $ctrl.daysString[day - 1] }}</div>
+          <div class="day-number">{{ $ctrl.dayNumber(day - 1) }}</div>
         </div>
         <div class="day-appointment" ng-repeat="appointment in $ctrl.daySlots[day]">
           <calendar-appointment on-appointment-selected="$ctrl.onAppointmentSelected(appointment)"
                                 appointment="appointment"></calendar-appointment>
         </div>
-        <div class="calendar-placeholder" ng-show="!$ctrl.daySlots[day]"></div>
       </div>
+  </div>
+  <div class="calendar-placeholder" ng-show="!$ctrl.loadingAppointments && $ctrl.appointments.length == 0">
+    No hay turnos disponible esta semana.
   </div>
   <div class="selected-appointment" ng-show="$ctrl.selectedAppointment">
     <p>
-      ¿Desea realizar la reserva del turno para el <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.date | date: 'dd/MM/yyyy' }}</span> a las <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.hour }}:00 hs</span> en <a ui-sref="institution({institutionId: $ctrl.selectedAppointment.appointmentSlot.worksIn.institution.id})"><span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.worksIn.institution.name }}?</span></a>
+      ¿Desea realizar la reserva del turno para el <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.date | date: 'dd/MM/yyyy' }}</span> a las <span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.hour }}:00 hs</span> en <a ui-sref="institution({institutionId: $ctrl.selectedAppointment.appointmentSlot.worksIn.institution.id})"><span class="selected-appointment-data">{{ $ctrl.selectedAppointment.appointmentSlot.worksIn.institution.name }}</span></a>?
     </p>
     <div>
       <button class="btn btn-success" ng-click="$ctrl.bookSelectedAppointment()" ng-show="$ctrl.isUserLogged()" ng-disabled="$ctrl.isBooking">

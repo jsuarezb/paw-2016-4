@@ -11,12 +11,12 @@
     </a>
     </div>
     <div class="doctor-rating">
-      <star-rating-comp rating="$ctrl.doctorAverageRating" disabled="true" labelText="Calificación">
+      <star-rating-comp rating="$ctrl.doctorAverageRating" disabled="true" labelText="Calificación" star-type="icon">
       </star-rating-comp>
     </div>
     <div class="doctor-specialities">
       <span ng-repeat="s in $ctrl.doctor.specialities" class="label label-primary">{{ s.name }} </span>
     </div>
   </div>
-  <doctor-appointment-week doctor-id="$ctrl.doctor.id"></doctor-appointment-week>
+  <doctor-appointment-week doctor-id="$ctrl.doctor.id" week-number="$ctrl.weekNumber" year="$ctrl.year"></doctor-appointment-week>
 </div>

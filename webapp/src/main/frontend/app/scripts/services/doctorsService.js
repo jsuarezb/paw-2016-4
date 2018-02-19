@@ -20,6 +20,10 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
               '&year=' + (year || '') +
               '&page=' + (page || ''), null);
         },
+        getDoctorsInInstitution: function(institutionId) {
+          return httpRequestBuilderService
+            .buildHttpRequest('GET', 'institutions/' + institutionId + '/doctors', null);
+        },
         getUserRating: function (doctorId) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'doctors/' + doctorId + '/ratings', null);
         },
