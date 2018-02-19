@@ -23,6 +23,10 @@ define(['ChoPidoTurnos',
         $scope.$on('date.change', function (event, date) {
           _this.weekNumber = date.weekNumber;
           _this.year = date.year;
+          _this.currentStartOfWeek = moment().day('Sunday')
+            .week(_this.weekNumber)
+            .year(_this.year);
+
           _this.loadAppointments();
         });
 
