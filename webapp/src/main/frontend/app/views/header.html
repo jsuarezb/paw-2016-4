@@ -30,7 +30,14 @@
       </a>
       <ul class="dropdown-menu">
         <li>
-          <a class="font-weight-light" ng-click="$ctrl.goToAppointments()">Mis turnos</a>
+          <a class="font-weight-light" ui-sref="patientAppointments" ng-if="$ctrl.user.patientId">
+            Mis turnos
+          </a>
+        </li>
+        <li>
+          <a class="font-weight-light" ui-sref="doctorAppointments" ng-if="$ctrl.user.doctorId">
+            Turnos de mis pacientes
+          </a>
         </li>
         <li>
           <a class="font-weight-light" href="#" ng-click="$ctrl.handleLogout()">Cerrar sesión</a>
