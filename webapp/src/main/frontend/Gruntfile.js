@@ -344,6 +344,11 @@ module.exports = function (grunt) {
           cwd: '.',
           src: 'bower_components/requirejs/require.js',
           dest: '<%= yeoman.dist %>'
+        }, {
+          expand: false,
+          cwd: '.',
+          src: 'bower_components/angular1-star-rating/dist/assets/images/star-rating.icons.svg',
+          dest: '<%= yeoman.dist %>/assets/images/star-rating.icons.svg'
         }]
       }
     },
