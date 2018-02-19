@@ -151,7 +151,7 @@ public class MailServiceImpl implements MailService {
         MimeMessagePreparator preparator = new MimeMessagePreparator() {
             public void prepare(MimeMessage mimeMessage) throws Exception {
                 MimeMessageHelper message = new MimeMessageHelper(mimeMessage);
-                message.setTo(patient.getUser().getEmail());
+                message.setTo(doctor.getUser().getEmail());
                 message.setSubject("Cancelaste tu turno");
                 message.setFrom("chopidoturnos@gmail.com"); // could be parameterized...
 
