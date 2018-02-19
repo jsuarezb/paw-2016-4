@@ -29,7 +29,7 @@
         <javax.mail.version>1.5.5</javax.mail.version>
         <jersey.version>3.0-SNAPSHOT</jersey.version>
         <frontend-maven-plugin.version>1.3</frontend-maven-plugin.version>
-        <jjwt.version>0.7.0</jjwt.version>
+        <jjwt.version>0.9.0</jjwt.version>
     </properties>
     <build>
         <plugins>

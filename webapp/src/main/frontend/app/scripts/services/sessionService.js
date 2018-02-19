@@ -6,7 +6,9 @@ define(['ChoPidoTurnos'], function(ChoPidoTurnos) {
       return {
         email: token.iss,
         type: token.jti,
-        id: token.sub
+        id: token.sub,
+        patientId: token.patientId,
+        doctorId: token.doctorId
       };
     }
     function userFromToken() {
