@@ -7,18 +7,18 @@ import java.util.List;
 
 public interface DoctorService {
 
-    List<Doctor> getAll();
+    PagedResult<Doctor> getAll(Integer page);
 
-    Doctor get(final Integer id);
+    Doctor get(Integer id);
 
-    List<Doctor> searchByName(final String name, final String lastName);
+    PagedResult<Doctor> searchByName(String name, String lastName, Integer page);
 
-    List<Doctor> searchBySpeciality(final Integer speciality_id);
+    PagedResult<Doctor> searchBySpeciality(Integer speciality_id, Integer pageSize);
 
     PagedResult<Doctor> getAvailable(Integer specialityId, String neighborhood, Integer institutionId, Integer weekOfYear,
                                      Integer year, int page);
 
-    Doctor findByEmail(final String email);
+    Doctor findByEmail(String email);
 
     /**
      * Get the doctors of an institution by its id
@@ -27,9 +27,9 @@ public interface DoctorService {
      * @return An array of doctors, null if there's no doctors
      * for the specified id
      */
-    List<Doctor> getDoctorsByInstitution(final Integer institution_id);
+    List<Doctor> getDoctorsByInstitution(Integer institution_id);
 
-    boolean hasNextPageForSearchByName(final String name,
-                                       final String lastName,
-                                       final Integer page);
+    boolean hasNextPageForSearchByName(String name,
+                                       String lastName,
+                                       Integer page);
 }

@@ -4,9 +4,11 @@ define(['ChoPidoTurnos','services/httpRequestBuilderService'], function(ChoPidoT
     'httpRequestBuilderService',
     function (httpRequestBuilderService) {
       return {
-        getDoctors: function(firstName, lastName) {
+        getDoctors: function(firstName, lastName, page) {
          return httpRequestBuilderService
-            .buildHttpRequest('GET', 'doctors?first_name=' + firstName + '&last_name=' + lastName, null);
+            .buildHttpRequest('GET', 'doctors?first_name=' + (firstName || '' ) +
+              '&last_name=' + (lastName || '') +
+              '&page=' + (page || 0), null);
         },
         getDoctor: function(doctorId) {
           return httpRequestBuilderService.buildHttpRequest('GET', 'doctors/' + doctorId, null);
