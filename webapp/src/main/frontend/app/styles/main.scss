@@ -151,7 +151,7 @@ body {
 
 .appointment-search-dates {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 }
 
 .appointment-datepicker {
@@ -160,12 +160,16 @@ body {
   }
 
   p {
-    width: 100px;
+    width: 150px;
   }
 
   .glyphicon {
     font-size: 2em;
   }
+}
+
+.day-name {
+  font-size: 0.5em;
 }
 
 .site-header {

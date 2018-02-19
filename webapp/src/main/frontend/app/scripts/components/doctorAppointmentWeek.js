@@ -6,16 +6,26 @@ define(['ChoPidoTurnos',
   function DoctorAppointmentWeekController($scope, $state, appointmentsService, sessionService) {
     return {
       '$onInit': function() {
-        var now = new Date();
         var _this = this;
 
-        console.log(this);
-
         this.isBooking = false;
+
+        this.currentStartOfWeek = moment().day('Sunday')
+          .week(this.weekNumber)
+          .year(this.year);
 
         $scope.$on('appointments.loaded', function (event, appointments) {
           _this.onAppointmentsLoaded(appointments);
         });
+
+        $scope.$on('date.change', function (event, date) {
+          _this.weekNumber = date.weekNumber;
+          _this.year = date.year;
+          _this.loadAppointments();
+        });
+      },
+      loadAppointments: function() {
+        var _this = this;
 
         appointmentsService
           .getDoctorAvailableAppointments(this.doctorId, this.weekNumber, this.year)
@@ -77,7 +87,10 @@ define(['ChoPidoTurnos',
         $state.go('login', {redirectTo: $state.current.name, redirectParams: JSON.stringify($state.params)});
       },
       days: [1, 2, 3, 4, 5, 6, 7],
-      daysString: ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB']
+      daysString: ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'],
+      dayNumber: function (dayIndex) {
+        return this.currentStartOfWeek.clone().add(dayIndex, 'days').date();
+      }
     };
   }
 
