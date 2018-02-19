@@ -42,8 +42,6 @@
   </div>
 </div>
 
-<div id="map" class="landing-section"></div>
-
 <footer class="container py-5">
   <div class="row">
     <div class="col-12 col-md">
@@ -52,16 +50,3 @@
     </div>
   </div>
 </footer>
-
-<!-- Placed at the end of the document so the pages load faster -->
-<script>function myMap() {
-    var mapOptions = {
-      center: new google.maps.LatLng(-34.5880643, -58.4615831),
-      zoom: 13,
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-  }
-</script>
-
-<script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
