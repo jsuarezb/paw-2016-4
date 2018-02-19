@@ -2,32 +2,26 @@
   <h1>Instituciones</h1>
   <div class="row">
     <div class="col-md-4" ng-repeat="i in $ctrl.institutions">
-      <div class="panel panel-default">
+      <div>
         <div class="panel-heading">
-          <img class="img-responsive" src="http://placehold.it/400x300"/>
+          <img class="img-responsive" src="images/rsz_placeholder.png"/>
         </div>
         <div class="panel-body">
-          <p class="lead">
+          <h2 class="institution-name">
             <a ui-sref="institution({institutionId:'{{i.id}}'})">
               {{i.name}}
             </a>
-          </p>
+          </h2>
           <p>
             {{i.address.street_name }} {{i.address.street_number}},
             {{i.address.neighborhood}},
             {{i.address.city}}, {{i.address.state}},
             {{i.address.country}}
           </p>
-          <div class="text-center">
-            <a ui-sref="institutionSpecialities({institutionId:'{{i.id}}'})"
-               class="btn btn-primary">
-              Ver especialidades
-            </a>
-          </div>
         </div>
       </div>
     </div>
-    <p ng-if="$ctrl.institutions.length === 0">
+    <p class="no-results" ng-if="$ctrl.institutions.length === 0">
       Aún no hay instituciones registradas
     </p>
   </div>

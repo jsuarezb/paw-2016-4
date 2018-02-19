@@ -1,28 +1,15 @@
 <div class="title container" ng-app="ChoPidoTurnos">
-  <div class="doctor-profile">
-    <img class="doctor-avatar" src="images/profile.png" height="200"/>
-    <div class="doctor-details">
-      <div class="doctor-name">
-        <h1>Dr. {{$ctrl.doctor.user.firstName}} {{$ctrl.doctor.user.lastName}}</h1>
-        <h2>{{ $ctrl.doctor.user.email }}</h2>
-      </div>
-      <div class="doctor-specialities">
-        <span ng-repeat="s in $ctrl.doctor.specialities" class="label label-primary">{{s.name}} </span>
-      </div>
-      <div class="doctor-institutions">
-        <p ng-repeat="i in $ctrl.doctor.institutions">
-          {{ i.address.street_name }} {{ i.address.street_number }}, {{ i.address.city }}, {{ i.address.state }}
-          <a target="_blank" href="http://maps.google.com/maps?f=d&daddr={{ i.address.street_name }} {{ i.address.street_number }}, {{ i.address.city }}, {{ i.address.state }}&nav=1">
-            (Ver mapa)
-          </a>
-        </p>
-      </div>
-    </div>
-    <div class="doctor-rating">
-      <star-rating-comp on-click="$ctrl.onDoctorRated($event)" rating="$ctrl.ratingAverage"
-                        labelText="Calificación" show-hover-stars="true">
-      </star-rating-comp>
+  <doctor-profile ng-if="$ctrl.doctor" doctor="$ctrl.doctor"></doctor-profile>
+  <div class="appointment-search-dates">
+    <div class="appointment-datepicker">
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="$ctrl.searchDate"
+               is-open="$ctrl.isDatepickerOpen" datepicker-options="dateOptions" show-button-bar="false" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="$ctrl.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
     </div>
   </div>
-  <doctor-appointment-week doctor-id="$ctrl.doctorId"></doctor-appointment-week>
+  <doctor-appointment-week doctor-id="$ctrl.doctorId" week-number="$ctrl.weekNumber" year="$ctrl.year"></doctor-appointment-week>
 </div>

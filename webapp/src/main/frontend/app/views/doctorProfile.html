@@ -1,0 +1,25 @@
+<div class="doctor-profile">
+  <img class="doctor-avatar" src="images/profile.png" height="200"/>
+  <div class="doctor-details">
+    <div class="doctor-name">
+      <h1>Dr. {{ $ctrl.doctor.user.firstName }} {{ $ctrl.doctor.user.lastName }}</h1>
+      <h2>{{ $ctrl.doctor.user.email }}</h2>
+    </div>
+    <div class="doctor-specialities">
+      <span ng-repeat="s in $ctrl.doctor.specialities" class="label label-primary">{{ s.name }} </span>
+    </div>
+    <div class="doctor-institutions">
+      <p ng-repeat="i in $ctrl.doctor.institutions">
+        {{ i.address.street_name }} {{ i.address.street_number }}, {{ i.address.city }}, {{ i.address.state }}
+        <a target="_blank" href="http://maps.google.com/maps?f=d&daddr={{ i.address.street_name }} {{ i.address.street_number }}, {{ i.address.city }}, {{ i.address.state }}&nav=1">
+          (Ver mapa)
+        </a>
+      </p>
+    </div>
+  </div>
+  <div class="doctor-rating">
+    <star-rating-comp on-click="$ctrl.onDoctorRated($event)" rating="$ctrl.ratingAverage"
+                      labelText="Calificación" show-hover-stars="true" star-type="icon">
+    </star-rating-comp>
+  </div>
+</div>
