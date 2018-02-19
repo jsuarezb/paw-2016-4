@@ -20,11 +20,11 @@ define(['ChoPidoTurnos', 'moment', 'services/doctorsService', 'services/appointm
 
     this.nextPage = function() {
       _this.loadPage(_this.currentPage.page + 1);
-    }
+    };
 
     this.prevPage = function() {
       _this.loadPage(_this.currentPage.page - 1);
-    }
+    };
 
     $scope.firstName = $stateParams.firstName;
     $scope.lastName = $stateParams.lastName;
@@ -45,6 +45,6 @@ define(['ChoPidoTurnos', 'moment', 'services/doctorsService', 'services/appointm
         });
     };
 
-    this.loadPage(0)
+    this.loadPage(0);
   }]);
 });
