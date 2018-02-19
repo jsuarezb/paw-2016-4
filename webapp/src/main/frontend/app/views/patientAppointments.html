@@ -5,5 +5,8 @@
     <appointment appointment="pa" subject="doctor" on-cancel="$ctrl.cancelAppointment(appointment)">
     </appointment>
   </div>
-  <p class="no-results" ng-if="$ctrl.appointments.length === 0">No hay turnos reservados.</p>
+  <div ng-if="$ctrl.appointments.length === 0" align="middle">
+    <img src="images/no_appointments_scheduled.png" height="400"/>
+    <h2>No tenés turnos agendados. ¿Ya te hiciste tu chequeo anual?</h2>
+  </div>
 </div>

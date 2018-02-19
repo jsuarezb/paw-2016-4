@@ -6,20 +6,37 @@ define(['ChoPidoTurnos',
   function DoctorAppointmentWeekController($scope, $state, appointmentsService, sessionService) {
     return {
       '$onInit': function() {
-        var now = new Date();
         var _this = this;
 
         this.isBooking = false;
-        this.weekNumber = moment().week();
-        this.year = moment().year();
+        this.appointments = [];
+        this.loadingAppointments = false;
+
+        this.currentStartOfWeek = moment().day('Sunday')
+          .week(this.weekNumber)
+          .year(this.year);
 
         $scope.$on('appointments.loaded', function (event, appointments) {
           _this.onAppointmentsLoaded(appointments);
         });
 
+        $scope.$on('date.change', function (event, date) {
+          _this.weekNumber = date.weekNumber;
+          _this.year = date.year;
+          _this.loadAppointments();
+        });
+
+        this.loadAppointments();
+      },
+      loadAppointments: function() {
+        var _this = this;
+
+        this.loadingAppointments = true;
+
         appointmentsService
-          .getDoctorAvailableAppointments(this.doctorId, moment().week(), moment().year())
+          .getDoctorAvailableAppointments(this.doctorId, this.weekNumber, this.year)
           .then(function (result) {
+            _this.loadingAppointments = false;
             var data = result.data;
             _this.onAppointmentsLoaded(data);
           });
@@ -29,19 +46,21 @@ define(['ChoPidoTurnos',
 
         _this.daySlots = {};
 
-        appointments
+        this.appointments = appointments
           .filter(function (appointment) {
             var now = new Date();
 
             return now < new Date(appointment.date);
           })
-          .forEach(function(freeAppointment) {
+          .map(function(freeAppointment) {
             if (!_this.daySlots[freeAppointment.appointmentSlot.dayOfWeek]) {
               _this.daySlots[freeAppointment.appointmentSlot.dayOfWeek] = [];
             }
 
             _this.daySlots[freeAppointment.appointmentSlot.dayOfWeek].push(freeAppointment);
-        });
+
+            return freeAppointment;
+          });
       },
       onAppointmentSelected: function(appointment) {
         this.selectedAppointment = appointment;
@@ -77,7 +96,10 @@ define(['ChoPidoTurnos',
         $state.go('login', {redirectTo: $state.current.name, redirectParams: JSON.stringify($state.params)});
       },
       days: [1, 2, 3, 4, 5, 6, 7],
-      daysString: ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB']
+      daysString: ['DOM', 'LUN', 'MAR', 'MIE', 'JUE', 'VIE', 'SAB'],
+      dayNumber: function (dayIndex) {
+        return this.currentStartOfWeek.clone().add(dayIndex, 'days').date();
+      }
     };
   }
 
@@ -87,7 +109,9 @@ define(['ChoPidoTurnos',
     .component('doctorAppointmentWeek', {
       controller: DoctorAppointmentWeekController,
       bindings: {
-        doctorId: '<'
+        doctorId: '<',
+        weekNumber: '<',
+        year: '<'
       },
       templateUrl: 'views/doctorAppointmentWeek.html'
     });

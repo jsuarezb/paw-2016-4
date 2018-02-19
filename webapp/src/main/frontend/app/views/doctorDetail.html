@@ -24,5 +24,16 @@
       </star-rating-comp>
     </div>
   </div>
-  <doctor-appointment-week doctor-id="$ctrl.doctorId"></doctor-appointment-week>
+  <div class="appointment-search-dates">
+    <div class="appointment-datepicker">
+      <p class="input-group">
+        <input type="text" class="form-control" uib-datepicker-popup="dd/MM/yyyy" ng-model="$ctrl.searchDate"
+               is-open="$ctrl.isDatepickerOpen" datepicker-options="dateOptions" show-button-bar="false" />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="$ctrl.openDatePicker()"><i class="glyphicon glyphicon-calendar"></i></button>
+        </span>
+      </p>
+    </div>
+  </div>
+  <doctor-appointment-week doctor-id="$ctrl.doctorId" week-number="$ctrl.weekNumber" year="$ctrl.year"></doctor-appointment-week>
 </div>

@@ -18,6 +18,9 @@ define(
       var _institution = $stateParams.institution || '';
       var _speciality = $stateParams.speciality || '';
       var _neighborhood = $stateParams.neighborhood || '';
+      var now = moment();
+      this.currentWeek = now.week();
+      this.year = now.year();
 
       var groupBy = function(xs, f) {
         return xs.reduce(function(rv, x) {
@@ -26,28 +29,48 @@ define(
         }, {});
       };
 
-      this.searchDateWeek = new Date();
+      this.searchDate = new Date();
       this.pageNumber = 0;
       this.isLoggedIn = sessionService.getLoggedUser() !== null;
       this.doctorsFetched = false;
+      this.isDatepickerOpen = false;
 
-      $scope.dayOfWeek = function(date) {
-        return dateService.dayOfWeek(date);
+      this.openDatePicker = function() {
+        this.isDatepickerOpen = true;
       };
 
-      doctorService
-        .findAvailable(_speciality, _neighborhood, _institution, 8, 2018)
-        .then(function (response) {
-          _this.doctorsPage = response.data;
-          _this.doctors = _this.doctorsPage.results;
-          _this.doctorsFetched = true;
-        });
+      this.loadWeek = function(week, year) {
+        _this.currentWeek = week;
+        _this.year = year;
+
+        doctorService
+          .findAvailable(_speciality, _neighborhood, _institution, week, year, 0)
+          .then(function (response) {
+            _this.doctorsPage = response.data;
+            _this.doctors = _this.doctorsPage.results;
+            _this.doctorsFetched = true;
+          });
+      };
+
+      this.loadWeek(this.currentWeek, this.currentYear);
+
+      $scope.$watch('$ctrl.searchDate', function (newValue, oldValue) {
+        var d = moment(newValue);
+        _this.startOfWeek = d.startOf('week').format('DD/MM/YYYY');
+        _this.endOfWeek = d.endOf('week').format('DD/MM/YYYY');
+
+        _this.loadWeek(d.week(), d.year());
+      });
+
+      this.dayOfWeek = function(date) {
+        return dateService.dayOfWeek(date);
+      };
 
       this.bookAppointment = function(appointment) {
         appointmentService.postAppointment({
           slotId: appointment.appointmentSlot.id,
-          weekNumber: dateService.weekOfYear(new Date(appointment.date)),
-          year: new Date(appointment.date).getFullYear(),
+          weekNumber: moment(appointment.date).week(),
+          year: moment(appointment.date).year(),
           comments: appointment.comments
         }
         ).then(function(response) {
