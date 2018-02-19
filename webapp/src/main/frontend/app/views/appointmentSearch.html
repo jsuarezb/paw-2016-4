@@ -14,10 +14,10 @@
     </div>
   </div>
 
-  <div ng-show="$ctrl.doctorsFetched && $ctrl.doctors.length > 0">
-    <div class="search-doctor-profile-container" ng-repeat="d in $ctrl.doctors">
-      <doctor-search-item doctor="d" week-number="$ctrl.currentWeek" year="$ctrl.year"></doctor-search-item>
-    </div>
+  <div class="search-doctor-profile-container" ng-repeat="d in $ctrl.doctors">
+    <doctor-search-item doctor="d" week-number="$ctrl.currentWeek" year="$ctrl.year"></doctor-search-item>
+  </div>
+  <div ng-if="$ctrl.doctors.length > 0">
     <ul class="pager">
       <li class="previous">
         <button class="btn btn-default" ng-disabled="!$ctrl.hasPreviousPage()" ng-click="$ctrl.prevPage()">
@@ -54,12 +54,12 @@
               </div>
             </div>
           </div>
-          <div ng-show="$ctrl.isLoggedIn" class="col-xs-2 appointment-actions">
+          <div ng-if="$ctrl.isLoggedIn" class="col-xs-2 appointment-actions">
             <button type="submit" class="btn btn-success" ng-click="$ctrl.bookAppointment(appointment)">
               Reservar
             </button>
           </div>
-          <div ng-show="!$ctrl.isLoggedIn" class="col-xs-2 appointment-actions">
+          <div ng-if="!$ctrl.isLoggedIn" class="col-xs-2 appointment-actions">
             <a ui-sref="login">
               <button type="submit" class="btn btn-success" ng-click="$ctrl.bookAppointment(appointment)">
                 Iniciá sesión para reservar
@@ -70,8 +70,8 @@
       </li>
     </ul>
   </div>
-  <div class="no-results" ng-show="$ctrl.appointmentsSearched && $ctrl.emptyAppointments" align="middle">
+  <div class="no-results" ng-if="$ctrl.doctors.length === 0" align="middle">
     <img src="images/no_appointments_available.png" height="400"/>
-    <h2>Ups! no hay trunos disponibles esta semana</h2>
+    <h2>Ups! no hay turnos disponibles esta semana</h2>
   </div>
 </div>
